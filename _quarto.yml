@@ -2,7 +2,11 @@ project:
   type: website
   output-dir: _build
   render:
+    - index.qmd
     - guide/*.qmd
+    - api/*.qmd
+    - examples/*.qmd
+    - about/*.qmd
 
 website:
   title: "Siuba"
@@ -11,11 +15,11 @@ website:
     search: true
     left:
       - text: "Guide"
-        file: guide/basics.qmd
+        file: guide/introduction.qmd
       - text: "API"
-        href: api/
+        href: api/index.qmd
       - text: "Examples"
-        href: examples/
+        href: examples/index.qmd
       - text: "About"
         menu:
           - about/key_features.qmd
@@ -30,6 +34,7 @@ website:
       contents:
         - guide/introduction.qmd
         - guide/core-concepts.qmd
+        - guide/lazy-expressions.qmd
         - section: "Common table verbs"
           contents:
             - guide/verb-filter.qmd
@@ -41,6 +46,7 @@ website:
         - section: "Column operations"
           contents:
             - guide/ops-siu-expr.qmd
+            - guide/ops-case-when.qmd
             - guide/ops-strings.qmd
             - guide/ops-datetime.qmd
             - guide/ops-autocomplete.qmd
@@ -59,9 +65,11 @@ website:
         - section: "Workflows"
           contents:
             - guide/workflows.qmd
-        #- section: "Extra topics"
-        #  contents:
+        - section: "Extra topics"
+          contents:
+            - guide/extra-r-to-python.qmd
         #    - guide/guide_programming.qmd
+    - id: dummy
 
 format:
   html:

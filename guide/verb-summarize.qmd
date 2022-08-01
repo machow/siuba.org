@@ -1,4 +1,5 @@
 ---
+title: "Summarize to aggregate"
 jupyter:
   jupytext:
     formats: 'qmd:quarto'
@@ -13,13 +14,44 @@ jupyter:
     name: python3
 ---
 
-# Summarize to aggregate
 
 ```{python}
+#| include: false
 import pandas as pd
 
 pd.set_option("display.max_rows", 5)
+```
 
-from siuba.data import penguins
+
+The `summarize()` creates new columns in your table, based on an aggregation.
+Aggregations take data and reduces it to a single number.
+When applied to grouped data, this function returns one row per grouping. 
+
+```{python}
+from siuba.data import mtcars
 from siuba import _, summarize, group_by, select
 ```
+
+## Summarize over all rows
+
+```{python}
+mtcars >> summarize(avg_mpg = _.mpg.mean())
+mtcars
+```
+
+## Summarize over groups
+
+Use `group_by()` to split the data up, apply some aggregation, and then combine results.
+
+```{python}
+(mtcars
+  >> group_by(_.cyl)
+  >> summarize(
+       avg = _.mpg.mean(),
+       range = _.mpg.max() - _.mpg.min(),
+       avg_per_cyl = (_.mpg / _.cyl).mean()
+  )
+)
+```
+
+Note there are 3 unique groupings for `cyl` (4, 6, and 8), so the resulting table has 3 rows.

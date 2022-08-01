@@ -1,4 +1,5 @@
 ---
+title: "String operations (`str`)"
 jupyter:
   jupytext:
     formats: 'qmd:quarto'
@@ -13,13 +14,160 @@ jupyter:
     name: python3
 ---
 
-# String operations (`.str`)
-
 ```{python}
+#| include: false
+
 import pandas as pd
 
 pd.set_option("display.max_rows", 5)
-
-from siuba.data import penguins
-from siuba import _, summarize, group_by
 ```
+
+## Overview
+
+String operations allow you to perform actions like:
+
+* **Match**: detect when a string matches a pattern.
+* **Transform**: e.g. convert something from mIxED to lower case, or replace part of it.
+* **Extract**: grab specific parts of string value (e.g. a matching pattern).
+
+This page will cover different methods for performing these actions, but will
+ultimately focus on `str.contains()`, `str.replace()`, and `str.extract()` for
+common match, transform, and extract tasks.
+
+
+* startswith, endswith
+* **contains** (ignore match)
+* lower, upper, title
+* **replace**
+* `.str[]`
+* **extract**
+* `split`, `join`, `findall`
+
+
+
+```{python}
+from siuba.data import penguins
+from siuba import _, mutate, summarize, group_by, filter
+
+fruits = pd.Series([
+        "apple",
+        "apricot",
+        "avocado",
+        "banana",
+        "bell pepper"
+])
+
+df_fruits = pd.DataFrame({"name": fruits})
+```
+
+### Using string methods
+
+siuba uses Pandas methods, so can use any of the string methods it makes available,
+like `.str.upper()`.
+
+```{python}
+fruits.str.upper()
+```
+
+Note that most string methods use `.str.<method_name>()` syntax.
+These are called "string accessor methods", since they are accessed from a special
+place (`.str`).
+
+
+### Using in verbs
+
+Use string methods as you would any other methods inside verbs.
+
+```{python}
+mutate(df_fruits, loud = _.name.str.upper())
+```
+
+
+## Matching patterns
+
+### Fixed text
+
+There are three common approaches for simple string matches:
+
+* An exact match with `==`.
+* A match from an anchor point, using `str.startswith()` or `str.endswith()`.
+* A match from any point, using `str.contains()`
+
+
+```{python}
+# exact match
+fruits == "banana"
+
+# starts with "ap"
+fruits.str.startswith("ap")
+
+# ends with "cado"
+fruits.str.endswith("cado")
+
+# has an "e" anywhere
+fruits.str.contains("e", regex=False)
+```
+
+All these operations return a boolean Series, so can be used to filter rows.
+
+```{python}
+filter(df_fruits, _.name.str.startswith("ap"))
+```
+
+
+:::{.callout-warning}
+Note that for `str.contains()` we set the `regex=False` argument.
+This is because---unlike operations like `str.startswith()`---pandas by default assumes you are
+passing something called a regular expression to `str.contains()`.
+:::
+
+
+
+
+### `str.contains()` patterns
+
+```{python}
+penguins.species.str.contains("$Ade")
+```
+
+## Transforming strings
+
+### Simple transformations
+
+
+
+```{python}
+penguins.species.str.lower()
+```
+
+### `str.replace()` patterns
+
+## Extracting parts
+
+### `.str[]` to slice
+
+Note that it is not possible to pass a sequence of slices, etc.. apply example.
+
+
+### `.str.extract()` patterns
+
+## Split and flatten
+
+```{python}
+penguins.species.str.split(",")
+```
+
+```{python}
+penguins.species.str.split("e").str.join("e")
+```
+
+```{python}
+penguins.species.str.findall("e")
+```
+
+## Templates with `str_glue()`
+
+```{python}
+penguins.species
+```
+

@@ -1,4 +1,5 @@
 ---
+title: Mutate to transform
 jupyter:
   jupytext:
     formats: 'qmd:quarto'
@@ -13,13 +14,15 @@ jupyter:
     name: python3
 ---
 
-## Mutate to transform
-
 ```{python}
-#| nbsphinx: '#R_CODE#hidden'
+#| include: false
 import pandas as pd
 pd.set_option("display.max_rows", 5)
 ```
+
+The `mutate()` function creates a new column of data, or overwrite an existing one.
+
+We'll use a subset of the `mtcars` dataset for examples.
 
 ```{python}
 from siuba import _, group_by, mutate, select
@@ -28,23 +31,36 @@ from siuba.data import mtcars
 small_cars = mtcars[["mpg", "cyl", "hp"]]
 ```
 
-### Basics
+## Basics
 
 ```{python}
-mutate(small_cars, cyl2 = _.cyl * 2)
+small_cars >> mutate(mpg_per_cyl = _.mpg / _.cyl)
 ```
 
-### Referring to previous arguments
+## Replacing columns
+
+When a created column is given the same name as an existing column, it replaces that column
+in the data.
 
 ```{python}
-mutate(small_cars, cyl2 = _.cyl * 2, cyl4 = _.cyl2 * 2)
+small_cars >> mutate(mpg = _.mpg - _.mpg.mean(), new_column = 1)
 ```
+
+Note that replacement columns are put in the same position as the original columns.
+For example, in the result above, the `mpg` column is still in the first position on the left.
+
+
+## Using previous arguments
+
+Arguments can refer to columns that were created in earlier arguments.
 
 ```{python}
-mutate(small_cars, misc = "hey")
+small_cars >> mutate(cyl2 = _.cyl * 2, cyl4 = _.cyl2 * 2)
 ```
 
-### Used with group_by
+In the code above, `cyl4` uses the earlier argument `cyl2`.
+
+## Grouped mutates
 
 ```{python}
 (small_cars
@@ -66,15 +82,3 @@ mutate(small_cars, misc = "hey")
   )
 ```
 
-### With if_else and case_when
-
-TODO
-
-```{python}
-from siuba import _, mutate, if_else, case_when
-from siuba.data import mtcars
-```
-
-```{python}
-case_when(mtcars, {_.mpg < 20: "low", _.mpg >= 20: "medium", _.mpg > 30: "high"})
-```

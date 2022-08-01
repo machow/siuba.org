@@ -1,0 +1,93 @@
+---
+title: Conditionals (if_else)
+jupyter:
+  jupytext:
+    formats: 'qmd:quarto'
+    text_representation:
+      extension: .qmd
+      format_name: quarto
+      format_version: '1.0'
+      jupytext_version: 1.14.0
+  kernelspec:
+    display_name: Python 3 (ipykernel)
+    language: python
+    name: python3
+---
+
+
+```{python}
+#| include: false
+
+import pandas as pd
+
+pd.set_option("display.max_rows", 5)
+
+```
+
+```{python}
+from siuba.data import penguins
+from siuba import _, summarize, group_by, if_else, transmute, case_when
+
+penguins
+```
+
+## `if_else` for two cases
+
+Use the `if_else()` when values depend only on two cases---like whether some condition is `True` or `False`.
+This is similar to a Python `if else` statement, but applies to each value in a column.
+
+
+### Basics
+
+
+```{python}
+if_else(penguins.bill_length_mm > 40, "long", "short")
+```
+
+### Use in a verb
+
+```{python}
+transmute(
+    penguins,
+    bill_length = if_else(_.bill_length_mm > 40, "long", "short")
+)
+```
+
+## `case_when` for many cases
+
+The `case_when()` function is a more general version of `if_else()`.
+It lets you check as many cases as you want, and map them to resulting values.
+
+### Basics
+
+```{python}
+case_when(penguins, {
+    _.bill_depth_mm <= 18: "short",
+    _.bill_depth_mm <= 19: "medium",
+    _.bill_depth_mm > 19: "long"
+})
+```
+
+### Use in a verb
+
+```{python}
+#| eval: false
+# also works
+penguins >> case_when({ ... })
+```
+
+### Set default when no match
+
+Use a `True` as the final case, in order to set a value when no other cases match.
+
+```{python}
+case_when(penguins, {
+    _.bill_depth_mm.between(18, 19): "medium",
+    True: "OTHER"
+})
+```
+
+Note that this works because---for each value---`case_when` checks for the first matching condition.
+The final `True` condition guarantees that it will always be a match.
+
+

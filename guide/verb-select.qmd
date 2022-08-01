@@ -43,17 +43,14 @@ select(penguins, _.species, _.island, 6, -1)
 
 The code above does the following:
 
-* selects by name the `mpg` and `cyl` columns.
+* selects by name the `species` and `island` columns.
 * selects by position the index `6` and `-1` columns (the last item).
 
-Note that selecting by position should produce the same results as indexing a list of names.
+Selecting by position should produce the same results as indexing a list of names.
 
-```{python}
-penguins.columns[6]
-```
-
-```{python}
-penguins.columns[-1]
+```python
+penguins.columns[6]       # "sex"
+penguins.columns[-1]      # "year"
 ```
 
 ## Excluding columns
@@ -106,7 +103,7 @@ You can use three methods to specify a column in a slice:
 
 ### Exclusion
 
-You can **exclude slice selections** using the `~` operator.
+You can exclude slice selections using the `~` operator.
 
 ```{python}
 penguins >> select(~_["bill_length_mm":"body_mass_g"])
@@ -114,7 +111,7 @@ penguins >> select(~_["bill_length_mm":"body_mass_g"])
 
 ### Position number
 
-Note that when **position number** is used to slice columns, the end position is not included in the selection.
+Note that when position number is used to slice columns, the end position is **not** included in the selection.
 
 ```{python}
 # these are equivalent

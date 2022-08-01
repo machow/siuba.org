@@ -125,11 +125,7 @@ pd.Series([None]) | True     # False
 
 # Grouped filters
 
-In the example below, we keep rows where the horsepower (hp) is above the median horsepower for each cylinder group. This means that the filter performas the following operations.
-
-* calculates the median `hp` for each `cyl` grouping.
-* for each row, based on the `cyl` group it belongs to, tests where the `hp` is greater than the median `hp`.
-* keeps only rows where this test passes.
+In the example below, we keep rows where the horsepower (hp) is above the median horsepower for each cylinder group.
 
 ```{python}
 (mtcars
@@ -137,3 +133,9 @@ In the example below, we keep rows where the horsepower (hp) is above the median
   >> filter(_.hp > _.hp.median())
   )
 ```
+This means that the filter performs the following operations:
+
+* splits the rows of data into groups, corresponding to their value of `_.cyl`
+* calculates median `hp` within each group.
+* for each row, tests where the `hp` is greater than the group's median `hp`.
+

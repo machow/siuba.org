@@ -1,0 +1,41 @@
+---
+title: "R to Python"
+jupyter:
+  jupytext:
+    formats: 'qmd:quarto'
+    text_representation:
+      extension: .qmd
+      format_name: quarto
+      format_version: '1.0'
+      jupytext_version: 1.14.0
+  kernelspec:
+    display_name: Python 3 (ipykernel)
+    language: python
+    name: python3
+---
+
+## String methods vs stringr
+
+1. Pandas allows you to slice all strings in a Series, but does not allow you to
+   apply custom slices to each string (a la `stringr::str_sub`). This means there is
+   no easy equivalent to using results from `stringr::str_locate` to subset strings.
+
+2. While most Pandas string methods are under the `.str` accessor, the ones for ordering are not.
+   To `stringr::str_order()` and `stringr::str_sort()`, use `.argsort()` and `.sort_values()`.
+
+3. stringr has an `*_all()` variant on several functions
+   (e.g. `str_replace`, `str_locate`, `str_extract`, `str_match`).
+   Pandas generally has equivalent behavior, but it is sometimes specified by using
+   an alternative method (e.g. `str.extractall()`), and sometimes by using an argument
+   (e.g. `str_replace(..., n = 1)`).
+
+4. Pandas string methods are modeled after python `str` object methods AND stringr
+   (This is mentioned in the `.str` accessor source code). However, it's not always
+   clear what accepts a regex (similar to stringr) and what does not (similr to `str` object methods).
+   
+   For example, `.str.count()` only accepts a regex. `str.startswith()` does not.
+   Other methods like `str.contains()` accept a regex by default, but this can be disabled
+   using the regex argument.
+
+   This is not a big issue in practice, but warrants some caution / teaching strategy.
+

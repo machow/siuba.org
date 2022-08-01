@@ -1,7 +1,31 @@
 ---
-title: "siuba-docs2"
+pagetitle: "Siuba"
+page-layout: custom
+section-divs: false
+toc: false
 ---
 
-This is a Quarto website.
+![](siuba.svg)
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+Siuba is a library for quick, scrappy data analysis in Python.
+It is a port of
+[dplyr](https://dplyr.tidyverse.org),
+[tidyr](https://tidyr.tidyverse.org),
+and other R Tidyverse libraries.
+
+Learning
+---------
+
+Documentation | 
+---- | ----:
+Quickstart | Install siuba and run a basic data analysis.
+Key features | Learn about key features and benchmarks.
+Data analysis guide | In-depth guide on wrangling and visualizing data with siuba.
+Programming guide | In-depth guide on programming and extending siuba.
+
+Examples
+--------
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/z6xNKZZMWgU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+

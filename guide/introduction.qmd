@@ -56,7 +56,7 @@ There are three key concepts in this example:
 | lazy expression | `_.hp.mean()` | an expression created with `siuba._`, that represents actions you want to perform |
 | pipe | `mtcars >> group_by(...)` | a syntax that allows you to chain verbs with the `>>` operator |
 
-### Lazy expressions (`_`)
+## Lazy expressions (`_`)
 
 A siu expression is a way of specifying **what** action you want to perform.
 This allows siuba verbs to decide **how** to execute the action, depending on whether your data is a local DataFrame or remote table.
@@ -88,7 +88,7 @@ mtcars[_.cyl == 4]
 
 Note that like the lambda function, siuba avoids typing the same (potentially_very_long) name twice, while also being a bit shorter.
 
-Here is a more complex example, that uses grouping and calculating a mean with the pandas groupby and apply methods.
+Here is a more complex example that uses grouping and calculating a mean with the pandas groupby and apply methods.
 
 ```{python}
 # group by cylinder, calculate horse power (hp) minus its mean
@@ -98,7 +98,7 @@ Here is a more complex example, that uses grouping and calculating a mean with t
 )
 ```
 
-### Verbs: mutate, filter, summarize
+## Verbs: mutate, filter, summarize
 
 Verbs a functions that operate on a table of data.
 They can be combined using a pipe with the `>>` operator.
@@ -135,30 +135,76 @@ g_cyl >> summarize(avg_hp = _.hp.mean())
 
 Up to this point we've covered lazy expressions (`_`), and using table verbs. A major benefit of these two approaches is that they allow us to change how siuba behaves depending on the data source on which it is operating.
 
-For this example we first need to set up a SQL database.
+### Setup
+
+For these examples we first set up a sqlite database.
 
 ```{python}
 from sqlalchemy import create_engine
 from siuba.sql import LazyTbl
+from siuba import _, group_by, summarize, show_query, collect 
 
-# copy in to sqlite
+# copy in to sqlite, using the pandas .to_sql() method
 engine = create_engine("sqlite:///:memory:")
 mtcars.to_sql("mtcars", engine, if_exists = "replace")
 ```
 
-Now we can use summarize as above.
+Note that we now have a table called `mtcars` in the sqlite database.
+
+### Accessing tables
+
+Use the `LazyTbl` class to connect to a SQL table.
+Printing the table will show a preview of the first few rows.
+
+```{python}
+# Create a lazy SQL DataFrame
+tbl_mtcars = LazyTbl(engine, "mtcars")
+tbl_mtcars
+```
+
+Notice that we defined the variable `tbl_mtcars` to refer to the `mtcars` table in the database.
+When we print `tbl_mtcars` it shows a preview of the underlying data,
+along with some notes about the database being used: `# DB Conn: Engine(sqlite:///:memory:)`.
+
+
+
+### Basic analysis
+
+You don't need to change your analysis code to run it on a SQL table.
+For example, the code below groups and summarizes the data.
+
+
 
 ```{python}
 # connect with siuba
-tbl_mtcars = LazyTbl(engine, "mtcars")
 
-(tbl_mtcars
+tbl_query = (tbl_mtcars
   >> group_by(_.cyl)
   >> summarize(avg_hp = _.hp.mean())
   )
+
+tbl_query
 ```
 
-Under the hood siuba's summarize function is converting the lazy expression show in the code below to SQL.
+Under the hood functions like summarize know how to convert the lazy expressions shown in the code above to SQL.
+
+
+### Show query
+
+By default, printing out a `LazyTbl` shows a preview of the data.
+Use `show_query()` to see the actual SQL query siuba will generate.
+
+```{python}
+q = tbl_query >> show_query()
+```
+
+### Collect to DataFrame
+
+Use `collect()` to fetch the full query results as a pandas `DataFrame`.
+
+```{python}
+tbl_query >> collect()
+```
 
 ## Using with plotnine
 
@@ -177,5 +223,4 @@ from plotnine import ggplot, aes, geom_point
 
 ## Next steps
 
-* Interested in wrangling data right away? Check out the [data analysis guide](guide_analysis.Rmd).
-* Curious how to program and extend siuba? Check out the [programming guide](guide_programming.Rmd).
+TODO

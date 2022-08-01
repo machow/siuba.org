@@ -1,5 +1,5 @@
 ---
-title: "Lazy functions"
+title: "Lazy expressions"
 jupyter:
   jupytext:
     formats: 'qmd:quarto'
@@ -36,28 +36,6 @@ Notice how the output represents each step in our lazy expression, with these pi
 * black box █ - a method like checking equality (`==`) or getting an attribute (`.`).
 * underscore (`_`) - a placeholder for some data
 
-
-## Lazy functions
-
-```{python}
-from siuba import ops
-
-expr_n = ops.add(_, _)
-expr_n
-```
-
-
-## Lazy methods
-
-The simplest lazy operation is called a method, which 
-
-```{python}
-import operator as op
-
-_.__getitem__("a")
-op.getitem(_, "a")
-_["a"]
-```
 
 ## As a lambda shorthand
 

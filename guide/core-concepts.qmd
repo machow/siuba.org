@@ -17,3 +17,23 @@ jupyter:
 
 This page will diagram out key concepts
 
+* core
+  * siu expression
+  * verb
+  * column operation
+* composition
+  * pipe
+  * singledispatch
+  * translator
+  * data backend
+  * nested data
+* programming
+  * across
+  * over
+* extension
+  * verb_dispatch
+  * op_dispatch
+
+![](_assets/guide-classes-general.svg)
+
+![](_assets/guide-siuba-pipe.svg)

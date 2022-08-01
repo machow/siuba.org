@@ -1,0 +1,320 @@
+---
+title: Key features
+execute:
+  freeze: true
+format:
+  html:
+    toc-depth: 3
+    toc-title: wat
+jupyter:
+  jupytext:
+    formats: 'qmd:quarto'
+    text_representation:
+      extension: .qmd
+      format_name: quarto
+      format_version: '1.0'
+      jupytext_version: 1.13.8
+  kernelspec:
+    display_name: Python 3
+    language: python
+    name: python3
+---
+
+```{python}
+#| include: false
+import pandas as pd
+
+pd.set_option("display.max_rows", 5)
+```
+
+```{python}
+#| include: false
+#| eval: false
+import pandas as pd
+
+pd.set_option("display.max_rows", 5)
+
+import tabulate
+
+table = tabulate.tabulate([
+    ["Column operations are pandas Series methods", "✅", "✅", "✅"],
+    ["Table verbs supports user defined functions", "✅", "✅", "✅"],
+    ["pipe syntax (`>>`) ", "✅", "✅", "❌"],
+    ["concise, <b>lazy expressions</b> (`_.a + _.b`)", "✅", "✅", "❌"],
+    ["No more reset_index", "✅", "✅", "❌"],
+    ["<b>unified API</b> over (un)grouped data", "✅", "✅", "❌"],
+    ["generate fast grouped operations", "✅", "❌", "✅"],
+    ["<br>generate SQL queries</b> ", "✅", "❌", "❌"],
+    ["Abstract syntax trees for <br>transforming operations<b>", "✅", "❌", "❌"],
+    ["handles nested data", "✅", "❌", "⚠️"]
+
+
+], tablefmt = "grid", headers = ["siuba", "dplython", "pandas"])
+```
+
+<div class="dataframe">
+
++----------------------------------------------------------+---------+------------+----------+
+|                                                          | siuba   | dplython   | pandas   |
++==========================================================+=========+============+==========+
+| Column operations are pandas Series methods              | ✅      | ✅         | ✅       |
++----------------------------------------------------------+---------+------------+----------+
+| Table verbs supports user defined functions              | ✅      | ✅         | ✅       |
++----------------------------------------------------------+---------+------------+----------+
+| pipe syntax (`>>`)                                       | ✅      | ✅         | ❌       |
++----------------------------------------------------------+---------+------------+----------+
+| concise, <b>lazy expressions</b> (`_.a + _.b`)           | ✅      | ✅         | ❌       |
++----------------------------------------------------------+---------+------------+----------+
+| No more reset_index                                      | ✅      | ✅         | ❌       |
++----------------------------------------------------------+---------+------------+----------+
+| <b>unified API</b> over (un)grouped data                 | ✅      | ✅         | ❌       |
++----------------------------------------------------------+---------+------------+----------+
+| generate fast grouped operations                         | ✅      | ❌         | ✅       |
++----------------------------------------------------------+---------+------------+----------+
+| <br>generate SQL queries</b>                             | ✅      | ❌         | ❌       |
++----------------------------------------------------------+---------+------------+----------+
+| Abstract syntax trees for <br>transforming operations<b> | ✅      | ❌         | ❌       |
++----------------------------------------------------------+---------+------------+----------+
+| handles nested data                                      | ✅      | ❌         | ⚠️        |
++----------------------------------------------------------+---------+------------+----------+
+
+</div>
+
+
+### Built on pandas
+
+pandas is everywhere in python data analysis. The siuba library builds on this incredible work by using pandas Series methods as its reference implementation. This means that you use the pandas methods you've already learned!
+
+```{python}
+import pandas as pd
+from siuba import _, mutate
+
+my_data = pd.DataFrame({
+    'g': ['a', 'a', 'b'],
+    'x': [1,2,3],
+})
+
+# pandas
+my_data.assign(avg = lambda d: d.x.mean())
+
+# siuba
+mutate(my_data, avg = _.x.mean())
+```
+
+Note how you can debug both pieces of code by running and inspecting `df.a.mean()`.
+
+While pandas is an incredibly powerful API, its syntax can get quite cumbersome.
+
+```{python}
+(my_data
+  .assign(avg = lambda d: d.x.mean())    # create new column
+  .loc[lambda d: d.x != 3]               # filter out some rows
+)
+```
+
+Notice how much of this code is writing the word lambda.
+
+Like other ports of the popular R library, dplyr--such as dplython--siuba offers a simple, flexible way to work on tables of data.
+
+### Pipe syntax
+
+The pipe syntax allows you to import table functions (verbs), rather than having 300+ methods on your DataFrame.
+
+```{python}
+# actions can be imported individually
+from siuba import mutate, arrange
+
+# they can be combined using a pipe
+my_data >> mutate(y = _.x + 1) >> arrange(_.g, -_.x)
+```
+
+### Lazy expressions
+
+Using lazy expressions saves you from repeating the name of your DataFrame over and over.
+
+```{python}
+# rather than repeat the name of your data, you can use lazy expressions ---
+my_data_frame = pd.DataFrame({'a': [1,2,3]})
+
+
+# bad
+my_data_frame["b"] = my_data_frame["a"] + 1
+my_data_frame["c"] = my_data_frame["b"] + 2
+
+# good
+my_data_frame >> mutate(b = _.a + 1, c = _.b + 2)
+```
+
+### No reset_index
+
+Notice how siuba mutate can take a DataFrame, and return a DataFrame.
+Moreover, it doesn't stick columns onto the index.
+This means you don't need to call `reset_index` all the time.
+
+A common place where `reset_index` is called is after a pandas grouped aggregation.
+
+```{python}
+from siuba.data import mtcars
+from siuba import summarize
+
+g_cyl = mtcars.groupby("cyl")
+
+agg_res = g_cyl[["hp", "mpg"]].agg("mean")
+agg_res
+```
+
+```{python}
+# bad
+agg_res.reset_index()
+```
+
+```{python}
+# good
+summarize(g_cyl, hp = _.hp.mean(), mpg = _.mpg.mean())
+```
+
+### Unified (un)grouped API
+
+In **siuba** it doesn't matter whether your data is grouped or not.
+
+```{python}
+g_cyl = mtcars.groupby("cyl")
+
+mtcars >> mutate(demeaned = _.hp - _.hp.mean())    # uses ungrouped mean
+g_cyl  >> mutate(demeaned = _.hp - _.hp.mean())    # uses grouped mean
+```
+
+In **pandas** you have to change your code for grouped data.
+
+```{python}
+g_cyl = mtcars.groupby("cyl")
+
+# ungrouped vs grouped mean
+mtcars.assign(demeaned = lambda d: d.hp - d.hp.mean())
+mtcars.assign(demeaned = g_cyl.obj.hp - g_cyl.hp.transform("mean"))
+```
+
+Note that `g_cyl` does not have an `assign` method, and requires passing what operation you want to do (`"mean"`) as a string to `.transform()`.
+
+### Going beyond
+
+### Fast grouped operations
+
+Consider some data (`students`) where 2,000 students have each completed 10 courses, and received a score on each course.
+
+```{python}
+#| nbsphinx: hidden
+# fast grouped operations (pull from dev docs)
+# PLOT of timing
+import numpy as np
+import pandas as pd
+
+np.random.seed(123)
+students = pd.DataFrame({
+    'student_id': np.repeat(np.arange(2000), 10),
+    'course_id': np.random.randint(1, 20, 20000),
+    'score': np.random.randint(1, 100, 20000)
+})
+```
+
+```{python}
+g_students = students.groupby('student_id')
+g_students
+```
+
+Suppose that we want to get the courses each student scored lowest on.
+
+In pandas we could use some complex, but fast code.
+
+```{python}
+%%time
+# pandas
+is_student_min = g_students.obj.score == g_students.score.transform('min')
+low_scores = students[is_student_min]
+```
+
+In siuba it is simpler, and comparable in speed.
+
+```{python}
+from siuba.experimental.pd_groups import fast_filter
+```
+
+```{python}
+%%time
+# siuba
+low_scores = fast_filter(g_students, _.score == _.score.min())
+```
+
+This is because siuba's lazy expressions let it optimize grouped operations.
+
+However, **dplython is over 100x slower** in this case, because it uses the slower pandas `DataFrame.apply()` method under the hood.
+
+```{python}
+# set up code for timing
+from dplython import X, DplyFrame, sift, group_by as dply_group_by
+
+g_students2 = DplyFrame(students) >> dply_group_by(X.student_id)
+```
+
+```{python}
+%%time
+g_students2 >> sift(X.score == X.score.min())
+```
+
+### SQL queries
+
+```{python}
+# generate SQL queries
+from siuba.data import cars_sql
+from siuba import group_by, mutate, show_query
+
+q = (cars_sql
+  >> group_by("cyl")
+  >> mutate(demeaned = _.hp - _.hp.mean())
+  >> show_query()
+)
+```
+
+### Abstract syntax trees
+
+This is made possible because siuba represents lazy expressions with abstract syntax trees.
+Fast grouped operations and SQL queries are just the beginning. This allows people to produce a whole range of interesting tools!
+
+Siuba's lazy expressions consist of a Symbolic and Call class.
+
+Symbolic is used to quickly create lazy expressions.
+
+```{python}
+# ASTs for transforming
+from siuba.siu import Symbolic, Call, strip_symbolic
+
+_ = Symbolic()
+
+sym = _.a.mean() + _["b"]
+sym
+```
+
+Each black box in the printout above is a Call. Calls are the pieces that represent the underlying operations. They have methods to inspect and transform them.
+
+```{python}
+call = strip_symbolic(sym)
+
+# get columns names used in lazy expression
+call.op_vars(attr_calls = False)
+```
+
+### Nested data
+
+```{python}
+from siuba import _, mutate, unnest
+
+tagged = pd.DataFrame({
+    'id': [1,2,3],
+    'tags': ['a,b,c', 'd,e', 'f']
+})
+
+(tagged
+    >> mutate(split_tags = _.tags.str.split(','))
+    >> unnest("split_tags")
+)
+```
