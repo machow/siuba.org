@@ -1,0 +1,667 @@
+[
+  {
+    "objectID": "guide/basics-column-ops.html#lazy-functions",
+    "href": "guide/basics-column-ops.html#lazy-functions",
+    "title": "Column operations",
+    "section": "Lazy functions",
+    "text": "Lazy functions"
+  },
+  {
+    "objectID": "guide/basics-column-ops.html#calling-external-functions",
+    "href": "guide/basics-column-ops.html#calling-external-functions",
+    "title": "Column operations",
+    "section": "Calling external functions",
+    "text": "Calling external functions\n\nimport pandas as pd\nfrom siuba import _, mutate\nfrom siuba.siu import call\n\nmy_dates = pd.DataFrame({\"date\": [\"2021-01-01\", \"2021-01-02\"]})\n\npd.to_datetime(my_dates.date)\n\n0   2021-01-01\n1   2021-01-02\nName: date, dtype: datetime64[ns]\n\n\n\nmy_dates >> mutate(parsed = _.date) >> _.parsed\n\n0    2021-01-01\n1    2021-01-02\nName: parsed, dtype: object\n\n\n\nmy_dates >> mutate(parsed = call(pd.to_datetime, _.date))\n\n\n\n\n\n  \n    \n      \n      date\n      parsed\n    \n  \n  \n    \n      0\n      2021-01-01\n      2021-01-01\n    \n    \n      1\n      2021-01-02\n      2021-01-02\n    \n  \n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nYou may be familiar with the pd.Series.pipe() method, which could handle the situation using _.date.pipe(...):\n\nmy_dates >> mutate(parsed = _.date.pipe(pd.to_datetime))\n\nBe careful with this approach, since it will work in situations involving pandas DataFrames, but call() works in any situation!"
+  },
+  {
+    "objectID": "guide/basics-examples.html",
+    "href": "guide/basics-examples.html",
+    "title": "Examples",
+    "section": "",
+    "text": "This page contains examples of some of the situations siuba really shines in."
+  },
+  {
+    "objectID": "guide/basics-lazy-expressions.html",
+    "href": "guide/basics-lazy-expressions.html",
+    "title": "Lazy expressions",
+    "section": "",
+    "text": "A siu expression is a way of specifying what action you want to perform. This allows siuba verbs to decide how to execute the action, depending on whether your data is a local DataFrame or remote table.\nNotice how the output represents each step in our lazy expression, with these pieces:"
+  },
+  {
+    "objectID": "guide/basics-lazy-expressions.html#methods-and-lazy-functions",
+    "href": "guide/basics-lazy-expressions.html#methods-and-lazy-functions",
+    "title": "Lazy expressions",
+    "section": "Methods and lazy functions",
+    "text": "Methods and lazy functions"
+  },
+  {
+    "objectID": "guide/basics-lazy-expressions.html#use-in-pipes",
+    "href": "guide/basics-lazy-expressions.html#use-in-pipes",
+    "title": "Lazy expressions",
+    "section": "Use in pipes",
+    "text": "Use in pipes\nSometimes it is helpful to use Pandas DataFrame methods, in addition to siuba verbs. This can be done by piping the data to _.<some_method>().\nHere is an example using the siuba verb count(), with the pandas method .sort_values().\n\nfrom siuba import _, count\nfrom siuba.data import mtcars\n\n(mtcars\n    >> count(_.cyl)         # this is a siuba verb\n    >> _.sort_values(\"n\")   # this is a pandas method\n)\n\n\n\n\n\n  \n    \n      \n      cyl\n      n\n    \n  \n  \n    \n      1\n      6\n      7\n    \n    \n      0\n      4\n      11\n    \n    \n      2\n      8\n      14\n    \n  \n\n\n\n\nHere is another example, using the DataFrame .shape attribute.\n\n\n\n# siuba pipe\nmtcars >> _.shape[0]\n\n32\n\n\n\n# regular pandas\nmtcars.shape[0]"
+  },
+  {
+    "objectID": "guide/basics-lazy-expressions.html#call-external-functions",
+    "href": "guide/basics-lazy-expressions.html#call-external-functions",
+    "title": "Lazy expressions",
+    "section": "Call external functions",
+    "text": "Call external functions\n\nimport pandas as pd\nfrom siuba import _, mutate\nfrom siuba.siu import call\n\nmy_dates = pd.DataFrame({\"date\": [\"2021-01-01\", \"2021-01-02\"]})\n\npd.to_datetime(my_dates.date)\n\n0   2021-01-01\n1   2021-01-02\nName: date, dtype: datetime64[ns]\n\n\n\nmy_dates >> mutate(parsed = _.date) >> _.parsed\n\n0    2021-01-01\n1    2021-01-02\nName: parsed, dtype: object\n\n\n\nmy_dates >> mutate(parsed = call(pd.to_datetime, _.date))\n\n\n\n\n\n  \n    \n      \n      date\n      parsed\n    \n  \n  \n    \n      0\n      2021-01-01\n      2021-01-01\n    \n    \n      1\n      2021-01-02\n      2021-01-02"
+  },
+  {
+    "objectID": "guide/basics-lazy-expressions.html#common-challenges",
+    "href": "guide/basics-lazy-expressions.html#common-challenges",
+    "title": "Lazy expressions",
+    "section": "Common challenges",
+    "text": "Common challenges\n\nReserved words (_.class)\nMost column names can be referred to using _.some_name syntax. However, python reserved words like class can’t be used in this way.\nUse indexing (e.g. _[\"some_name\"]) to refer to any column by name.\n\n# bad: raises a SyntaxError\n_.class\n\n# good\n_[\"class\"]\n\nMoreover, pandas reserves names for its methods (e.g. _.shape or _.mean). This is also solved by indexing.\n\ndf = pd.DataFrame({\"mean\": [1,2,3]})\n\n# bad: is accessing the mean method\ndf.mean + 1\n\n# good (pandas)\ndf[\"mean\"]\n\n# good (siuba)\n_[\"mean\"]\n\n\n\nLogical keywords: and, or, in\nIn order to\n\nimport pandas as pd\n\ndf = pd.DataFrame({\"x\": [True, False, None]})\n\n# base python\nTrue or False\n\n# pandas\ndf.x | False\n\n0     True\n1    False\n2    False\nName: x, dtype: bool\n\n\n\n# base python\nTrue and False\n\n# pandas\ndf.x & False\n\n0    False\n1    False\n2    False\nName: x, dtype: bool\n\n\n\n# base python\nTrue in [True, None]\n\n# pandas\ndf.x.isin([True, None])\n\n0     True\n1    False\n2     True\nName: x, dtype: bool\n\n\n\n\nGoogle colab overrides _\nGoogle colab uses very old versions of the library ipykernel, which has a bug in it. This causes it to continuously overwrite the _ variable.\nTo fix this, rename the _ variable imported from siuba.\n\nfrom siuba import _ as D, filter\nfrom siuba.data import mtcars\n\nmtcars >> filter(D.mpg > 30)\n\n\n\n\n\n  \n    \n      \n      mpg\n      cyl\n      disp\n      hp\n      drat\n      wt\n      qsec\n      vs\n      am\n      gear\n      carb\n    \n  \n  \n    \n      17\n      32.4\n      4\n      78.7\n      66\n      4.08\n      2.200\n      19.47\n      1\n      1\n      4\n      1\n    \n    \n      18\n      30.4\n      4\n      75.7\n      52\n      4.93\n      1.615\n      18.52\n      1\n      1\n      4\n      2\n    \n    \n      19\n      33.9\n      4\n      71.1\n      65\n      4.22\n      1.835\n      19.90\n      1\n      1\n      4\n      1\n    \n    \n      27\n      30.4\n      4\n      95.1\n      113\n      3.77\n      1.513\n      16.90\n      1\n      1\n      5\n      2"
+  },
+  {
+    "objectID": "guide/basics-sql.html",
+    "href": "guide/basics-sql.html",
+    "title": "SQL basics",
+    "section": "",
+    "text": "Up to this point we’ve covered lazy expressions (_), and using table verbs. A major benefit of these two approaches is that they allow us to change how siuba behaves depending on the data source on which it is operating."
+  },
+  {
+    "objectID": "guide/basics-sql.html#setup",
+    "href": "guide/basics-sql.html#setup",
+    "title": "SQL basics",
+    "section": "Setup",
+    "text": "Setup\nFor these examples we first set up a sqlite database, with an mtcars table.\n\nfrom sqlalchemy import create_engine\nfrom siuba.sql import LazyTbl\nfrom siuba import _, group_by, summarize, show_query, collect \nfrom siuba.data import mtcars\n\n# copy in to sqlite, using the pandas .to_sql() method\nengine = create_engine(\"sqlite:///:memory:\")\nmtcars.to_sql(\"mtcars\", engine, if_exists = \"replace\")\n\n32"
+  },
+  {
+    "objectID": "guide/basics-sql.html#accessing-tables",
+    "href": "guide/basics-sql.html#accessing-tables",
+    "title": "SQL basics",
+    "section": "Accessing tables",
+    "text": "Accessing tables\nUse the LazyTbl class to connect to a SQL table. Printing the table will show a preview of the first few rows.\n\n# Create a lazy SQL DataFrame\ntbl_mtcars = LazyTbl(engine, \"mtcars\")\ntbl_mtcars\n\n\n# Source: lazy query\n# DB Conn: Engine(sqlite:///:memory:)\n# Preview:\n\n\n\n  \n    \n      \n      index\n      mpg\n      cyl\n      disp\n      hp\n      drat\n      wt\n      qsec\n      vs\n      am\n      gear\n      carb\n    \n  \n  \n    \n      0\n      0\n      21.0\n      6\n      160.0\n      110\n      3.90\n      2.620\n      16.46\n      0\n      1\n      4\n      4\n    \n    \n      1\n      1\n      21.0\n      6\n      160.0\n      110\n      3.90\n      2.875\n      17.02\n      0\n      1\n      4\n      4\n    \n    \n      2\n      2\n      22.8\n      4\n      108.0\n      93\n      3.85\n      2.320\n      18.61\n      1\n      1\n      4\n      1\n    \n    \n      3\n      3\n      21.4\n      6\n      258.0\n      110\n      3.08\n      3.215\n      19.44\n      1\n      0\n      3\n      1\n    \n    \n      4\n      4\n      18.7\n      8\n      360.0\n      175\n      3.15\n      3.440\n      17.02\n      0\n      0\n      3\n      2\n    \n  \n\n# .. may have more rows\n\n\nNotice that we defined the variable tbl_mtcars to refer to the mtcars table in the database. When we print tbl_mtcars it shows a preview of the underlying data, along with some notes about the database being used: # DB Conn: Engine(sqlite:///:memory:)."
+  },
+  {
+    "objectID": "guide/basics-sql.html#basic-analysis",
+    "href": "guide/basics-sql.html#basic-analysis",
+    "title": "SQL basics",
+    "section": "Basic analysis",
+    "text": "Basic analysis\nYou don’t need to change your analysis code to run it on a SQL table. For example, the code below groups and summarizes the data.\n\n# connect with siuba\n\ntbl_query = (tbl_mtcars\n  >> group_by(_.cyl)\n  >> summarize(avg_hp = _.hp.mean())\n  )\n\ntbl_query\n\n\n# Source: lazy query\n# DB Conn: Engine(sqlite:///:memory:)\n# Preview:\n\n\n\n  \n    \n      \n      cyl\n      avg_hp\n    \n  \n  \n    \n      0\n      4\n      82.636364\n    \n    \n      1\n      6\n      122.285714\n    \n    \n      2\n      8\n      209.214286\n    \n  \n\n# .. may have more rows\n\n\nUnder the hood, functions like summarize know how to convert the lazy expressions like _.hp.mean() shown in the code above to SQL."
+  },
+  {
+    "objectID": "guide/basics-sql.html#show-query",
+    "href": "guide/basics-sql.html#show-query",
+    "title": "SQL basics",
+    "section": "Show query",
+    "text": "Show query\nBy default, printing out a LazyTbl shows a preview of the data. Use show_query() to see the actual SQL query siuba will generate.\n\nq = tbl_query >> show_query()\n\nSELECT mtcars.cyl, avg(mtcars.hp) AS avg_hp \nFROM mtcars GROUP BY mtcars.cyl"
+  },
+  {
+    "objectID": "guide/basics-sql.html#collect-to-dataframe",
+    "href": "guide/basics-sql.html#collect-to-dataframe",
+    "title": "SQL basics",
+    "section": "Collect to DataFrame",
+    "text": "Collect to DataFrame\nUse collect() to fetch the full query results as a pandas DataFrame.\n\ntbl_query >> collect()\n\n\n\n\n\n  \n    \n      \n      cyl\n      avg_hp\n    \n  \n  \n    \n      0\n      4\n      82.636364\n    \n    \n      1\n      6\n      122.285714\n    \n    \n      2\n      8\n      209.214286"
+  },
+  {
+    "objectID": "guide/basics-table-verbs.html",
+    "href": "guide/basics-table-verbs.html",
+    "title": "Table verbs",
+    "section": "",
+    "text": "Table verbs take one or more tables as input, and return a table as output."
+  },
+  {
+    "objectID": "guide/basics-table-verbs.html#syntax",
+    "href": "guide/basics-table-verbs.html#syntax",
+    "title": "Table verbs",
+    "section": "Syntax",
+    "text": "Syntax\n\n\n\n# preferred: pipe data to verb\nmtcars >> count(_.cyl)\n\n\n\n\n\n  \n    \n      \n      cyl\n      n\n    \n  \n  \n    \n      0\n      4\n      11\n    \n    \n      1\n      6\n      7\n    \n    \n      2\n      8\n      14\n    \n  \n\n\n\n\n\n# call directly\ncount(mtcars, _.cyl)"
+  },
+  {
+    "objectID": "guide/basics-table-verbs.html#verbs-using-tidyselection",
+    "href": "guide/basics-table-verbs.html#verbs-using-tidyselection",
+    "title": "Table verbs",
+    "section": "Verbs using tidyselection",
+    "text": "Verbs using tidyselection\nSome verbs—like select() for keeping specific columns—use a special syntax called tidyselection. This syntax can be thought of as a mini-language for specifying a set of columns, either by inclusion or exclusion.\n\nSiubaPandas\n\n\n\n# keep cyl column\nmtcars >> select(_.cyl)\n\n# keep all *except* cyl column\nmtcars >> select(-_.cyl)\n\n# complex select, plus rename cyl to cylinder\nmtcars >> select(_.cylinder == _.cyl, _.startswith(\"m\"))\n\n\n\n\n# keep cyl column\nmtcars[[\"cyl\"]]\n\n# keep all *except* cyl column\nmtcars.drop([\"cyl\"], axis=1)\n\n# complex select, plus rename cyl to cylinder\ncols = mtcars.columns\nmtcars.loc[:, (cols == \"cyl\") | cols.str.startswith(\"m\")] \\\n      .rename({\"cyl\": \"cylinder\"})\n\n\n\n\nMore options for tidyselection exist, such as matching patterns, or slicing. See the select columns page for a discussion of all tidyselect options."
+  },
+  {
+    "objectID": "guide/basics-verbs-ops-expr.html",
+    "href": "guide/basics-verbs-ops-expr.html",
+    "title": "Verbs and Column Operations",
+    "section": "",
+    "text": "Table verbs take one or more tables as input, and return a table as output."
+  },
+  {
+    "objectID": "guide/basics-verbs-ops-expr.html#syntax",
+    "href": "guide/basics-verbs-ops-expr.html#syntax",
+    "title": "Verbs and Column Operations",
+    "section": "Syntax",
+    "text": "Syntax\n\n\n\n# preferred: pipe data to verb\nmtcars >> count(_.cyl)\n\n\n\n\n\n  \n    \n      \n      cyl\n      n\n    \n  \n  \n    \n      0\n      4\n      11\n    \n    \n      1\n      6\n      7\n    \n    \n      2\n      8\n      14\n    \n  \n\n\n\n\n\n# call directly\ncount(mtcars, _.cyl)"
+  },
+  {
+    "objectID": "guide/basics-verbs-ops-expr.html#verbs-using-tidyselection",
+    "href": "guide/basics-verbs-ops-expr.html#verbs-using-tidyselection",
+    "title": "Verbs and Column Operations",
+    "section": "Verbs using tidyselection",
+    "text": "Verbs using tidyselection\nSome verbs—like select() for keeping specific columns—use a special syntax called tidyselection. This syntax can be thought of as a mini-language for specifying a set of columns, either by inclusion or exclusion.\n\nSiubaPandas\n\n\n\n# keep cyl column\nmtcars >> select(_.cyl)\n\n# keep all *except* cyl column\nmtcars >> select(-_.cyl)\n\n# complex select, plus rename cyl to cylinder\nmtcars >> select(_.cylinder == _.cyl, _.startswith(\"m\"))\n\n\n\n\n# keep cyl column\nmtcars[[\"cyl\"]]\n\n# keep all *except* cyl column\nmtcars.drop([\"cyl\"], axis=1)\n\n# complex select, plus rename cyl to cylinder\ncols = mtcars.columns\nmtcars.loc[:, (cols == \"cyl\") | cols.str.startswith(\"m\")] \\\n      .rename({\"cyl\": \"cylinder\"})\n\n\n\n\nMore options for tidyselection exist, such as matching patterns, or slicing. See the select columns page for a discussion of all tidyselect options."
+  },
+  {
+    "objectID": "guide/basics-verbs-ops-expr.html#pipe-to-dataframe-methods",
+    "href": "guide/basics-verbs-ops-expr.html#pipe-to-dataframe-methods",
+    "title": "Verbs and Column Operations",
+    "section": "Pipe to DataFrame methods",
+    "text": "Pipe to DataFrame methods\nSometimes it is helpful to use Pandas DataFrame methods, in addition to siuba verbs. This can be done by piping the data to _.<some_method>().\nHere is an example using the siuba verb count(), with the pandas method .sort_values().\n\n(mtcars\n    >> count(_.cyl)         # this is a siuba verb\n    >> _.sort_values(\"n\")   # this is a pandas method\n)\n\n\n\n\n\n  \n    \n      \n      cyl\n      n\n    \n  \n  \n    \n      1\n      6\n      7\n    \n    \n      0\n      4\n      11\n    \n    \n      2\n      8\n      14\n    \n  \n\n\n\n\nHere is another example, using the DataFrame .shape attribute.\n\n\n\n# siuba pipe\nmtcars >> _.shape[0]\n\n32\n\n\n\n# regular pandas\nmtcars.shape[0]"
+  },
+  {
+    "objectID": "guide/basics-verbs-ops-expr.html#call-external-functions",
+    "href": "guide/basics-verbs-ops-expr.html#call-external-functions",
+    "title": "Verbs and Column Operations",
+    "section": "Call external functions",
+    "text": "Call external functions\nA major advantage of using the pipe approach is that you can pipe any object (e.g. a DataFrame) to any function, using call().\nThe example below pipes to the seaborn’s barplot function.\n\nfrom siuba.siu import call\nimport seaborn as sns\n\nmtcars >> count(_.cyl) >> call(sns.barplot, x=\"cyl\", y=\"n\", data=_)\n\n<AxesSubplot:xlabel='cyl', ylabel='n'>\n\n\n\n\n\nNote that sns.barplot() expects the data as a named argument, so we pass data=_, where _ is a placeholder for the data.\ncall() can also take a single function to call the data on.\n\n\n\n# piping\nmtcars >> call(len)\n\n32\n\n\n\n# regular function call\nlen(mtcars)\n\n32"
+  },
+  {
+    "objectID": "guide/basics-verbs-ops-expr.html#learning-more",
+    "href": "guide/basics-verbs-ops-expr.html#learning-more",
+    "title": "Verbs and Column Operations",
+    "section": "Learning more",
+    "text": "Learning more\n\ncommon table verbs section\ncustom verbs\nflexible pipes"
+  },
+  {
+    "objectID": "guide/core-concepts.html",
+    "href": "guide/core-concepts.html",
+    "title": "Core concepts",
+    "section": "",
+    "text": "core\n\nsiu expression\nverb\ncolumn operation\n\ncomposition\n\npipe\nsingledispatch\ntranslator\ndata backend\nnested data\n\nprogramming\n\nacross\nover\n\nextension\n\nverb_dispatch\nop_dispatch"
+  },
+  {
+    "objectID": "guide/extra-r-to-python.html",
+    "href": "guide/extra-r-to-python.html",
+    "title": "R to Python",
+    "section": "",
+    "text": "Pandas allows you to slice all strings in a Series, but does not allow you to apply custom slices to each string (a la stringr::str_sub). This means there is no easy equivalent to using results from stringr::str_locate to subset strings.\nWhile most Pandas string methods are under the .str accessor, the ones for ordering are not. To stringr::str_order() and stringr::str_sort(), use .argsort() and .sort_values().\nstringr has an *_all() variant on several functions (e.g. str_replace, str_locate, str_extract, str_match). Pandas generally has equivalent behavior, but it is sometimes specified by using an alternative method (e.g. str.extractall()), and sometimes by using an argument (e.g. str_replace(..., n = 1)).\nPandas string methods are modeled after python str object methods AND stringr (This is mentioned in the .str accessor source code). However, it’s not always clear what accepts a regex (similar to stringr) and what does not (similr to str object methods).\nFor example, .str.count() only accepts a regex. str.startswith() does not. Other methods like str.contains() accept a regex by default, but this can be disabled using the regex argument.\nThis is not a big issue in practice, but warrants some caution / teaching strategy."
+  },
+  {
+    "objectID": "guide/ops-autocomplete.html",
+    "href": "guide/ops-autocomplete.html",
+    "title": "Siuba",
+    "section": "",
+    "text": "import pandas as pd\n\npd.set_option(\"display.max_rows\", 5)\n\nfrom siuba.data import penguins\nfrom siuba import _, summarize, group_by"
+  },
+  {
+    "objectID": "guide/ops-case-when.html",
+    "href": "guide/ops-case-when.html",
+    "title": "Conditionals (if_else)",
+    "section": "",
+    "text": "from siuba.data import penguins\nfrom siuba import _, summarize, group_by, if_else, transmute, case_when\n\npenguins\n\n\n\n\n\n  \n    \n      \n      species\n      island\n      bill_length_mm\n      bill_depth_mm\n      flipper_length_mm\n      body_mass_g\n      sex\n      year\n    \n  \n  \n    \n      0\n      Adelie\n      Torgersen\n      39.1\n      18.7\n      181.0\n      3750.0\n      male\n      2007\n    \n    \n      1\n      Adelie\n      Torgersen\n      39.5\n      17.4\n      186.0\n      3800.0\n      female\n      2007\n    \n    \n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n    \n    \n      342\n      Chinstrap\n      Dream\n      50.8\n      19.0\n      210.0\n      4100.0\n      male\n      2009\n    \n    \n      343\n      Chinstrap\n      Dream\n      50.2\n      18.7\n      198.0\n      3775.0\n      female\n      2009\n    \n  \n\n344 rows × 8 columns"
+  },
+  {
+    "objectID": "guide/ops-case-when.html#if_else-for-two-cases",
+    "href": "guide/ops-case-when.html#if_else-for-two-cases",
+    "title": "Conditionals (if_else)",
+    "section": "if_else for two cases",
+    "text": "if_else for two cases\nUse the if_else() when values depend only on two cases—like whether some condition is True or False. This is similar to a Python if else statement, but applies to each value in a column.\n\nBasics\n\nif_else(penguins.bill_length_mm > 40, \"long\", \"short\")\n\n0      short\n1      short\n       ...  \n342     long\n343     long\nLength: 344, dtype: object\n\n\n\n\nUse in a verb\n\ntransmute(\n    penguins,\n    bill_length = if_else(_.bill_length_mm > 40, \"long\", \"short\")\n)\n\n\n\n\n\n  \n    \n      \n      bill_length\n    \n  \n  \n    \n      0\n      short\n    \n    \n      1\n      short\n    \n    \n      ...\n      ...\n    \n    \n      342\n      long\n    \n    \n      343\n      long\n    \n  \n\n344 rows × 1 columns"
+  },
+  {
+    "objectID": "guide/ops-case-when.html#case_when-for-many-cases",
+    "href": "guide/ops-case-when.html#case_when-for-many-cases",
+    "title": "Conditionals (if_else)",
+    "section": "case_when for many cases",
+    "text": "case_when for many cases\nThe case_when() function is a more general version of if_else(). It lets you check as many cases as you want, and map them to resulting values.\n\nBasics\n\ncase_when(penguins, {\n    _.bill_depth_mm <= 18: \"short\",\n    _.bill_depth_mm <= 19: \"medium\",\n    _.bill_depth_mm > 19: \"long\"\n})\n\n0      medium\n1       short\n        ...  \n342    medium\n343    medium\nLength: 344, dtype: object\n\n\n\n\nUse in a verb\n\n# also works\npenguins >> case_when({ ... })\n\n\n\nSet default when no match\nUse a True as the final case, in order to set a value when no other cases match.\n\ncase_when(penguins, {\n    _.bill_depth_mm.between(18, 19): \"medium\",\n    True: \"OTHER\"\n})\n\n0      medium\n1       OTHER\n        ...  \n342    medium\n343    medium\nLength: 344, dtype: object\n\n\nNote that this works because—for each value—case_when checks for the first matching condition. The final True condition guarantees that it will always be a match."
+  },
+  {
+    "objectID": "guide/ops-datetime.html",
+    "href": "guide/ops-datetime.html",
+    "title": "Siuba",
+    "section": "",
+    "text": "import pandas as pd\n\npd.set_option(\"display.max_rows\", 5)\n\nfrom siuba.data import penguins\nfrom siuba import _, summarize, group_by"
+  },
+  {
+    "objectID": "guide/ops-siu-expr.html",
+    "href": "guide/ops-siu-expr.html",
+    "title": "Lazy functions",
+    "section": "",
+    "text": "A siu expression is a way of specifying what action you want to perform. This allows siuba verbs to decide how to execute the action, depending on whether your data is a local DataFrame or remote table.\nNotice how the output represents each step in our lazy expression, with these pieces:"
+  },
+  {
+    "objectID": "guide/ops-siu-expr.html#lazy-functions",
+    "href": "guide/ops-siu-expr.html#lazy-functions",
+    "title": "Lazy functions",
+    "section": "Lazy functions",
+    "text": "Lazy functions\n\nfrom siuba import ops\n\nexpr_n = ops.add(_, _)\nexpr_n\n\n█─'__call__'\n├─█─'__custom_func__'\n│ └─<function singledispatch.<locals>.wrapper at 0x7fd61ccabe20>\n├─_\n└─_"
+  },
+  {
+    "objectID": "guide/ops-siu-expr.html#lazy-methods",
+    "href": "guide/ops-siu-expr.html#lazy-methods",
+    "title": "Lazy functions",
+    "section": "Lazy methods",
+    "text": "Lazy methods\nThe simplest lazy operation is called a method, which\n\nimport operator as op\n\n_.__getitem__(\"a\")\nop.getitem(_, \"a\")\n_[\"a\"]\n\n█─[\n├─_\n└─█─'__siu_slice__'\n  └─'a'"
+  },
+  {
+    "objectID": "guide/ops-siu-expr.html#as-a-lambda-shorthand",
+    "href": "guide/ops-siu-expr.html#as-a-lambda-shorthand",
+    "title": "Lazy functions",
+    "section": "As a lambda shorthand",
+    "text": "As a lambda shorthand\nWe can use siu expressions like lambda functions. For example, to keep specific rows of a pandas DataFrame.\n\nfrom siuba.data import mtcars\n\n# old approach: repeat name\nmtcars[mtcars.cyl == 4]\n\n# old approach: lambda\nmtcars[lambda _: _.cyl == 4]\n\n# siu approach\nmtcars[_.cyl == 4]\n\n\n\n\n\n  \n    \n      \n      mpg\n      cyl\n      disp\n      hp\n      drat\n      wt\n      qsec\n      vs\n      am\n      gear\n      carb\n    \n  \n  \n    \n      2\n      22.8\n      4\n      108.0\n      93\n      3.85\n      2.320\n      18.61\n      1\n      1\n      4\n      1\n    \n    \n      7\n      24.4\n      4\n      146.7\n      62\n      3.69\n      3.190\n      20.00\n      1\n      0\n      4\n      2\n    \n    \n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n    \n    \n      27\n      30.4\n      4\n      95.1\n      113\n      3.77\n      1.513\n      16.90\n      1\n      1\n      5\n      2\n    \n    \n      31\n      21.4\n      4\n      121.0\n      109\n      4.11\n      2.780\n      18.60\n      1\n      1\n      4\n      2\n    \n  \n\n11 rows × 11 columns"
+  },
+  {
+    "objectID": "guide/ops-strings.html",
+    "href": "guide/ops-strings.html",
+    "title": "String operations (str)",
+    "section": "",
+    "text": "String operations allow you to perform actions like:\n\nMatch: detect when a string matches a pattern.\nTransform: e.g. convert something from mIxED to lower case, or replace part of it.\nExtract: grab specific parts of string value (e.g. a matching pattern).\n\nThis page will cover different methods for performing these actions, but will ultimately focus on str.contains(), str.replace(), and str.extract() for common match, transform, and extract tasks.\n\nstartswith, endswith\ncontains (ignore match)\nlower, upper, title\nreplace\n.str[]\nextract\nsplit, join, findall\n\n\nfrom siuba.data import penguins\nfrom siuba import _, mutate, summarize, group_by, filter\n\nfruits = pd.Series([\n        \"apple\",\n        \"apricot\",\n        \"avocado\",\n        \"banana\",\n        \"bell pepper\"\n])\n\ndf_fruits = pd.DataFrame({\"name\": fruits})\n\n\n\nsiuba uses Pandas methods, so can use any of the string methods it makes available, like .str.upper().\n\nfruits.str.upper()\n\n0          APPLE\n1        APRICOT\n2        AVOCADO\n3         BANANA\n4    BELL PEPPER\ndtype: object\n\n\nNote that most string methods use .str.<method_name>() syntax. These are called “string accessor methods”, since they are accessed from a special place (.str).\n\n\n\nUse string methods as you would any other methods inside verbs.\n\nmutate(df_fruits, loud = _.name.str.upper())\n\n\n\n\n\n  \n    \n      \n      name\n      loud\n    \n  \n  \n    \n      0\n      apple\n      APPLE\n    \n    \n      1\n      apricot\n      APRICOT\n    \n    \n      2\n      avocado\n      AVOCADO\n    \n    \n      3\n      banana\n      BANANA\n    \n    \n      4\n      bell pepper\n      BELL PEPPER"
+  },
+  {
+    "objectID": "guide/ops-strings.html#matching-patterns",
+    "href": "guide/ops-strings.html#matching-patterns",
+    "title": "String operations (str)",
+    "section": "Matching patterns",
+    "text": "Matching patterns\n\nFixed text\nThere are three common approaches for simple string matches:\n\nAn exact match with ==.\nA match from an anchor point, using str.startswith() or str.endswith().\nA match from any point, using str.contains()\n\n\n# exact match\nfruits == \"banana\"\n\n# starts with \"ap\"\nfruits.str.startswith(\"ap\")\n\n# ends with \"cado\"\nfruits.str.endswith(\"cado\")\n\n# has an \"e\" anywhere\nfruits.str.contains(\"e\", regex=False)\n\n0     True\n1    False\n2    False\n3    False\n4     True\ndtype: bool\n\n\nAll these operations return a boolean Series, so can be used to filter rows.\n\nfilter(df_fruits, _.name.str.startswith(\"ap\"))\n\n\n\n\n\n  \n    \n      \n      name\n    \n  \n  \n    \n      0\n      apple\n    \n    \n      1\n      apricot\n    \n  \n\n\n\n\n\n\n\n\n\n\nWarning\n\n\n\nNote that for str.contains() we set the regex=False argument. This is because—unlike operations like str.startswith()—pandas by default assumes you are passing something called a regular expression to str.contains().\n\n\n\n\nstr.contains() patterns\n\npenguins.species.str.contains(\"$Ade\")\n\n0      False\n1      False\n       ...  \n342    False\n343    False\nName: species, Length: 344, dtype: bool"
+  },
+  {
+    "objectID": "guide/ops-strings.html#transforming-strings",
+    "href": "guide/ops-strings.html#transforming-strings",
+    "title": "String operations (str)",
+    "section": "Transforming strings",
+    "text": "Transforming strings\n\nSimple transformations\n\npenguins.species.str.lower()\n\n0         adelie\n1         adelie\n         ...    \n342    chinstrap\n343    chinstrap\nName: species, Length: 344, dtype: object\n\n\n\n\nstr.replace() patterns"
+  },
+  {
+    "objectID": "guide/ops-strings.html#extracting-parts",
+    "href": "guide/ops-strings.html#extracting-parts",
+    "title": "String operations (str)",
+    "section": "Extracting parts",
+    "text": "Extracting parts\n\n.str[] to slice\nNote that it is not possible to pass a sequence of slices, etc.. apply example.\n\n\n.str.extract() patterns"
+  },
+  {
+    "objectID": "guide/ops-strings.html#split-and-flatten",
+    "href": "guide/ops-strings.html#split-and-flatten",
+    "title": "String operations (str)",
+    "section": "Split and flatten",
+    "text": "Split and flatten\n\npenguins.species.str.split(\",\")\n\n0         [Adelie]\n1         [Adelie]\n          ...     \n342    [Chinstrap]\n343    [Chinstrap]\nName: species, Length: 344, dtype: object\n\n\n\npenguins.species.str.split(\"e\").str.join(\"e\")\n\n0         Adelie\n1         Adelie\n         ...    \n342    Chinstrap\n343    Chinstrap\nName: species, Length: 344, dtype: object\n\n\n\npenguins.species.str.findall(\"e\")\n\n0      [e, e]\n1      [e, e]\n        ...  \n342        []\n343        []\nName: species, Length: 344, dtype: object"
+  },
+  {
+    "objectID": "guide/ops-strings.html#templates-with-str_glue",
+    "href": "guide/ops-strings.html#templates-with-str_glue",
+    "title": "String operations (str)",
+    "section": "Templates with str_glue()",
+    "text": "Templates with str_glue()\n\npenguins.species\n\n0         Adelie\n1         Adelie\n         ...    \n342    Chinstrap\n343    Chinstrap\nName: species, Length: 344, dtype: object"
+  },
+  {
+    "objectID": "guide/overview.html",
+    "href": "guide/overview.html",
+    "title": "Overview",
+    "section": "",
+    "text": "Siuba is a tool for concise, flexible data-analysis over multiple data sources. It currently supports pandas DataFrames and SQL tables."
+  },
+  {
+    "objectID": "guide/overview.html#installing",
+    "href": "guide/overview.html#installing",
+    "title": "Overview",
+    "section": "Installing",
+    "text": "Installing\npip install siuba"
+  },
+  {
+    "objectID": "guide/overview.html#basic-use",
+    "href": "guide/overview.html#basic-use",
+    "title": "Overview",
+    "section": "Basic use",
+    "text": "Basic use\nThe code below uses the example DataFrame mtcars, to get the average horsepower (hp) per cylinder.\n\nfrom siuba import _, group_by, summarize\nfrom siuba.data import mtcars\n\n(mtcars\n  >> group_by(_.cyl)\n  >> summarize(avg_hp = _.hp.mean())\n  )\n\n\n\n\n\n  \n    \n      \n      cyl\n      avg_hp\n    \n  \n  \n    \n      0\n      4\n      82.636364\n    \n    \n      1\n      6\n      122.285714\n    \n    \n      2\n      8\n      209.214286\n    \n  \n\n\n\n\nThere are three key concepts in this example:\n\n\n\n\n\n\n\n\nconcept\nexample\nmeaning\n\n\n\n\nverb\ngroup_by(...)\na function that operates on a table, like a DataFrame or SQL table\n\n\nlazy expression\n_.hp.mean()\nan expression created with siuba._, that represents actions you want to perform\n\n\npipe\nmtcars >> group_by(...)\na syntax that allows you to chain verbs with the >> operator"
+  },
+  {
+    "objectID": "guide/overview.html#lazy-expressions-_",
+    "href": "guide/overview.html#lazy-expressions-_",
+    "title": "Overview",
+    "section": "Lazy expressions (_)",
+    "text": "Lazy expressions (_)\nA siu expression is a way of specifying what action you want to perform. This allows siuba verbs to decide how to execute the action, depending on whether your data is a local DataFrame or remote table.\n\nfrom siuba import _\n\n_.cyl == 4\n\n█─==\n├─█─.\n│ ├─_\n│ └─'cyl'\n└─4\n\n\nNotice how the output represents each step in our lazy expression, with these pieces:\n\nblack box █ - a method like checking equality (==) or getting an attribute (.).\nunderscore (_) - a placeholder for a table of data.\n\nWe can use these expressions like lambda functions. For example, to keep specific rows of a pandas DataFrame.\n\n# old approach: repeat name\nmtcars[mtcars.cyl == 4]\n\n# old approach: lambda\nmtcars[lambda _: _.cyl == 4]\n\n# siu approach\nmtcars[_.cyl == 4]\n\n\n\n\n\n  \n    \n      \n      mpg\n      cyl\n      disp\n      hp\n      drat\n      wt\n      qsec\n      vs\n      am\n      gear\n      carb\n    \n  \n  \n    \n      2\n      22.8\n      4\n      108.0\n      93\n      3.85\n      2.320\n      18.61\n      1\n      1\n      4\n      1\n    \n    \n      7\n      24.4\n      4\n      146.7\n      62\n      3.69\n      3.190\n      20.00\n      1\n      0\n      4\n      2\n    \n    \n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n    \n    \n      27\n      30.4\n      4\n      95.1\n      113\n      3.77\n      1.513\n      16.90\n      1\n      1\n      5\n      2\n    \n    \n      31\n      21.4\n      4\n      121.0\n      109\n      4.11\n      2.780\n      18.60\n      1\n      1\n      4\n      2\n    \n  \n\n11 rows × 11 columns\n\n\n\nNote that like the lambda function, siuba avoids typing the same (potentially_very_long) name twice, while also being a bit shorter."
+  },
+  {
+    "objectID": "guide/overview.html#table-verbs",
+    "href": "guide/overview.html#table-verbs",
+    "title": "Overview",
+    "section": "Table verbs",
+    "text": "Table verbs\nVerbs are functions that operate on a table of data. They can be combined using a pipe with the >> operator.\n\nfrom siuba import _, mutate, filter, group_by, summarize\nfrom siuba.data import mtcars\n\n\nMutate\nThe previous example can be re-written in siuba as the following.\n\n(mtcars\n  >> group_by(_.cyl)\n  >> mutate(demeaned = _.hp - _.hp.mean())\n  )\n\n\n(grouped data frame)\n\n\n  \n    \n      \n      mpg\n      cyl\n      disp\n      hp\n      drat\n      wt\n      qsec\n      vs\n      am\n      gear\n      carb\n      demeaned\n    \n  \n  \n    \n      0\n      21.0\n      6\n      160.0\n      110\n      3.90\n      2.620\n      16.46\n      0\n      1\n      4\n      4\n      -12.285714\n    \n    \n      1\n      21.0\n      6\n      160.0\n      110\n      3.90\n      2.875\n      17.02\n      0\n      1\n      4\n      4\n      -12.285714\n    \n    \n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n    \n    \n      30\n      15.0\n      8\n      301.0\n      335\n      3.54\n      3.570\n      14.60\n      0\n      1\n      5\n      8\n      125.785714\n    \n    \n      31\n      21.4\n      4\n      121.0\n      109\n      4.11\n      2.780\n      18.60\n      1\n      1\n      4\n      2\n      26.363636\n    \n  \n\n32 rows × 12 columns\n\n\n\nNote that there is a key difference: mutate returned a pandas DataFrame with the new column (demeaned) at the end. This is a core feature of siuba verbs–tables in and tables out.\n\n\nFilter\nBelow are examples of keeping certain rows with filter, and calculating a single number per group with summarize.\n\ng_cyl = group_by(mtcars, _.cyl)\n\n# keep lowest hp per group\ng_cyl >> filter(_.hp == _.hp.min())\n\n\n(grouped data frame)\n\n\n  \n    \n      \n      mpg\n      cyl\n      disp\n      hp\n      drat\n      wt\n      qsec\n      vs\n      am\n      gear\n      carb\n    \n  \n  \n    \n      5\n      18.1\n      6\n      225.0\n      105\n      2.76\n      3.460\n      20.22\n      1\n      0\n      3\n      1\n    \n    \n      18\n      30.4\n      4\n      75.7\n      52\n      4.93\n      1.615\n      18.52\n      1\n      1\n      4\n      2\n    \n    \n      21\n      15.5\n      8\n      318.0\n      150\n      2.76\n      3.520\n      16.87\n      0\n      0\n      3\n      2\n    \n    \n      22\n      15.2\n      8\n      304.0\n      150\n      3.15\n      3.435\n      17.30\n      0\n      0\n      3\n      2\n    \n  \n\n\n\n\n\n\nSummarize\n\ng_cyl >> summarize(avg_hp = _.hp.mean())\n\n\n\n\n\n  \n    \n      \n      cyl\n      avg_hp\n    \n  \n  \n    \n      0\n      4\n      82.636364\n    \n    \n      1\n      6\n      122.285714\n    \n    \n      2\n      8\n      209.214286"
+  },
+  {
+    "objectID": "guide/overview.html#column-operations",
+    "href": "guide/overview.html#column-operations",
+    "title": "Overview",
+    "section": "Column operations",
+    "text": "Column operations\nThe verbs above received a few different calculations as arguments:\n\n_.hp.mean()\n_.hp.min()\n\nYou can use any methods from the underlying pandas objects as methods.\n\n# outside\nmtcars.shape[0] + 1\n\n# inside mutate\nmtcars >> mutate(res = _.shape[0] + 1)\n\n\n\n\n\n  \n    \n      \n      mpg\n      cyl\n      disp\n      hp\n      drat\n      wt\n      qsec\n      vs\n      am\n      gear\n      carb\n      res\n    \n  \n  \n    \n      0\n      21.0\n      6\n      160.0\n      110\n      3.90\n      2.620\n      16.46\n      0\n      1\n      4\n      4\n      33\n    \n    \n      1\n      21.0\n      6\n      160.0\n      110\n      3.90\n      2.875\n      17.02\n      0\n      1\n      4\n      4\n      33\n    \n    \n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n    \n    \n      30\n      15.0\n      8\n      301.0\n      335\n      3.54\n      3.570\n      14.60\n      0\n      1\n      5\n      8\n      33\n    \n    \n      31\n      21.4\n      4\n      121.0\n      109\n      4.11\n      2.780\n      18.60\n      1\n      1\n      4\n      2\n      33\n    \n  \n\n32 rows × 12 columns\n\n\n\nThis includes the str and dt attribute accessor methods:\n\nimport pandas as pd\n\ndf = pd.DataFrame({\"x\": [\"apple\", \"banana\"]})\n\n# outside\ndf.x.str.contains(\"a\")\n\n# inside mutate\ndf >> mutate(res = _.x.str.contains(\"a\"))\n\n\n\n\n\n  \n    \n      \n      x\n      res\n    \n  \n  \n    \n      0\n      apple\n      True\n    \n    \n      1\n      banana\n      True"
+  },
+  {
+    "objectID": "guide/overview.html#using-with-plotnine",
+    "href": "guide/overview.html#using-with-plotnine",
+    "title": "Overview",
+    "section": "Using with plotnine",
+    "text": "Using with plotnine\nFortnuately, plotnine supports siuba’s style of piping, so is easy to plug in to!\n\nfrom siuba import mutate, _\nfrom plotnine import ggplot, aes, geom_point\n\n(mtcars\n  >> mutate(hp_per_cyl = _.hp / _.cyl)\n  >> ggplot(aes(\"cyl\", \"hp_per_cyl\"))\n   + geom_point()\n)\n\n\n\n\n<ggplot: (8727968660066)>"
+  },
+  {
+    "objectID": "guide/overview.html#next-steps",
+    "href": "guide/overview.html#next-steps",
+    "title": "Overview",
+    "section": "Next steps",
+    "text": "Next steps\nTODO"
+  },
+  {
+    "objectID": "guide/programming-pipes.html",
+    "href": "guide/programming-pipes.html",
+    "title": "Flexible pipes",
+    "section": "",
+    "text": "from siuba.siu import _, pipe, call\nfrom siuba import count\nfrom siuba.data import mtcars"
+  },
+  {
+    "objectID": "guide/programming-pipes.html#pipe-to-dataframe-methods",
+    "href": "guide/programming-pipes.html#pipe-to-dataframe-methods",
+    "title": "Flexible pipes",
+    "section": "Pipe to DataFrame methods",
+    "text": "Pipe to DataFrame methods"
+  },
+  {
+    "objectID": "guide/programming-pipes.html#pipe-to-external-functions",
+    "href": "guide/programming-pipes.html#pipe-to-external-functions",
+    "title": "Flexible pipes",
+    "section": "Pipe to external functions",
+    "text": "Pipe to external functions\nUse call() to pipe data into any function call.\nThe example below pipes to the seaborn’s barplot function.\n\nfrom siuba.siu import call\nimport seaborn as sns\n\nmtcars >> count(_.cyl) >> call(sns.barplot, x=\"cyl\", y=\"n\", data=_)\n\n<AxesSubplot:xlabel='cyl', ylabel='n'>\n\n\n\n\n\nNote that sns.barplot() expects the data as a named argument, so we pass data=_, where _ is a placeholder for the data.\ncall() can also take a single function to call the data on.\n\n\n\n# piping\nmtcars >> call(len)\n\n32\n\n\n\n# regular function call\nlen(mtcars)\n\n32"
+  },
+  {
+    "objectID": "guide/verb-arrange.html",
+    "href": "guide/verb-arrange.html",
+    "title": "Arrange rows",
+    "section": "",
+    "text": "choosing columns to arrange by\nspecifying an order (ascending or descending)\n\nBelow, we’ll illustrate this function with a single variable, multiple variables, and more general expressions.\n\nfrom siuba import _, arrange, select\nfrom siuba.data import mtcars\n\nsmall_mtcars = mtcars >> select(_.cyl, _.mpg, _.hp)\n\nsmall_mtcars\n\n\n\n\n\n  \n    \n      \n      cyl\n      mpg\n      hp\n    \n  \n  \n    \n      0\n      6\n      21.0\n      110\n    \n    \n      1\n      6\n      21.0\n      110\n    \n    \n      ...\n      ...\n      ...\n      ...\n    \n    \n      30\n      8\n      15.0\n      335\n    \n    \n      31\n      4\n      21.4\n      109\n    \n  \n\n32 rows × 3 columns\n\n\n\n\nBasics\nThe simplest way to use arrange is to specify a column name. The arrange function uses pandas.sort_values under the hood, and arranges rows in ascending order.\nFor example, the code below arranges the rows from least to greatest horsepower (hp).\n\n# simple arrange of 1 var\nsmall_mtcars >> arrange(_.hp)\n\n\n\n\n\n  \n    \n      \n      cyl\n      mpg\n      hp\n    \n  \n  \n    \n      18\n      4\n      30.4\n      52\n    \n    \n      7\n      4\n      24.4\n      62\n    \n    \n      ...\n      ...\n      ...\n      ...\n    \n    \n      28\n      8\n      15.8\n      264\n    \n    \n      30\n      8\n      15.0\n      335\n    \n  \n\n32 rows × 3 columns\n\n\n\n\n\nSort in descending order\nIf you add a - before a column or expression, arrange will sort the rows in descending order. This applies to all types of columns, including arrays of strings and categories!\n\nsmall_mtcars >> arrange(-_.hp)\n\n\n\n\n\n  \n    \n      \n      cyl\n      mpg\n      hp\n    \n  \n  \n    \n      30\n      8\n      15.0\n      335\n    \n    \n      28\n      8\n      15.8\n      264\n    \n    \n      ...\n      ...\n      ...\n      ...\n    \n    \n      7\n      4\n      24.4\n      62\n    \n    \n      18\n      4\n      30.4\n      52\n    \n  \n\n32 rows × 3 columns\n\n\n\n\n\nArrange by multiple variables\nWhen arrange receives multiple arguments, it sorts so that the one specified first changes the slowest, followed by the second, and so on.\n\nsmall_mtcars >> arrange(_.cyl, -_.mpg)\n\n\n\n\n\n  \n    \n      \n      cyl\n      mpg\n      hp\n    \n  \n  \n    \n      19\n      4\n      33.9\n      65\n    \n    \n      17\n      4\n      32.4\n      66\n    \n    \n      ...\n      ...\n      ...\n      ...\n    \n    \n      14\n      8\n      10.4\n      205\n    \n    \n      15\n      8\n      10.4\n      215\n    \n  \n\n32 rows × 3 columns\n\n\n\nNotice that in the result above, cyl values are sorted first. In other words, all of the 4’s are bunched together, with mpg sorted in descending order within each bunch.\n\n\nUsing expressions\nYou can also arrange the rows of your data using more complex expressions, similar to those you would use in a mutate.\nFor example, the code below sorts by horsepower (hp) per cylinder (cyl).\n\nsmall_mtcars >> arrange(_.hp / _.cyl)\n\n\n\n\n\n  \n    \n      \n      cyl\n      mpg\n      hp\n    \n  \n  \n    \n      18\n      4\n      30.4\n      52\n    \n    \n      7\n      4\n      24.4\n      62\n    \n    \n      ...\n      ...\n      ...\n      ...\n    \n    \n      28\n      8\n      15.8\n      264\n    \n    \n      30\n      8\n      15.0\n      335\n    \n  \n\n32 rows × 3 columns\n\n\n\n\n\nCategorical series behavior\nArrange uses pd.sort_values() behind the scenes, which sorts pd.Categorical series by their category order.\n\nser = pd.Categorical([\"a\", \"z\"], categories=[\"z\", \"a\"])\n\nser\n\n['a', 'z']\nCategories (2, object): ['z', 'a']\n\n\n\nser.sort_values()\n\n['z', 'a']\nCategories (2, object): ['z', 'a']\n\n\nSiuba contains a submodule called forcats that make it easy to change the category order.\n\nfrom siuba.dply.forcats import fct_rev\n\n# reverse the category order\nfct_rev(ser)\n\n['a', 'z']\nCategories (2, object): ['a', 'z']\n\n\nYou can learn more in the siuba forcats docs."
+  },
+  {
+    "objectID": "guide/verb-filter.html",
+    "href": "guide/verb-filter.html",
+    "title": "Filter rows",
+    "section": "",
+    "text": "The filter() function keeps rows of data that meet all specified conditions."
+  },
+  {
+    "objectID": "guide/verb-filter.html#what-counts-as-na",
+    "href": "guide/verb-filter.html#what-counts-as-na",
+    "title": "Filter rows",
+    "section": "What counts as NA?",
+    "text": "What counts as NA?\nUse pandas.isna() to determine whether a value is considered to be NA.\n\ndf = pd.DataFrame({\n    \"x\": [True, False, None],\n    })\n\ndf.x\n\n0     True\n1    False\n2     None\nName: x, dtype: object\n\n\nNotice in the code above that the last value is None. We can confirm pandas sees this as an NA with the code below.\n\npd.isna(df.x)\n\n0    False\n1    False\n2     True\nName: x, dtype: bool\n\n\nSince None is considered an NA, its row gets removed in the filter below.\n\ndf >> filter(_.x)\n\n\n\n\n\n  \n    \n      \n      x\n    \n  \n  \n    \n      0\n      True"
+  },
+  {
+    "objectID": "guide/verb-filter.html#drop-only-by-na",
+    "href": "guide/verb-filter.html#drop-only-by-na",
+    "title": "Filter rows",
+    "section": "Drop only by NA",
+    "text": "Drop only by NA\nIf you want to remove only by NA values from your data, use the pandas .notna() method.\nThis effectively says, “keep any values of x that are not NA”.\n\ndf >> filter(_.x.notna())\n\n\n\n\n\n  \n    \n      \n      x\n    \n  \n  \n    \n      0\n      True\n    \n    \n      1\n      False"
+  },
+  {
+    "objectID": "guide/verb-group-by.html",
+    "href": "guide/verb-group-by.html",
+    "title": "Group by",
+    "section": "",
+    "text": "This function is used to specify groups in your data for verbs—like mutate(), filter(), and summarize()—to perform operations over.\nFor example, in the mtcars dataset, there are 3 possible values for cylinders (cyl). You could use group_by to say that you want to perform operations separately for each of these 3 groups of values.\nAn important compliment to group_by() is ungroup(), which removes all current groupings."
+  },
+  {
+    "objectID": "guide/verb-group-by.html#group-by-column",
+    "href": "guide/verb-group-by.html#group-by-column",
+    "title": "Group by",
+    "section": "Group by column",
+    "text": "Group by column\nThe simplest way to use group by is to specify your grouping column directly. This is shown below, by grouping mtcars according to its 3 groups of cylinder values (4, 6, or 8 cylinders).\n\ng_cyl = small_cars >> group_by(_.cyl)\n\ng_cyl\n\n\n(grouped data frame)\n\n\n  \n    \n      \n      cyl\n      gear\n      hp\n    \n  \n  \n    \n      0\n      6\n      4\n      110\n    \n    \n      1\n      6\n      4\n      110\n    \n    \n      ...\n      ...\n      ...\n      ...\n    \n    \n      30\n      8\n      5\n      335\n    \n    \n      31\n      4\n      4\n      109\n    \n  \n\n32 rows × 3 columns\n\n\n\nNote that the result is simply a pandas GroupedDataFrame, which is what is returned if you use mtcars.groupby('cyl'). Normally, a GroupedDataFrame doesn’t print out a preview of itself, but siuba modifies it to do so, since this is very handy.\nThe group_by function is most often used with filter, mutate, and summarize.\n\nFilter\n\n# keep rows where hp is greater than mean hp within cyl group\ng_cyl >> filter(_.hp > _.hp.mean())\n\n\n(grouped data frame)\n\n\n  \n    \n      \n      cyl\n      gear\n      hp\n    \n  \n  \n    \n      2\n      4\n      4\n      93\n    \n    \n      6\n      8\n      3\n      245\n    \n    \n      ...\n      ...\n      ...\n      ...\n    \n    \n      30\n      8\n      5\n      335\n    \n    \n      31\n      4\n      4\n      109\n    \n  \n\n15 rows × 3 columns\n\n\n\n\n\nMutate\n\ng_cyl >> mutate(avg_hp = _.hp.mean())\n\n\n(grouped data frame)\n\n\n  \n    \n      \n      cyl\n      gear\n      hp\n      avg_hp\n    \n  \n  \n    \n      0\n      6\n      4\n      110\n      122.285714\n    \n    \n      1\n      6\n      4\n      110\n      122.285714\n    \n    \n      ...\n      ...\n      ...\n      ...\n      ...\n    \n    \n      30\n      8\n      5\n      335\n      209.214286\n    \n    \n      31\n      4\n      4\n      109\n      82.636364\n    \n  \n\n32 rows × 4 columns\n\n\n\n\n\nSummarize\n\ng_cyl >> summarize(avg_hp = _.hp.mean())\n\n\n\n\n\n  \n    \n      \n      cyl\n      avg_hp\n    \n  \n  \n    \n      0\n      4\n      82.636364\n    \n    \n      1\n      6\n      122.285714\n    \n    \n      2\n      8\n      209.214286"
+  },
+  {
+    "objectID": "guide/verb-group-by.html#group-by-multiple-columns",
+    "href": "guide/verb-group-by.html#group-by-multiple-columns",
+    "title": "Group by",
+    "section": "Group by multiple columns",
+    "text": "Group by multiple columns\nIn order to group by multiple columns, simply specify them all as arguments to group_by.\n\nsmall_cars >> group_by(_.cyl, _.gear)\n\n\n(grouped data frame)\n\n\n  \n    \n      \n      cyl\n      gear\n      hp\n    \n  \n  \n    \n      0\n      6\n      4\n      110\n    \n    \n      1\n      6\n      4\n      110\n    \n    \n      ...\n      ...\n      ...\n      ...\n    \n    \n      30\n      8\n      5\n      335\n    \n    \n      31\n      4\n      4\n      109\n    \n  \n\n32 rows × 3 columns"
+  },
+  {
+    "objectID": "guide/verb-group-by.html#group-by-an-expression",
+    "href": "guide/verb-group-by.html#group-by-an-expression",
+    "title": "Group by",
+    "section": "Group by an expression",
+    "text": "Group by an expression\n\nsmall_cars >> group_by(high_hp = _.hp > 300)\n\n\n(grouped data frame)\n\n\n  \n    \n      \n      cyl\n      gear\n      hp\n      high_hp\n    \n  \n  \n    \n      0\n      6\n      4\n      110\n      False\n    \n    \n      1\n      6\n      4\n      110\n      False\n    \n    \n      ...\n      ...\n      ...\n      ...\n      ...\n    \n    \n      30\n      8\n      5\n      335\n      True\n    \n    \n      31\n      4\n      4\n      109\n      False\n    \n  \n\n32 rows × 4 columns"
+  },
+  {
+    "objectID": "guide/verb-group-by.html#count-rows",
+    "href": "guide/verb-group-by.html#count-rows",
+    "title": "Group by",
+    "section": "Count rows",
+    "text": "Count rows\n\nfrom siuba import _, group_by, count\n\n# count number of rows per group\nmtcars >> group_by(_.cyl, _.gear) >> summarize(n = _.shape[0])\n\n# equivalent\nmtcars >> count(_.cyl, _.gear)\n\n\n\n\n\n  \n    \n      \n      cyl\n      gear\n      n\n    \n  \n  \n    \n      0\n      4\n      3\n      1\n    \n    \n      1\n      4\n      4\n      8\n    \n    \n      ...\n      ...\n      ...\n      ...\n    \n    \n      6\n      8\n      3\n      12\n    \n    \n      7\n      8\n      5\n      2\n    \n  \n\n8 rows × 3 columns"
+  },
+  {
+    "objectID": "guide/verb-group-by.html#ungroup",
+    "href": "guide/verb-group-by.html#ungroup",
+    "title": "Group by",
+    "section": "Ungroup",
+    "text": "Ungroup\n\nsmall_cars >> group_by(_.cyl) >> ungroup()\n\n\n\n\n\n  \n    \n      \n      cyl\n      gear\n      hp\n    \n  \n  \n    \n      0\n      6\n      4\n      110\n    \n    \n      1\n      6\n      4\n      110\n    \n    \n      ...\n      ...\n      ...\n      ...\n    \n    \n      30\n      8\n      5\n      335\n    \n    \n      31\n      4\n      4\n      109\n    \n  \n\n32 rows × 3 columns"
+  },
+  {
+    "objectID": "guide/verb-mutate.html",
+    "href": "guide/verb-mutate.html",
+    "title": "Mutate to transform",
+    "section": "",
+    "text": "The mutate() function creates a new column of data, or overwrite an existing one.\nWe’ll use a subset of the mtcars dataset for examples."
+  },
+  {
+    "objectID": "guide/verb-mutate.html#basics",
+    "href": "guide/verb-mutate.html#basics",
+    "title": "Mutate to transform",
+    "section": "Basics",
+    "text": "Basics\n\nsmall_cars >> mutate(mpg_per_cyl = _.mpg / _.cyl)\n\n\n\n\n\n  \n    \n      \n      mpg\n      cyl\n      hp\n      mpg_per_cyl\n    \n  \n  \n    \n      0\n      21.0\n      6\n      110\n      3.500\n    \n    \n      1\n      21.0\n      6\n      110\n      3.500\n    \n    \n      ...\n      ...\n      ...\n      ...\n      ...\n    \n    \n      30\n      15.0\n      8\n      335\n      1.875\n    \n    \n      31\n      21.4\n      4\n      109\n      5.350\n    \n  \n\n32 rows × 4 columns"
+  },
+  {
+    "objectID": "guide/verb-mutate.html#replacing-columns",
+    "href": "guide/verb-mutate.html#replacing-columns",
+    "title": "Mutate to transform",
+    "section": "Replacing columns",
+    "text": "Replacing columns\nWhen a created column is given the same name as an existing column, it replaces that column in the data.\n\nsmall_cars >> mutate(mpg = _.mpg - _.mpg.mean(), new_column = 1)\n\n\n\n\n\n  \n    \n      \n      mpg\n      cyl\n      hp\n      new_column\n    \n  \n  \n    \n      0\n      0.909375\n      6\n      110\n      1\n    \n    \n      1\n      0.909375\n      6\n      110\n      1\n    \n    \n      ...\n      ...\n      ...\n      ...\n      ...\n    \n    \n      30\n      -5.090625\n      8\n      335\n      1\n    \n    \n      31\n      1.309375\n      4\n      109\n      1\n    \n  \n\n32 rows × 4 columns\n\n\n\nNote that replacement columns are put in the same position as the original columns. For example, in the result above, the mpg column is still in the first position on the left."
+  },
+  {
+    "objectID": "guide/verb-mutate.html#using-previous-arguments",
+    "href": "guide/verb-mutate.html#using-previous-arguments",
+    "title": "Mutate to transform",
+    "section": "Using previous arguments",
+    "text": "Using previous arguments\nArguments can refer to columns that were created in earlier arguments.\n\nsmall_cars >> mutate(cyl2 = _.cyl * 2, cyl4 = _.cyl2 * 2)\n\n\n\n\n\n  \n    \n      \n      mpg\n      cyl\n      hp\n      cyl2\n      cyl4\n    \n  \n  \n    \n      0\n      21.0\n      6\n      110\n      12\n      24\n    \n    \n      1\n      21.0\n      6\n      110\n      12\n      24\n    \n    \n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n    \n    \n      30\n      15.0\n      8\n      335\n      16\n      32\n    \n    \n      31\n      21.4\n      4\n      109\n      8\n      16\n    \n  \n\n32 rows × 5 columns\n\n\n\nIn the code above, cyl4 uses the earlier argument cyl2."
+  },
+  {
+    "objectID": "guide/verb-mutate.html#grouped-mutates",
+    "href": "guide/verb-mutate.html#grouped-mutates",
+    "title": "Mutate to transform",
+    "section": "Grouped mutates",
+    "text": "Grouped mutates\n\n(small_cars\n  >> group_by(_.cyl)\n  >> mutate(\n       hp_mean = _.hp.mean(),\n       demeaned_hp = _.hp - _.hp_mean\n     )\n  )\n\n\n(grouped data frame)\n\n\n  \n    \n      \n      mpg\n      cyl\n      hp\n      hp_mean\n      demeaned_hp\n    \n  \n  \n    \n      0\n      21.0\n      6\n      110\n      122.285714\n      -12.285714\n    \n    \n      1\n      21.0\n      6\n      110\n      122.285714\n      -12.285714\n    \n    \n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n    \n    \n      30\n      15.0\n      8\n      335\n      209.214286\n      125.785714\n    \n    \n      31\n      21.4\n      4\n      109\n      82.636364\n      26.363636\n    \n  \n\n32 rows × 5 columns\n\n\n\n\n(small_cars\n  >> group_by(_.cyl)\n  >> mutate(\n       hp_per_cyl = _.hp / _.cyl,\n       diff = _.hp_per_cyl - _.hp_per_cyl.shift(1)\n     )\n  )\n\n\n(grouped data frame)\n\n\n  \n    \n      \n      mpg\n      cyl\n      hp\n      hp_per_cyl\n      diff\n    \n  \n  \n    \n      0\n      21.0\n      6\n      110\n      18.333333\n      NaN\n    \n    \n      1\n      21.0\n      6\n      110\n      18.333333\n      0.000\n    \n    \n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n    \n    \n      30\n      15.0\n      8\n      335\n      41.875000\n      8.875\n    \n    \n      31\n      21.4\n      4\n      109\n      27.250000\n      -1.000\n    \n  \n\n32 rows × 5 columns"
+  },
+  {
+    "objectID": "guide/verb-select.html",
+    "href": "guide/verb-select.html",
+    "title": "Select columns",
+    "section": "",
+    "text": "This function lets you select specific columns of your data to keep.\nThere are three different building blocks that can used in a selection:"
+  },
+  {
+    "objectID": "guide/verb-select.html#select-by-name-or-position",
+    "href": "guide/verb-select.html#select-by-name-or-position",
+    "title": "Select columns",
+    "section": "Select by name or position",
+    "text": "Select by name or position\nThe simplest way to select a column to keep is to refer to it by name or position.\n\nselect(penguins, _.species, _.island, 6, -1)\n\n\n\n\n\n  \n    \n      \n      species\n      island\n      sex\n      year\n    \n  \n  \n    \n      0\n      Adelie\n      Torgersen\n      male\n      2007\n    \n    \n      1\n      Adelie\n      Torgersen\n      female\n      2007\n    \n    \n      ...\n      ...\n      ...\n      ...\n      ...\n    \n    \n      342\n      Chinstrap\n      Dream\n      male\n      2009\n    \n    \n      343\n      Chinstrap\n      Dream\n      female\n      2009\n    \n  \n\n344 rows × 4 columns\n\n\n\nThe code above does the following:\n\nselects by name the species and island columns.\nselects by position the index 6 and -1 columns (the last item).\n\nSelecting by position should produce the same results as indexing a list of names.\npenguins.columns[6]       # \"sex\"\npenguins.columns[-1]      # \"year\""
+  },
+  {
+    "objectID": "guide/verb-select.html#excluding-columns",
+    "href": "guide/verb-select.html#excluding-columns",
+    "title": "Select columns",
+    "section": "Excluding columns",
+    "text": "Excluding columns\nYou can remove a column from the data by putting a tilde operator (~) in front of it.\n\npenguins >> select(~_.body_mass_g, ~_.sex, ~_.year)\n\n\n\n\n\n  \n    \n      \n      species\n      island\n      bill_length_mm\n      bill_depth_mm\n      flipper_length_mm\n    \n  \n  \n    \n      0\n      Adelie\n      Torgersen\n      39.1\n      18.7\n      181.0\n    \n    \n      1\n      Adelie\n      Torgersen\n      39.5\n      17.4\n      186.0\n    \n    \n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n    \n    \n      342\n      Chinstrap\n      Dream\n      50.8\n      19.0\n      210.0\n    \n    \n      343\n      Chinstrap\n      Dream\n      50.2\n      18.7\n      198.0\n    \n  \n\n344 rows × 5 columns\n\n\n\nThe code above keeps all columns except body_mass_g, sex, and year.\nNote that the ~ operator flips the value of True and False in pandas, and is called the “invert operator”.\n\n~pd.Series([True, False])\n\n0    False\n1     True\ndtype: bool"
+  },
+  {
+    "objectID": "guide/verb-select.html#renaming-columns",
+    "href": "guide/verb-select.html#renaming-columns",
+    "title": "Select columns",
+    "section": "Renaming columns",
+    "text": "Renaming columns\nYou can rename a specified column by using the equality operator (==). This operation takes the following form.\n\n_.new_name == _.old_name\n\n\npenguins >> select(_.species_name == _.species)\n\n\n\n\n\n  \n    \n      \n      species_name\n    \n  \n  \n    \n      0\n      Adelie\n    \n    \n      1\n      Adelie\n    \n    \n      ...\n      ...\n    \n    \n      342\n      Chinstrap\n    \n    \n      343\n      Chinstrap\n    \n  \n\n344 rows × 1 columns\n\n\n\nNote that expressing the new column name on the left is similar to how creating a python dictionary works. For example…\n\nselect(_.a == _.x, _.b == _.y)\ndict(a = \"x\", b = \"y\")\n\nboth create new entries named “a” and “b”."
+  },
+  {
+    "objectID": "guide/verb-select.html#select-by-slice",
+    "href": "guide/verb-select.html#select-by-slice",
+    "title": "Select columns",
+    "section": "Select by slice",
+    "text": "Select by slice\nWhen the columns are adjacent to each other, you can select them using _[\"start_col\":\"end_col\"].\n\npenguins >> select(_.species, _[\"bill_length_mm\":\"body_mass_g\"])\n\n\n\n\n\n  \n    \n      \n      species\n      bill_length_mm\n      bill_depth_mm\n      flipper_length_mm\n      body_mass_g\n    \n  \n  \n    \n      0\n      Adelie\n      39.1\n      18.7\n      181.0\n      3750.0\n    \n    \n      1\n      Adelie\n      39.5\n      17.4\n      186.0\n      3800.0\n    \n    \n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n    \n    \n      342\n      Chinstrap\n      50.8\n      19.0\n      210.0\n      4100.0\n    \n    \n      343\n      Chinstrap\n      50.2\n      18.7\n      198.0\n      3775.0\n    \n  \n\n344 rows × 5 columns\n\n\n\nYou can use three methods to specify a column in a slice:\n\n_.some_col\n\"some_col\"\na position number\n\n\nExclusion\nYou can exclude slice selections using the ~ operator.\n\npenguins >> select(~_[\"bill_length_mm\":\"body_mass_g\"])\n\n\n\n\n\n  \n    \n      \n      species\n      island\n      sex\n      year\n    \n  \n  \n    \n      0\n      Adelie\n      Torgersen\n      male\n      2007\n    \n    \n      1\n      Adelie\n      Torgersen\n      female\n      2007\n    \n    \n      ...\n      ...\n      ...\n      ...\n      ...\n    \n    \n      342\n      Chinstrap\n      Dream\n      male\n      2009\n    \n    \n      343\n      Chinstrap\n      Dream\n      female\n      2009\n    \n  \n\n344 rows × 4 columns\n\n\n\n\n\nPosition number\nNote that when position number is used to slice columns, the end position is not included in the selection.\n\n# these are equivalent\n\npenguins >> select(0, 1)\npenguins >> select(_[0:2])\n\n\n\n\n\n  \n    \n      \n      species\n      island\n    \n  \n  \n    \n      0\n      Adelie\n      Torgersen\n    \n    \n      1\n      Adelie\n      Torgersen\n    \n    \n      ...\n      ...\n      ...\n    \n    \n      342\n      Chinstrap\n      Dream\n    \n    \n      343\n      Chinstrap\n      Dream\n    \n  \n\n344 rows × 2 columns"
+  },
+  {
+    "objectID": "guide/verb-select.html#select-by-pattern-e.g.-endswith",
+    "href": "guide/verb-select.html#select-by-pattern-e.g.-endswith",
+    "title": "Select columns",
+    "section": "Select by pattern (e.g. endswith)",
+    "text": "Select by pattern (e.g. endswith)\n\npenguins >> select(_.species, _.endswith(\"mm\"))\n\n\n\n\n\n  \n    \n      \n      species\n      bill_length_mm\n      bill_depth_mm\n      flipper_length_mm\n    \n  \n  \n    \n      0\n      Adelie\n      39.1\n      18.7\n      181.0\n    \n    \n      1\n      Adelie\n      39.5\n      17.4\n      186.0\n    \n    \n      ...\n      ...\n      ...\n      ...\n      ...\n    \n    \n      342\n      Chinstrap\n      50.8\n      19.0\n      210.0\n    \n    \n      343\n      Chinstrap\n      50.2\n      18.7\n      198.0\n    \n  \n\n344 rows × 4 columns\n\n\n\n\npenguins >> select(_.contains(\"length\"))\n\n\n\n\n\n  \n    \n      \n      bill_length_mm\n      flipper_length_mm\n    \n  \n  \n    \n      0\n      39.1\n      181.0\n    \n    \n      1\n      39.5\n      186.0\n    \n    \n      ...\n      ...\n      ...\n    \n    \n      342\n      50.8\n      210.0\n    \n    \n      343\n      50.2\n      198.0\n    \n  \n\n344 rows × 2 columns"
+  },
+  {
+    "objectID": "guide/verb-select.html#pandas-comparison",
+    "href": "guide/verb-select.html#pandas-comparison",
+    "title": "Select columns",
+    "section": "Pandas comparison",
+    "text": "Pandas comparison\n\nimport pandas as pd\n\nfrom siuba.data import mtcars\nfrom siuba import select, _\n\nClick between tabs to compare code across siuba and pandas.\n\nSiubaPandas\n\n\n\n# keep cyl column\nmtcars >> select(_.cyl)\n\n# keep all *except* cyl column\nmtcars >> select(-_.cyl)\n\n# complex select, plus rename cyl to cylinder\nmtcars >> select(_.cylinder == _.cyl, _.startswith(\"m\"))\n\n\n\n\n# keep cyl column\nmtcars[[\"cyl\"]]\n\n# keep all *except* cyl column\nmtcars.drop([\"cyl\"], axis=1)\n\n# complex select, plus rename cyl to cylinder\ncols = mtcars.columns\nmtcars.loc[:, (cols == \"cyl\") | cols.str.startswith(\"m\")] \\\n      .rename({\"cyl\": \"cylinder\"})"
+  },
+  {
+    "objectID": "guide/verb-summarize.html",
+    "href": "guide/verb-summarize.html",
+    "title": "Summarize to aggregate",
+    "section": "",
+    "text": "The summarize() creates new columns in your table, based on an aggregation. Aggregations take data and reduces it to a single number. When applied to grouped data, this function returns one row per grouping."
+  },
+  {
+    "objectID": "guide/verb-summarize.html#summarize-over-all-rows",
+    "href": "guide/verb-summarize.html#summarize-over-all-rows",
+    "title": "Summarize to aggregate",
+    "section": "Summarize over all rows",
+    "text": "Summarize over all rows\n\nmtcars >> summarize(avg_mpg = _.mpg.mean())\nmtcars\n\n\n\n\n\n  \n    \n      \n      mpg\n      cyl\n      disp\n      hp\n      drat\n      wt\n      qsec\n      vs\n      am\n      gear\n      carb\n    \n  \n  \n    \n      0\n      21.0\n      6\n      160.0\n      110\n      3.90\n      2.620\n      16.46\n      0\n      1\n      4\n      4\n    \n    \n      1\n      21.0\n      6\n      160.0\n      110\n      3.90\n      2.875\n      17.02\n      0\n      1\n      4\n      4\n    \n    \n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n    \n    \n      30\n      15.0\n      8\n      301.0\n      335\n      3.54\n      3.570\n      14.60\n      0\n      1\n      5\n      8\n    \n    \n      31\n      21.4\n      4\n      121.0\n      109\n      4.11\n      2.780\n      18.60\n      1\n      1\n      4\n      2\n    \n  \n\n32 rows × 11 columns"
+  },
+  {
+    "objectID": "guide/verb-summarize.html#summarize-over-groups",
+    "href": "guide/verb-summarize.html#summarize-over-groups",
+    "title": "Summarize to aggregate",
+    "section": "Summarize over groups",
+    "text": "Summarize over groups\nUse group_by() to split the data up, apply some aggregation, and then combine results.\n\n(mtcars\n  >> group_by(_.cyl)\n  >> summarize(\n       avg = _.mpg.mean(),\n       range = _.mpg.max() - _.mpg.min(),\n       avg_per_cyl = (_.mpg / _.cyl).mean()\n  )\n)\n\n\n\n\n\n  \n    \n      \n      cyl\n      avg\n      range\n      avg_per_cyl\n    \n  \n  \n    \n      0\n      4\n      26.663636\n      12.5\n      6.665909\n    \n    \n      1\n      6\n      19.742857\n      3.6\n      3.290476\n    \n    \n      2\n      8\n      15.100000\n      8.8\n      1.887500\n    \n  \n\n\n\n\nNote there are 3 unique groupings for cyl (4, 6, and 8), so the resulting table has 3 rows."
+  },
+  {
+    "objectID": "guide/wrangle-helpers.html",
+    "href": "guide/wrangle-helpers.html",
+    "title": "Helpers: count, separate, complete",
+    "section": "",
+    "text": "Some combinations of verbs and column operations get used so frequently that they earn their own helper verbs. These helpers make things a little quicker or concise to type.\nThis page discusses 3 helper functions that will super charge your workflow:"
+  },
+  {
+    "objectID": "guide/wrangle-helpers.html#count-values",
+    "href": "guide/wrangle-helpers.html#count-values",
+    "title": "Helpers: count, separate, complete",
+    "section": "Count values",
+    "text": "Count values"
+  },
+  {
+    "objectID": "guide/wrangle-helpers.html#separate-strings-into-columns",
+    "href": "guide/wrangle-helpers.html#separate-strings-into-columns",
+    "title": "Helpers: count, separate, complete",
+    "section": "Separate strings into columns",
+    "text": "Separate strings into columns"
+  },
+  {
+    "objectID": "guide/wrangle-helpers.html#complete-combinations-of-data",
+    "href": "guide/wrangle-helpers.html#complete-combinations-of-data",
+    "title": "Helpers: count, separate, complete",
+    "section": "Complete combinations of data",
+    "text": "Complete combinations of data"
+  },
+  {
+    "objectID": "guide/wrangle-joins.html",
+    "href": "guide/wrangle-joins.html",
+    "title": "Join tables",
+    "section": "",
+    "text": "Warning\n\n\n\nThis page is at the draft stage. The structure, examples, and figures are there, but it lacks narrative structure / needs refining."
+  },
+  {
+    "objectID": "guide/wrangle-joins.html#syntax",
+    "href": "guide/wrangle-joins.html#syntax",
+    "title": "Join tables",
+    "section": "Syntax",
+    "text": "Syntax\nLike other siuba verbs, joins can be used in two ways: directly passing both data as arguments, or by piping.\n\n# directly passing data\ninner_join(lhs, rhs, on=\"id\")\n\n# piping\nlhs >> inner_join(_, rhs, on=\"id\")\n\n\n\n\n\n  \n    \n      \n      id\n      val_x\n      val_y\n    \n  \n  \n    \n      0\n      1\n      lhs.1\n      rhs.1\n    \n    \n      1\n      2\n      lhs.2\n      rhs.2\n    \n  \n\n\n\n\nNote that when used in a pipe, the first argument to the join must be _, to represent the data."
+  },
+  {
+    "objectID": "guide/wrangle-joins.html#mutating-joins",
+    "href": "guide/wrangle-joins.html#mutating-joins",
+    "title": "Join tables",
+    "section": "Mutating joins",
+    "text": "Mutating joins\n\n\nInner join\n\ninner_join(lhs, rhs, on=\"id\")\n\n\n\n\n\n  \n    \n      \n      id\n      val_x\n      val_y\n    \n  \n  \n    \n      0\n      1\n      lhs.1\n      rhs.1\n    \n    \n      1\n      2\n      lhs.2\n      rhs.2\n    \n  \n\n\n\n\n\n\nOuter joins\n\nleft_join(lhs, rhs, on=\"id\")\n\n\n\n\n\n  \n    \n      \n      id\n      val_x\n      val_y\n    \n  \n  \n    \n      0\n      1\n      lhs.1\n      rhs.1\n    \n    \n      1\n      2\n      lhs.2\n      rhs.2\n    \n    \n      2\n      3\n      lhs.3\n      NaN\n    \n  \n\n\n\n\n\nfull_join(lhs, rhs, on=\"id\")\n\n\n\n\n\n  \n    \n      \n      id\n      val_x\n      val_y\n    \n  \n  \n    \n      0\n      1\n      lhs.1\n      rhs.1\n    \n    \n      1\n      2\n      lhs.2\n      rhs.2\n    \n    \n      2\n      3\n      lhs.3\n      NaN\n    \n    \n      3\n      4\n      NaN\n      rhs.3"
+  },
+  {
+    "objectID": "guide/wrangle-joins.html#filtering-joins",
+    "href": "guide/wrangle-joins.html#filtering-joins",
+    "title": "Join tables",
+    "section": "Filtering joins",
+    "text": "Filtering joins\n\nsemi_join(lhs, rhs, on=\"id\")\n\n\n\n\n\n  \n    \n      \n      id\n      val\n    \n  \n  \n    \n      0\n      1\n      lhs.1\n    \n    \n      1\n      2\n      lhs.2\n    \n  \n\n\n\n\n\nanti_join(lhs, rhs, on=\"id\")\n\n\n\n\n\n  \n    \n      \n      id\n      val\n    \n  \n  \n    \n      2\n      3\n      lhs.3"
+  },
+  {
+    "objectID": "guide/wrangle-joins.html#duplicate-matches",
+    "href": "guide/wrangle-joins.html#duplicate-matches",
+    "title": "Join tables",
+    "section": "Duplicate matches",
+    "text": "Duplicate matches\n\n\n\n\n\n\n\n\n\n\n\n\nimport pandas as pd\nlhs_dupes = pd.DataFrame({\n    \"id\": [1, 2, 2, 3], \n    \"val\": [\"lhs.1\", \"lhs.2\", \"lhs.3\", \"lhs.4\"]\n})\n\nrhs_dupes = pd.DataFrame({\n    \"id\": [1, 2, 2, 4],\n    \"val\": [\"rhs.1\", \"rhs.2\", \"rhs.3\", \"rhs.4\"]\n})\n\n\n\n\nlhs_dupes\n\n\n\n\n\n  \n    \n      \n      id\n      val\n    \n  \n  \n    \n      0\n      1\n      lhs.1\n    \n    \n      1\n      2\n      lhs.2\n    \n    \n      2\n      2\n      lhs.3\n    \n    \n      3\n      3\n      lhs.4\n    \n  \n\n\n\n\n\nrhs_dupes\n\n\n\n\n\n  \n    \n      \n      id\n      val\n    \n  \n  \n    \n      0\n      1\n      rhs.1\n    \n    \n      1\n      2\n      rhs.2\n    \n    \n      2\n      2\n      rhs.3\n    \n    \n      3\n      4\n      rhs.4\n    \n  \n\n\n\n\n\n\n\ninner_join(lhs_dupes, rhs_dupes, on=\"id\")\n\n\n\n\n\n  \n    \n      \n      id\n      val_x\n      val_y\n    \n  \n  \n    \n      0\n      1\n      lhs.1\n      rhs.1\n    \n    \n      1\n      2\n      lhs.2\n      rhs.2\n    \n    \n      2\n      2\n      lhs.2\n      rhs.3\n    \n    \n      3\n      2\n      lhs.3\n      rhs.2\n    \n    \n      4\n      2\n      lhs.3\n      rhs.3"
+  },
+  {
+    "objectID": "guide/wrangle-joins.html#na-handling",
+    "href": "guide/wrangle-joins.html#na-handling",
+    "title": "Join tables",
+    "section": "NA handling",
+    "text": "NA handling\n\n\n\n\n\n\n\n\n\n\n\nSame as dplyr\n\nimport pandas as pd\nlhs_na = pd.DataFrame({\"id\": [1, pd.NA, 3]})\nrhs_na = pd.DataFrame({\"id\": [1, pd.NA, 2]})\nleft_join(lhs_na, rhs_na, on=\"id\")\n\n\n\n\n\n  \n    \n      \n      id\n    \n  \n  \n    \n      0\n      1\n    \n    \n      1\n      <NA>\n    \n    \n      2\n      3"
+  },
+  {
+    "objectID": "guide/wrangle-joins.html#match-on-multiple-columns",
+    "href": "guide/wrangle-joins.html#match-on-multiple-columns",
+    "title": "Join tables",
+    "section": "Match on multiple columns",
+    "text": "Match on multiple columns\n\nlhs_multi = pd.DataFrame({\n    \"source\": [\"a\", \"a\", \"b\"],\n    \"id\": [1, 2, 1],\n    \"val\": [\"lhs.1\", \"lhs.2\", \"lhs.3\"]\n})\n\nrhs_multi = pd.DataFrame({\n    \"source\": [\"a\", \"b\", \"c\"],\n    \"id\": [1, 1, 1],\n    \"val\": [\"lhs.1\", \"lhs.2\", \"lhs.3\"]\n})\n\ninner_join(lhs_multi, rhs_multi, on=[\"source\", \"id\"])\n\n\n\n\n\n  \n    \n      \n      source\n      id\n      val_x\n      val_y\n    \n  \n  \n    \n      0\n      a\n      1\n      lhs.1\n      lhs.1\n    \n    \n      1\n      b\n      1\n      lhs.3\n      lhs.2\n    \n  \n\n\n\n\n\ninner_join(lhs_multi, rhs_multi, on={\"source\": \"source\", \"id\": \"id\"})\n\n\n\n\n\n  \n    \n      \n      source\n      id\n      val_x\n      val_y\n    \n  \n  \n    \n      0\n      a\n      1\n      lhs.1\n      lhs.1\n    \n    \n      1\n      b\n      1\n      lhs.3\n      lhs.2"
+  },
+  {
+    "objectID": "guide/wrangle-joins.html#match-on-expressions",
+    "href": "guide/wrangle-joins.html#match-on-expressions",
+    "title": "Join tables",
+    "section": "Match on expressions",
+    "text": "Match on expressions\n\n\n\n\n\n\n\n\n\n\n\nSQL backends can join by expressions.\n\nfrom sqlalchemy import create_engine\nfrom siuba.sql import LazyTbl\n\nengine = create_engine(\"sqlite:///:memory:\")\n\nlhs.to_sql(\"lhs\", engine, index=False)\nrhs.to_sql(\"rhs\", engine, index=False)\n\ntbl_sql_lhs = LazyTbl(engine, \"lhs\")\ntbl_sql_rhs = LazyTbl(engine, \"rhs\")\n\ninner_join(\n    tbl_sql_lhs,\n    tbl_sql_rhs,\n    sql_on = lambda lhs, rhs: lhs.val <= rhs.val\n)\n\n\n# Source: lazy query\n# DB Conn: Engine(sqlite:///:memory:)\n# Preview:\n\n\n\n  \n    \n      \n      id_x\n      val_x\n      id_y\n      val_y\n    \n  \n  \n    \n      0\n      1\n      lhs.1\n      1\n      rhs.1\n    \n    \n      1\n      1\n      lhs.1\n      2\n      rhs.2\n    \n    \n      2\n      1\n      lhs.1\n      4\n      rhs.3\n    \n    \n      3\n      2\n      lhs.2\n      1\n      rhs.1\n    \n    \n      4\n      2\n      lhs.2\n      2\n      rhs.2\n    \n  \n\n# .. may have more rows"
+  },
+  {
+    "objectID": "guide/wrangle-reshape.html",
+    "href": "guide/wrangle-reshape.html",
+    "title": "Reshape tables",
+    "section": "",
+    "text": "import pandas as pd\nfrom siuba import _, spread, gather\n\ncosts = pd.DataFrame({\n    'id': [1,2],\n    'price_x': [.1, .2],\n    'price_y': [.4, .5],\n    'price_z': [.7, .8]\n})\n\ncosts\n\n\n\n\n\n  \n    \n      \n      id\n      price_x\n      price_y\n      price_z\n    \n  \n  \n    \n      0\n      1\n      0.1\n      0.4\n      0.7\n    \n    \n      1\n      2\n      0.2\n      0.5\n      0.8"
+  },
+  {
+    "objectID": "guide/wrangle-reshape.html#gather-data-long",
+    "href": "guide/wrangle-reshape.html#gather-data-long",
+    "title": "Reshape tables",
+    "section": "Gather data long",
+    "text": "Gather data long\n\n# selecting each variable manually\ncosts >> gather('measure', 'value', _.price_x, _.price_y, _.price_z)\n\n# selecting variables using a slice\ncosts >> gather('measure', 'value', _[\"price_x\":\"price_z\"])\n\n# selecting by excluding id\ncosts >> gather('measure', 'value', -_.id)\n\n\n\n\n\n  \n    \n      \n      id\n      measure\n      value\n    \n  \n  \n    \n      0\n      1\n      price_x\n      0.1\n    \n    \n      1\n      2\n      price_x\n      0.2\n    \n    \n      ...\n      ...\n      ...\n      ...\n    \n    \n      4\n      1\n      price_z\n      0.7\n    \n    \n      5\n      2\n      price_z\n      0.8\n    \n  \n\n6 rows × 3 columns"
+  },
+  {
+    "objectID": "guide/wrangle-reshape.html#spread-data-wide",
+    "href": "guide/wrangle-reshape.html#spread-data-wide",
+    "title": "Reshape tables",
+    "section": "Spread data wide",
+    "text": "Spread data wide\n\n(costs\n    >> gather('measure', 'value', -_.id)\n    >> spread('measure', 'value')\n)\n\n\n\n\n\n  \n    \n      \n      id\n      price_x\n      price_y\n      price_z\n    \n  \n  \n    \n      0\n      1\n      0.1\n      0.4\n      0.7\n    \n    \n      1\n      2\n      0.2\n      0.5\n      0.8"
+  },
+  {
+    "objectID": "guide/wrangle-reshape.html#pivot-wider-and-aggregate",
+    "href": "guide/wrangle-reshape.html#pivot-wider-and-aggregate",
+    "title": "Reshape tables",
+    "section": "Pivot wider and aggregate",
+    "text": "Pivot wider and aggregate\n\ndf = pd.DataFrame({\n    \"id\": [1, 1, 2],\n    \"measure\": [\"a\", \"a\", \"b\"],\n    \"value\": [8, 9, 10]\n})\n\ndf >> spread(\"measure\", \"value\")\n\nValueError: Index contains duplicate entries, cannot reshape\n\n\n\ndf.pivot_table(columns=\"measure\", values=\"value\", index=\"id\", aggfunc=list)\n\n\n\n\n\n  \n    \n      measure\n      a\n      b\n    \n    \n      id\n      \n      \n    \n  \n  \n    \n      1\n      [8, 9]\n      NaN\n    \n    \n      2\n      NaN\n      [10]\n    \n  \n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nNote that siuba can pipe to the pandas DataFrame’s pivot_table method as follows.\n\n(df\n    >> _.pivot_table(...)\n)\n\nWhere you would replace ... with your arguments. See flexible piping for more details."
+  },
+  {
+    "objectID": "guide/wrangle-reshape.html#examples",
+    "href": "guide/wrangle-reshape.html#examples",
+    "title": "Reshape tables",
+    "section": "Examples",
+    "text": "Examples\n\nfrom siuba import filter\nfrom plotnine import ggplot, aes, geom_col, facet_wrap, scale_fill_brewer, theme, element_blank\nfrom siuba.dply.forcats import fct_reorder\n\n(long_income\n    >> mutate(\n        lower=_.income.str.extract(\"$([0-9]+)\")\n    )\n    >> mutate(\n        lower=if_else(_.income == \"<$10k\", 0, _.lower.astype(float)),\n        income=fct_reorder(_.income, _.lower)\n    )\n    >> filter(~_.religion.str.startswith(\"Don\"))\n    >> group_by(_.religion)\n    >> mutate(pct = _.n / _.n.sum())\n    >> ggplot(aes(\"income\", \"pct\", fill=\"income\"))\n     + geom_col()\n     + facet_wrap(\"~religion\")\n     + theme(axis_text_x = element_blank())\n)"
+  },
+  {
+    "objectID": "api/index.html",
+    "href": "api/index.html",
+    "title": "API",
+    "section": "",
+    "text": "This page will diagram out key concepts"
+  },
+  {
+    "objectID": "examples/index.html",
+    "href": "examples/index.html",
+    "title": "Examples",
+    "section": "",
+    "text": "This page will diagram out key concepts"
+  }
+]
