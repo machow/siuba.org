@@ -6,7 +6,7 @@ project:
     - guide/*.qmd
     - api/*.qmd
     - examples/*.qmd
-    - about/*.qmd
+    #- about/*.qmd
 
 website:
   title: "Siuba"
