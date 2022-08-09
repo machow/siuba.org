@@ -1,5 +1,7 @@
 ---
-title: Introduction
+title: Overview
+aliases:
+  - ../index.html
 jupyter:
   jupytext:
     formats: 'qmd:quarto'
@@ -29,7 +31,7 @@ Siuba is a tool for concise, flexible data-analysis over multiple data sources. 
 ## Installing
 
 
-```
+```bash
 pip install siuba
 ```
 
@@ -88,26 +90,21 @@ mtcars[_.cyl == 4]
 
 Note that like the lambda function, siuba avoids typing the same (potentially_very_long) name twice, while also being a bit shorter.
 
-Here is a more complex example that uses grouping and calculating a mean with the pandas groupby and apply methods.
+## Table verbs
+
+Verbs are functions that operate on a table of data.
+They can be combined using a pipe with the `>>` operator.
 
 ```{python}
-# group by cylinder, calculate horse power (hp) minus its mean
-(mtcars
-  .groupby("cyl")
-  .apply(_.hp - _.hp.mean())
-)
+from siuba import _, mutate, filter, group_by, summarize
+from siuba.data import mtcars
 ```
 
-## Verbs: mutate, filter, summarize
-
-Verbs a functions that operate on a table of data.
-They can be combined using a pipe with the `>>` operator.
+### Mutate
 
 The previous example can be re-written in siuba as the following.
 
 ```{python}
-from siuba import mutate
-
 (mtcars
   >> group_by(_.cyl)
   >> mutate(demeaned = _.hp - _.hp.mean())
@@ -116,94 +113,53 @@ from siuba import mutate
 
 Note that there is a key difference: mutate returned a pandas DataFrame with the new column (demeaned) at the end. This is a core feature of siuba verbs--tables in and tables out.
 
+
+### Filter
+
 Below are examples of keeping certain rows with **filter**, and calculating a single number per group with **summarize**.
 
 ```{python}
-from siuba import filter, summarize
-
 g_cyl = group_by(mtcars, _.cyl)
 
 # keep lowest hp per group
 g_cyl >> filter(_.hp == _.hp.min())
 ```
 
+### Summarize
+
 ```{python}
 g_cyl >> summarize(avg_hp = _.hp.mean())
 ```
 
-## Working with SQL
+## Column operations
 
-Up to this point we've covered lazy expressions (`_`), and using table verbs. A major benefit of these two approaches is that they allow us to change how siuba behaves depending on the data source on which it is operating.
+The verbs above received a few different calculations as arguments:
 
-### Setup
+* `_.hp.mean()`
+* `_.hp.min()`
 
-For these examples we first set up a sqlite database.
+You can use any methods from the underlying pandas objects as methods.
 
 ```{python}
-from sqlalchemy import create_engine
-from siuba.sql import LazyTbl
-from siuba import _, group_by, summarize, show_query, collect 
+# outside
+mtcars.shape[0] + 1
 
-# copy in to sqlite, using the pandas .to_sql() method
-engine = create_engine("sqlite:///:memory:")
-mtcars.to_sql("mtcars", engine, if_exists = "replace")
+# inside mutate
+mtcars >> mutate(res = _.shape[0] + 1)
 ```
 
-Note that we now have a table called `mtcars` in the sqlite database.
-
-### Accessing tables
-
-Use the `LazyTbl` class to connect to a SQL table.
-Printing the table will show a preview of the first few rows.
+This includes the `str` and `dt` attribute accessor methods:
 
 ```{python}
-# Create a lazy SQL DataFrame
-tbl_mtcars = LazyTbl(engine, "mtcars")
-tbl_mtcars
-```
+import pandas as pd
 
-Notice that we defined the variable `tbl_mtcars` to refer to the `mtcars` table in the database.
-When we print `tbl_mtcars` it shows a preview of the underlying data,
-along with some notes about the database being used: `# DB Conn: Engine(sqlite:///:memory:)`.
+df = pd.DataFrame({"x": ["apple", "banana"]})
 
+# outside
+df.x.str.contains("a")
 
-
-### Basic analysis
-
-You don't need to change your analysis code to run it on a SQL table.
-For example, the code below groups and summarizes the data.
-
-
-
-```{python}
-# connect with siuba
-
-tbl_query = (tbl_mtcars
-  >> group_by(_.cyl)
-  >> summarize(avg_hp = _.hp.mean())
-  )
-
-tbl_query
-```
-
-Under the hood functions like summarize know how to convert the lazy expressions shown in the code above to SQL.
-
-
-### Show query
-
-By default, printing out a `LazyTbl` shows a preview of the data.
-Use `show_query()` to see the actual SQL query siuba will generate.
-
-```{python}
-q = tbl_query >> show_query()
-```
-
-### Collect to DataFrame
-
-Use `collect()` to fetch the full query results as a pandas `DataFrame`.
-
-```{python}
-tbl_query >> collect()
+# inside mutate
+df >> mutate(res = _.x.str.contains("a"))
 ```
 
 ## Using with plotnine

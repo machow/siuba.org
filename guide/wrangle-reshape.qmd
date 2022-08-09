@@ -1,4 +1,5 @@
 ---
+title: "Reshape tables"
 jupyter:
   jupytext:
     formats: 'qmd:quarto'
@@ -13,4 +14,104 @@ jupyter:
     name: python3
 ---
 
-# Reshape tables
+```{python}
+#| include: false
+
+import pandas as pd
+
+pd.set_option("display.max_rows", 5)
+```
+
+```{python}
+import pandas as pd
+from siuba import _, spread, gather
+
+costs = pd.DataFrame({
+    'id': [1,2],
+    'price_x': [.1, .2],
+    'price_y': [.4, .5],
+    'price_z': [.7, .8]
+})
+
+costs
+```
+
+## Gather data long
+
+```{python}
+# selecting each variable manually
+costs >> gather('measure', 'value', _.price_x, _.price_y, _.price_z)
+
+# selecting variables using a slice
+costs >> gather('measure', 'value', _["price_x":"price_z"])
+
+# selecting by excluding id
+costs >> gather('measure', 'value', -_.id)
+```
+
+## Spread data wide
+
+```{python}
+(costs
+    >> gather('measure', 'value', -_.id)
+    >> spread('measure', 'value')
+)
+```
+
+## Pivot wider and aggregate
+
+```{python}
+#| error: true
+
+df = pd.DataFrame({
+    "id": [1, 1, 2],
+    "measure": ["a", "a", "b"],
+    "value": [8, 9, 10]
+})
+
+df >> spread("measure", "value")
+```
+
+```{python}
+df.pivot_table(columns="measure", values="value", index="id", aggfunc=list)
+```
+
+:::{.callout-note}
+Note that siuba can pipe to the pandas DataFrame's pivot_table method as follows.
+
+```{python}
+#| eval: false
+(df
+    >> _.pivot_table(...)
+)
+```
+
+Where you would replace `...` with your arguments. See [flexible piping](./programming-pipes.qmd) for more details.
+:::
+
+## Examples
+
+```{python}
+#| eval: false
+
+from siuba import filter
+from plotnine import ggplot, aes, geom_col, facet_wrap, scale_fill_brewer, theme, element_blank
+from siuba.dply.forcats import fct_reorder
+
+(long_income
+    >> mutate(
+        lower=_.income.str.extract("$([0-9]+)")
+    )
+    >> mutate(
+        lower=if_else(_.income == "<$10k", 0, _.lower.astype(float)),
+        income=fct_reorder(_.income, _.lower)
+    )
+    >> filter(~_.religion.str.startswith("Don"))
+    >> group_by(_.religion)
+    >> mutate(pct = _.n / _.n.sum())
+    >> ggplot(aes("income", "pct", fill="income"))
+     + geom_col()
+     + facet_wrap("~religion")
+     + theme(axis_text_x = element_blank())
+)
+```

@@ -1,4 +1,5 @@
 ---
+title: Join tables
 jupyter:
   jupytext:
     formats: 'qmd:quarto'
@@ -13,14 +14,209 @@ jupyter:
     name: python3
 ---
 
-# Join tables
+:::{.callout-warning}
+This page is at the **draft** stage. The structure, examples, and figures are there,
+but it lacks narrative structure / needs refining.
+:::
+
+:::{.callout-note}
+The format of these plots and structure of examples takes heavy inspiration from
+[R for Data Science](https://r4ds.had.co.nz/relational-data.html).
+:::
 
 ```{python}
+#| include: false
 import pandas as pd
 
 pd.set_option("display.max_rows", 5)
-
-from siuba.data import penguins
-from siuba import _, summarize, group_by
 ```
 
+
+```{python}
+from siuba import (
+    _,
+    inner_join, left_join, full_join, right_join,
+    semi_join, anti_join
+)
+
+lhs = pd.DataFrame({'id': [1,2,3], 'val': ['lhs.1', 'lhs.2', 'lhs.3']})
+rhs = pd.DataFrame({'id': [1,2,4], 'val': ['rhs.1', 'rhs.2', 'rhs.3']})
+```
+
+::: {layout-ncol=2}
+
+```{python}
+lhs
+```
+
+```{python}
+rhs
+```
+
+:::
+
+## Syntax
+
+Like other siuba verbs, joins can be used in two ways: directly passing both data
+as arguments, or by piping.
+
+```{python}
+# directly passing data
+inner_join(lhs, rhs, on="id")
+
+# piping
+lhs >> inner_join(_, rhs, on="id")
+```
+
+Note that when used in a pipe, the first argument to the join **must be `_`**,
+to represent the data.
+
+
+## Mutating joins
+
+![](_assets/mutate-joins.png)
+
+### Inner join
+
+```{python}
+inner_join(lhs, rhs, on="id")
+```
+
+### Outer joins
+
+
+```{python}
+left_join(lhs, rhs, on="id")
+```
+
+```{python}
+full_join(lhs, rhs, on="id")
+```
+
+## Filtering joins
+
+```{python}
+semi_join(lhs, rhs, on="id")
+```
+
+```{python}
+anti_join(lhs, rhs, on="id")
+```
+
+## Duplicate matches
+
+:::{.grid}
+:::{.g-col-lg-3}
+:::
+:::{.g-col-9 .g-col-md-6}
+![](_assets/joins-duplicates.png)
+:::
+:::{.g-col-lg-3}
+:::
+:::
+
+```{python}
+import pandas as pd
+lhs_dupes = pd.DataFrame({
+    "id": [1, 2, 2, 3], 
+    "val": ["lhs.1", "lhs.2", "lhs.3", "lhs.4"]
+})
+
+rhs_dupes = pd.DataFrame({
+    "id": [1, 2, 2, 4],
+    "val": ["rhs.1", "rhs.2", "rhs.3", "rhs.4"]
+})
+```
+
+
+::: {layout-ncol=2}
+
+```{python}
+lhs_dupes
+```
+
+```{python}
+rhs_dupes
+```
+:::
+
+```{python}
+inner_join(lhs_dupes, rhs_dupes, on="id")
+```
+
+## NA handling
+
+:::{.grid}
+:::{.g-col-lg-3}
+:::
+:::{.g-col-9 .g-col-md-6}
+![](_assets/joins-missing-values.png)
+:::
+:::{.g-col-lg-3}
+:::
+:::
+
+Same as dplyr
+
+```{python}
+import pandas as pd
+lhs_na = pd.DataFrame({"id": [1, pd.NA, 3]})
+rhs_na = pd.DataFrame({"id": [1, pd.NA, 2]})
+left_join(lhs_na, rhs_na, on="id")
+```
+
+
+## Match on multiple columns
+
+```{python}
+lhs_multi = pd.DataFrame({
+    "source": ["a", "a", "b"],
+    "id": [1, 2, 1],
+    "val": ["lhs.1", "lhs.2", "lhs.3"]
+})
+
+rhs_multi = pd.DataFrame({
+    "source": ["a", "b", "c"],
+    "id": [1, 1, 1],
+    "val": ["lhs.1", "lhs.2", "lhs.3"]
+})
+
+inner_join(lhs_multi, rhs_multi, on=["source", "id"])
+```
+
+```{python}
+
+inner_join(lhs_multi, rhs_multi, on={"source": "source", "id": "id"})
+```
+## Match on expressions
+
+:::{.grid}
+:::{.g-col-lg-3}
+:::
+:::{.g-col-9 .g-col-md-6}
+![](_assets/joins-expressions.png)
+:::
+:::{.g-col-lg-3}
+:::
+:::
+
+SQL backends can join by expressions.
+
+```{python}
+from sqlalchemy import create_engine
+from siuba.sql import LazyTbl
+
+engine = create_engine("sqlite:///:memory:")
+
+lhs.to_sql("lhs", engine, index=False)
+rhs.to_sql("rhs", engine, index=False)
+
+tbl_sql_lhs = LazyTbl(engine, "lhs")
+tbl_sql_rhs = LazyTbl(engine, "rhs")
+
+inner_join(
+    tbl_sql_lhs,
+    tbl_sql_rhs,
+    sql_on = lambda lhs, rhs: lhs.val <= rhs.val
+)
+```

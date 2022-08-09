@@ -15,14 +15,14 @@ website:
     search: true
     left:
       - text: "Guide"
-        file: guide/introduction.qmd
-      - text: "API"
-        href: api/index.qmd
-      - text: "Examples"
-        href: examples/index.qmd
-      - text: "About"
-        menu:
-          - about/key_features.qmd
+        file: guide/overview.qmd
+#      - text: "API"
+#        href: api/index.qmd
+#      - text: "Examples"
+#        href: examples/index.qmd
+#      - text: "About"
+#        menu:
+#          - about/key_features.qmd
     right:
       - icon: github
         href: https://github.com/machow/siuba/
@@ -32,9 +32,10 @@ website:
       collapse-level: 2
       align: left
       contents:
-        - guide/introduction.qmd
-        - guide/core-concepts.qmd
-        - guide/lazy-expressions.qmd
+        - guide/overview.qmd
+        # - guide/basics-examples.qmd
+        - guide/basics-lazy-expressions.qmd
+        - guide/basics-sql.qmd
         - section: "Common table verbs"
           contents:
             - guide/verb-filter.qmd
@@ -45,7 +46,6 @@ website:
             - guide/verb-group-by.qmd
         - section: "Column operations"
           contents:
-            - guide/ops-siu-expr.qmd
             - guide/ops-case-when.qmd
             - guide/ops-strings.qmd
             - guide/ops-datetime.qmd
@@ -55,11 +55,12 @@ website:
             - guide/wrangle-joins.qmd
             - guide/wrangle-reshape.qmd
             - guide/wrangle-nested.qmd
+            - guide/wrangle-helpers.qmd
         - section: "Programming"
           contents:
             - guide/programming-pipes.qmd
-            - guide/programming-across.qmd
-            - guide/programming-over.qmd
+            # - guide/programming-across.qmd
+            # - guide/programming-over.qmd
             - guide/programming-new-verbs.qmd
             - guide/programming-new-ops.qmd
         - section: "Workflows"

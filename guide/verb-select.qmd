@@ -130,4 +130,48 @@ penguins >> select(_.species, _.endswith("mm"))
 penguins >> select(_.contains("length"))
 ```
 
-🚧: list out methods or link to them
+
+## Pandas comparison
+
+```{python}
+import pandas as pd
+
+from siuba.data import mtcars
+from siuba import select, _
+```
+
+Click between tabs to compare code across siuba and pandas.
+
+::: {.panel-tabset}
+
+## Siuba
+
+```{python}
+#| output: false
+# keep cyl column
+mtcars >> select(_.cyl)
+
+# keep all *except* cyl column
+mtcars >> select(-_.cyl)
+
+# complex select, plus rename cyl to cylinder
+mtcars >> select(_.cylinder == _.cyl, _.startswith("m"))
+```
+
+## Pandas
+
+```{python}
+#| output: false
+# keep cyl column
+mtcars[["cyl"]]
+
+# keep all *except* cyl column
+mtcars.drop(["cyl"], axis=1)
+
+# complex select, plus rename cyl to cylinder
+cols = mtcars.columns
+mtcars.loc[:, (cols == "cyl") | cols.str.startswith("m")] \
+      .rename({"cyl": "cylinder"})
+```
+
+:::

@@ -1,4 +1,5 @@
 ---
+title: "Flexible pipes"
 jupyter:
   jupytext:
     formats: 'qmd:quarto'
@@ -13,40 +14,45 @@ jupyter:
     name: python3
 ---
 
-# Flexible pipes
-
-* a pipe is...
-* Analysis code might involve some transformation with lib A, then plotting with lib B.
-
-Benefit of pipes:
-
-* easy to keep going
-* handles functions across all libraries
-* handles method chains
 
 ```{python}
 from siuba.siu import _, pipe, call
+from siuba import count
 from siuba.data import mtcars
 ```
 
-## Manual pipes
+
+## Pipe to DataFrame methods
+
+
+## Pipe to external functions
+
+Use `call()` to pipe data into any function call.
+
+The example below pipes to the seaborn's `barplot` function.
 
 ```{python}
+from siuba.siu import call
 import seaborn as sns
 
-(mtcars
-    >> _[_.mpg < 20]
-    >> call(sns.relplot, x="hp", y="mpg", data=_)
-)
-
-(mtcars
-    .loc[lambda d: d.mpg < 20]
-    .pipe((sns.relplot, "data"), x="hp", y="mpg")
-)
-
-pipe(mtcars
-    , _[_.mpg < 20]
-    , call(sns.relplot, x="hp", y="mpg", data=_)
-)
+mtcars >> count(_.cyl) >> call(sns.barplot, x="cyl", y="n", data=_)
 ```
 
+Note that `sns.barplot()` expects the data as a named argument,
+so we pass `data=_`, where `_` is a placeholder for the data.
+
+`call()` can also take a single function to call the data on.
+
+:::{layout-ncol=2}
+
+```{python}
+# piping
+mtcars >> call(len)
+```
+
+```{python}
+# regular function call
+len(mtcars)
+```
+
+:::

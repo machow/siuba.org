@@ -1,0 +1,91 @@
+---
+title: SQL basics
+jupyter:
+  jupytext:
+    formats: 'qmd:quarto'
+    text_representation:
+      extension: .qmd
+      format_name: quarto
+      format_version: '1.0'
+      jupytext_version: 1.14.0
+  kernelspec:
+    display_name: Python 3
+    language: python
+    name: python3
+---
+
+
+
+Up to this point we've covered lazy expressions (`_`), and using table verbs. A major benefit of these two approaches is that they allow us to change how siuba behaves depending on the data source on which it is operating.
+
+## Setup
+
+For these examples we first set up a sqlite database, with an `mtcars` table.
+
+```{python}
+from sqlalchemy import create_engine
+from siuba.sql import LazyTbl
+from siuba import _, group_by, summarize, show_query, collect 
+from siuba.data import mtcars
+
+# copy in to sqlite, using the pandas .to_sql() method
+engine = create_engine("sqlite:///:memory:")
+mtcars.to_sql("mtcars", engine, if_exists = "replace")
+```
+
+## Accessing tables
+
+Use the `LazyTbl` class to connect to a SQL table.
+Printing the table will show a preview of the first few rows.
+
+```{python}
+# Create a lazy SQL DataFrame
+tbl_mtcars = LazyTbl(engine, "mtcars")
+tbl_mtcars
+```
+
+Notice that we defined the variable `tbl_mtcars` to refer to the `mtcars` table in the database.
+When we print `tbl_mtcars` it shows a preview of the underlying data,
+along with some notes about the database being used: `# DB Conn: Engine(sqlite:///:memory:)`.
+
+
+
+## Basic analysis
+
+You don't need to change your analysis code to run it on a SQL table.
+For example, the code below groups and summarizes the data.
+
+
+
+```{python}
+# connect with siuba
+
+tbl_query = (tbl_mtcars
+  >> group_by(_.cyl)
+  >> summarize(avg_hp = _.hp.mean())
+  )
+
+tbl_query
+```
+
+Under the hood, functions like summarize know how to convert the lazy expressions like `_.hp.mean()` shown in the code above to SQL.
+
+
+## Show query
+
+By default, printing out a `LazyTbl` shows a preview of the data.
+Use `show_query()` to see the actual SQL query siuba will generate.
+
+```{python}
+q = tbl_query >> show_query()
+```
+
+## Collect to DataFrame
+
+Use `collect()` to fetch the full query results as a pandas `DataFrame`.
+
+```{python}
+tbl_query >> collect()
+```
+
+
