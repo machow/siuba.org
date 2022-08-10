@@ -60,6 +60,11 @@ costs >> gather('measure', 'value', -_.id)
 
 ## Pivot wider and aggregate
 
+If there would be multiple entries per cell in the spread wide data,
+then the `spread()` function raises an error.
+
+This is shown below, where there are duplicate entries where `id=1` and `measure="a"`.
+
 ```{python}
 #| error: true
 
@@ -72,12 +77,23 @@ df = pd.DataFrame({
 df >> spread("measure", "value")
 ```
 
+Use the pandas `pivot_table` function to deal with this situation.
+
 ```{python}
 df.pivot_table(columns="measure", values="value", index="id", aggfunc=list)
 ```
 
+Notice that the top-left entry is a list of two values, `[8, 9]`.
+The `aggfunc` argument is able to reduce those values down to one.
+
+For example, by taking the mean.
+
+```{python}
+df.pivot_table(columns="measure", values="value", index="id", aggfunc="mean")
+```
+
 :::{.callout-note}
-Note that siuba can pipe to the pandas DataFrame's pivot_table method as follows.
+siuba can pipe to the pandas DataFrame's pivot_table method as follows.
 
 ```{python}
 #| eval: false
@@ -88,30 +104,3 @@ Note that siuba can pipe to the pandas DataFrame's pivot_table method as follows
 
 Where you would replace `...` with your arguments. See [flexible piping](./programming-pipes.qmd) for more details.
 :::
-
-## Examples
-
-```{python}
-#| eval: false
-
-from siuba import filter
-from plotnine import ggplot, aes, geom_col, facet_wrap, scale_fill_brewer, theme, element_blank
-from siuba.dply.forcats import fct_reorder
-
-(long_income
-    >> mutate(
-        lower=_.income.str.extract("$([0-9]+)")
-    )
-    >> mutate(
-        lower=if_else(_.income == "<$10k", 0, _.lower.astype(float)),
-        income=fct_reorder(_.income, _.lower)
-    )
-    >> filter(~_.religion.str.startswith("Don"))
-    >> group_by(_.religion)
-    >> mutate(pct = _.n / _.n.sum())
-    >> ggplot(aes("income", "pct", fill="income"))
-     + geom_col()
-     + facet_wrap("~religion")
-     + theme(axis_text_x = element_blank())
-)
-```

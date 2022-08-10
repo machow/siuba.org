@@ -14,3 +14,9 @@ jupyter:
 ---
 
 # Custom verbs
+
+```{python}
+from siuba.siu import symbolic_dispatch
+from pandas.core.groupby import SeriesGroupBy, GroupBy
+from pandas import Series
+```

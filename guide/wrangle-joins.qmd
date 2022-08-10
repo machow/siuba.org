@@ -74,7 +74,7 @@ to represent the data.
 
 ## Mutating joins
 
-![](_assets/mutate-joins.png)
+![](_assets/joins-mutate.png)
 
 ### Inner join
 

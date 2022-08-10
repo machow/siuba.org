@@ -55,7 +55,7 @@ Otherwise, python will group the operation like `_.cyl == (4 | _.gear) == 5`.
 # Dropping NA values
 
 Filter drops rows where conditions return `False` or not available (`NA`) values.
-However, what the pandas library considers to be `NA` is a tricky topic.
+This section will cover how to tell what is considered NA, and how to drop rows of data with NA values.
 
 ## What counts as NA?
 

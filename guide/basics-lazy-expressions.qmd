@@ -36,7 +36,35 @@ Notice how the output represents each step in our lazy expression, with these pi
 * black box █ - a method like checking equality (`==`) or getting an attribute (`.`).
 * underscore (`_`) - a placeholder for some data
 
-## Methods and lazy functions
+## Method translation
+
+You can include **method calls** like `.isin()` in a lazy expression.
+
+```{python}
+from siuba import _, filter
+from siuba.data import mtcars
+
+expr = _.cyl.isin([2,4])
+
+expr
+```
+
+When used in a verb like `filter()` it will call it over the underlying data.
+So when you call it on a pandas Series, the Series.isin() method gets called.
+
+```{python}
+# call our expr, which uses .isin
+mtcars >> filter(expr)
+
+# equivalent to...
+mtcars >> filter(_.cyl.isin([2, 4]))
+
+# or in pandas
+mtcars[lambda d: d.cyl.isin([2, 4])]
+```
+
+See the [`pandas.Series` API documentation](https://pandas.pydata.org/docs/reference/api/pandas.Series.html)
+for detailed documentation on all the different methods available.
 
 ## Use in pipes
 
@@ -132,35 +160,22 @@ _["mean"]
 
 ### Logical keywords: `and`, `or`, `in`
 
-In order to 
+In python libraries like pandas (and numpy), logical comparisons are done using special
+operators.
+
+Below is some example data, along with the operators for logical operations.
 
 ```{python}
 import pandas as pd
 
-df = pd.DataFrame({"x": [True, False, None]})
-
-# base python
-True or False
-
-# pandas
-df.x | False
+df = pd.DataFrame({"x": [2, 3, 4, 5]})
 ```
 
-```{python}
-# base python
-True and False
-
-# pandas
-df.x & False
-```
-
-```{python}
-# base python
-True in [True, None]
-
-# pandas
-df.x.isin([True, None])
-```
+python keyword | pandas | example |
+| ---- | ------ | --- |
+| or | `|` | `(df.x < 3) | (df.x > 4)` |
+| and | `&` | `(df.x > 3) & (df.x < 4)` |
+| in | `.isin()` | `df.x.isin([3, 4, 5])` |
 
 
 ### Google colab overrides `_`

@@ -22,7 +22,41 @@ from siuba.data import mtcars
 ```
 
 
+
 ## Pipe to DataFrame methods
+
+Sometimes it is helpful to use Pandas DataFrame methods, in addition to siuba verbs.
+This can be done by piping the data to `_.<some_method>()`.
+
+Here is an example using the siuba verb `count()`, with the pandas method `.sort_values()`.
+```{python}
+from siuba import _, count
+from siuba.data import mtcars
+
+(mtcars
+    >> count(_.cyl)         # this is a siuba verb
+    >> _.sort_values("n")   # this is a pandas method
+)
+```
+
+Here is another example, using the DataFrame `.shape` attribute.
+
+:::{layout-ncol=2}
+
+
+```{python}
+# siuba pipe
+mtcars >> _.shape[0]
+```
+
+```{python}
+#| output: false
+# regular pandas
+mtcars.shape[0]
+```
+
+:::
+
 
 
 ## Pipe to external functions

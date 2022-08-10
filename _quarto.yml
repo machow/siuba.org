@@ -49,7 +49,7 @@ website:
             - guide/ops-case-when.qmd
             - guide/ops-strings.qmd
             - guide/ops-datetime.qmd
-            - guide/ops-autocomplete.qmd
+            # - guide/ops-autocomplete.qmd
         - section: "Wrangling"
           contents:
             - guide/wrangle-joins.qmd
@@ -65,6 +65,7 @@ website:
             - guide/programming-new-ops.qmd
         - section: "Workflows"
           contents:
+            - guide/workflows-backends.qmd
             - guide/workflows.qmd
         - section: "Extra topics"
           contents:

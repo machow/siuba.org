@@ -25,13 +25,13 @@ import matplotlib
 %matplotlib inline
 ```
 
-::{.callout-warning}
+:::{.callout-warning}
 These docs are a work in progress. Note that install directions point to a development branch of siuba.
 
 ```
 pip install -e git+https://github.com/machow/siuba.git@dev-docs#egg=siuba
 ```
-::
+:::
 
 Siuba is a tool for concise, flexible data-analysis over multiple data sources. It currently supports pandas DataFrames and SQL tables.
 
