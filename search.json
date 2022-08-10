@@ -28,11 +28,11 @@
     "text": "A siu expression is a way of specifying what action you want to perform. This allows siuba verbs to decide how to execute the action, depending on whether your data is a local DataFrame or remote table.\nNotice how the output represents each step in our lazy expression, with these pieces:"
   },
   {
-    "objectID": "guide/basics-lazy-expressions.html#methods-and-lazy-functions",
-    "href": "guide/basics-lazy-expressions.html#methods-and-lazy-functions",
+    "objectID": "guide/basics-lazy-expressions.html#method-translation",
+    "href": "guide/basics-lazy-expressions.html#method-translation",
     "title": "Lazy expressions",
-    "section": "Methods and lazy functions",
-    "text": "Methods and lazy functions"
+    "section": "Method translation",
+    "text": "Method translation\nYou can include method calls like .isin() in a lazy expression.\n\nfrom siuba import _, filter\nfrom siuba.data import mtcars\n\nexpr = _.cyl.isin([2,4])\n\nexpr\n\n█─'__call__'\n├─█─.\n│ ├─█─.\n│ │ ├─_\n│ │ └─'cyl'\n│ └─'isin'\n└─[2, 4]\n\n\nWhen used in a verb like filter() it will call it over the underlying data. So when you call it on a pandas Series, the Series.isin() method gets called.\n\n# call our expr, which uses .isin\nmtcars >> filter(expr)\n\n# equivalent to...\nmtcars >> filter(_.cyl.isin([2, 4]))\n\n# or in pandas\nmtcars[lambda d: d.cyl.isin([2, 4])]\n\n\n\n\n\n  \n    \n      \n      mpg\n      cyl\n      disp\n      hp\n      drat\n      wt\n      qsec\n      vs\n      am\n      gear\n      carb\n    \n  \n  \n    \n      2\n      22.8\n      4\n      108.0\n      93\n      3.85\n      2.320\n      18.61\n      1\n      1\n      4\n      1\n    \n    \n      7\n      24.4\n      4\n      146.7\n      62\n      3.69\n      3.190\n      20.00\n      1\n      0\n      4\n      2\n    \n    \n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n    \n    \n      27\n      30.4\n      4\n      95.1\n      113\n      3.77\n      1.513\n      16.90\n      1\n      1\n      5\n      2\n    \n    \n      31\n      21.4\n      4\n      121.0\n      109\n      4.11\n      2.780\n      18.60\n      1\n      1\n      4\n      2\n    \n  \n\n11 rows × 11 columns\n\n\n\nSee the pandas.Series API documentation for detailed documentation on all the different methods available."
   },
   {
     "objectID": "guide/basics-lazy-expressions.html#use-in-pipes",
@@ -53,7 +53,7 @@
     "href": "guide/basics-lazy-expressions.html#common-challenges",
     "title": "Lazy expressions",
     "section": "Common challenges",
-    "text": "Common challenges\n\nReserved words (_.class)\nMost column names can be referred to using _.some_name syntax. However, python reserved words like class can’t be used in this way.\nUse indexing (e.g. _[\"some_name\"]) to refer to any column by name.\n\n# bad: raises a SyntaxError\n_.class\n\n# good\n_[\"class\"]\n\nMoreover, pandas reserves names for its methods (e.g. _.shape or _.mean). This is also solved by indexing.\n\ndf = pd.DataFrame({\"mean\": [1,2,3]})\n\n# bad: is accessing the mean method\ndf.mean + 1\n\n# good (pandas)\ndf[\"mean\"]\n\n# good (siuba)\n_[\"mean\"]\n\n\n\nLogical keywords: and, or, in\nIn order to\n\nimport pandas as pd\n\ndf = pd.DataFrame({\"x\": [True, False, None]})\n\n# base python\nTrue or False\n\n# pandas\ndf.x | False\n\n0     True\n1    False\n2    False\nName: x, dtype: bool\n\n\n\n# base python\nTrue and False\n\n# pandas\ndf.x & False\n\n0    False\n1    False\n2    False\nName: x, dtype: bool\n\n\n\n# base python\nTrue in [True, None]\n\n# pandas\ndf.x.isin([True, None])\n\n0     True\n1    False\n2     True\nName: x, dtype: bool\n\n\n\n\nGoogle colab overrides _\nGoogle colab uses very old versions of the library ipykernel, which has a bug in it. This causes it to continuously overwrite the _ variable.\nTo fix this, rename the _ variable imported from siuba.\n\nfrom siuba import _ as D, filter\nfrom siuba.data import mtcars\n\nmtcars >> filter(D.mpg > 30)\n\n\n\n\n\n  \n    \n      \n      mpg\n      cyl\n      disp\n      hp\n      drat\n      wt\n      qsec\n      vs\n      am\n      gear\n      carb\n    \n  \n  \n    \n      17\n      32.4\n      4\n      78.7\n      66\n      4.08\n      2.200\n      19.47\n      1\n      1\n      4\n      1\n    \n    \n      18\n      30.4\n      4\n      75.7\n      52\n      4.93\n      1.615\n      18.52\n      1\n      1\n      4\n      2\n    \n    \n      19\n      33.9\n      4\n      71.1\n      65\n      4.22\n      1.835\n      19.90\n      1\n      1\n      4\n      1\n    \n    \n      27\n      30.4\n      4\n      95.1\n      113\n      3.77\n      1.513\n      16.90\n      1\n      1\n      5\n      2"
+    "text": "Common challenges\n\nReserved words (_.class)\nMost column names can be referred to using _.some_name syntax. However, python reserved words like class can’t be used in this way.\nUse indexing (e.g. _[\"some_name\"]) to refer to any column by name.\n\n# bad: raises a SyntaxError\n_.class\n\n# good\n_[\"class\"]\n\nMoreover, pandas reserves names for its methods (e.g. _.shape or _.mean). This is also solved by indexing.\n\ndf = pd.DataFrame({\"mean\": [1,2,3]})\n\n# bad: is accessing the mean method\ndf.mean + 1\n\n# good (pandas)\ndf[\"mean\"]\n\n# good (siuba)\n_[\"mean\"]\n\n\n\nLogical keywords: and, or, in\nIn python libraries like pandas (and numpy), logical comparisons are done using special operators.\nBelow is some example data, along with the operators for logical operations.\n\nimport pandas as pd\n\ndf = pd.DataFrame({\"x\": [2, 3, 4, 5]})\n\n\n\n\npython keyword\npandas\nexample\n\n\n\n\nor\n|\n(df.x < 3) | (df.x > 4)\n\n\nand\n&\n(df.x > 3) & (df.x < 4)\n\n\nin\n.isin()\ndf.x.isin([3, 4, 5])\n\n\n\n\n\nGoogle colab overrides _\nGoogle colab uses very old versions of the library ipykernel, which has a bug in it. This causes it to continuously overwrite the _ variable.\nTo fix this, rename the _ variable imported from siuba.\n\nfrom siuba import _ as D, filter\nfrom siuba.data import mtcars\n\nmtcars >> filter(D.mpg > 30)\n\n\n\n\n\n  \n    \n      \n      mpg\n      cyl\n      disp\n      hp\n      drat\n      wt\n      qsec\n      vs\n      am\n      gear\n      carb\n    \n  \n  \n    \n      17\n      32.4\n      4\n      78.7\n      66\n      4.08\n      2.200\n      19.47\n      1\n      1\n      4\n      1\n    \n    \n      18\n      30.4\n      4\n      75.7\n      52\n      4.93\n      1.615\n      18.52\n      1\n      1\n      4\n      2\n    \n    \n      19\n      33.9\n      4\n      71.1\n      65\n      4.22\n      1.835\n      19.90\n      1\n      1\n      4\n      1\n    \n    \n      27\n      30.4\n      4\n      95.1\n      113\n      3.77\n      1.513\n      16.90\n      1\n      1\n      5\n      2"
   },
   {
     "objectID": "guide/basics-sql.html",
@@ -221,7 +221,7 @@
     "href": "guide/ops-siu-expr.html#lazy-functions",
     "title": "Lazy functions",
     "section": "Lazy functions",
-    "text": "Lazy functions\n\nfrom siuba import ops\n\nexpr_n = ops.add(_, _)\nexpr_n\n\n█─'__call__'\n├─█─'__custom_func__'\n│ └─<function singledispatch.<locals>.wrapper at 0x7fdfa9b07e20>\n├─_\n└─_"
+    "text": "Lazy functions\n\nfrom siuba import ops\n\nexpr_n = ops.add(_, _)\nexpr_n\n\n█─'__call__'\n├─█─'__custom_func__'\n│ └─<function singledispatch.<locals>.wrapper at 0x7f88919e3e20>\n├─_\n└─_"
   },
   {
     "objectID": "guide/ops-siu-expr.html#lazy-methods",
@@ -284,7 +284,7 @@
     "href": "guide/overview.html",
     "title": "Overview",
     "section": "",
-    "text": "::{.callout-warning} These docs are a work in progress. Note that install directions point to a development branch of siuba.\n::\nSiuba is a tool for concise, flexible data-analysis over multiple data sources. It currently supports pandas DataFrames and SQL tables."
+    "text": "Warning\n\n\n\nThese docs are a work in progress. Note that install directions point to a development branch of siuba.\npip install -e git+https://github.com/machow/siuba.git@dev-docs#egg=siuba\nSiuba is a tool for concise, flexible data-analysis over multiple data sources. It currently supports pandas DataFrames and SQL tables."
   },
   {
     "objectID": "guide/overview.html#installing",
@@ -326,7 +326,7 @@
     "href": "guide/overview.html#using-with-plotnine",
     "title": "Overview",
     "section": "Using with plotnine",
-    "text": "Using with plotnine\nFortnuately, plotnine supports siuba’s style of piping, so is easy to plug in to!\n\nfrom siuba import mutate, _\nfrom plotnine import ggplot, aes, geom_point\n\n(mtcars\n  >> mutate(hp_per_cyl = _.hp / _.cyl)\n  >> ggplot(aes(\"cyl\", \"hp_per_cyl\"))\n   + geom_point()\n)\n\n\n\n\n<ggplot: (8771578482268)>"
+    "text": "Using with plotnine\nFortnuately, plotnine supports siuba’s style of piping, so is easy to plug in to!\n\nfrom siuba import mutate, _\nfrom plotnine import ggplot, aes, geom_point\n\n(mtcars\n  >> mutate(hp_per_cyl = _.hp / _.cyl)\n  >> ggplot(aes(\"cyl\", \"hp_per_cyl\"))\n   + geom_point()\n)\n\n\n\n\n<ggplot: (8773954458192)>"
   },
   {
     "objectID": "guide/overview.html#next-steps",
@@ -334,6 +334,41 @@
     "title": "Overview",
     "section": "Next steps",
     "text": "Next steps\nTODO"
+  },
+  {
+    "objectID": "guide/programming-new-ops.html",
+    "href": "guide/programming-new-ops.html",
+    "title": "Custom column ops",
+    "section": "",
+    "text": "Use symbolic_dispatch() to create new functions for operating on columns.\nThis function creates what are called single generic functions— which let you register different ways to handle different types of data."
+  },
+  {
+    "objectID": "guide/programming-new-ops.html#defining-a-new-function",
+    "href": "guide/programming-new-ops.html#defining-a-new-function",
+    "title": "Custom column ops",
+    "section": "Defining a new function",
+    "text": "Defining a new function\n\nfrom siuba.siu import symbolic_dispatch\nfrom pandas.core.groupby import SeriesGroupBy\nfrom pandas import Series\n\n@symbolic_dispatch\ndef cummean(x):\n    raise NotImplementedError(f\"Not implemented for class {type(x)}\")\n\n@cummean.register\ndef cummean(x: Series):\n    \"\"\"Return a same-length array, containing the cumulative mean.\"\"\"\n    return x.expanding().mean()"
+  },
+  {
+    "objectID": "guide/programming-new-ops.html#registering-sql-translation",
+    "href": "guide/programming-new-ops.html#registering-sql-translation",
+    "title": "Custom column ops",
+    "section": "Registering SQL translation",
+    "text": "Registering SQL translation"
+  },
+  {
+    "objectID": "guide/programming-new-ops.html#check-whether-a-translation-exists",
+    "href": "guide/programming-new-ops.html#check-whether-a-translation-exists",
+    "title": "Custom column ops",
+    "section": "Check whether a translation exists",
+    "text": "Check whether a translation exists"
+  },
+  {
+    "objectID": "guide/programming-new-verbs.html",
+    "href": "guide/programming-new-verbs.html",
+    "title": "Siuba",
+    "section": "",
+    "text": "from siuba.siu import symbolic_dispatch\nfrom pandas.core.groupby import SeriesGroupBy, GroupBy\nfrom pandas import Series"
   },
   {
     "objectID": "guide/programming-pipes.html",
@@ -347,7 +382,7 @@
     "href": "guide/programming-pipes.html#pipe-to-dataframe-methods",
     "title": "Flexible pipes",
     "section": "Pipe to DataFrame methods",
-    "text": "Pipe to DataFrame methods"
+    "text": "Pipe to DataFrame methods\nSometimes it is helpful to use Pandas DataFrame methods, in addition to siuba verbs. This can be done by piping the data to _.<some_method>().\nHere is an example using the siuba verb count(), with the pandas method .sort_values().\n\nfrom siuba import _, count\nfrom siuba.data import mtcars\n\n(mtcars\n    >> count(_.cyl)         # this is a siuba verb\n    >> _.sort_values(\"n\")   # this is a pandas method\n)\n\n\n\n\n\n  \n    \n      \n      cyl\n      n\n    \n  \n  \n    \n      1\n      6\n      7\n    \n    \n      0\n      4\n      11\n    \n    \n      2\n      8\n      14\n    \n  \n\n\n\n\nHere is another example, using the DataFrame .shape attribute.\n\n\n\n# siuba pipe\nmtcars >> _.shape[0]\n\n32\n\n\n\n# regular pandas\nmtcars.shape[0]"
   },
   {
     "objectID": "guide/programming-pipes.html#pipe-to-external-functions",
@@ -613,7 +648,7 @@
     "href": "guide/wrangle-joins.html#match-on-expressions",
     "title": "Join tables",
     "section": "Match on expressions",
-    "text": "Match on expressions\n\n\n\n\n\n\n\n\n\n\n\nSQL backends can join by expressions.\n\nfrom sqlalchemy import create_engine\nfrom siuba.sql import LazyTbl\n\nengine = create_engine(\"sqlite:///:memory:\")\n\nlhs.to_sql(\"lhs\", engine, index=False)\nrhs.to_sql(\"rhs\", engine, index=False)\n\ntbl_sql_lhs = LazyTbl(engine, \"lhs\")\ntbl_sql_rhs = LazyTbl(engine, \"rhs\")\n\ninner_join(\n    tbl_sql_lhs,\n    tbl_sql_rhs,\n    sql_on = lambda lhs, rhs: lhs.val <= rhs.val\n)\n\n\n# Source: lazy query\n# DB Conn: Engine(sqlite:///:memory:)\n# Preview:\n\n\n\n  \n    \n      \n      id_x\n      val_x\n      id_y\n      val_y\n    \n  \n  \n    \n      0\n      1\n      lhs.1\n      1\n      rhs.1\n    \n    \n      1\n      1\n      lhs.1\n      2\n      rhs.2\n    \n    \n      2\n      1\n      lhs.1\n      4\n      rhs.3\n    \n    \n      3\n      2\n      lhs.2\n      1\n      rhs.1\n    \n    \n      4\n      2\n      lhs.2\n      2\n      rhs.2\n    \n  \n\n# .. may have more rows"
+    "text": "Match on expressions\n\n\n\n\n\n\n\n\n\n\n\nSQL backends can join by expressions.\n\nfrom sqlalchemy import create_engine\nfrom siuba.sql import LazyTbl\n\nengine = create_engine(\"sqlite:///:memory:\")\n\nlhs.to_sql(\"lhs\", engine, index=False)\nrhs.to_sql(\"rhs\", engine, index=False)\n\ntbl_sql_lhs = LazyTbl(engine, \"lhs\")\ntbl_sql_rhs = LazyTbl(engine, \"rhs\")\n\ninner_join(\n    tbl_sql_lhs,\n    tbl_sql_rhs,\n    sql_on = lambda lhs, rhs: lhs.val <= rhs.val\n)\n\n\n# Source: lazy query\n# DB Conn: Engine(sqlite:///:memory:)\n# Preview:\n\n\n\n  \n    \n      \n      id_x\n      val_x\n      val_y\n      id_y\n    \n  \n  \n    \n      0\n      1\n      lhs.1\n      rhs.1\n      1\n    \n    \n      1\n      1\n      lhs.1\n      rhs.2\n      2\n    \n    \n      2\n      1\n      lhs.1\n      rhs.3\n      4\n    \n    \n      3\n      2\n      lhs.2\n      rhs.1\n      1\n    \n    \n      4\n      2\n      lhs.2\n      rhs.2\n      2\n    \n  \n\n# .. may have more rows"
   },
   {
     "objectID": "guide/wrangle-reshape.html",
@@ -641,14 +676,7 @@
     "href": "guide/wrangle-reshape.html#pivot-wider-and-aggregate",
     "title": "Reshape tables",
     "section": "Pivot wider and aggregate",
-    "text": "Pivot wider and aggregate\n\ndf = pd.DataFrame({\n    \"id\": [1, 1, 2],\n    \"measure\": [\"a\", \"a\", \"b\"],\n    \"value\": [8, 9, 10]\n})\n\ndf >> spread(\"measure\", \"value\")\n\nValueError: Index contains duplicate entries, cannot reshape\n\n\n\ndf.pivot_table(columns=\"measure\", values=\"value\", index=\"id\", aggfunc=list)\n\n\n\n\n\n  \n    \n      measure\n      a\n      b\n    \n    \n      id\n      \n      \n    \n  \n  \n    \n      1\n      [8, 9]\n      NaN\n    \n    \n      2\n      NaN\n      [10]\n    \n  \n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nNote that siuba can pipe to the pandas DataFrame’s pivot_table method as follows.\n\n(df\n    >> _.pivot_table(...)\n)\n\nWhere you would replace ... with your arguments. See flexible piping for more details."
-  },
-  {
-    "objectID": "guide/wrangle-reshape.html#examples",
-    "href": "guide/wrangle-reshape.html#examples",
-    "title": "Reshape tables",
-    "section": "Examples",
-    "text": "Examples\n\nfrom siuba import filter\nfrom plotnine import ggplot, aes, geom_col, facet_wrap, scale_fill_brewer, theme, element_blank\nfrom siuba.dply.forcats import fct_reorder\n\n(long_income\n    >> mutate(\n        lower=_.income.str.extract(\"$([0-9]+)\")\n    )\n    >> mutate(\n        lower=if_else(_.income == \"<$10k\", 0, _.lower.astype(float)),\n        income=fct_reorder(_.income, _.lower)\n    )\n    >> filter(~_.religion.str.startswith(\"Don\"))\n    >> group_by(_.religion)\n    >> mutate(pct = _.n / _.n.sum())\n    >> ggplot(aes(\"income\", \"pct\", fill=\"income\"))\n     + geom_col()\n     + facet_wrap(\"~religion\")\n     + theme(axis_text_x = element_blank())\n)"
+    "text": "Pivot wider and aggregate\nIf there would be multiple entries per cell in the spread wide data, then the spread() function raises an error.\nThis is shown below, where there are duplicate entries where id=1 and measure=\"a\".\n\ndf = pd.DataFrame({\n    \"id\": [1, 1, 2],\n    \"measure\": [\"a\", \"a\", \"b\"],\n    \"value\": [8, 9, 10]\n})\n\ndf >> spread(\"measure\", \"value\")\n\nValueError: Index contains duplicate entries, cannot reshape\n\n\nUse the pandas pivot_table function to deal with this situation.\n\ndf.pivot_table(columns=\"measure\", values=\"value\", index=\"id\", aggfunc=list)\n\n\n\n\n\n  \n    \n      measure\n      a\n      b\n    \n    \n      id\n      \n      \n    \n  \n  \n    \n      1\n      [8, 9]\n      NaN\n    \n    \n      2\n      NaN\n      [10]\n    \n  \n\n\n\n\nNotice that the top-left entry is a list of two values, [8, 9]. The aggfunc argument is able to reduce those values down to one.\nFor example, by taking the mean.\n\ndf.pivot_table(columns=\"measure\", values=\"value\", index=\"id\", aggfunc=\"mean\")\n\n\n\n\n\n  \n    \n      measure\n      a\n      b\n    \n    \n      id\n      \n      \n    \n  \n  \n    \n      1\n      8.5\n      NaN\n    \n    \n      2\n      NaN\n      10.0\n    \n  \n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nsiuba can pipe to the pandas DataFrame’s pivot_table method as follows.\n\n(df\n    >> _.pivot_table(...)\n)\n\nWhere you would replace ... with your arguments. See flexible piping for more details."
   },
   {
     "objectID": "api/index.html",

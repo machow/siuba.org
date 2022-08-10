@@ -89,7 +89,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../guide/wrangle-reshape.html" rel="next">
-<link href="../guide/ops-autocomplete.html" rel="prev">
+<link href="../guide/ops-datetime.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -249,11 +249,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="../guide/ops-datetime.html" class="sidebar-item-text sidebar-link">Datetime operations (<code>.dt</code>)</a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../guide/ops-autocomplete.html" class="sidebar-item-text sidebar-link">Autocomplete names</a>
-  </div>
-</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -319,6 +314,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </a> 
       </div>
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  guide/workflows-backends.qmd
+  </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../guide/workflows.html" class="sidebar-item-text sidebar-link">Debugging</a>
@@ -537,7 +535,7 @@ Note
 </section>
 <section id="mutating-joins" class="level2">
 <h2 class="anchored" data-anchor-id="mutating-joins">Mutating joins</h2>
-<p><img src="_assets/mutate-joins.png" class="img-fluid"></p>
+<p><img src="_assets/joins-mutate.png" class="img-fluid"></p>
 <section id="inner-join" class="level3">
 <h3 class="anchored" data-anchor-id="inner-join">Inner join</h3>
 <div class="cell" data-execution_count="6">
@@ -1061,8 +1059,8 @@ Note
       <th></th>
       <th>id_x</th>
       <th>val_x</th>
-      <th>id_y</th>
       <th>val_y</th>
+      <th>id_y</th>
     </tr>
   </thead>
   <tbody>
@@ -1070,36 +1068,36 @@ Note
       <th>0</th>
       <td>1</td>
       <td>lhs.1</td>
-      <td>1</td>
       <td>rhs.1</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>1</th>
       <td>1</td>
       <td>lhs.1</td>
-      <td>2</td>
       <td>rhs.2</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>2</th>
       <td>1</td>
       <td>lhs.1</td>
-      <td>4</td>
       <td>rhs.3</td>
+      <td>4</td>
     </tr>
     <tr>
       <th>3</th>
       <td>2</td>
       <td>lhs.2</td>
-      <td>1</td>
       <td>rhs.1</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>4</th>
       <td>2</td>
       <td>lhs.2</td>
-      <td>2</td>
       <td>rhs.2</td>
+      <td>2</td>
     </tr>
   </tbody>
 </table>
@@ -1211,8 +1209,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../guide/ops-autocomplete.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Autocomplete names</span>
+      <a href="../guide/ops-datetime.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Datetime operations (<code>.dt</code>)</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

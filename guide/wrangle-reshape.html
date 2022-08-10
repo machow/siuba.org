@@ -249,11 +249,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="../guide/ops-datetime.html" class="sidebar-item-text sidebar-link">Datetime operations (<code>.dt</code>)</a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../guide/ops-autocomplete.html" class="sidebar-item-text sidebar-link">Autocomplete names</a>
-  </div>
-</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -320,6 +315,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       </div>
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
+  guide/workflows-backends.qmd
+  </li>
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../guide/workflows.html" class="sidebar-item-text sidebar-link">Debugging</a>
   </div>
@@ -353,7 +351,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#gather-data-long" id="toc-gather-data-long" class="nav-link active" data-scroll-target="#gather-data-long">Gather data long</a></li>
   <li><a href="#spread-data-wide" id="toc-spread-data-wide" class="nav-link" data-scroll-target="#spread-data-wide">Spread data wide</a></li>
   <li><a href="#pivot-wider-and-aggregate" id="toc-pivot-wider-and-aggregate" class="nav-link" data-scroll-target="#pivot-wider-and-aggregate">Pivot wider and aggregate</a></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
   </ul>
 </nav>
     </div>
@@ -528,6 +525,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="pivot-wider-and-aggregate" class="level2">
 <h2 class="anchored" data-anchor-id="pivot-wider-and-aggregate">Pivot wider and aggregate</h2>
+<p>If there would be multiple entries per cell in the spread wide data, then the <code>spread()</code> function raises an error.</p>
+<p>This is shown below, where there are duplicate entries where <code>id=1</code> and <code>measure="a"</code>.</p>
 <div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"id"</span>: [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>],</span>
@@ -540,6 +539,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>ValueError: Index contains duplicate entries, cannot reshape</code></pre>
 </div>
 </div>
+<p>Use the pandas <code>pivot_table</code> function to deal with this situation.</p>
 <div class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df.pivot_table(columns<span class="op">=</span><span class="st">"measure"</span>, values<span class="op">=</span><span class="st">"value"</span>, index<span class="op">=</span><span class="st">"id"</span>, aggfunc<span class="op">=</span><span class="bu">list</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
@@ -575,6 +575,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
+<p>Notice that the top-left entry is a list of two values, <code>[8, 9]</code>. The <code>aggfunc</code> argument is able to reduce those values down to one.</p>
+<p>For example, by taking the mean.</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df.pivot_table(columns<span class="op">=</span><span class="st">"measure"</span>, values<span class="op">=</span><span class="st">"value"</span>, index<span class="op">=</span><span class="st">"id"</span>, aggfunc<span class="op">=</span><span class="st">"mean"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th>measure</th>
+      <th>a</th>
+      <th>b</th>
+    </tr>
+    <tr>
+      <th>id</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>8.5</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>10.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -585,39 +622,14 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Note that siuba can pipe to the pandas DataFrame’s pivot_table method as follows.</p>
-<div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>(df</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">&gt;&gt;</span> _.pivot_table(...)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>siuba can pipe to the pandas DataFrame’s pivot_table method as follows.</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>(df</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">&gt;&gt;</span> _.pivot_table(...)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Where you would replace <code>...</code> with your arguments. See <a href="../guide/programming-pipes.html">flexible piping</a> for more details.</p>
 </div>
-</div>
-</section>
-<section id="examples" class="level2">
-<h2 class="anchored" data-anchor-id="examples">Examples</h2>
-<div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba <span class="im">import</span> <span class="bu">filter</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, aes, geom_col, facet_wrap, scale_fill_brewer, theme, element_blank</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba.dply.forcats <span class="im">import</span> fct_reorder</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>(long_income</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">&gt;&gt;</span> mutate(</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        lower<span class="op">=</span>_.income.<span class="bu">str</span>.extract(<span class="st">"$([0-9]+)"</span>)</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">&gt;&gt;</span> mutate(</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        lower<span class="op">=</span>if_else(_.income <span class="op">==</span> <span class="st">"&lt;$10k"</span>, <span class="dv">0</span>, _.lower.astype(<span class="bu">float</span>)),</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        income<span class="op">=</span>fct_reorder(_.income, _.lower)</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">&gt;&gt;</span> <span class="bu">filter</span>(<span class="op">~</span>_.religion.<span class="bu">str</span>.startswith(<span class="st">"Don"</span>))</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">&gt;&gt;</span> group_by(_.religion)</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">&gt;&gt;</span> mutate(pct <span class="op">=</span> _.n <span class="op">/</span> _.n.<span class="bu">sum</span>())</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">&gt;&gt;</span> ggplot(aes(<span class="st">"income"</span>, <span class="st">"pct"</span>, fill<span class="op">=</span><span class="st">"income"</span>))</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> geom_col()</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> facet_wrap(<span class="st">"~religion"</span>)</span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> theme(axis_text_x <span class="op">=</span> element_blank())</span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
