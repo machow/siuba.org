@@ -221,7 +221,7 @@
     "href": "guide/ops-siu-expr.html#lazy-functions",
     "title": "Lazy functions",
     "section": "Lazy functions",
-    "text": "Lazy functions\n\nfrom siuba import ops\n\nexpr_n = ops.add(_, _)\nexpr_n\n\n█─'__call__'\n├─█─'__custom_func__'\n│ └─<function singledispatch.<locals>.wrapper at 0x7f88919e3e20>\n├─_\n└─_"
+    "text": "Lazy functions\n\nfrom siuba import ops\n\nexpr_n = ops.add(_, _)\nexpr_n\n\n█─'__call__'\n├─█─'__custom_func__'\n│ └─<function singledispatch.<locals>.wrapper at 0x7fc2b8a03e20>\n├─_\n└─_"
   },
   {
     "objectID": "guide/ops-siu-expr.html#lazy-methods",
@@ -326,7 +326,7 @@
     "href": "guide/overview.html#using-with-plotnine",
     "title": "Overview",
     "section": "Using with plotnine",
-    "text": "Using with plotnine\nFortnuately, plotnine supports siuba’s style of piping, so is easy to plug in to!\n\nfrom siuba import mutate, _\nfrom plotnine import ggplot, aes, geom_point\n\n(mtcars\n  >> mutate(hp_per_cyl = _.hp / _.cyl)\n  >> ggplot(aes(\"cyl\", \"hp_per_cyl\"))\n   + geom_point()\n)\n\n\n\n\n<ggplot: (8773954458192)>"
+    "text": "Using with plotnine\nFortnuately, plotnine supports siuba’s style of piping, so is easy to plug in to!\n\nfrom siuba import mutate, _\nfrom plotnine import ggplot, aes, geom_point\n\n(mtcars\n  >> mutate(hp_per_cyl = _.hp / _.cyl)\n  >> ggplot(aes(\"cyl\", \"hp_per_cyl\"))\n   + geom_point()\n)\n\n\n\n\n<ggplot: (8748237549151)>"
   },
   {
     "objectID": "guide/overview.html#next-steps",
