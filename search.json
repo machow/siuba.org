@@ -221,7 +221,7 @@
     "href": "guide/ops-siu-expr.html#lazy-functions",
     "title": "Lazy functions",
     "section": "Lazy functions",
-    "text": "Lazy functions\n\nfrom siuba import ops\n\nexpr_n = ops.add(_, _)\nexpr_n\n\n█─'__call__'\n├─█─'__custom_func__'\n│ └─<function singledispatch.<locals>.wrapper at 0x7efd517b7eb0>\n├─_\n└─_"
+    "text": "Lazy functions\n\nfrom siuba import ops\n\nexpr_n = ops.add(_, _)\nexpr_n\n\n█─'__call__'\n├─█─'__custom_func__'\n│ └─<function singledispatch.<locals>.wrapper at 0x7fb07cb13eb0>\n├─_\n└─_"
   },
   {
     "objectID": "guide/ops-siu-expr.html#lazy-methods",
@@ -326,7 +326,7 @@
     "href": "guide/overview.html#using-with-plotnine",
     "title": "Overview",
     "section": "Using with plotnine",
-    "text": "Using with plotnine\nFortnuately, plotnine supports siuba’s style of piping, so is easy to plug in to!\n\nfrom siuba import mutate, _\nfrom plotnine import ggplot, aes, geom_point\n\n(mtcars\n  >> mutate(hp_per_cyl = _.hp / _.cyl)\n  >> ggplot(aes(\"cyl\", \"hp_per_cyl\"))\n   + geom_point()\n)\n\n\n\n\n<ggplot: (8733308580453)>"
+    "text": "Using with plotnine\nFortnuately, plotnine supports siuba’s style of piping, so is easy to plug in to!\n\nfrom siuba import mutate, _\nfrom plotnine import ggplot, aes, geom_point\n\n(mtcars\n  >> mutate(hp_per_cyl = _.hp / _.cyl)\n  >> ggplot(aes(\"cyl\", \"hp_per_cyl\"))\n   + geom_point()\n)\n\n\n\n\n<ggplot: (8768049547889)>"
   },
   {
     "objectID": "guide/overview.html#next-steps",
@@ -662,7 +662,7 @@
     "href": "guide/wrangle-joins.html#match-on-expressions",
     "title": "Join tables",
     "section": "Match on expressions",
-    "text": "Match on expressions\n\n\n\n\n\n\n\n\n\n\n\nSQL backends can join by expressions.\n\nfrom sqlalchemy import create_engine\nfrom siuba.sql import LazyTbl\n\nengine = create_engine(\"sqlite:///:memory:\")\n\nlhs.to_sql(\"lhs\", engine, index=False)\nrhs.to_sql(\"rhs\", engine, index=False)\n\ntbl_sql_lhs = LazyTbl(engine, \"lhs\")\ntbl_sql_rhs = LazyTbl(engine, \"rhs\")\n\ninner_join(\n    tbl_sql_lhs,\n    tbl_sql_rhs,\n    sql_on = lambda lhs, rhs: lhs.val <= rhs.val\n)\n\n\n# Source: lazy query\n# DB Conn: Engine(sqlite:///:memory:)\n# Preview:\n\n\n\n  \n    \n      \n      id_x\n      val_x\n      val_y\n      id_y\n    \n  \n  \n    \n      0\n      1\n      lhs.1\n      rhs.1\n      1\n    \n    \n      1\n      1\n      lhs.1\n      rhs.2\n      2\n    \n    \n      2\n      1\n      lhs.1\n      rhs.3\n      4\n    \n    \n      3\n      2\n      lhs.2\n      rhs.1\n      1\n    \n    \n      4\n      2\n      lhs.2\n      rhs.2\n      2\n    \n  \n\n# .. may have more rows"
+    "text": "Match on expressions\n\n\n\n\n\n\n\n\n\n\n\nSQL backends can join by expressions.\n\nfrom sqlalchemy import create_engine\nfrom siuba.sql import LazyTbl\n\nengine = create_engine(\"sqlite:///:memory:\")\n\nlhs.to_sql(\"lhs\", engine, index=False)\nrhs.to_sql(\"rhs\", engine, index=False)\n\ntbl_sql_lhs = LazyTbl(engine, \"lhs\")\ntbl_sql_rhs = LazyTbl(engine, \"rhs\")\n\ninner_join(\n    tbl_sql_lhs,\n    tbl_sql_rhs,\n    sql_on = lambda lhs, rhs: lhs.val <= rhs.val\n)\n\n\n# Source: lazy query\n# DB Conn: Engine(sqlite:///:memory:)\n# Preview:\n\n\n\n  \n    \n      \n      id_x\n      val_x\n      id_y\n      val_y\n    \n  \n  \n    \n      0\n      1\n      lhs.1\n      1\n      rhs.1\n    \n    \n      1\n      1\n      lhs.1\n      2\n      rhs.2\n    \n    \n      2\n      1\n      lhs.1\n      4\n      rhs.3\n    \n    \n      3\n      2\n      lhs.2\n      1\n      rhs.1\n    \n    \n      4\n      2\n      lhs.2\n      2\n      rhs.2\n    \n  \n\n# .. may have more rows"
   },
   {
     "objectID": "guide/wrangle-reshape.html",
