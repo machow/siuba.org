@@ -221,7 +221,7 @@
     "href": "guide/ops-siu-expr.html#lazy-functions",
     "title": "Lazy functions",
     "section": "Lazy functions",
-    "text": "Lazy functions\n\nfrom siuba import ops\n\nexpr_n = ops.add(_, _)\nexpr_n\n\n█─'__call__'\n├─█─'__custom_func__'\n│ └─<function singledispatch.<locals>.wrapper at 0x7fc2b8a03e20>\n├─_\n└─_"
+    "text": "Lazy functions\n\nfrom siuba import ops\n\nexpr_n = ops.add(_, _)\nexpr_n\n\n█─'__call__'\n├─█─'__custom_func__'\n│ └─<function singledispatch.<locals>.wrapper at 0x7efd517b7eb0>\n├─_\n└─_"
   },
   {
     "objectID": "guide/ops-siu-expr.html#lazy-methods",
@@ -326,7 +326,7 @@
     "href": "guide/overview.html#using-with-plotnine",
     "title": "Overview",
     "section": "Using with plotnine",
-    "text": "Using with plotnine\nFortnuately, plotnine supports siuba’s style of piping, so is easy to plug in to!\n\nfrom siuba import mutate, _\nfrom plotnine import ggplot, aes, geom_point\n\n(mtcars\n  >> mutate(hp_per_cyl = _.hp / _.cyl)\n  >> ggplot(aes(\"cyl\", \"hp_per_cyl\"))\n   + geom_point()\n)\n\n\n\n\n<ggplot: (8748237549151)>"
+    "text": "Using with plotnine\nFortnuately, plotnine supports siuba’s style of piping, so is easy to plug in to!\n\nfrom siuba import mutate, _\nfrom plotnine import ggplot, aes, geom_point\n\n(mtcars\n  >> mutate(hp_per_cyl = _.hp / _.cyl)\n  >> ggplot(aes(\"cyl\", \"hp_per_cyl\"))\n   + geom_point()\n)\n\n\n\n\n<ggplot: (8733308580453)>"
   },
   {
     "objectID": "guide/overview.html#next-steps",
@@ -565,6 +565,20 @@
     "title": "Summarize to aggregate",
     "section": "Summarize over groups",
     "text": "Summarize over groups\nUse group_by() to split the data up, apply some aggregation, and then combine results.\n\n(mtcars\n  >> group_by(_.cyl)\n  >> summarize(\n       avg = _.mpg.mean(),\n       range = _.mpg.max() - _.mpg.min(),\n       avg_per_cyl = (_.mpg / _.cyl).mean()\n  )\n)\n\n\n\n\n\n  \n    \n      \n      cyl\n      avg\n      range\n      avg_per_cyl\n    \n  \n  \n    \n      0\n      4\n      26.663636\n      12.5\n      6.665909\n    \n    \n      1\n      6\n      19.742857\n      3.6\n      3.290476\n    \n    \n      2\n      8\n      15.100000\n      8.8\n      1.887500\n    \n  \n\n\n\n\nNote there are 3 unique groupings for cyl (4, 6, and 8), so the resulting table has 3 rows."
+  },
+  {
+    "objectID": "guide/workflows-backends.html",
+    "href": "guide/workflows-backends.html",
+    "title": "Backend Examples",
+    "section": "",
+    "text": "from siuba import _, group_by, filter, show_query\nfrom siuba.sql import LazyTbl\nfrom siuba.data import mtcars\n\nfrom sqlalchemy import create_engine"
+  },
+  {
+    "objectID": "guide/workflows-backends.html#duckdb",
+    "href": "guide/workflows-backends.html#duckdb",
+    "title": "Backend Examples",
+    "section": "duckdb",
+    "text": "duckdb\n\nengine = create_engine(\"duckdb:///:memory:\")\nengine.execute(\"register\", (\"mtcars\", mtcars))\nengine.execute(\"SHOW TABLES\").fetchall()\n\n[('mtcars',)]\n\n\n\ntbl_mtcars_duckdb = LazyTbl(engine, \"mtcars\")\n\ntbl_filtered = tbl_mtcars_duckdb >> filter_mpg\ntbl_filtered\n\n\n# Source: lazy query\n# DB Conn: Engine(duckdb:///:memory:)\n# Preview:\n\n\n\n  \n    \n      \n      mpg\n      cyl\n      disp\n      hp\n      drat\n      wt\n      qsec\n      vs\n      am\n      gear\n      carb\n    \n  \n  \n    \n      0\n      14.3\n      8\n      360.0\n      245\n      3.21\n      3.570\n      15.84\n      0\n      0\n      3\n      4\n    \n    \n      1\n      10.4\n      8\n      472.0\n      205\n      2.93\n      5.250\n      17.98\n      0\n      0\n      3\n      4\n    \n    \n      2\n      10.4\n      8\n      460.0\n      215\n      3.00\n      5.424\n      17.82\n      0\n      0\n      3\n      4\n    \n    \n      3\n      14.7\n      8\n      440.0\n      230\n      3.23\n      5.345\n      17.42\n      0\n      0\n      3\n      4\n    \n    \n      4\n      13.3\n      8\n      350.0\n      245\n      3.73\n      3.840\n      15.41\n      0\n      0\n      3\n      4\n    \n  \n\n# .. may have more rows\n\n\n\nq = tbl_filtered >> show_query(simplify=True)\n\nSELECT mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb \nFROM (SELECT *, mpg < avg(mpg) OVER (PARTITION BY cyl) AS win1 \nFROM (SELECT * \nFROM mtcars) AS anon_2) AS anon_1 \nWHERE win1"
   },
   {
     "objectID": "guide/wrangle-helpers.html",
