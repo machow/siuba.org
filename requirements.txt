@@ -11,6 +11,8 @@ cycler==0.11.0
 debugpy==1.6.2
 decorator==5.1.1
 defusedxml==0.7.1
+duckdb==0.4.0
+duckdb-engine==0.3.3
 entrypoints==0.4
 executing==0.9.1
 fastjsonschema==2.16.1
@@ -71,7 +73,7 @@ QtPy==2.1.0
 scipy==1.9.0
 seaborn==0.11.2
 Send2Trash==1.8.0
--e git+https://github.com/machow/siuba.git@a297bb8cd5821d4a91097ec20655ecd26c6ad6a1#egg=siuba
+-e git+https://github.com/machow/siuba.git@ea4729acb6a31403aeb80752eaf0e6ca3e3040b9#egg=siuba
 six==1.16.0
 soupsieve==2.3.2.post1
 SQLAlchemy==1.4.40
