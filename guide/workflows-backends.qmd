@@ -1,5 +1,5 @@
 ---
-title: Backend support table
+title: Backend Examples
 jupyter:
   jupytext:
     formats: 'qmd:quarto'
@@ -14,3 +14,47 @@ jupyter:
     name: python3
 ---
 
+```{python}
+#| include: false
+import pandas as pd
+
+pd.set_option("display.max_rows", 5)
+```
+
+```{python}
+from siuba import _, group_by, filter, show_query
+from siuba.sql import LazyTbl
+from siuba.data import mtcars
+
+from sqlalchemy import create_engine
+```
+
+```{python}
+filter_mpg = (
+    _
+    >> group_by(_.cyl)
+    >> filter(_.mpg < _.mpg.mean())
+)
+
+mtcars >> filter_mpg
+```
+
+## duckdb
+
+```{python}
+engine = create_engine("duckdb:///:memory:")
+engine.execute("register", ("mtcars", mtcars))
+engine.execute("SHOW TABLES").fetchall()
+```
+
+```{python}
+tbl_mtcars_duckdb = LazyTbl(engine, "mtcars")
+
+tbl_filtered = tbl_mtcars_duckdb >> filter_mpg
+tbl_filtered
+```
+
+```{python}
+
+q = tbl_filtered >> show_query(simplify=True)
+```

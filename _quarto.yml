@@ -49,6 +49,7 @@ website:
             - guide/ops-case-when.qmd
             - guide/ops-strings.qmd
             - guide/ops-datetime.qmd
+            - guide/ops-categoricals.qmd
             # - guide/ops-autocomplete.qmd
         - section: "Wrangling"
           contents:
