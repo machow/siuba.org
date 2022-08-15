@@ -44,6 +44,7 @@ nbformat==5.4.0
 nest-asyncio==1.5.5
 notebook==6.4.12
 numpy==1.23.1
+nycflights13==0.0.3
 packaging==21.3
 palettable==3.3.0
 pandas==1.4.3
@@ -73,7 +74,7 @@ QtPy==2.1.0
 scipy==1.9.0
 seaborn==0.11.2
 Send2Trash==1.8.0
--e git+https://github.com/machow/siuba.git@ea4729acb6a31403aeb80752eaf0e6ca3e3040b9#egg=siuba
+-e git+https://github.com/machow/siuba.git@388c2d5f67d415a5f3b69c53f0ac917febcc643e#egg=siuba
 six==1.16.0
 soupsieve==2.3.2.post1
 SQLAlchemy==1.4.40
