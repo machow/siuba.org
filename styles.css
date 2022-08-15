@@ -23,6 +23,11 @@ header .nav-link {
   margin-right: 5.4px !important;
 }
 
+a.nav-link {
+  font-size: 14.4px;
+  font-weight: 400;
+}
+
 .nav-item .nav-link.active {
   /*background-color: #EE8320;*/
   border-bottom: black 2px solid;
@@ -78,7 +83,7 @@ div.sidebar-item-container .active {
 
 .sidebar-item-container .text-start {
   font-weight: 600;
-  font-size: 14px !important;
+  font-size: 14.4px !important;
 }
 
 .sidebar-item-text {
