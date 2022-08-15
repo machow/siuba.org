@@ -15,6 +15,69 @@ span.underline{text-decoration: underline;}
 div.column{display: inline-block; vertical-align: top; width: 50%;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -55,6 +118,9 @@ ul.task-list{list-style: none;}
     "search-submit-button-title": "Submit"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -289,7 +355,24 @@ ul.task-list{list-style: none;}
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#required-datasets" id="toc-required-datasets" class="nav-link active" data-scroll-target="#required-datasets">Required datasets</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a>
+  <ul class="collapse">
+  <li><a href="#core-attributes" id="toc-core-attributes" class="nav-link" data-scroll-target="#core-attributes">Core attributes</a></li>
+  <li><a href="#wrapping-in-pd.series" id="toc-wrapping-in-pd.series" class="nav-link" data-scroll-target="#wrapping-in-pd.series">Wrapping in <code>pd.Series</code></a></li>
+  <li><a href="#using-in-verbs" id="toc-using-in-verbs" class="nav-link" data-scroll-target="#using-in-verbs">Using in verbs</a></li>
+  </ul></li>
+  <li><a href="#order-categories-by-counts-with-fct_infreq" id="toc-order-categories-by-counts-with-fct_infreq" class="nav-link" data-scroll-target="#order-categories-by-counts-with-fct_infreq">Order categories by counts with <code>fct_infreq()</code></a></li>
+  <li><a href="#general-reordering-with-fct_reorder" id="toc-general-reordering-with-fct_reorder" class="nav-link" data-scroll-target="#general-reordering-with-fct_reorder">General reordering with <code>fct_reorder()</code></a>
+  <ul class="collapse">
+  <li><a href="#basic-example" id="toc-basic-example" class="nav-link" data-scroll-target="#basic-example">Basic example</a></li>
+  <li><a href="#used-with-count" id="toc-used-with-count" class="nav-link" data-scroll-target="#used-with-count">Used with count</a></li>
+  </ul></li>
+  <li><a href="#binning-categories-with-fct_lump" id="toc-binning-categories-with-fct_lump" class="nav-link" data-scroll-target="#binning-categories-with-fct_lump">Binning categories with <code>fct_lump()</code></a>
+  <ul class="collapse">
+  <li><a href="#basic-example-1" id="toc-basic-example-1" class="nav-link" data-scroll-target="#basic-example-1">Basic example</a></li>
+  <li><a href="#respecting-category-order" id="toc-respecting-category-order" class="nav-link" data-scroll-target="#respecting-category-order">Respecting category order</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -312,10 +395,738 @@ ul.task-list{list-style: none;}
 
 </header>
 
+<p>Categoricals are a way of representing columns of data, that provide:</p>
+<ul>
+<li><strong>categories</strong>: a custom ordering to use when sorting the values.</li>
+<li><strong>codes</strong>: a compressed representation of the data as integers.</li>
+</ul>
+<p>While codes were historically important for representing large columns of data, the big value of categoricals today is as a tool for customizing order in plots. This might seem like a small job, but as it turns out it is very important in data analysis.</p>
+<p>This page will discuss the <a href="https://pandas.pydata.org/docs/user_guide/categorical.html"><code>pandas.Categorical</code></a> class for creating categoricals, as well as a helper submodule <code>siuba.dply.forcats</code> with helper functions for working with this kind of data.</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba <span class="im">import</span> _, count, mutate</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba.dply.forcats <span class="im">import</span> fct_inorder, fct_infreq, fct_reorder, fct_lump</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba.data <span class="im">import</span> penguins</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="required-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="required-datasets">Required datasets</h2>
+<p>This page uses the <code>nycflights13</code> dataset, which can be installed using pip:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install nycflights13</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>Here is a simple <code>pd.Categorical</code> representing a column with 3 values.</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="st">"front"</span>, <span class="st">"middle"</span>, <span class="st">"back"</span>]</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>a_cat <span class="op">=</span> pd.Categorical(x)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>a_cat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>['front', 'middle', 'back']
+Categories (3, object): ['back', 'front', 'middle']</code></pre>
+</div>
+</div>
+<p>Notice that the bottom line of the print out shows the categories ordered as <code>['back', 'front', 'middle']</code>. By default, <code>pd.Categorical</code> categories are in (roughly) alphabetical order. Ideally, we’d have them in an order like front, middle, back!</p>
+<p>One way to do this, is to use <code>fct_inorder()</code> to order by first observed first, second observed second, etc..</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fct_inorder(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>['front', 'middle', 'back']
+Categories (3, object): ['front', 'middle', 'back']</code></pre>
+</div>
+</div>
+<p>The remaining sections will focus on two kinds of categorical helper functions:</p>
+<ul>
+<li>functions for ordering category levels.</li>
+<li>functions for grouping categories together.</li>
+</ul>
+<p>However, before we do that, let’s go through a few useful ways to interact with categoricals.</p>
+<section id="core-attributes" class="level3">
+<h3 class="anchored" data-anchor-id="core-attributes">Core attributes</h3>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>a_cat.codes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>array([1, 2, 0], dtype=int8)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>a_cat.categories</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>Index(['back', 'front', 'middle'], dtype='object')</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>a_cat.ordered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>False</code></pre>
+</div>
+</div>
+</section>
+<section id="wrapping-in-pd.series" class="level3">
+<h3 class="anchored" data-anchor-id="wrapping-in-pd.series">Wrapping in <code>pd.Series</code></h3>
+<p>pandas often wraps categoricals in a Series object.</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>a_cat2 <span class="op">=</span> pd.Categorical([<span class="st">"b"</span>, <span class="st">"a"</span>, <span class="st">"c"</span>])</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>ser <span class="op">=</span> pd.Series(a_cat2)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>ser</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>0    b
+1    a
+2    c
+dtype: category
+Categories (3, object): ['a', 'b', 'c']</code></pre>
+</div>
+</div>
+<p>For example, any time you create a DataFrame column out of a categorical, it gets wrapped in a pd.Series.</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">"some_cat"</span>: a_cat2})</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(df.some_cat))</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>df.some_cat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.series.Series'&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>0    b
+1    a
+2    c
+Name: some_cat, dtype: category
+Categories (3, object): ['a', 'b', 'c']</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>99% of the time when doing data analysis, your categorical is wrapped in a Series.</p>
+</div>
+</div>
+<p>Note that accessor methods like <code>.str.upper()</code> are available on the series, and the underlying category attributes are availble using the <code>.cat</code> accessor.</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>ser.<span class="bu">str</span>.upper()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>0    B
+1    A
+2    C
+dtype: object</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>ser.cat.codes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>0    1
+1    0
+2    2
+dtype: int8</code></pre>
+</div>
+</div>
+<p>You can get the underlying categorical out using the <code>.array</code> property.</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>ser.array</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>['b', 'a', 'c']
+Categories (3, object): ['a', 'b', 'c']</code></pre>
+</div>
+</div>
+</section>
+<section id="using-in-verbs" class="level3">
+<h3 class="anchored" data-anchor-id="using-in-verbs">Using in verbs</h3>
+<p>The functions in <code>siuba.dplyr.forcats</code> can be used with lazy expressions.</p>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>fct_inorder(_.species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>█─'__call__'
+├─█─'__custom_func__'
+│ └─&lt;function fct_inorder at 0x7febdc9204c0&gt;
+└─█─.
+  ├─_
+  └─'species'</code></pre>
+</div>
+</div>
+<p>Note how the above output is a lazy expression, which can be used inside verbs like <code>mutate()</code>:</p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>(penguins</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">&gt;&gt;</span> mutate(</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>        species_cat <span class="op">=</span> fct_inorder(_.species),</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>        species_cat2 <span class="op">=</span> _.species.astype(<span class="st">"category"</span>),</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>species</th>
+      <th>island</th>
+      <th>bill_length_mm</th>
+      <th>bill_depth_mm</th>
+      <th>flipper_length_mm</th>
+      <th>body_mass_g</th>
+      <th>sex</th>
+      <th>year</th>
+      <th>species_cat</th>
+      <th>species_cat2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Adelie</td>
+      <td>Torgersen</td>
+      <td>39.1</td>
+      <td>18.7</td>
+      <td>181.0</td>
+      <td>3750.0</td>
+      <td>male</td>
+      <td>2007</td>
+      <td>Adelie</td>
+      <td>Adelie</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Adelie</td>
+      <td>Torgersen</td>
+      <td>39.5</td>
+      <td>17.4</td>
+      <td>186.0</td>
+      <td>3800.0</td>
+      <td>female</td>
+      <td>2007</td>
+      <td>Adelie</td>
+      <td>Adelie</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>342</th>
+      <td>Chinstrap</td>
+      <td>Dream</td>
+      <td>50.8</td>
+      <td>19.0</td>
+      <td>210.0</td>
+      <td>4100.0</td>
+      <td>male</td>
+      <td>2009</td>
+      <td>Chinstrap</td>
+      <td>Chinstrap</td>
+    </tr>
+    <tr>
+      <th>343</th>
+      <td>Chinstrap</td>
+      <td>Dream</td>
+      <td>50.2</td>
+      <td>18.7</td>
+      <td>198.0</td>
+      <td>3775.0</td>
+      <td>female</td>
+      <td>2009</td>
+      <td>Chinstrap</td>
+      <td>Chinstrap</td>
+    </tr>
+  </tbody>
+</table>
+<p>344 rows × 10 columns</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="order-categories-by-counts-with-fct_infreq" class="level2">
+<h2 class="anchored" data-anchor-id="order-categories-by-counts-with-fct_infreq">Order categories by counts with <code>fct_infreq()</code></h2>
+<p>Use <code>fct_infreq</code> to order category levels by their frequency in the data.</p>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>fct_infreq(penguins.species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>0         Adelie
+1         Adelie
+         ...    
+342    Chinstrap
+343    Chinstrap
+Length: 344, dtype: category
+Categories (3, object): ['Adelie', 'Gentoo', 'Chinstrap']</code></pre>
+</div>
+</div>
+<p>In the output above, the category ordering shows us that “Adelie” is most frequent in the data, followed by “Gentoo”, and then “Chinstrap”.</p>
+<p>We can verify this explicitly by using the verb <code>count()</code> to tally up each species.</p>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>tbl_species_count <span class="op">=</span> penguins <span class="op">&gt;&gt;</span> count(_.species)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>tbl_species_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>species</th>
+      <th>n</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Adelie</td>
+      <td>152</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Chinstrap</td>
+      <td>68</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Gentoo</td>
+      <td>124</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Ordering by frequency is helpful for giving viewers a rough sense for which groups have less data in your plots.</p>
+<p>For example, the code below plots each species on the x-axis, bill_depth_mm on the y-axis. It orders the categories of species by frequency, so those with the most data are shown on the left.</p>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, aes, geom_point, position_jitter</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>(penguins</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">&gt;&gt;</span> mutate(species <span class="op">=</span> fct_infreq(_.species))</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">&gt;&gt;</span> ggplot(aes(<span class="st">"species"</span>, <span class="st">"bill_depth_mm"</span>))</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_point(position<span class="op">=</span>position_jitter(width<span class="op">=</span><span class="fl">.1</span>, height<span class="op">=</span><span class="dv">0</span>))</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/opt/hostedtoolcache/Python/3.10.6/x64/lib/python3.10/site-packages/plotnine/layer.py:412: PlotnineWarning: geom_point : Removed 2 rows containing missing values.</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="ops-categoricals_files/figure-html/cell-18-output-2.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>&lt;ggplot: (8790668877809)&gt;</code></pre>
+</div>
+</div>
+<p>Note that the <code>position_jitter(width=.1, height=0)</code> tells the plot to randomly adjust the width of each point between <code>+-.1</code> (where the distance between each species label is 1).</p>
+</section>
+<section id="general-reordering-with-fct_reorder" class="level2">
+<h2 class="anchored" data-anchor-id="general-reordering-with-fct_reorder">General reordering with <code>fct_reorder()</code></h2>
+<p>Use <code>fct_reorder()</code> to reorder the categories of a column, based on another column.</p>
+<p>This function takes 3 main arguments:</p>
+<ul>
+<li>A column to copy and return with reordered categories.</li>
+<li>A column used to calculate the new ordering.</li>
+<li>An optional function that performs a calculation (defaults to calculating the median).</li>
+</ul>
+<p>For example, the code below reorders the categories of the <code>species</code> column.</p>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>fct_reorder(penguins.species, penguins.bill_depth_mm, <span class="st">"mean"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>0         Adelie
+1         Adelie
+         ...    
+342    Chinstrap
+343    Chinstrap
+Length: 344, dtype: category
+Categories (3, object): ['Gentoo', 'Adelie', 'Chinstrap']</code></pre>
+</div>
+</div>
+<p>Note that it reorders <code>species</code> based on the mean of <code>bill_depth_mm</code> within each category.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Currently, the easiest way to specify a calculation is by passing a string, like <code>"mean"</code>. Under the hood, <code>fct_reorder()</code> calls <a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.agg.html"><code>pd.Series.agg()</code></a>, so you could also pass a lambda or function directly.</p>
+</div>
+</div>
+<section id="basic-example" class="level3">
+<h3 class="anchored" data-anchor-id="basic-example">Basic example</h3>
+<p>The code below reorders <code>species</code> using the default function (“median”) over <code>bill_depth_mm</code>. This results in boxplots are ordered from lowest to highest median.</p>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, aes, geom_boxplot</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>(penguins</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">&gt;&gt;</span> mutate(species <span class="op">=</span> fct_reorder(_.species, _.bill_depth_mm))</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">&gt;&gt;</span> ggplot(aes(<span class="st">"species"</span>, <span class="st">"bill_depth_mm"</span>))</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_boxplot()</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/opt/hostedtoolcache/Python/3.10.6/x64/lib/python3.10/site-packages/plotnine/layer.py:334: PlotnineWarning: stat_boxplot : Removed 2 rows containing non-finite values.</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="ops-categoricals_files/figure-html/cell-20-output-2.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>&lt;ggplot: (8790666070596)&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="used-with-count" class="level3">
+<h3 class="anchored" data-anchor-id="used-with-count">Used with count</h3>
+<p>A common use for <code>fct_reorder</code> is to reorder a rolled up count.</p>
+<p>For example, the code below counts the number of rows per species.</p>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>tbl_penguin_species <span class="op">=</span> penguins <span class="op">&gt;&gt;</span> count(_.species)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>tbl_penguin_species</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>species</th>
+      <th>n</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Adelie</td>
+      <td>152</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Chinstrap</td>
+      <td>68</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Gentoo</td>
+      <td>124</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Suppose we had a table like this one, we might want to reorder the categories based on the <code>n</code> column.</p>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>fct_reorder(tbl_penguin_species.species, tbl_penguin_species.n, desc<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<pre><code>0       Adelie
+1    Chinstrap
+2       Gentoo
+dtype: category
+Categories (3, object): ['Adelie', 'Gentoo', 'Chinstrap']</code></pre>
+</div>
+</div>
+<p>Note that above we used the <code>desc=True</code> argument to put the categories in descending order. Because there is only entry per category level, the default function (“median”) just returns that value or <code>n</code>. This results in categories ordered by <code>n</code>.</p>
+<p>Here is the same calculation used to reorder the bars on a plot.</p>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, aes, geom_col</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>(tbl_penguin_species</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">&gt;&gt;</span> mutate(species <span class="op">=</span> fct_reorder(_.species, _.n, desc<span class="op">=</span><span class="va">True</span>))</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">&gt;&gt;</span> ggplot(aes(<span class="st">"species"</span>, <span class="st">"n"</span>))</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_col()</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="ops-categoricals_files/figure-html/cell-23-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<pre><code>&lt;ggplot: (8790668724282)&gt;</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="binning-categories-with-fct_lump" class="level2">
+<h2 class="anchored" data-anchor-id="binning-categories-with-fct_lump">Binning categories with <code>fct_lump()</code></h2>
+<p>While functions like <code>fct_infreq()</code> and <code>fct_reorder()</code> change the order of categories, functions like <code>fct_lump()</code> reduce the number of categories.</p>
+<p>Use <code>fct_lump()</code> to lump categories with fewer observations into a single category (e.g.&nbsp;“Other”).</p>
+<section id="basic-example-1" class="level3">
+<h3 class="anchored" data-anchor-id="basic-example-1">Basic example</h3>
+<p>For example, let’s look at the <code>nycflights13</code> table <code>flights</code>.</p>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nycflights13 <span class="im">import</span> flights</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>flights</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>year</th>
+      <th>month</th>
+      <th>day</th>
+      <th>dep_time</th>
+      <th>sched_dep_time</th>
+      <th>dep_delay</th>
+      <th>arr_time</th>
+      <th>sched_arr_time</th>
+      <th>arr_delay</th>
+      <th>carrier</th>
+      <th>flight</th>
+      <th>tailnum</th>
+      <th>origin</th>
+      <th>dest</th>
+      <th>air_time</th>
+      <th>distance</th>
+      <th>hour</th>
+      <th>minute</th>
+      <th>time_hour</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2013</td>
+      <td>1</td>
+      <td>1</td>
+      <td>517.0</td>
+      <td>515</td>
+      <td>2.0</td>
+      <td>830.0</td>
+      <td>819</td>
+      <td>11.0</td>
+      <td>UA</td>
+      <td>1545</td>
+      <td>N14228</td>
+      <td>EWR</td>
+      <td>IAH</td>
+      <td>227.0</td>
+      <td>1400</td>
+      <td>5</td>
+      <td>15</td>
+      <td>2013-01-01T10:00:00Z</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2013</td>
+      <td>1</td>
+      <td>1</td>
+      <td>533.0</td>
+      <td>529</td>
+      <td>4.0</td>
+      <td>850.0</td>
+      <td>830</td>
+      <td>20.0</td>
+      <td>UA</td>
+      <td>1714</td>
+      <td>N24211</td>
+      <td>LGA</td>
+      <td>IAH</td>
+      <td>227.0</td>
+      <td>1416</td>
+      <td>5</td>
+      <td>29</td>
+      <td>2013-01-01T10:00:00Z</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>336774</th>
+      <td>2013</td>
+      <td>9</td>
+      <td>30</td>
+      <td>NaN</td>
+      <td>1159</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1344</td>
+      <td>NaN</td>
+      <td>MQ</td>
+      <td>3572</td>
+      <td>N511MQ</td>
+      <td>LGA</td>
+      <td>CLE</td>
+      <td>NaN</td>
+      <td>419</td>
+      <td>11</td>
+      <td>59</td>
+      <td>2013-09-30T15:00:00Z</td>
+    </tr>
+    <tr>
+      <th>336775</th>
+      <td>2013</td>
+      <td>9</td>
+      <td>30</td>
+      <td>NaN</td>
+      <td>840</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1020</td>
+      <td>NaN</td>
+      <td>MQ</td>
+      <td>3531</td>
+      <td>N839MQ</td>
+      <td>LGA</td>
+      <td>RDU</td>
+      <td>NaN</td>
+      <td>431</td>
+      <td>8</td>
+      <td>40</td>
+      <td>2013-09-30T12:00:00Z</td>
+    </tr>
+  </tbody>
+</table>
+<p>336776 rows × 19 columns</p>
+</div>
+</div>
+</div>
+<p>This table has a column for <code>carrier</code> that lists each agency running flights. We can use the verb <code>count()</code> to quickly see how many unique carriers there are, and get a feel for how many flights each has run.</p>
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>tbl_carrier_counts <span class="op">=</span> flights <span class="op">&gt;&gt;</span> count(_.carrier, sort<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>tbl_carrier_counts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>carrier</th>
+      <th>n</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>UA</td>
+      <td>58665</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>B6</td>
+      <td>54635</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>HA</td>
+      <td>342</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>OO</td>
+      <td>32</td>
+    </tr>
+  </tbody>
+</table>
+<p>16 rows × 2 columns</p>
+</div>
+</div>
+</div>
+<p>Notice two pieces:</p>
+<ul>
+<li>There are 16 rows, so 16 carriers</li>
+<li>There is a big difference between the number of <code>"UA"</code> and <code>"OO"</code> flights (58,665 vs 32).</li>
+</ul>
+<p>Let’s use <code>fct_lump()</code> to keep only the 7 biggest carriers, and relable the rest to “Other”.</p>
+<div class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>fct_lump(tbl_carrier_counts.carrier, w<span class="op">=</span>tbl_carrier_counts.n, n<span class="op">=</span><span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="25">
+<pre><code>0        UA
+1        B6
+      ...  
+14    Other
+15    Other
+Length: 16, dtype: category
+Categories (8, object): ['AA', 'B6', 'DL', 'EV', 'MQ', 'UA', 'US', 'Other']</code></pre>
+</div>
+</div>
+<p>In the code above, we told <code>fct_lump()</code> to lump categories for <code>carrier</code>, weighted by the <code>n</code> column, and resulting in <code>n=7</code> of the original groups.</p>
+<p>Here’s an example using the above code to order a barchart.</p>
+<div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, aes, geom_col</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>(tbl_carrier_counts</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">&gt;&gt;</span> mutate(binned <span class="op">=</span> fct_lump(_.carrier, w<span class="op">=</span>_.n, n<span class="op">=</span><span class="dv">7</span>))</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">&gt;&gt;</span> ggplot(aes(<span class="st">"binned"</span>, <span class="st">"n"</span>, fill<span class="op">=</span><span class="st">"carrier"</span>)) </span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_col()</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="ops-categoricals_files/figure-html/cell-27-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<pre><code>&lt;ggplot: (8790666121141)&gt;</code></pre>
+</div>
+</div>
+<p>Notice that all of the smaller carriers are grouped into the “Other” bar.</p>
+<p>This plot looks okay, but there are two limitations:</p>
+<ul>
+<li>The first bar on the left is “AA”, but the color legend is in alphabetical order, so starts with “9E”. It would be nice if the legend were in the same order as the bars.</li>
+<li>The bars themselves are not ordered by frequency.</li>
+</ul>
+<p>We’ll tackle these pieces in the section below.</p>
+</section>
+<section id="respecting-category-order" class="level3">
+<h3 class="anchored" data-anchor-id="respecting-category-order">Respecting category order</h3>
+<p><code>fct_lump()</code> preserves existing category order. This enables you to order categories before collapsing them down.</p>
+<div class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, aes, geom_col</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>(tbl_carrier_counts</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">&gt;&gt;</span> mutate(carrier <span class="op">=</span> fct_inorder(_.carrier))</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">&gt;&gt;</span> mutate(binned <span class="op">=</span> fct_lump(_.carrier, w<span class="op">=</span>_.n, n<span class="op">=</span><span class="dv">7</span>))</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">&gt;&gt;</span> ggplot(aes(<span class="st">"binned"</span>, <span class="st">"n"</span>, fill<span class="op">=</span><span class="st">"carrier"</span>)) </span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_col()</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="ops-categoricals_files/figure-html/cell-28-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<pre><code>&lt;ggplot: (8790665940749)&gt;</code></pre>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
