@@ -35,10 +35,150 @@ This page discusses 3 helper functions that will super charge your workflow:
 import pandas as pd
 from siuba import _, count, separate, complete
 
+from siuba.data import mtcars, penguins
 ```
 
 ## Count values
 
+Use `count()` to quickly tally up the number of rows per grouping.
+
+```{python}
+mtcars >> count(_.cyl, _.gear)
+```
+
+The output above has 8 rows---one for each grouping---and a column named `n` with
+the number of observations in each grouping.
+
+Note that `count()` is a shorthand for combining `group_by()` and `summarize()`.
+
+```{python}
+from siuba import group_by, summarize
+
+mtcars >> group_by(_.cyl, _.gear) >> summarize(n = _.shape[0])
+```
+
+
+### Sorting results
+
+Use the `sort` argument to sort results by number of observations, in descending order.
+
+```{python}
+mtcars >> count(_.cyl, sort=True)
+```
+
+
+### With expressions
+
+```{python}
+mtcars >> count(_.cyl, high_mpg = _.mpg > 30)
+```
+
+Here's a somewhat advanced example that puts mpg in different bins.
+
+```{python}
+from siuba import count
+from siuba.siu import call
+from siuba.data import mtcars
+
+car_counts = mtcars >> count(_.cyl, mpg = call(pd.cut, _.mpg, bins = 3))
+car_counts
+```
+
+Note these important pieces:
+
+* `call(pd.cut, ...)` is used to lazily call `pd.cut(...)`.
+* `pd.cut` splits the data into bins, that count then uses as a grouping.
+
+Here's a barchart of this data in plotnine.
+
+```{python}
+from plotnine import ggplot, aes, geom_col, facet_wrap, theme, element_text
+
+(car_counts
+    >> ggplot(aes("mpg", "n", fill="mpg"))
+    + geom_col()
+    + facet_wrap("~cyl")
+    + theme(axis_text_x = element_text(angle=45, hjust=1))
+)
+```
+
+As vehicles increase in cylinders, they have fewer low mpg vehicles. For example,
+no `8` cylinder vehicles are in the highest `mpg` bin (above 26 mpg).
+
+### Weighted counts
+
+Use the `wt` argument to do a weighted count (i.e. sum the weight values per grouping).
+
+This is useful if you have data that already contains a count, such as the count of `cyl` and `gear` below.
+
+```{python}
+tbl_n_cyl_gear = mtcars >> count(_.cyl, _.gear)
+```
+
+The `wt` argument lets us roll this result up to count observations per `cyl`.
+
+```{python}
+tbl_n_cyl_gear >> count(_.cyl, wt=_.n)
+```
+
+Notice that this is equivalent to counting `cyl` on the raw data.
+
+```{python}
+mtcars >> count(_.cyl)
+```
+
 ## Separate strings into columns
 
+Use `separate()` to split a column using a pattern, and produce new columns.
+
+By default, it splits strings on any non-alphanumeric character, so is helpful
+for quickly splitting in common situations where values are seperated by dashes (e.g. "a-1").
+
+For example, here is some data where the `condition` column could be split on `"-"`.
+
+```{python}
+measures = pd.DataFrame({
+    "condition": ["a-1", "a-2", "b-1", "b-2"],
+    "value": [1, 2, 3, 4]
+})
+
+measures
+```
+
+Separate takes the column we want to split, the names of the new columns.
+It produces a new table with the new columns in the place of the old one.
+
+```{python}
+measures >> separate(_.condition, ["name", "number"])
+```
+
+Notice that the `condition` column got split into `name` and `number` columns.
+
+
 ## Complete combinations of data
+
+Use `complete()` to fill in missing combinations in the data.
+
+For example, the code below counts penguins across `species` and `island`,
+but not all species are on each island.
+
+```{python}
+tbl_n_penguins = penguins >> count(_.species, _.island)
+tbl_n_penguins
+```
+
+Notice the following in the count:
+
+* Adelie penguins are on three islands, BUT
+* Chinstrap are only on Dream.
+* Gentoo are only on Biscoe.
+
+We can use complete to add rows with 0 counts for islands Chinstrap and Gentoo aren't on.
+
+```{python}
+tbl_n_penguins >> complete(_.species, _.island, fill = {"n": 0})
+```
+
+Now the data has 9 rows, one for each combination of species and island.
+The `fill = {"n": 0}` argument allowed us to set a default value of 0 for the
+previously missing rows.

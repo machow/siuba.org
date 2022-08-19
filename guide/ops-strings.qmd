@@ -35,16 +35,6 @@ ultimately focus on `str.contains()`, `str.replace()`, and `str.extract()` for
 common match, transform, and extract tasks.
 
 
-* startswith, endswith
-* **contains** (ignore match)
-* lower, upper, title
-* **replace**
-* `.str[]`
-* **extract**
-* `split`, `join`, `findall`
-
-
-
 ```{python}
 from siuba.data import penguins
 from siuba import _, mutate, summarize, group_by, filter
@@ -126,48 +116,132 @@ passing something called a regular expression to `str.contains()`.
 
 ### `str.contains()` patterns
 
+Use `str.contains(...)` to perform matches with [regular expressions](https://docs.python.org/3/howto/regex.html)---a special
+string syntax for specifying patterns to match.
+
+
+For example, you can use `"^"` or `"$"` to match the start or end of a string, respectively.
+
 ```{python}
-penguins.species.str.contains("$Ade")
+# check if starts with "ap" ----
+
+penguins.species.str.contains("^ap")
 ```
 
+```{python}
+# check if endswith with "a" ----
+
+penguins.species.str.contains("a$")
+```
+
+Note that `"$"` and `"^"` are called **anchor points**.
+
+
 ## Transforming strings
+
+String transformations take a string and return a new, changed version.
+For example, by converting all the letters to lower, upper, or title case.
 
 ### Simple transformations
 
 
-
 ```{python}
-penguins.species.str.lower()
+fruits.str.lower()
+
+fruits.str.upper()
 ```
 
 ### `str.replace()` patterns
+
+Use `.str.replace(..., regex=True)` with regular expressions to replace patterns in strings.
+
+For example, the code below uses `"p."`, where `.` is called a wildcard--which matches any character.
+
+```{python}
+fruits.str.replace("p.", "XX", regex=True)
+```
+
 
 ## Extracting parts
 
 ### `.str[]` to slice
 
-Note that it is not possible to pass a sequence of slices, etc.. apply example.
+:::{.callout-warning}
+It is currently not possible to apply a sequence of slices to `.str`.
+You can only apply the same slice to every string in the Series.
+:::
 
 
 ### `.str.extract()` patterns
 
 ## Split and flatten
 
+### `.str.split()` into list-entries
+
+Use `.str.split()` to split each entry on a character, producing a list per row of split strings.
+
 ```{python}
-penguins.species.str.split(",")
+fruits.str.split("pp")
 ```
+
+Seeing each entry be a list may surprising, and is fairly rare in pandas.
+
+### `.str.join()` is the inverse of split
 
 ```{python}
 penguins.species.str.split("e").str.join("e")
 ```
 
+
+### `.explode()` to unnest entries
+
+Use `.str.explode()` to take a column with list-entries (like those returned by `.str.split()`)
+and unnest each entry, so there is 1 row per each element in each list.
+
 ```{python}
-penguins.species.str.findall("e")
+splits = fruits.str.split("pp")
+splits
+```
+
+Notice that the result above has 4 list-entries (rows).
+The first and last rows are the splits `["a", "le"]` and `["bell pe", "er"]`,
+so there are 7 elements total.
+
+The `.explode()` method makes each of the 7 elements its own row.
+
+```{python}
+splits.explode()
+```
+
+Be careful to note that it's `.explode()` and **not** `.str.explode()`, since it
+can be used on lists of other things as well!
+
+### `.str.findall()` for advanced splitting
+
+For example, the code below uses `"pp?"`, where `?` means the preceding character ("p") is optional for matching:
+
+```{python}
+fruits.str.findall("pp?")
 ```
 
 ## Templates with `str_glue()`
 
-```{python}
-penguins.species
-```
+:::{.callout-warning}
+`str_glue()` does not exist. This section is ✨aspirational✨.
+:::
 
+## More regular expressions
+
+### Anchor points
+
+* `^` - matches the beginning of a string.
+* `$` - matches the end of a string.
+
+### Repetition qualifiers
+
+* `+` - matches 1 or more
+* `?` - matches
+
+### Grouping
+
+### Alternatives
