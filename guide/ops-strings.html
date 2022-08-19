@@ -375,8 +375,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#str-to-slice" id="toc-str-to-slice" class="nav-link" data-scroll-target="#str-to-slice"><code>.str[]</code> to slice</a></li>
   <li><a href="#str.extract-patterns" id="toc-str.extract-patterns" class="nav-link" data-scroll-target="#str.extract-patterns"><code>.str.extract()</code> patterns</a></li>
   </ul></li>
-  <li><a href="#split-and-flatten" id="toc-split-and-flatten" class="nav-link" data-scroll-target="#split-and-flatten">Split and flatten</a></li>
+  <li><a href="#split-and-flatten" id="toc-split-and-flatten" class="nav-link" data-scroll-target="#split-and-flatten">Split and flatten</a>
+  <ul class="collapse">
+  <li><a href="#str.split-into-list-entries" id="toc-str.split-into-list-entries" class="nav-link" data-scroll-target="#str.split-into-list-entries"><code>.str.split()</code> into list-entries</a></li>
+  <li><a href="#str.join-is-the-inverse-of-split" id="toc-str.join-is-the-inverse-of-split" class="nav-link" data-scroll-target="#str.join-is-the-inverse-of-split"><code>.str.join()</code> is the inverse of split</a></li>
+  <li><a href="#explode-to-unnest-entries" id="toc-explode-to-unnest-entries" class="nav-link" data-scroll-target="#explode-to-unnest-entries"><code>.explode()</code> to unnest entries</a></li>
+  <li><a href="#str.findall-for-advanced-splitting" id="toc-str.findall-for-advanced-splitting" class="nav-link" data-scroll-target="#str.findall-for-advanced-splitting"><code>.str.findall()</code> for advanced splitting</a></li>
+  </ul></li>
   <li><a href="#templates-with-str_glue" id="toc-templates-with-str_glue" class="nav-link" data-scroll-target="#templates-with-str_glue">Templates with <code>str_glue()</code></a></li>
+  <li><a href="#more-regular-expressions" id="toc-more-regular-expressions" class="nav-link" data-scroll-target="#more-regular-expressions">More regular expressions</a>
+  <ul class="collapse">
+  <li><a href="#anchor-points" id="toc-anchor-points" class="nav-link" data-scroll-target="#anchor-points">Anchor points</a></li>
+  <li><a href="#repetition-qualifiers" id="toc-repetition-qualifiers" class="nav-link" data-scroll-target="#repetition-qualifiers">Repetition qualifiers</a></li>
+  <li><a href="#grouping" id="toc-grouping" class="nav-link" data-scroll-target="#grouping">Grouping</a></li>
+  <li><a href="#alternatives" id="toc-alternatives" class="nav-link" data-scroll-target="#alternatives">Alternatives</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -408,15 +421,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><strong>Extract</strong>: grab specific parts of string value (e.g.&nbsp;a matching pattern).</li>
 </ul>
 <p>This page will cover different methods for performing these actions, but will ultimately focus on <code>str.contains()</code>, <code>str.replace()</code>, and <code>str.extract()</code> for common match, transform, and extract tasks.</p>
-<ul>
-<li>startswith, endswith</li>
-<li><strong>contains</strong> (ignore match)</li>
-<li>lower, upper, title</li>
-<li><strong>replace</strong></li>
-<li><code>.str[]</code></li>
-<li><strong>extract</strong></li>
-<li><code>split</code>, <code>join</code>, <code>findall</code></li>
-</ul>
 <div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba.data <span class="im">import</span> penguins</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba <span class="im">import</span> _, mutate, summarize, group_by, <span class="bu">filter</span></span>
@@ -572,8 +576,12 @@ Warning
 </section>
 <section id="str.contains-patterns" class="level3">
 <h3 class="anchored" data-anchor-id="str.contains-patterns"><code>str.contains()</code> patterns</h3>
+<p>Use <code>str.contains(...)</code> to perform matches with <a href="https://docs.python.org/3/howto/regex.html">regular expressions</a>—a special string syntax for specifying patterns to match.</p>
+<p>For example, you can use <code>"^"</code> or <code>"$"</code> to match the start or end of a string, respectively.</p>
 <div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>penguins.species.<span class="bu">str</span>.contains(<span class="st">"$Ade"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check if starts with "ap" ----</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>penguins.species.<span class="bu">str</span>.contains(<span class="st">"^ap"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>0      False
 1      False
@@ -583,33 +591,75 @@ Warning
 Name: species, Length: 344, dtype: bool</code></pre>
 </div>
 </div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check if endswith with "a" ----</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>penguins.species.<span class="bu">str</span>.contains(<span class="st">"a$"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>0      False
+1      False
+       ...  
+342    False
+343    False
+Name: species, Length: 344, dtype: bool</code></pre>
+</div>
+</div>
+<p>Note that <code>"$"</code> and <code>"^"</code> are called <strong>anchor points</strong>.</p>
 </section>
 </section>
 <section id="transforming-strings" class="level2">
 <h2 class="anchored" data-anchor-id="transforming-strings">Transforming strings</h2>
+<p>String transformations take a string and return a new, changed version. For example, by converting all the letters to lower, upper, or title case.</p>
 <section id="simple-transformations" class="level3">
 <h3 class="anchored" data-anchor-id="simple-transformations">Simple transformations</h3>
-<div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>penguins.species.<span class="bu">str</span>.lower()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
-<pre><code>0         adelie
-1         adelie
-         ...    
-342    chinstrap
-343    chinstrap
-Name: species, Length: 344, dtype: object</code></pre>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fruits.<span class="bu">str</span>.lower()</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>fruits.<span class="bu">str</span>.upper()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>0          APPLE
+1        APRICOT
+2        AVOCADO
+3         BANANA
+4    BELL PEPPER
+dtype: object</code></pre>
 </div>
 </div>
 </section>
 <section id="str.replace-patterns" class="level3">
 <h3 class="anchored" data-anchor-id="str.replace-patterns"><code>str.replace()</code> patterns</h3>
+<p>Use <code>.str.replace(..., regex=True)</code> with regular expressions to replace patterns in strings.</p>
+<p>For example, the code below uses <code>"p."</code>, where <code>.</code> is called a wildcard–which matches any character.</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fruits.<span class="bu">str</span>.replace(<span class="st">"p."</span>, <span class="st">"XX"</span>, regex<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>0          aXXle
+1        aXXicot
+2        avocado
+3         banana
+4    bell XXXXer
+dtype: object</code></pre>
+</div>
+</div>
 </section>
 </section>
 <section id="extracting-parts" class="level2">
 <h2 class="anchored" data-anchor-id="extracting-parts">Extracting parts</h2>
 <section id="str-to-slice" class="level3">
 <h3 class="anchored" data-anchor-id="str-to-slice"><code>.str[]</code> to slice</h3>
-<p>Note that it is not possible to pass a sequence of slices, etc.. apply example.</p>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It is currently not possible to apply a sequence of slices to <code>.str</code>. You can only apply the same slice to every string in the Series.</p>
+</div>
+</div>
 </section>
 <section id="str.extract-patterns" class="level3">
 <h3 class="anchored" data-anchor-id="str.extract-patterns"><code>.str.extract()</code> patterns</h3>
@@ -617,44 +667,26 @@ Name: species, Length: 344, dtype: object</code></pre>
 </section>
 <section id="split-and-flatten" class="level2">
 <h2 class="anchored" data-anchor-id="split-and-flatten">Split and flatten</h2>
-<div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>penguins.species.<span class="bu">str</span>.split(<span class="st">","</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
-<pre><code>0         [Adelie]
-1         [Adelie]
-          ...     
-342    [Chinstrap]
-343    [Chinstrap]
-Name: species, Length: 344, dtype: object</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>penguins.species.<span class="bu">str</span>.split(<span class="st">"e"</span>).<span class="bu">str</span>.join(<span class="st">"e"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
-<pre><code>0         Adelie
-1         Adelie
-         ...    
-342    Chinstrap
-343    Chinstrap
-Name: species, Length: 344, dtype: object</code></pre>
-</div>
-</div>
+<section id="str.split-into-list-entries" class="level3">
+<h3 class="anchored" data-anchor-id="str.split-into-list-entries"><code>.str.split()</code> into list-entries</h3>
+<p>Use <code>.str.split()</code> to split each entry on a character, producing a list per row of split strings.</p>
 <div class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>penguins.species.<span class="bu">str</span>.findall(<span class="st">"e"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fruits.<span class="bu">str</span>.split(<span class="st">"pp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
-<pre><code>0      [e, e]
-1      [e, e]
-        ...  
-342        []
-343        []
-Name: species, Length: 344, dtype: object</code></pre>
+<pre><code>0          [a, le]
+1        [apricot]
+2        [avocado]
+3         [banana]
+4    [bell pe, er]
+dtype: object</code></pre>
 </div>
 </div>
+<p>Seeing each entry be a list may surprising, and is fairly rare in pandas.</p>
 </section>
-<section id="templates-with-str_glue" class="level2">
-<h2 class="anchored" data-anchor-id="templates-with-str_glue">Templates with <code>str_glue()</code></h2>
+<section id="str.join-is-the-inverse-of-split" class="level3">
+<h3 class="anchored" data-anchor-id="str.join-is-the-inverse-of-split"><code>.str.join()</code> is the inverse of split</h3>
 <div class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>penguins.species</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>penguins.species.<span class="bu">str</span>.split(<span class="st">"e"</span>).<span class="bu">str</span>.join(<span class="st">"e"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>0         Adelie
 1         Adelie
@@ -664,8 +696,93 @@ Name: species, Length: 344, dtype: object</code></pre>
 Name: species, Length: 344, dtype: object</code></pre>
 </div>
 </div>
+</section>
+<section id="explode-to-unnest-entries" class="level3">
+<h3 class="anchored" data-anchor-id="explode-to-unnest-entries"><code>.explode()</code> to unnest entries</h3>
+<p>Use <code>.str.explode()</code> to take a column with list-entries (like those returned by <code>.str.split()</code>) and unnest each entry, so there is 1 row per each element in each list.</p>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>splits <span class="op">=</span> fruits.<span class="bu">str</span>.split(<span class="st">"pp"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>splits</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>0          [a, le]
+1        [apricot]
+2        [avocado]
+3         [banana]
+4    [bell pe, er]
+dtype: object</code></pre>
+</div>
+</div>
+<p>Notice that the result above has 4 list-entries (rows). The first and last rows are the splits <code>["a", "le"]</code> and <code>["bell pe", "er"]</code>, so there are 7 elements total.</p>
+<p>The <code>.explode()</code> method makes each of the 7 elements its own row.</p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>splits.explode()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>0          a
+0         le
+      ...   
+4    bell pe
+4         er
+Length: 7, dtype: object</code></pre>
+</div>
+</div>
+<p>Be careful to note that it’s <code>.explode()</code> and <strong>not</strong> <code>.str.explode()</code>, since it can be used on lists of other things as well!</p>
+</section>
+<section id="str.findall-for-advanced-splitting" class="level3">
+<h3 class="anchored" data-anchor-id="str.findall-for-advanced-splitting"><code>.str.findall()</code> for advanced splitting</h3>
+<p>For example, the code below uses <code>"pp?"</code>, where <code>?</code> means the preceding character (“p”) is optional for matching:</p>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>fruits.<span class="bu">str</span>.findall(<span class="st">"pp?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>0       [pp]
+1        [p]
+2         []
+3         []
+4    [p, pp]
+dtype: object</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="templates-with-str_glue" class="level2">
+<h2 class="anchored" data-anchor-id="templates-with-str_glue">Templates with <code>str_glue()</code></h2>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>str_glue()</code> does not exist. This section is ✨aspirational✨.</p>
+</div>
+</div>
+</section>
+<section id="more-regular-expressions" class="level2">
+<h2 class="anchored" data-anchor-id="more-regular-expressions">More regular expressions</h2>
+<section id="anchor-points" class="level3">
+<h3 class="anchored" data-anchor-id="anchor-points">Anchor points</h3>
+<ul>
+<li><code>^</code> - matches the beginning of a string.</li>
+<li><code>$</code> - matches the end of a string.</li>
+</ul>
+</section>
+<section id="repetition-qualifiers" class="level3">
+<h3 class="anchored" data-anchor-id="repetition-qualifiers">Repetition qualifiers</h3>
+<ul>
+<li><code>+</code> - matches 1 or more</li>
+<li><code>?</code> - matches</li>
+</ul>
+</section>
+<section id="grouping" class="level3">
+<h3 class="anchored" data-anchor-id="grouping">Grouping</h3>
+</section>
+<section id="alternatives" class="level3">
+<h3 class="anchored" data-anchor-id="alternatives">Alternatives</h3>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
