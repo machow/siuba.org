@@ -221,35 +221,63 @@
     "href": "guide/ops-categoricals.html#overview",
     "title": "Categoricals (forcats)",
     "section": "Overview",
-    "text": "Overview\nHere is a simple pd.Categorical representing a column with 3 values.\n\nx = [\"front\", \"middle\", \"back\"]\n\na_cat = pd.Categorical(x)\na_cat\n\n['front', 'middle', 'back']\nCategories (3, object): ['back', 'front', 'middle']\n\n\nNotice that the bottom line of the print out shows the categories ordered as ['back', 'front', 'middle']. By default, pd.Categorical categories are in (roughly) alphabetical order. Ideally, we’d have them in an order like front, middle, back!\nOne way to do this, is to use fct_inorder() to order by first observed first, second observed second, etc..\n\nfct_inorder(x)\n\n['front', 'middle', 'back']\nCategories (3, object): ['front', 'middle', 'back']\n\n\nThe remaining sections will focus on two kinds of categorical helper functions:\n\nfunctions for ordering category levels.\nfunctions for grouping categories together.\n\nHowever, before we do that, let’s go through a few useful ways to interact with categoricals.\n\nCore attributes\n\na_cat.codes\n\narray([1, 2, 0], dtype=int8)\n\n\n\na_cat.categories\n\nIndex(['back', 'front', 'middle'], dtype='object')\n\n\n\na_cat.ordered\n\nFalse\n\n\n\n\nWrapping in pd.Series\npandas often wraps categoricals in a Series object.\n\na_cat2 = pd.Categorical([\"b\", \"a\", \"c\"])\nser = pd.Series(a_cat2)\nser\n\n0    b\n1    a\n2    c\ndtype: category\nCategories (3, object): ['a', 'b', 'c']\n\n\nFor example, any time you create a DataFrame column out of a categorical, it gets wrapped in a pd.Series.\n\ndf = pd.DataFrame({\"some_cat\": a_cat2})\n\nprint(type(df.some_cat))\ndf.some_cat\n\n<class 'pandas.core.series.Series'>\n\n\n0    b\n1    a\n2    c\nName: some_cat, dtype: category\nCategories (3, object): ['a', 'b', 'c']\n\n\n\n\n\n\n\n\nNote\n\n\n\n99% of the time when doing data analysis, your categorical is wrapped in a Series.\n\n\nNote that accessor methods like .str.upper() are available on the series, and the underlying category attributes are availble using the .cat accessor.\n\nser.str.upper()\n\n0    B\n1    A\n2    C\ndtype: object\n\n\n\nser.cat.codes\n\n0    1\n1    0\n2    2\ndtype: int8\n\n\nYou can get the underlying categorical out using the .array property.\n\nser.array\n\n['b', 'a', 'c']\nCategories (3, object): ['a', 'b', 'c']\n\n\n\n\nUsing in verbs\nThe functions in siuba.dplyr.forcats can be used with lazy expressions.\n\nfct_inorder(_.species)\n\n█─'__call__'\n├─█─'__custom_func__'\n│ └─<function fct_inorder at 0x7fe6508ac4c0>\n└─█─.\n  ├─_\n  └─'species'\n\n\nNote how the above output is a lazy expression, which can be used inside verbs like mutate():\n\n(penguins\n    >> mutate(\n        species_cat = fct_inorder(_.species),\n        species_cat2 = _.species.astype(\"category\"),\n    )\n)\n\n\n\n\n\n  \n    \n      \n      species\n      island\n      bill_length_mm\n      bill_depth_mm\n      flipper_length_mm\n      body_mass_g\n      sex\n      year\n      species_cat\n      species_cat2\n    \n  \n  \n    \n      0\n      Adelie\n      Torgersen\n      39.1\n      18.7\n      181.0\n      3750.0\n      male\n      2007\n      Adelie\n      Adelie\n    \n    \n      1\n      Adelie\n      Torgersen\n      39.5\n      17.4\n      186.0\n      3800.0\n      female\n      2007\n      Adelie\n      Adelie\n    \n    \n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n    \n    \n      342\n      Chinstrap\n      Dream\n      50.8\n      19.0\n      210.0\n      4100.0\n      male\n      2009\n      Chinstrap\n      Chinstrap\n    \n    \n      343\n      Chinstrap\n      Dream\n      50.2\n      18.7\n      198.0\n      3775.0\n      female\n      2009\n      Chinstrap\n      Chinstrap\n    \n  \n\n344 rows × 10 columns"
+    "text": "Overview\nHere is a simple pd.Categorical representing a column with 3 values.\n\nx = [\"front\", \"middle\", \"back\"]\n\na_cat = pd.Categorical(x)\na_cat\n\n['front', 'middle', 'back']\nCategories (3, object): ['back', 'front', 'middle']\n\n\nNotice that the bottom line of the print out shows the categories ordered as ['back', 'front', 'middle']. By default, pd.Categorical categories are in (roughly) alphabetical order. Ideally, we’d have them in an order like front, middle, back!\nOne way to do this, is to use fct_inorder() to order by first observed first, second observed second, etc..\n\nfct_inorder(x)\n\n['front', 'middle', 'back']\nCategories (3, object): ['front', 'middle', 'back']\n\n\nThe remaining sections will focus on two kinds of categorical helper functions:\n\nfunctions for ordering category levels.\nfunctions for grouping categories together.\n\nHowever, before we do that, let’s go through a few useful ways to interact with categoricals.\n\nCore attributes\n\na_cat.codes\n\narray([1, 2, 0], dtype=int8)\n\n\n\na_cat.categories\n\nIndex(['back', 'front', 'middle'], dtype='object')\n\n\n\na_cat.ordered\n\nFalse\n\n\n\n\nWrapping in pd.Series\npandas often wraps categoricals in a Series object.\n\na_cat2 = pd.Categorical([\"b\", \"a\", \"c\"])\nser = pd.Series(a_cat2)\nser\n\n0    b\n1    a\n2    c\ndtype: category\nCategories (3, object): ['a', 'b', 'c']\n\n\nFor example, any time you create a DataFrame column out of a categorical, it gets wrapped in a pd.Series.\n\ndf = pd.DataFrame({\"some_cat\": a_cat2})\n\nprint(type(df.some_cat))\ndf.some_cat\n\n<class 'pandas.core.series.Series'>\n\n\n0    b\n1    a\n2    c\nName: some_cat, dtype: category\nCategories (3, object): ['a', 'b', 'c']\n\n\n\n\n\n\n\n\nNote\n\n\n\n99% of the time when doing data analysis, your categorical is wrapped in a Series.\n\n\nNote that accessor methods like .str.upper() are available on the series, and the underlying category attributes are availble using the .cat accessor.\n\nser.str.upper()\n\n0    B\n1    A\n2    C\ndtype: object\n\n\n\nser.cat.codes\n\n0    1\n1    0\n2    2\ndtype: int8\n\n\nYou can get the underlying categorical out using the .array property.\n\nser.array\n\n['b', 'a', 'c']\nCategories (3, object): ['a', 'b', 'c']\n\n\n\n\nUsing in verbs\nThe functions in siuba.dplyr.forcats can be used with lazy expressions.\n\nfct_inorder(_.species)\n\n█─'__call__'\n├─█─'__custom_func__'\n│ └─<function fct_inorder at 0x7f3ec9698550>\n└─█─.\n  ├─_\n  └─'species'\n\n\nNote how the above output is a lazy expression, which can be used inside verbs like mutate():\n\n(penguins\n    >> mutate(\n        species_cat = fct_inorder(_.species),\n        species_cat2 = _.species.astype(\"category\"),\n    )\n)\n\n\n\n\n\n  \n    \n      \n      species\n      island\n      bill_length_mm\n      bill_depth_mm\n      flipper_length_mm\n      body_mass_g\n      sex\n      year\n      species_cat\n      species_cat2\n    \n  \n  \n    \n      0\n      Adelie\n      Torgersen\n      39.1\n      18.7\n      181.0\n      3750.0\n      male\n      2007\n      Adelie\n      Adelie\n    \n    \n      1\n      Adelie\n      Torgersen\n      39.5\n      17.4\n      186.0\n      3800.0\n      female\n      2007\n      Adelie\n      Adelie\n    \n    \n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n    \n    \n      342\n      Chinstrap\n      Dream\n      50.8\n      19.0\n      210.0\n      4100.0\n      male\n      2009\n      Chinstrap\n      Chinstrap\n    \n    \n      343\n      Chinstrap\n      Dream\n      50.2\n      18.7\n      198.0\n      3775.0\n      female\n      2009\n      Chinstrap\n      Chinstrap\n    \n  \n\n344 rows × 10 columns"
   },
   {
     "objectID": "guide/ops-categoricals.html#order-categories-by-counts-with-fct_infreq",
     "href": "guide/ops-categoricals.html#order-categories-by-counts-with-fct_infreq",
     "title": "Categoricals (forcats)",
     "section": "Order categories by counts with fct_infreq()",
-    "text": "Order categories by counts with fct_infreq()\nUse fct_infreq to order category levels by their frequency in the data.\n\nfct_infreq(penguins.species)\n\n0         Adelie\n1         Adelie\n         ...    \n342    Chinstrap\n343    Chinstrap\nLength: 344, dtype: category\nCategories (3, object): ['Adelie', 'Gentoo', 'Chinstrap']\n\n\nIn the output above, the category ordering shows us that “Adelie” is most frequent in the data, followed by “Gentoo”, and then “Chinstrap”.\nWe can verify this explicitly by using the verb count() to tally up each species.\n\ntbl_species_count = penguins >> count(_.species)\n\ntbl_species_count\n\n\n\n\n\n  \n    \n      \n      species\n      n\n    \n  \n  \n    \n      0\n      Adelie\n      152\n    \n    \n      1\n      Chinstrap\n      68\n    \n    \n      2\n      Gentoo\n      124\n    \n  \n\n\n\n\nOrdering by frequency is helpful for giving viewers a rough sense for which groups have less data in your plots.\nFor example, the code below plots each species on the x-axis, bill_depth_mm on the y-axis. It orders the categories of species by frequency, so those with the most data are shown on the left.\n\nfrom plotnine import ggplot, aes, geom_point, position_jitter\n\n(penguins\n    >> mutate(species = fct_infreq(_.species))\n    >> ggplot(aes(\"species\", \"bill_depth_mm\"))\n    + geom_point(position=position_jitter(width=.1, height=0))\n)\n\n/opt/hostedtoolcache/Python/3.10.6/x64/lib/python3.10/site-packages/plotnine/layer.py:412: PlotnineWarning: geom_point : Removed 2 rows containing missing values.\n\n\n\n\n\n<ggplot: (8789173579746)>\n\n\nNote that the position_jitter(width=.1, height=0) tells the plot to randomly adjust the width of each point between +-.1 (where the distance between each species label is 1)."
+    "text": "Order categories by counts with fct_infreq()\nUse fct_infreq to order category levels by their frequency in the data.\n\nfct_infreq(penguins.species)\n\n0         Adelie\n1         Adelie\n         ...    \n342    Chinstrap\n343    Chinstrap\nLength: 344, dtype: category\nCategories (3, object): ['Adelie', 'Gentoo', 'Chinstrap']\n\n\nIn the output above, the category ordering shows us that “Adelie” is most frequent in the data, followed by “Gentoo”, and then “Chinstrap”.\nWe can verify this explicitly by using the verb count() to tally up each species.\n\ntbl_species_count = penguins >> count(_.species)\n\ntbl_species_count\n\n\n\n\n\n  \n    \n      \n      species\n      n\n    \n  \n  \n    \n      0\n      Adelie\n      152\n    \n    \n      1\n      Chinstrap\n      68\n    \n    \n      2\n      Gentoo\n      124\n    \n  \n\n\n\n\nOrdering by frequency is helpful for giving viewers a rough sense for which groups have less data in your plots.\nFor example, the code below plots each species on the x-axis, bill_depth_mm on the y-axis. It orders the categories of species by frequency, so those with the most data are shown on the left.\n\nfrom plotnine import ggplot, aes, geom_point, position_jitter\n\n(penguins\n    >> mutate(species = fct_infreq(_.species))\n    >> ggplot(aes(\"species\", \"bill_depth_mm\"))\n    + geom_point(position=position_jitter(width=.1, height=0))\n)\n\n/opt/hostedtoolcache/Python/3.10.6/x64/lib/python3.10/site-packages/plotnine/layer.py:412: PlotnineWarning: geom_point : Removed 2 rows containing missing values.\n\n\n\n\n\n<ggplot: (8744203161576)>\n\n\nNote that the position_jitter(width=.1, height=0) tells the plot to randomly adjust the width of each point between +-.1 (where the distance between each species label is 1)."
   },
   {
     "objectID": "guide/ops-categoricals.html#general-reordering-with-fct_reorder",
     "href": "guide/ops-categoricals.html#general-reordering-with-fct_reorder",
     "title": "Categoricals (forcats)",
     "section": "General reordering with fct_reorder()",
-    "text": "General reordering with fct_reorder()\nUse fct_reorder() to reorder the categories of a column, based on another column.\nThis function takes 3 main arguments:\n\nA column to copy and return with reordered categories.\nA column used to calculate the new ordering.\nAn optional function that performs a calculation (defaults to calculating the median).\n\nFor example, the code below reorders the categories of the species column.\n\nfct_reorder(penguins.species, penguins.bill_depth_mm, \"mean\")\n\n0         Adelie\n1         Adelie\n         ...    \n342    Chinstrap\n343    Chinstrap\nLength: 344, dtype: category\nCategories (3, object): ['Gentoo', 'Adelie', 'Chinstrap']\n\n\nNote that it reorders species based on the mean of bill_depth_mm within each category.\n\n\n\n\n\n\nNote\n\n\n\nCurrently, the easiest way to specify a calculation is by passing a string, like \"mean\". Under the hood, fct_reorder() calls pd.Series.agg(), so you could also pass a lambda or function directly.\n\n\n\nBasic example\nThe code below reorders species using the default function (“median”) over bill_depth_mm. This results in boxplots are ordered from lowest to highest median.\n\nfrom plotnine import ggplot, aes, geom_boxplot\n\n(penguins\n    >> mutate(species = fct_reorder(_.species, _.bill_depth_mm))\n    >> ggplot(aes(\"species\", \"bill_depth_mm\"))\n    + geom_boxplot()\n)\n\n/opt/hostedtoolcache/Python/3.10.6/x64/lib/python3.10/site-packages/plotnine/layer.py:334: PlotnineWarning: stat_boxplot : Removed 2 rows containing non-finite values.\n\n\n\n\n\n<ggplot: (8789173117466)>\n\n\n\n\nUsed with count\nA common use for fct_reorder is to reorder a rolled up count.\nFor example, the code below counts the number of rows per species.\n\ntbl_penguin_species = penguins >> count(_.species)\ntbl_penguin_species\n\n\n\n\n\n  \n    \n      \n      species\n      n\n    \n  \n  \n    \n      0\n      Adelie\n      152\n    \n    \n      1\n      Chinstrap\n      68\n    \n    \n      2\n      Gentoo\n      124\n    \n  \n\n\n\n\nSuppose we had a table like this one, we might want to reorder the categories based on the n column.\n\nfct_reorder(tbl_penguin_species.species, tbl_penguin_species.n, desc=True)\n\n0       Adelie\n1    Chinstrap\n2       Gentoo\ndtype: category\nCategories (3, object): ['Adelie', 'Gentoo', 'Chinstrap']\n\n\nNote that above we used the desc=True argument to put the categories in descending order. Because there is only entry per category level, the default function (“median”) just returns that value or n. This results in categories ordered by n.\nHere is the same calculation used to reorder the bars on a plot.\n\nfrom plotnine import ggplot, aes, geom_col\n\n(tbl_penguin_species\n    >> mutate(species = fct_reorder(_.species, _.n, desc=True))\n    >> ggplot(aes(\"species\", \"n\"))\n    + geom_col()\n)\n\n\n\n\n<ggplot: (8789173427210)>"
+    "text": "General reordering with fct_reorder()\nUse fct_reorder() to reorder the categories of a column, based on another column.\nThis function takes 3 main arguments:\n\nA column to copy and return with reordered categories.\nA column used to calculate the new ordering.\nAn optional function that performs a calculation (defaults to calculating the median).\n\nFor example, the code below reorders the categories of the species column.\n\nfct_reorder(penguins.species, penguins.bill_depth_mm, \"mean\")\n\n0         Adelie\n1         Adelie\n         ...    \n342    Chinstrap\n343    Chinstrap\nLength: 344, dtype: category\nCategories (3, object): ['Gentoo', 'Adelie', 'Chinstrap']\n\n\nNote that it reorders species based on the mean of bill_depth_mm within each category.\n\n\n\n\n\n\nNote\n\n\n\nCurrently, the easiest way to specify a calculation is by passing a string, like \"mean\". Under the hood, fct_reorder() calls pd.Series.agg(), so you could also pass a lambda or function directly.\n\n\n\nBasic example\nThe code below reorders species using the default function (“median”) over bill_depth_mm. This results in boxplots are ordered from lowest to highest median.\n\nfrom plotnine import ggplot, aes, geom_boxplot\n\n(penguins\n    >> mutate(species = fct_reorder(_.species, _.bill_depth_mm))\n    >> ggplot(aes(\"species\", \"bill_depth_mm\"))\n    + geom_boxplot()\n)\n\n/opt/hostedtoolcache/Python/3.10.6/x64/lib/python3.10/site-packages/plotnine/layer.py:334: PlotnineWarning: stat_boxplot : Removed 2 rows containing non-finite values.\n\n\n\n\n\n<ggplot: (8744200111675)>\n\n\n\n\nUsed with count\nA common use for fct_reorder is to reorder a rolled up count.\nFor example, the code below counts the number of rows per species.\n\ntbl_penguin_species = penguins >> count(_.species)\ntbl_penguin_species\n\n\n\n\n\n  \n    \n      \n      species\n      n\n    \n  \n  \n    \n      0\n      Adelie\n      152\n    \n    \n      1\n      Chinstrap\n      68\n    \n    \n      2\n      Gentoo\n      124\n    \n  \n\n\n\n\nSuppose we had a table like this one, we might want to reorder the categories based on the n column.\n\nfct_reorder(tbl_penguin_species.species, tbl_penguin_species.n, desc=True)\n\n0       Adelie\n1    Chinstrap\n2       Gentoo\ndtype: category\nCategories (3, object): ['Adelie', 'Gentoo', 'Chinstrap']\n\n\nNote that above we used the desc=True argument to put the categories in descending order. Because there is only entry per category level, the default function (“median”) just returns that value or n. This results in categories ordered by n.\nHere is the same calculation used to reorder the bars on a plot.\n\nfrom plotnine import ggplot, aes, geom_col\n\n(tbl_penguin_species\n    >> mutate(species = fct_reorder(_.species, _.n, desc=True))\n    >> ggplot(aes(\"species\", \"n\"))\n    + geom_col()\n)\n\n\n\n\n<ggplot: (8744203008073)>"
   },
   {
     "objectID": "guide/ops-categoricals.html#binning-categories-with-fct_lump",
     "href": "guide/ops-categoricals.html#binning-categories-with-fct_lump",
     "title": "Categoricals (forcats)",
     "section": "Binning categories with fct_lump()",
-    "text": "Binning categories with fct_lump()\nWhile functions like fct_infreq() and fct_reorder() change the order of categories, functions like fct_lump() reduce the number of categories.\nUse fct_lump() to lump categories with fewer observations into a single category (e.g. “Other”).\n\nBasic example\nFor example, let’s look at the nycflights13 table flights.\n\nfrom nycflights13 import flights\n\nflights\n\n\n\n\n\n  \n    \n      \n      year\n      month\n      day\n      dep_time\n      sched_dep_time\n      dep_delay\n      arr_time\n      sched_arr_time\n      arr_delay\n      carrier\n      flight\n      tailnum\n      origin\n      dest\n      air_time\n      distance\n      hour\n      minute\n      time_hour\n    \n  \n  \n    \n      0\n      2013\n      1\n      1\n      517.0\n      515\n      2.0\n      830.0\n      819\n      11.0\n      UA\n      1545\n      N14228\n      EWR\n      IAH\n      227.0\n      1400\n      5\n      15\n      2013-01-01T10:00:00Z\n    \n    \n      1\n      2013\n      1\n      1\n      533.0\n      529\n      4.0\n      850.0\n      830\n      20.0\n      UA\n      1714\n      N24211\n      LGA\n      IAH\n      227.0\n      1416\n      5\n      29\n      2013-01-01T10:00:00Z\n    \n    \n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n    \n    \n      336774\n      2013\n      9\n      30\n      NaN\n      1159\n      NaN\n      NaN\n      1344\n      NaN\n      MQ\n      3572\n      N511MQ\n      LGA\n      CLE\n      NaN\n      419\n      11\n      59\n      2013-09-30T15:00:00Z\n    \n    \n      336775\n      2013\n      9\n      30\n      NaN\n      840\n      NaN\n      NaN\n      1020\n      NaN\n      MQ\n      3531\n      N839MQ\n      LGA\n      RDU\n      NaN\n      431\n      8\n      40\n      2013-09-30T12:00:00Z\n    \n  \n\n336776 rows × 19 columns\n\n\n\nThis table has a column for carrier that lists each agency running flights. We can use the verb count() to quickly see how many unique carriers there are, and get a feel for how many flights each has run.\n\ntbl_carrier_counts = flights >> count(_.carrier, sort=True)\ntbl_carrier_counts\n\n\n\n\n\n  \n    \n      \n      carrier\n      n\n    \n  \n  \n    \n      0\n      UA\n      58665\n    \n    \n      1\n      B6\n      54635\n    \n    \n      ...\n      ...\n      ...\n    \n    \n      14\n      HA\n      342\n    \n    \n      15\n      OO\n      32\n    \n  \n\n16 rows × 2 columns\n\n\n\nNotice two pieces:\n\nThere are 16 rows, so 16 carriers\nThere is a big difference between the number of \"UA\" and \"OO\" flights (58,665 vs 32).\n\nLet’s use fct_lump() to keep only the 7 biggest carriers, and relable the rest to “Other”.\n\nfct_lump(tbl_carrier_counts.carrier, w=tbl_carrier_counts.n, n=7)\n\n0        UA\n1        B6\n      ...  \n14    Other\n15    Other\nLength: 16, dtype: category\nCategories (8, object): ['AA', 'B6', 'DL', 'EV', 'MQ', 'UA', 'US', 'Other']\n\n\nIn the code above, we told fct_lump() to lump categories for carrier, weighted by the n column, and resulting in n=7 of the original groups.\nHere’s an example using the above code to order a barchart.\n\nfrom plotnine import ggplot, aes, geom_col\n\n(tbl_carrier_counts\n    >> mutate(binned = fct_lump(_.carrier, w=_.n, n=7))\n    >> ggplot(aes(\"binned\", \"n\", fill=\"carrier\")) \n    + geom_col()\n)\n\n\n\n\n<ggplot: (8789173431330)>\n\n\nNotice that all of the smaller carriers are grouped into the “Other” bar.\nThis plot looks okay, but there are two limitations:\n\nThe first bar on the left is “AA”, but the color legend is in alphabetical order, so starts with “9E”. It would be nice if the legend were in the same order as the bars.\nThe bars themselves are not ordered by frequency.\n\nWe’ll tackle these pieces in the section below.\n\n\nRespecting category order\nfct_lump() preserves existing category order. This enables you to order categories before collapsing them down.\n\nfrom plotnine import ggplot, aes, geom_col\n\n(tbl_carrier_counts\n    >> mutate(carrier = fct_inorder(_.carrier))\n    >> mutate(binned = fct_lump(_.carrier, w=_.n, n=7))\n    >> ggplot(aes(\"binned\", \"n\", fill=\"carrier\")) \n    + geom_col()\n)\n\n\n\n\n<ggplot: (8789170643716)>"
+    "text": "Binning categories with fct_lump()\nWhile functions like fct_infreq() and fct_reorder() change the order of categories, functions like fct_lump() reduce the number of categories.\nUse fct_lump() to lump categories with fewer observations into a single category (e.g. “Other”).\n\nBasic example\nFor example, let’s look at the nycflights13 table flights.\n\nfrom nycflights13 import flights\n\nflights\n\n\n\n\n\n  \n    \n      \n      year\n      month\n      day\n      dep_time\n      sched_dep_time\n      dep_delay\n      arr_time\n      sched_arr_time\n      arr_delay\n      carrier\n      flight\n      tailnum\n      origin\n      dest\n      air_time\n      distance\n      hour\n      minute\n      time_hour\n    \n  \n  \n    \n      0\n      2013\n      1\n      1\n      517.0\n      515\n      2.0\n      830.0\n      819\n      11.0\n      UA\n      1545\n      N14228\n      EWR\n      IAH\n      227.0\n      1400\n      5\n      15\n      2013-01-01T10:00:00Z\n    \n    \n      1\n      2013\n      1\n      1\n      533.0\n      529\n      4.0\n      850.0\n      830\n      20.0\n      UA\n      1714\n      N24211\n      LGA\n      IAH\n      227.0\n      1416\n      5\n      29\n      2013-01-01T10:00:00Z\n    \n    \n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n    \n    \n      336774\n      2013\n      9\n      30\n      NaN\n      1159\n      NaN\n      NaN\n      1344\n      NaN\n      MQ\n      3572\n      N511MQ\n      LGA\n      CLE\n      NaN\n      419\n      11\n      59\n      2013-09-30T15:00:00Z\n    \n    \n      336775\n      2013\n      9\n      30\n      NaN\n      840\n      NaN\n      NaN\n      1020\n      NaN\n      MQ\n      3531\n      N839MQ\n      LGA\n      RDU\n      NaN\n      431\n      8\n      40\n      2013-09-30T12:00:00Z\n    \n  \n\n336776 rows × 19 columns\n\n\n\nThis table has a column for carrier that lists each agency running flights. We can use the verb count() to quickly see how many unique carriers there are, and get a feel for how many flights each has run.\n\ntbl_carrier_counts = flights >> count(_.carrier, sort=True)\ntbl_carrier_counts\n\n\n\n\n\n  \n    \n      \n      carrier\n      n\n    \n  \n  \n    \n      0\n      UA\n      58665\n    \n    \n      1\n      B6\n      54635\n    \n    \n      ...\n      ...\n      ...\n    \n    \n      14\n      HA\n      342\n    \n    \n      15\n      OO\n      32\n    \n  \n\n16 rows × 2 columns\n\n\n\nNotice two pieces:\n\nThere are 16 rows, so 16 carriers\nThere is a big difference between the number of \"UA\" and \"OO\" flights (58,665 vs 32).\n\nLet’s use fct_lump() to keep only the 7 biggest carriers, and relable the rest to “Other”.\n\nfct_lump(tbl_carrier_counts.carrier, w=tbl_carrier_counts.n, n=7)\n\n0        UA\n1        B6\n      ...  \n14    Other\n15    Other\nLength: 16, dtype: category\nCategories (8, object): ['AA', 'B6', 'DL', 'EV', 'MQ', 'UA', 'US', 'Other']\n\n\nIn the code above, we told fct_lump() to lump categories for carrier, weighted by the n column, and resulting in n=7 of the original groups.\nHere’s an example using the above code to order a barchart.\n\nfrom plotnine import ggplot, aes, geom_col\n\n(tbl_carrier_counts\n    >> mutate(binned = fct_lump(_.carrier, w=_.n, n=7))\n    >> ggplot(aes(\"binned\", \"n\", fill=\"carrier\")) \n    + geom_col()\n)\n\n\n\n\n<ggplot: (8744203008160)>\n\n\nNotice that all of the smaller carriers are grouped into the “Other” bar.\nThis plot looks okay, but there are two limitations:\n\nThe first bar on the left is “AA”, but the color legend is in alphabetical order, so starts with “9E”. It would be nice if the legend were in the same order as the bars.\nThe bars themselves are not ordered by frequency.\n\nWe’ll tackle these pieces in the section below.\n\n\nRespecting category order\nfct_lump() preserves existing category order. This enables you to order categories before collapsing them down.\n\nfrom plotnine import ggplot, aes, geom_col\n\n(tbl_carrier_counts\n    >> mutate(carrier = fct_inorder(_.carrier))\n    >> mutate(binned = fct_lump(_.carrier, w=_.n, n=7))\n    >> ggplot(aes(\"binned\", \"n\", fill=\"carrier\")) \n    + geom_col()\n)\n\n\n\n\n<ggplot: (8744200293151)>"
   },
   {
     "objectID": "guide/ops-datetime.html",
     "href": "guide/ops-datetime.html",
-    "title": "Siuba",
+    "title": "Datetime operations (.dt) 📝",
     "section": "",
-    "text": "import pandas as pd\n\npd.set_option(\"display.max_rows\", 5)\n\nfrom siuba.data import penguins\nfrom siuba import _, summarize, group_by"
+    "text": "Warning\n\n\n\nThis section is in the draft phase."
+  },
+  {
+    "objectID": "guide/ops-datetime.html#overview",
+    "href": "guide/ops-datetime.html#overview",
+    "title": "Datetime operations (.dt) 📝",
+    "section": "Overview",
+    "text": "Overview\nThis page covers how to work with dates and times in siuba. siuba works by using pandas methods, either by calling them directly, or translating them to SQL.\n\nimport pandas as pd\n\nfrom siuba import _, count, mutate\nfrom siuba.siu import call\n\n\nCreating datetime columns\nThere are roughly two ways to create a datetime column in pandas:\n\npd.to_datetime() which takes a range of inputs.\npd.Series.astype(\"datetime64[ns]\") method call.\n\nThe pd.to_datetime() function is flexible, and can also take a list of datetimes or a Series.\n\ndt_index = pd.to_datetime([\"2021-01-02 01:02:03\", \"2022-02-03 04:05:06\"])\ndt_index\n\nDatetimeIndex(['2021-01-02 01:02:03', '2022-02-03 04:05:06'], dtype='datetime64[ns]', freq=None)\n\n\nNote that sometimes the result is not a Series. For example, the above object is a DatetimeIndex. Generally, everything is easier after wrapping it in a pandas Series.\n\nser_times = pd.Series(dt_index)\n\nOn the other hand, the .astype() method is a simple way to convert a series to a datetime.\n\npd.Series([\"2021-01-02 03:04:05\"]).astype(\"datetime64[ns]\")\n\n0   2021-01-02 03:04:05\ndtype: datetime64[ns]\n\n\nThe pandas time series docs discuss in exquisite detail the intricacies of different datetime objects, and how they’re created! The rest of this page will just use pandas Series to look at datetime operations.\n\n\nUsing datetime methods (.dt)\nsiuba uses Pandas methods, so can use any of the datetime methods it makes available, like .dt.month_name().\n\nser_times.dt.month_name()\n\n0     January\n1    February\ndtype: object\n\n\n\n\nUse in a verb\n\ndf = pd.DataFrame({\n    \"times\": ser_times,\n    \"raw\": [\"2023-04-05 06:07:08\", \"2024-05-06 07:08:09\"],\n})\n\n\ndf >> count(month = _.times.dt.month_name())\n\n\n\n\n\n  \n    \n      \n      month\n      n\n    \n  \n  \n    \n      0\n      February\n      1\n    \n    \n      1\n      January\n      1\n    \n  \n\n\n\n\nYou can call functions like pd.to_datetime() using siuba’s call().\n\nres = df >> mutate(parsed = call(pd.to_datetime, _.raw))\n\nres.parsed\n\n0   2023-04-05 06:07:08\n1   2024-05-06 07:08:09\nName: parsed, dtype: datetime64[ns]\n\n\nNotice that this creates a new datetime column by calling pd.to_datetime(df.raw)."
+  },
+  {
+    "objectID": "guide/ops-datetime.html#change-granularity-with-floor_date",
+    "href": "guide/ops-datetime.html#change-granularity-with-floor_date",
+    "title": "Datetime operations (.dt) 📝",
+    "section": "Change granularity with floor_date()",
+    "text": "Change granularity with floor_date()\nSiuba has an experimental function called floor_date() for rounding down to a specific unit of time (e.g. the week, the day, or the hour).\n\nimport pandas as pd\n\nfrom siuba.experimental.datetime import floor_date, ceil_date\n\ndates = pd.to_datetime([\"2021-01-01 01:02:03\", \"2021-01-08 01:02:03\"])\n\n\nBasics\nThe floor_date() functions takes two arguments:\n\nA column to round down (e.g. a pandas Series).\nA datetime unit to round to (e.g. “MS” for “Month Start”; see the pandas unit alias doc)\n\nFor example, the code below rounds dates down to the nearest week.\n\nfloor_date(dates, \"W\")\n\nDatetimeIndex(['2021-01-01', '2021-01-08'], dtype='datetime64[ns]', freq=None)\n\n\n\n\nDatetime unit options\nThere are a lot of useful time units, such as “MS” for the start of a month. Below is a table of some of the most useful ones.\n\n\n\nhuman speak\npandas alias\n\n\n\n\nsecond\nS\n\n\nminute\nM\n\n\nhour\nH\n\n\nday\nD\n\n\nweek\nW\n\n\nmonth\nM\n\n\nbimonth\n2M\n\n\nquarter\nQ\n\n\nseason\n\n\n\nhalfyear\n\n\n\nyear\nY\n\n\n\n\n# month start\nfloor_date(dates, \"MS\")\n\nDatetimeIndex(['2021-01-01', '2021-01-01'], dtype='datetime64[ns]', freq=None)\n\n\n\n\nRound up with ceil_date()\nThe counterpart function ceil_date() rounds up to the specified unit of time.\n\n# round up to month end\nceil_date(dates, \"M\")\n\nDatetimeIndex(['2021-01-31', '2021-01-31'], dtype='datetime64[ns]', freq=None)\n\n\n\n\nPreserving input type\nNote that pandas has multiple formats for representing datetime:\n\nTimestamp: directly representing points in time.\nPeriod: representing time as number of spans of some time unit from a reference point (e.g. 120 months from Jan, 1970).\n\n\nx = [\"2021-01-01 01:02:03\", \"2021-02-03 01:02:03\"]\n\ndt_index = pd.DatetimeIndex(x)\nfloor_date(dt_index, \"W\")\n\nDatetimeIndex(['2021-01-01', '2021-02-03'], dtype='datetime64[ns]', freq=None)\n\n\n\n# note freq=\"m\" refers to minute frequency\nper_index = pd.PeriodIndex(x, freq=\"m\")\nfloor_date(per_index, \"W\")\n\nPeriodIndex(['2020-12-28/2021-01-03', '2021-02-01/2021-02-07'], dtype='period[W-SUN]')\n\n\nNote that the \"W\" stands for week.\n\n\nUnit start vs unit end\nNote that the units we discussed here all referred to “unit start”. This is a bit tricky, so might be explained best in an example using month units.\n\nmonth start: “2021-02-03” becomes “2021-02-01”\nmonth end: “2021-02-03” becomes “2021-01-31”\n\nFor most time units pandas has a unit end version, such as:\n\n“M”: month end (vs “MS” for month start)\n“Y”: year end (vs “YS” for year start)\n“Q”: quarter end (vs “QS” for quarter start)\n\nIt’s a bit confusing that “M” stands for month end, but “D” stands for day start. In general, time units at the day level or finer grain only do unit start, so be careful with units!"
+  },
+  {
+    "objectID": "guide/ops-datetime.html#translating-to-sql",
+    "href": "guide/ops-datetime.html#translating-to-sql",
+    "title": "Datetime operations (.dt) 📝",
+    "section": "Translating to SQL",
+    "text": "Translating to SQL\n\nfrom siuba import _, count\nfrom siuba.data import cars_sql\n\n🚧 TODO: add a basic SQL dataset with time columns"
+  },
+  {
+    "objectID": "guide/ops-datetime.html#learning-more",
+    "href": "guide/ops-datetime.html#learning-more",
+    "title": "Datetime operations (.dt) 📝",
+    "section": "Learning more",
+    "text": "Learning more\n\nPandas user guide on timeseries\nPandas Series API on .dt accessor methods"
   },
   {
     "objectID": "guide/ops-siu-expr.html",
@@ -263,7 +291,7 @@
     "href": "guide/ops-siu-expr.html#lazy-functions",
     "title": "Lazy functions",
     "section": "Lazy functions",
-    "text": "Lazy functions\n\nfrom siuba import ops\n\nexpr_n = ops.add(_, _)\nexpr_n\n\n█─'__call__'\n├─█─'__custom_func__'\n│ └─<function singledispatch.<locals>.wrapper at 0x7f545dc63eb0>\n├─_\n└─_"
+    "text": "Lazy functions\n\nfrom siuba import ops\n\nexpr_n = ops.add(_, _)\nexpr_n\n\n█─'__call__'\n├─█─'__custom_func__'\n│ └─<function singledispatch.<locals>.wrapper at 0x7fd01d1bbf40>\n├─_\n└─_"
   },
   {
     "objectID": "guide/ops-siu-expr.html#lazy-methods",
@@ -282,58 +310,58 @@
   {
     "objectID": "guide/ops-strings.html",
     "href": "guide/ops-strings.html",
-    "title": "String operations (str)",
+    "title": "String operations (str) 📝",
     "section": "",
     "text": "String operations allow you to perform actions like:\n\nMatch: detect when a string matches a pattern.\nTransform: e.g. convert something from mIxED to lower case, or replace part of it.\nExtract: grab specific parts of string value (e.g. a matching pattern).\n\nThis page will cover different methods for performing these actions, but will ultimately focus on str.contains(), str.replace(), and str.extract() for common match, transform, and extract tasks.\n\nfrom siuba.data import penguins\nfrom siuba import _, mutate, summarize, group_by, filter\n\nfruits = pd.Series([\n        \"apple\",\n        \"apricot\",\n        \"avocado\",\n        \"banana\",\n        \"bell pepper\"\n])\n\ndf_fruits = pd.DataFrame({\"name\": fruits})\n\n\n\nsiuba uses Pandas methods, so can use any of the string methods it makes available, like .str.upper().\n\nfruits.str.upper()\n\n0          APPLE\n1        APRICOT\n2        AVOCADO\n3         BANANA\n4    BELL PEPPER\ndtype: object\n\n\nNote that most string methods use .str.<method_name>() syntax. These are called “string accessor methods”, since they are accessed from a special place (.str).\n\n\n\nUse string methods as you would any other methods inside verbs.\n\nmutate(df_fruits, loud = _.name.str.upper())\n\n\n\n\n\n  \n    \n      \n      name\n      loud\n    \n  \n  \n    \n      0\n      apple\n      APPLE\n    \n    \n      1\n      apricot\n      APRICOT\n    \n    \n      2\n      avocado\n      AVOCADO\n    \n    \n      3\n      banana\n      BANANA\n    \n    \n      4\n      bell pepper\n      BELL PEPPER"
   },
   {
     "objectID": "guide/ops-strings.html#matching-patterns",
     "href": "guide/ops-strings.html#matching-patterns",
-    "title": "String operations (str)",
+    "title": "String operations (str) 📝",
     "section": "Matching patterns",
     "text": "Matching patterns\n\nFixed text\nThere are three common approaches for simple string matches:\n\nAn exact match with ==.\nA match from an anchor point, using str.startswith() or str.endswith().\nA match from any point, using str.contains()\n\n\n# exact match\nfruits == \"banana\"\n\n# starts with \"ap\"\nfruits.str.startswith(\"ap\")\n\n# ends with \"cado\"\nfruits.str.endswith(\"cado\")\n\n# has an \"e\" anywhere\nfruits.str.contains(\"e\", regex=False)\n\n0     True\n1    False\n2    False\n3    False\n4     True\ndtype: bool\n\n\nAll these operations return a boolean Series, so can be used to filter rows.\n\nfilter(df_fruits, _.name.str.startswith(\"ap\"))\n\n\n\n\n\n  \n    \n      \n      name\n    \n  \n  \n    \n      0\n      apple\n    \n    \n      1\n      apricot\n    \n  \n\n\n\n\n\n\n\n\n\n\nWarning\n\n\n\nNote that for str.contains() we set the regex=False argument. This is because—unlike operations like str.startswith()—pandas by default assumes you are passing something called a regular expression to str.contains().\n\n\n\n\nstr.contains() patterns\nUse str.contains(...) to perform matches with regular expressions—a special string syntax for specifying patterns to match.\nFor example, you can use \"^\" or \"$\" to match the start or end of a string, respectively.\n\n# check if starts with \"ap\" ----\n\npenguins.species.str.contains(\"^ap\")\n\n0      False\n1      False\n       ...  \n342    False\n343    False\nName: species, Length: 344, dtype: bool\n\n\n\n# check if endswith with \"a\" ----\n\npenguins.species.str.contains(\"a$\")\n\n0      False\n1      False\n       ...  \n342    False\n343    False\nName: species, Length: 344, dtype: bool\n\n\nNote that \"$\" and \"^\" are called anchor points."
   },
   {
     "objectID": "guide/ops-strings.html#transforming-strings",
     "href": "guide/ops-strings.html#transforming-strings",
-    "title": "String operations (str)",
+    "title": "String operations (str) 📝",
     "section": "Transforming strings",
     "text": "Transforming strings\nString transformations take a string and return a new, changed version. For example, by converting all the letters to lower, upper, or title case.\n\nSimple transformations\n\nfruits.str.lower()\n\nfruits.str.upper()\n\n0          APPLE\n1        APRICOT\n2        AVOCADO\n3         BANANA\n4    BELL PEPPER\ndtype: object\n\n\n\n\nstr.replace() patterns\nUse .str.replace(..., regex=True) with regular expressions to replace patterns in strings.\nFor example, the code below uses \"p.\", where . is called a wildcard–which matches any character.\n\nfruits.str.replace(\"p.\", \"XX\", regex=True)\n\n0          aXXle\n1        aXXicot\n2        avocado\n3         banana\n4    bell XXXXer\ndtype: object"
   },
   {
     "objectID": "guide/ops-strings.html#extracting-parts",
     "href": "guide/ops-strings.html#extracting-parts",
-    "title": "String operations (str)",
+    "title": "String operations (str) 📝",
     "section": "Extracting parts",
-    "text": "Extracting parts\n\n.str[] to slice\n\n\n\n\n\n\nWarning\n\n\n\nIt is currently not possible to apply a sequence of slices to .str. You can only apply the same slice to every string in the Series.\n\n\n\n\n.str.extract() patterns"
+    "text": "Extracting parts\n\n.str[] to slice\n\n\n\n\n\n\nWarning\n\n\n\nIt is currently not possible to apply a sequence of slices to .str. You can only apply the same slice to every string in the Series.\n\n\n\n\n.str.extract() patterns\nUse str.extract() with a regular expression to pull out a matching piece of text.\nFor example the regular expression “^(.*) ” contains the following pieces:\n\na matches the literal letter “a”\n.* has a . which matches anything, and * which modifies it to apply 0 or more times.\n\n\nfruits.str.extract(\"a(.*)\")\n\n\n\n\n\n  \n    \n      \n      0\n    \n  \n  \n    \n      0\n      pple\n    \n    \n      1\n      pricot\n    \n    \n      2\n      vocado\n    \n    \n      3\n      nana\n    \n    \n      4\n      NaN"
   },
   {
     "objectID": "guide/ops-strings.html#split-and-flatten",
     "href": "guide/ops-strings.html#split-and-flatten",
-    "title": "String operations (str)",
+    "title": "String operations (str) 📝",
     "section": "Split and flatten",
     "text": "Split and flatten\n\n.str.split() into list-entries\nUse .str.split() to split each entry on a character, producing a list per row of split strings.\n\nfruits.str.split(\"pp\")\n\n0          [a, le]\n1        [apricot]\n2        [avocado]\n3         [banana]\n4    [bell pe, er]\ndtype: object\n\n\nSeeing each entry be a list may surprising, and is fairly rare in pandas.\n\n\n.str.join() is the inverse of split\n\npenguins.species.str.split(\"e\").str.join(\"e\")\n\n0         Adelie\n1         Adelie\n         ...    \n342    Chinstrap\n343    Chinstrap\nName: species, Length: 344, dtype: object\n\n\n\n\n.explode() to unnest entries\nUse .str.explode() to take a column with list-entries (like those returned by .str.split()) and unnest each entry, so there is 1 row per each element in each list.\n\nsplits = fruits.str.split(\"pp\")\nsplits\n\n0          [a, le]\n1        [apricot]\n2        [avocado]\n3         [banana]\n4    [bell pe, er]\ndtype: object\n\n\nNotice that the result above has 4 list-entries (rows). The first and last rows are the splits [\"a\", \"le\"] and [\"bell pe\", \"er\"], so there are 7 elements total.\nThe .explode() method makes each of the 7 elements its own row.\n\nsplits.explode()\n\n0          a\n0         le\n      ...   \n4    bell pe\n4         er\nLength: 7, dtype: object\n\n\nBe careful to note that it’s .explode() and not .str.explode(), since it can be used on lists of other things as well!\n\n\n.str.findall() for advanced splitting\nFor example, the code below uses \"pp?\", where ? means the preceding character (“p”) is optional for matching:\n\nfruits.str.findall(\"pp?\")\n\n0       [pp]\n1        [p]\n2         []\n3         []\n4    [p, pp]\ndtype: object"
   },
   {
     "objectID": "guide/ops-strings.html#templates-with-str_glue",
     "href": "guide/ops-strings.html#templates-with-str_glue",
-    "title": "String operations (str)",
+    "title": "String operations (str) 📝",
     "section": "Templates with str_glue()",
     "text": "Templates with str_glue()\n\n\n\n\n\n\nWarning\n\n\n\nstr_glue() does not exist. This section is ✨aspirational✨."
   },
   {
     "objectID": "guide/ops-strings.html#more-regular-expressions",
     "href": "guide/ops-strings.html#more-regular-expressions",
-    "title": "String operations (str)",
+    "title": "String operations (str) 📝",
     "section": "More regular expressions",
-    "text": "More regular expressions\n\nAnchor points\n\n^ - matches the beginning of a string.\n$ - matches the end of a string.\n\n\n\nRepetition qualifiers\n\n+ - matches 1 or more\n? - matches\n\n\n\nGrouping\n\n\nAlternatives"
+    "text": "More regular expressions\n\nAnchor points\n\n^ - matches the beginning of a string.\n$ - matches the end of a string.\n\n\n\nRepetition qualifiers\n\n* - matches 0 or more\n+ - matches 1 or more\n? - matches 0 or 1\n\n\n\nGrouping\n\n()\n{}\n[]\n\n\n\nAlternatives\n\n|"
   },
   {
     "objectID": "guide/overview.html",
     "href": "guide/overview.html",
     "title": "Overview",
     "section": "",
-    "text": "Warning\n\n\n\nThese docs are a work in progress. Note that install directions point to a development branch of siuba.\npip install -e git+https://github.com/machow/siuba.git@dev-docs#egg=siuba\nSiuba is a tool for concise, flexible data-analysis over multiple data sources. It currently supports pandas DataFrames and SQL tables."
+    "text": "Warning\n\n\n\nThese docs are a work in progress. Note that install directions point to a development branch of siuba.\npip install -e git+https://github.com/machow/siuba.git@dev-docs#egg=siuba\nThese markers are used to indicate how complete a page is:\n\n🚧 Undrafted: may not have any content.\n📝 Refining: sections and examples are complete, sometimes narrative is there (with a few spots to fill in).\nSiuba is a tool for concise, flexible data-analysis over multiple data sources. It currently supports pandas DataFrames and SQL tables."
   },
   {
     "objectID": "guide/overview.html#installing",
@@ -375,7 +403,7 @@
     "href": "guide/overview.html#using-with-plotnine",
     "title": "Overview",
     "section": "Using with plotnine",
-    "text": "Using with plotnine\nFortnuately, plotnine supports siuba’s style of piping, so is easy to plug in to!\n\nfrom siuba import mutate, _\nfrom plotnine import ggplot, aes, geom_point\n\n(mtcars\n  >> mutate(hp_per_cyl = _.hp / _.cyl)\n  >> ggplot(aes(\"cyl\", \"hp_per_cyl\"))\n   + geom_point()\n)\n\n\n\n\n<ggplot: (8757649192546)>"
+    "text": "Using with plotnine\nFortnuately, plotnine supports siuba’s style of piping, so is easy to plug in to!\n\nfrom siuba import mutate, _\nfrom plotnine import ggplot, aes, geom_point\n\n(mtcars\n  >> mutate(hp_per_cyl = _.hp / _.cyl)\n  >> ggplot(aes(\"cyl\", \"hp_per_cyl\"))\n   + geom_point()\n)\n\n\n\n\n<ggplot: (8770583005803)>"
   },
   {
     "objectID": "guide/overview.html#next-steps",
@@ -385,60 +413,165 @@
     "text": "Next steps\nTODO"
   },
   {
+    "objectID": "guide/programming-adv-sql.html",
+    "href": "guide/programming-adv-sql.html",
+    "title": "Advanced SQL 🚧",
+    "section": "",
+    "text": "Single code-chunk review of basics: show_query, collect, preview\nLazyTbl from query string (in dbcooper currently?)\nsimplify query (show_query(simplify=True))\nsiuba.sql.sql_raw\nLazyTbl core properties\n\nlast_op\n\nCustom over clauses\nTranslate function"
+  },
+  {
     "objectID": "guide/programming-new-ops.html",
     "href": "guide/programming-new-ops.html",
-    "title": "Custom column ops",
+    "title": "Custom column ops 📝",
     "section": "",
     "text": "Use symbolic_dispatch() to create new functions for operating on columns.\nThis function creates what are called single generic functions— which let you register different ways to handle different types of data."
   },
   {
-    "objectID": "guide/programming-new-ops.html#defining-a-new-function",
-    "href": "guide/programming-new-ops.html#defining-a-new-function",
-    "title": "Custom column ops",
-    "section": "Defining a new function",
-    "text": "Defining a new function\n\nfrom siuba.siu import symbolic_dispatch\nfrom pandas.core.groupby import SeriesGroupBy\nfrom pandas import Series\n\n@symbolic_dispatch\ndef cummean(x):\n    raise NotImplementedError(f\"Not implemented for class {type(x)}\")\n\n@cummean.register\ndef cummean(x: Series):\n    \"\"\"Return a same-length array, containing the cumulative mean.\"\"\"\n    return x.expanding().mean()"
+    "objectID": "guide/programming-new-ops.html#define-a-new-function",
+    "href": "guide/programming-new-ops.html#define-a-new-function",
+    "title": "Custom column ops 📝",
+    "section": "Define a new function",
+    "text": "Define a new function\n\nfrom siuba.siu import symbolic_dispatch\nfrom pandas.core.groupby import SeriesGroupBy\nfrom pandas import Series\n\n@symbolic_dispatch\ndef like(col, text):\n    raise NotImplementedError(f\"Not implemented for class {type(col)}\")\n\n@like.register\ndef _like_ser(col: Series, text: str) -> Series:\n    \"\"\"Return transformation. Checks whether text is in each entry of col.\"\"\"\n    return col.str.contains(text)"
+  },
+  {
+    "objectID": "guide/programming-new-ops.html#check-for-a-translation",
+    "href": "guide/programming-new-ops.html#check-for-a-translation",
+    "title": "Custom column ops 📝",
+    "section": "Check for a translation",
+    "text": "Check for a translation\n\nlike.dispatch(Series)\n\n<function __main__._like_ser(col: pandas.core.series.Series, text: str) -> pandas.core.series.Series>"
+  },
+  {
+    "objectID": "guide/programming-new-ops.html#register-an-error-with-functionlookupbound",
+    "href": "guide/programming-new-ops.html#register-an-error-with-functionlookupbound",
+    "title": "Custom column ops 📝",
+    "section": "Register an error with FunctionLookupBound",
+    "text": "Register an error with FunctionLookupBound\n\nfrom siuba.siu import FunctionLookupBound\n\n@symbolic_dispatch\ndef some_func(x):\n    return 1\n\nsome_func.register(Series, FunctionLookupBound(\"Not implemented\"))\n\n<siuba.siu.visitors.FunctionLookupBound at 0x7f7b519c5360>\n\n\n\nf_concrete = some_func.dispatch(Series)\n\n# indicates that a function is *not* implemented\nisinstance(f_concrete, FunctionLookupBound)\n\nTrue"
   },
   {
     "objectID": "guide/programming-new-ops.html#registering-sql-translation",
     "href": "guide/programming-new-ops.html#registering-sql-translation",
-    "title": "Custom column ops",
+    "title": "Custom column ops 📝",
     "section": "Registering SQL translation",
-    "text": "Registering SQL translation"
+    "text": "Registering SQL translation\n\nfrom sqlalchemy import sql\n\nfrom siuba.sql.dialects.postgresql import PostgresqlColumn, PostgresqlColumnAgg\n\n@like.register\ndef _like_pg(codata: PostgresqlColumn, col: sql.ClauseElement, text: str) -> sql.ClauseElement:\n    return col.like(text)\n\n\nexpr = like(PostgresqlColumn(), sql.column(\"a\"), \"yo\")\nprint(expr)\n\na LIKE :a_1"
   },
   {
-    "objectID": "guide/programming-new-ops.html#check-whether-a-translation-exists",
-    "href": "guide/programming-new-ops.html#check-whether-a-translation-exists",
-    "title": "Custom column ops",
-    "section": "Check whether a translation exists",
-    "text": "Check whether a translation exists"
+    "objectID": "guide/programming-new-ops.html#register-a-sql-window-function",
+    "href": "guide/programming-new-ops.html#register-a-sql-window-function",
+    "title": "Custom column ops 📝",
+    "section": "Register a SQL window function",
+    "text": "Register a SQL window function"
+  },
+  {
+    "objectID": "guide/programming-new-ops.html#extending-existing-column-op",
+    "href": "guide/programming-new-ops.html#extending-existing-column-op",
+    "title": "Custom column ops 📝",
+    "section": "Extending existing column op",
+    "text": "Extending existing column op"
   },
   {
     "objectID": "guide/programming-new-verbs.html",
     "href": "guide/programming-new-verbs.html",
-    "title": "Siuba",
+    "title": "Custom table verbs 🚧",
     "section": "",
-    "text": "from siuba.siu import symbolic_dispatch\nfrom pandas.core.groupby import SeriesGroupBy, GroupBy\nfrom pandas import Series"
+    "text": "You may be wondering how a siuba function, like mutate(), could work on a SQL database. This is because these functions are defined using a technique called single dispatch. This approach allows you to define class-specific versions of a function."
+  },
+  {
+    "objectID": "guide/programming-new-verbs.html#create-a-new-verb-with-verb_dispatch",
+    "href": "guide/programming-new-verbs.html#create-a-new-verb-with-verb_dispatch",
+    "title": "Custom table verbs 🚧",
+    "section": "Create a new verb with verb_dispatch()",
+    "text": "Create a new verb with verb_dispatch()\nUse the verb_dispatch() decorator to create a new table verb function.\nThe code below creates a function called head(), with an implementation that works specifically on a DataFrame.\n\n# DataFrame version of function ---\n\n@verb_dispatch(pd.DataFrame)\ndef head(__data, n = 5):\n    return __data.head(n)\n\nhead(mtcars, 2)\n\n\n\n\n\n  \n    \n      \n      mpg\n      cyl\n      disp\n      hp\n      drat\n      wt\n      qsec\n      vs\n      am\n      gear\n      carb\n    \n  \n  \n    \n      0\n      21.0\n      6\n      160.0\n      110\n      3.9\n      2.620\n      16.46\n      0\n      1\n      4\n      4\n    \n    \n      1\n      21.0\n      6\n      160.0\n      110\n      3.9\n      2.875\n      17.02\n      0\n      1\n      4\n      4"
+  },
+  {
+    "objectID": "guide/programming-new-verbs.html#register-a-sql-translation",
+    "href": "guide/programming-new-verbs.html#register-a-sql-translation",
+    "title": "Custom table verbs 🚧",
+    "section": "Register a SQL translation",
+    "text": "Register a SQL translation\nWe can define a SQL specific version, that acts on a SqlAlchemy Table by registering a new translation of our function head, with the @head.register decorator.\n\nfrom sqlalchemy import Table, Column, MetaData\n\n@head.register\ndef _head_sql(__data: Table, n = 5):\n    return __data.select().limit(n)\n\ntable = Table(\"some_table\", MetaData(), Column('a'), Column('b'))\nprint(\n    head(table, 2)\n)\n\nSELECT some_table.a, some_table.b \nFROM some_table\n LIMIT :param_1"
+  },
+  {
+    "objectID": "guide/programming-new-verbs.html#why-not-use-methods",
+    "href": "guide/programming-new-verbs.html#why-not-use-methods",
+    "title": "Custom table verbs 🚧",
+    "section": "Why not use methods?",
+    "text": "Why not use methods?\nWhy use singledispatch rather than create a class method like mtcars.head()?\nThere are two big benefits:\n\nAnyone can define and package a function. Using it is just a matter of importing it. With a method, you need to somehow put it onto the class representing your data. You end up with 300+ methods on a class.\nYour function might do something that is not the class’s core responsibility. In this case, it should not be part of the class definition.\n\nSee the post Single dispatch for democratizing data science tools for more."
+  },
+  {
+    "objectID": "guide/programming-new-verbs.html#grouped-data",
+    "href": "guide/programming-new-verbs.html#grouped-data",
+    "title": "Custom table verbs 🚧",
+    "section": "Grouped data",
+    "text": "Grouped data\nSince single dispatch functions define how to execute an action for a specific class of data, it allows siuba to handle grouped data in two ways:\n\npandas - register dispatchers for its special grouped data classes (DataFrameGroupBy, SeriesGroupBy).\nSQL - use a single class for grouped and ungrouped data, with grouping info as an attribute (siuba.sql.LazyTbl).\n\nFor example, here is a simple verb that calculates the number of rows in a grouped DataFrame.\n\nfrom pandas.core.groupby import DataFrameGroupBy\n@verb_dispatch(DataFrameGroupBy)\ndef size(__data):\n    return __data.size()\nsize(mtcars.groupby('cyl'))\n\ncyl\n4    11\n6     7\n8    14\ndtype: int64"
+  },
+  {
+    "objectID": "guide/programming-new-verbs.html#handling-indexes",
+    "href": "guide/programming-new-verbs.html#handling-indexes",
+    "title": "Custom table verbs 🚧",
+    "section": "Handling indexes",
+    "text": "Handling indexes\nMost siuba table verbs take a DataFrame, and return a DataFrame. Moreover, they don’t stick columns onto the index. This means you don’t need to call reset_index all the time.\nA common place where reset_index is called is after a pandas grouped aggregation.\n\nfrom siuba.data import mtcars\nfrom siuba import summarize\ng_cyl = mtcars.groupby(\"cyl\")\nagg_res = g_cyl[[\"hp\", \"mpg\"]].agg(\"mean\")\n# nooooo\nagg_res\n\n\n\n\n\n  \n    \n      \n      hp\n      mpg\n    \n    \n      cyl\n      \n      \n    \n  \n  \n    \n      4\n      82.636364\n      26.663636\n    \n    \n      6\n      122.285714\n      19.742857\n    \n    \n      8\n      209.214286\n      15.100000"
+  },
+  {
+    "objectID": "guide/programming-new-verbs.html#verb_dispatch",
+    "href": "guide/programming-new-verbs.html#verb_dispatch",
+    "title": "Custom table verbs 🚧",
+    "section": "verb_dispatch()",
+    "text": "verb_dispatch()\nOne thing to note is that siuba’s singledispatch implementation is called singledispatch2. This function (whose name will likely change!) is a very light wrapper around python’s built in functools.singledispatch that does two things:\n\nAllow verbs to be piped using data >> verb1() >> verb2() syntax.\nStrip out the symbolic part of lazy expressions.\n\nThese two concepts are covered in the next two sections."
   },
   {
     "objectID": "guide/programming-pipes.html",
     "href": "guide/programming-pipes.html",
-    "title": "Flexible pipes",
+    "title": "Flexible pipes 📝",
     "section": "",
-    "text": "from siuba.siu import _, pipe, call\nfrom siuba import count\nfrom siuba.data import mtcars"
+    "text": "A commonly used feature of siuba is the >> operator for piping the result of one verb into another. This feature may seem silly compared to method chaining. However, it makes it easy for other packages to contribute new verbs, and lazy pipes can be combined together.\nThis page will focus on three pieces of piping:"
   },
   {
-    "objectID": "guide/programming-pipes.html#pipe-to-dataframe-methods",
-    "href": "guide/programming-pipes.html#pipe-to-dataframe-methods",
-    "title": "Flexible pipes",
-    "section": "Pipe to DataFrame methods",
-    "text": "Pipe to DataFrame methods\nSometimes it is helpful to use Pandas DataFrame methods, in addition to siuba verbs. This can be done by piping the data to _.<some_method>().\nHere is an example using the siuba verb count(), with the pandas method .sort_values().\n\nfrom siuba import _, count\nfrom siuba.data import mtcars\n\n(mtcars\n    >> count(_.cyl)         # this is a siuba verb\n    >> _.sort_values(\"n\")   # this is a pandas method\n)\n\n\n\n\n\n  \n    \n      \n      cyl\n      n\n    \n  \n  \n    \n      1\n      6\n      7\n    \n    \n      0\n      4\n      11\n    \n    \n      2\n      8\n      14\n    \n  \n\n\n\n\nHere is another example, using the DataFrame .shape attribute.\n\n\n\n# siuba pipe\nmtcars >> _.shape[0]\n\n32\n\n\n\n# regular pandas\nmtcars.shape[0]"
+    "objectID": "guide/programming-pipes.html#basic-pipe",
+    "href": "guide/programming-pipes.html#basic-pipe",
+    "title": "Flexible pipes 📝",
+    "section": "Basic pipe",
+    "text": "Basic pipe\nUse the >> operator to pass the result of one verb into another.\n\n(mtcars\n    >> group_by(_.cyl)\n    >> summarize(res = _.hp.mean())\n)\n\n\n\n\n\n  \n    \n      \n      cyl\n      res\n    \n  \n  \n    \n      0\n      4\n      82.636364\n    \n    \n      1\n      6\n      122.285714\n    \n    \n      2\n      8\n      209.214286\n    \n  \n\n\n\n\nNote that this is equivalent to the code below, but much more readable.\n\nsummarize(\n    group_by(\n        mtcars,\n        _.cyl\n    ),\n    res = _.hp.mean()\n)\n\n\n\n\n\n  \n    \n      \n      cyl\n      res\n    \n  \n  \n    \n      0\n      4\n      82.636364\n    \n    \n      1\n      6\n      122.285714\n    \n    \n      2\n      8\n      209.214286"
   },
   {
-    "objectID": "guide/programming-pipes.html#pipe-to-external-functions",
-    "href": "guide/programming-pipes.html#pipe-to-external-functions",
-    "title": "Flexible pipes",
-    "section": "Pipe to external functions",
-    "text": "Pipe to external functions\nUse call() to pipe data into any function call.\nThe example below pipes to the seaborn’s barplot function.\n\nfrom siuba.siu import call\nimport seaborn as sns\n\nmtcars >> count(_.cyl) >> call(sns.barplot, x=\"cyl\", y=\"n\", data=_)\n\n<AxesSubplot:xlabel='cyl', ylabel='n'>\n\n\n\n\n\nNote that sns.barplot() expects the data as a named argument, so we pass data=_, where _ is a placeholder for the data.\ncall() can also take a single function to call the data on.\n\n\n\n# piping\nmtcars >> call(len)\n\n32\n\n\n\n# regular function call\nlen(mtcars)\n\n32"
+    "objectID": "guide/programming-pipes.html#lazy-pipes",
+    "href": "guide/programming-pipes.html#lazy-pipes",
+    "title": "Flexible pipes 📝",
+    "section": "Lazy pipes",
+    "text": "Lazy pipes\nStart a pipe with _ to create a lazy pipes. Lazy pipes are a lot like functions—they run once data is passed to them.\n\nfilter_cyl = _ >> filter(_.cyl.isin([4, 8]))\n\nmtcars >> filter_cyl >> head()\n\n\n\n\n\n  \n    \n      \n      mpg\n      cyl\n      disp\n      hp\n      drat\n      wt\n      qsec\n      vs\n      am\n      gear\n      carb\n    \n  \n  \n    \n      2\n      22.8\n      4\n      108.0\n      93\n      3.85\n      2.32\n      18.61\n      1\n      1\n      4\n      1\n    \n    \n      4\n      18.7\n      8\n      360.0\n      175\n      3.15\n      3.44\n      17.02\n      0\n      0\n      3\n      2\n    \n    \n      6\n      14.3\n      8\n      360.0\n      245\n      3.21\n      3.57\n      15.84\n      0\n      0\n      3\n      4\n    \n    \n      7\n      24.4\n      4\n      146.7\n      62\n      3.69\n      3.19\n      20.00\n      1\n      0\n      4\n      2\n    \n    \n      8\n      22.8\n      4\n      140.8\n      95\n      3.92\n      3.15\n      22.90\n      1\n      0\n      4\n      2\n    \n  \n\n\n\n\nMultiple lazy pipes can be combined in a pipe.\n\nhead_5 = _ >> head(n=5)\n\nmtcars >> filter_cyl >> head_5\n\n\n\n\n\n  \n    \n      \n      mpg\n      cyl\n      disp\n      hp\n      drat\n      wt\n      qsec\n      vs\n      am\n      gear\n      carb\n    \n  \n  \n    \n      2\n      22.8\n      4\n      108.0\n      93\n      3.85\n      2.32\n      18.61\n      1\n      1\n      4\n      1\n    \n    \n      4\n      18.7\n      8\n      360.0\n      175\n      3.15\n      3.44\n      17.02\n      0\n      0\n      3\n      2\n    \n    \n      6\n      14.3\n      8\n      360.0\n      245\n      3.21\n      3.57\n      15.84\n      0\n      0\n      3\n      4\n    \n    \n      7\n      24.4\n      4\n      146.7\n      62\n      3.69\n      3.19\n      20.00\n      1\n      0\n      4\n      2\n    \n    \n      8\n      22.8\n      4\n      140.8\n      95\n      3.92\n      3.15\n      22.90\n      1\n      0\n      4\n      2\n    \n  \n\n\n\n\nThis allows them to work as building blocks during an analysis!"
+  },
+  {
+    "objectID": "guide/programming-pipes.html#how-do-verbs-work",
+    "href": "guide/programming-pipes.html#how-do-verbs-work",
+    "title": "Flexible pipes 📝",
+    "section": "How do verbs work?",
+    "text": "How do verbs work?\nThe key to using verbs in a pipe is they have two modes, depending on what they receive as their first argument:\n\nverb(DataFrame, ...): execute the verb right away.\nverb(...): delay execution, and return a Call, which can be used in a pipe.\n\nFor example, here is a summarize being executed directly.\n\nsummarize(mtcars, avg = _.mpg.mean())\n\n\n\n\n\n  \n    \n      \n      avg\n    \n  \n  \n    \n      0\n      20.090625\n    \n  \n\n\n\n\nHere is an example of a group_by call that could be used in a pipe.\n\ngroup_cyl = group_by(_.cyl)\n\ntype(group_cyl)\n\nsiuba.siu.calls.Call\n\n\n\nmtcars >> group_cyl >> summarize(res = _.hp.mean())\n\n\n\n\n\n  \n    \n      \n      cyl\n      res\n    \n  \n  \n    \n      0\n      4\n      82.636364\n    \n    \n      1\n      6\n      122.285714\n    \n    \n      2\n      8\n      209.214286\n    \n  \n\n\n\n\n\nExplicit use of verbs in a pipe\nUse _ as the first argument to a verb, in order to return a Call.\n\n# eagerly evaluated ----\ngroup_by(mtcars, _.cyl)\n\n# lazy: both of these can be used in a pipe ----\n\n# implicit\ngroup_by(_.cyl)\n\n# explicit\ngroup_by(_, _.cyl)\n\n<function group_by at 0x7f1957e59fc0>(_,_.cyl())\n\n\nThis is much more explicit, but also a bit more clunky looking."
+  },
+  {
+    "objectID": "guide/programming-pipes.html#call-two-table-verbs",
+    "href": "guide/programming-pipes.html#call-two-table-verbs",
+    "title": "Flexible pipes 📝",
+    "section": "Call two-table verbs",
+    "text": "Call two-table verbs\nSome verbs take two tables of data. For example, inner_join() merges two tables of data based on some condition matching them up.\nFor two-table verbs, use _ as the first argument, to indicate it is being used in a pipe.\n\ntbl_labels = pd.DataFrame({\"cyl\": [4, 6, 8], \"label\": [\"four\", \"six\", \"eight\"]})\n\n# executed right away\ninner_join(mtcars, tbl_labels, \"cyl\")\n\n# piping approach\nmtcars >> inner_join(_, tbl_labels, \"cyl\")\n\n\n\n\n\n  \n    \n      \n      mpg\n      cyl\n      disp\n      hp\n      drat\n      wt\n      qsec\n      vs\n      am\n      gear\n      carb\n      label\n    \n  \n  \n    \n      0\n      21.0\n      6\n      160.0\n      110\n      3.90\n      2.620\n      16.46\n      0\n      1\n      4\n      4\n      six\n    \n    \n      1\n      21.0\n      6\n      160.0\n      110\n      3.90\n      2.875\n      17.02\n      0\n      1\n      4\n      4\n      six\n    \n    \n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n      ...\n    \n    \n      30\n      15.8\n      8\n      351.0\n      264\n      4.22\n      3.170\n      14.50\n      0\n      1\n      5\n      4\n      eight\n    \n    \n      31\n      15.0\n      8\n      301.0\n      335\n      3.54\n      3.570\n      14.60\n      0\n      1\n      5\n      8\n      eight\n    \n  \n\n32 rows × 12 columns"
+  },
+  {
+    "objectID": "guide/programming-pipes.html#call-dataframe-methods",
+    "href": "guide/programming-pipes.html#call-dataframe-methods",
+    "title": "Flexible pipes 📝",
+    "section": "Call DataFrame methods",
+    "text": "Call DataFrame methods\nSometimes it is helpful to use Pandas DataFrame methods, in addition to siuba verbs. This can be done by piping the data to _.<some_method>().\nHere is an example using the siuba verb count(), with the pandas method .sort_values().\n\nfrom siuba import _, count\nfrom siuba.data import mtcars\n\n(mtcars\n    >> count(_.cyl)         # this is a siuba verb\n    >> _.sort_values(\"n\")   # this is a pandas method\n)\n\n\n\n\n\n  \n    \n      \n      cyl\n      n\n    \n  \n  \n    \n      1\n      6\n      7\n    \n    \n      0\n      4\n      11\n    \n    \n      2\n      8\n      14\n    \n  \n\n\n\n\nHere is another example, using the DataFrame .shape attribute.\n\n\n\n# siuba pipe\nmtcars >> _.shape[0]\n\n32\n\n\n\n# regular pandas\nmtcars.shape[0]"
+  },
+  {
+    "objectID": "guide/programming-pipes.html#call-external-functions",
+    "href": "guide/programming-pipes.html#call-external-functions",
+    "title": "Flexible pipes 📝",
+    "section": "Call external functions",
+    "text": "Call external functions\nUse call() to pipe data into any function call.\nThe example below pipes to the seaborn’s barplot function.\n\nfrom siuba.siu import call\nimport seaborn as sns\n\n(mtcars\n    >> count(_.cyl)\n    >> call(sns.barplot, x=\"cyl\", y=\"n\", data=_)\n)\n\n<AxesSubplot:xlabel='cyl', ylabel='n'>\n\n\n\n\n\nNote that sns.barplot() expects the data as a named argument, so we pass data=_, where _ is a placeholder for the data.\ncall() can also take a single function to call the data on.\n\n\n\n# piping\nmtcars >> call(len)\n\n32\n\n\n\n# regular function call\nlen(mtcars)\n\n32"
+  },
+  {
+    "objectID": "guide/programming-pipes.html#pipe-as-an-alternative-to",
+    "href": "guide/programming-pipes.html#pipe-as-an-alternative-to",
+    "title": "Flexible pipes 📝",
+    "section": "pipe() as an alternative to >>",
+    "text": "pipe() as an alternative to >>\n\n\n\n(\n    mtcars\n    >> group_by(_.cyl, _.gear)\n    >> summarize(res = _.hp.mean())\n    >> call(print, \"Printed output -\\n\", _)\n)\n\nPrinted output -\n     cyl  gear         res\n0     4     3   97.000000\n1     4     4   76.000000\n..  ...   ...         ...\n6     8     3  194.166667\n7     8     5  299.500000\n\n[8 rows x 3 columns]\n\n\n\npipe(\n    mtcars\n    , group_by(_.cyl, _.gear)\n    , summarize(res = _.hp.mean())\n    , call(print, \"Printed output -\\n\", _)\n)"
   },
   {
     "objectID": "guide/verb-arrange.html",
@@ -618,14 +751,14 @@
   {
     "objectID": "guide/workflows-backends.html",
     "href": "guide/workflows-backends.html",
-    "title": "Backend Examples",
+    "title": "Backend Examples 🚧",
     "section": "",
     "text": "from siuba import _, group_by, filter, show_query\nfrom siuba.sql import LazyTbl\nfrom siuba.data import mtcars\n\nfrom sqlalchemy import create_engine"
   },
   {
     "objectID": "guide/workflows-backends.html#duckdb",
     "href": "guide/workflows-backends.html#duckdb",
-    "title": "Backend Examples",
+    "title": "Backend Examples 🚧",
     "section": "duckdb",
     "text": "duckdb\n\nengine = create_engine(\"duckdb:///:memory:\")\nengine.execute(\"register\", (\"mtcars\", mtcars))\nengine.execute(\"SHOW TABLES\").fetchall()\n\n[('mtcars',)]\n\n\n\ntbl_mtcars_duckdb = LazyTbl(engine, \"mtcars\")\n\ntbl_filtered = tbl_mtcars_duckdb >> filter_mpg\ntbl_filtered\n\n\n# Source: lazy query\n# DB Conn: Engine(duckdb:///:memory:)\n# Preview:\n\n\n\n  \n    \n      \n      mpg\n      cyl\n      disp\n      hp\n      drat\n      wt\n      qsec\n      vs\n      am\n      gear\n      carb\n    \n  \n  \n    \n      0\n      14.3\n      8\n      360.0\n      245\n      3.21\n      3.570\n      15.84\n      0\n      0\n      3\n      4\n    \n    \n      1\n      10.4\n      8\n      472.0\n      205\n      2.93\n      5.250\n      17.98\n      0\n      0\n      3\n      4\n    \n    \n      2\n      10.4\n      8\n      460.0\n      215\n      3.00\n      5.424\n      17.82\n      0\n      0\n      3\n      4\n    \n    \n      3\n      14.7\n      8\n      440.0\n      230\n      3.23\n      5.345\n      17.42\n      0\n      0\n      3\n      4\n    \n    \n      4\n      13.3\n      8\n      350.0\n      245\n      3.73\n      3.840\n      15.41\n      0\n      0\n      3\n      4\n    \n  \n\n# .. may have more rows\n\n\n\nq = tbl_filtered >> show_query(simplify=True)\n\nSELECT mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb \nFROM (SELECT *, mpg < avg(mpg) OVER (PARTITION BY cyl) AS win1 \nFROM (SELECT * \nFROM mtcars) AS anon_2) AS anon_1 \nWHERE win1"
   },
@@ -641,7 +774,7 @@
     "href": "guide/wrangle-helpers.html#count-values",
     "title": "Helpers: count, separate, complete",
     "section": "Count values",
-    "text": "Count values\nUse count() to quickly tally up the number of rows per grouping.\n\nmtcars >> count(_.cyl, _.gear)\n\n\n\n\n\n  \n    \n      \n      cyl\n      gear\n      n\n    \n  \n  \n    \n      0\n      4\n      3\n      1\n    \n    \n      1\n      4\n      4\n      8\n    \n    \n      ...\n      ...\n      ...\n      ...\n    \n    \n      6\n      8\n      3\n      12\n    \n    \n      7\n      8\n      5\n      2\n    \n  \n\n8 rows × 3 columns\n\n\n\nThe output above has 8 rows—one for each grouping—and a column named n with the number of observations in each grouping.\nNote that count() is a shorthand for combining group_by() and summarize().\n\nfrom siuba import group_by, summarize\n\nmtcars >> group_by(_.cyl, _.gear) >> summarize(n = _.shape[0])\n\n\n\n\n\n  \n    \n      \n      cyl\n      gear\n      n\n    \n  \n  \n    \n      0\n      4\n      3\n      1\n    \n    \n      1\n      4\n      4\n      8\n    \n    \n      ...\n      ...\n      ...\n      ...\n    \n    \n      6\n      8\n      3\n      12\n    \n    \n      7\n      8\n      5\n      2\n    \n  \n\n8 rows × 3 columns\n\n\n\n\nSorting results\nUse the sort argument to sort results by number of observations, in descending order.\n\nmtcars >> count(_.cyl, sort=True)\n\n\n\n\n\n  \n    \n      \n      cyl\n      n\n    \n  \n  \n    \n      0\n      8\n      14\n    \n    \n      1\n      4\n      11\n    \n    \n      2\n      6\n      7\n    \n  \n\n\n\n\n\n\nWith expressions\n\nmtcars >> count(_.cyl, high_mpg = _.mpg > 30)\n\n\n\n\n\n  \n    \n      \n      cyl\n      high_mpg\n      n\n    \n  \n  \n    \n      0\n      4\n      False\n      7\n    \n    \n      1\n      4\n      True\n      4\n    \n    \n      2\n      6\n      False\n      7\n    \n    \n      3\n      8\n      False\n      14\n    \n  \n\n\n\n\nHere’s a somewhat advanced example that puts mpg in different bins.\n\nfrom siuba import count\nfrom siuba.siu import call\nfrom siuba.data import mtcars\n\ncar_counts = mtcars >> count(_.cyl, mpg = call(pd.cut, _.mpg, bins = 3))\ncar_counts\n\n\n\n\n\n  \n    \n      \n      cyl\n      mpg\n      n\n    \n  \n  \n    \n      0\n      4\n      (10.376, 18.233]\n      0\n    \n    \n      1\n      4\n      (18.233, 26.067]\n      6\n    \n    \n      ...\n      ...\n      ...\n      ...\n    \n    \n      7\n      8\n      (18.233, 26.067]\n      2\n    \n    \n      8\n      8\n      (26.067, 33.9]\n      0\n    \n  \n\n9 rows × 3 columns\n\n\n\nNote these important pieces:\n\ncall(pd.cut, ...) is used to lazily call pd.cut(...).\npd.cut splits the data into bins, that count then uses as a grouping.\n\nHere’s a barchart of this data in plotnine.\n\nfrom plotnine import ggplot, aes, geom_col, facet_wrap, theme, element_text\n\n(car_counts\n    >> ggplot(aes(\"mpg\", \"n\", fill=\"mpg\"))\n    + geom_col()\n    + facet_wrap(\"~cyl\")\n    + theme(axis_text_x = element_text(angle=45, hjust=1))\n)\n\n\n\n\n<ggplot: (8789522236912)>\n\n\nAs vehicles increase in cylinders, they have fewer low mpg vehicles. For example, no 8 cylinder vehicles are in the highest mpg bin (above 26 mpg).\n\n\nWeighted counts\nUse the wt argument to do a weighted count (i.e. sum the weight values per grouping).\nThis is useful if you have data that already contains a count, such as the count of cyl and gear below.\n\ntbl_n_cyl_gear = mtcars >> count(_.cyl, _.gear)\n\nThe wt argument lets us roll this result up to count observations per cyl.\n\ntbl_n_cyl_gear >> count(_.cyl, wt=_.n)\n\n\n\n\n\n  \n    \n      \n      cyl\n      nn\n    \n  \n  \n    \n      0\n      4\n      11\n    \n    \n      1\n      6\n      7\n    \n    \n      2\n      8\n      14\n    \n  \n\n\n\n\nNotice that this is equivalent to counting cyl on the raw data.\n\nmtcars >> count(_.cyl)\n\n\n\n\n\n  \n    \n      \n      cyl\n      n\n    \n  \n  \n    \n      0\n      4\n      11\n    \n    \n      1\n      6\n      7\n    \n    \n      2\n      8\n      14"
+    "text": "Count values\nUse count() to quickly tally up the number of rows per grouping.\n\nmtcars >> count(_.cyl, _.gear)\n\n\n\n\n\n  \n    \n      \n      cyl\n      gear\n      n\n    \n  \n  \n    \n      0\n      4\n      3\n      1\n    \n    \n      1\n      4\n      4\n      8\n    \n    \n      ...\n      ...\n      ...\n      ...\n    \n    \n      6\n      8\n      3\n      12\n    \n    \n      7\n      8\n      5\n      2\n    \n  \n\n8 rows × 3 columns\n\n\n\nThe output above has 8 rows—one for each grouping—and a column named n with the number of observations in each grouping.\nNote that count() is a shorthand for combining group_by() and summarize().\n\nfrom siuba import group_by, summarize\n\nmtcars >> group_by(_.cyl, _.gear) >> summarize(n = _.shape[0])\n\n\n\n\n\n  \n    \n      \n      cyl\n      gear\n      n\n    \n  \n  \n    \n      0\n      4\n      3\n      1\n    \n    \n      1\n      4\n      4\n      8\n    \n    \n      ...\n      ...\n      ...\n      ...\n    \n    \n      6\n      8\n      3\n      12\n    \n    \n      7\n      8\n      5\n      2\n    \n  \n\n8 rows × 3 columns\n\n\n\n\nSorting results\nUse the sort argument to sort results by number of observations, in descending order.\n\nmtcars >> count(_.cyl, sort=True)\n\n\n\n\n\n  \n    \n      \n      cyl\n      n\n    \n  \n  \n    \n      0\n      8\n      14\n    \n    \n      1\n      4\n      11\n    \n    \n      2\n      6\n      7\n    \n  \n\n\n\n\n\n\nWith expressions\n\nmtcars >> count(_.cyl, high_mpg = _.mpg > 30)\n\n\n\n\n\n  \n    \n      \n      cyl\n      high_mpg\n      n\n    \n  \n  \n    \n      0\n      4\n      False\n      7\n    \n    \n      1\n      4\n      True\n      4\n    \n    \n      2\n      6\n      False\n      7\n    \n    \n      3\n      8\n      False\n      14\n    \n  \n\n\n\n\nHere’s a somewhat advanced example that puts mpg in different bins.\n\nfrom siuba import count\nfrom siuba.siu import call\nfrom siuba.data import mtcars\n\ncar_counts = mtcars >> count(_.cyl, mpg = call(pd.cut, _.mpg, bins = 3))\ncar_counts\n\n\n\n\n\n  \n    \n      \n      cyl\n      mpg\n      n\n    \n  \n  \n    \n      0\n      4\n      (10.376, 18.233]\n      0\n    \n    \n      1\n      4\n      (18.233, 26.067]\n      6\n    \n    \n      ...\n      ...\n      ...\n      ...\n    \n    \n      7\n      8\n      (18.233, 26.067]\n      2\n    \n    \n      8\n      8\n      (26.067, 33.9]\n      0\n    \n  \n\n9 rows × 3 columns\n\n\n\nNote these important pieces:\n\ncall(pd.cut, ...) is used to lazily call pd.cut(...).\npd.cut splits the data into bins, that count then uses as a grouping.\n\nHere’s a barchart of this data in plotnine.\n\nfrom plotnine import ggplot, aes, geom_col, facet_wrap, theme, element_text\n\n(car_counts\n    >> ggplot(aes(\"mpg\", \"n\", fill=\"mpg\"))\n    + geom_col()\n    + facet_wrap(\"~cyl\")\n    + theme(axis_text_x = element_text(angle=45, hjust=1))\n)\n\n\n\n\n<ggplot: (8790596394486)>\n\n\nAs vehicles increase in cylinders, they have fewer low mpg vehicles. For example, no 8 cylinder vehicles are in the highest mpg bin (above 26 mpg).\n\n\nWeighted counts\nUse the wt argument to do a weighted count (i.e. sum the weight values per grouping).\nThis is useful if you have data that already contains a count, such as the count of cyl and gear below.\n\ntbl_n_cyl_gear = mtcars >> count(_.cyl, _.gear)\n\nThe wt argument lets us roll this result up to count observations per cyl.\n\ntbl_n_cyl_gear >> count(_.cyl, wt=_.n)\n\n\n\n\n\n  \n    \n      \n      cyl\n      nn\n    \n  \n  \n    \n      0\n      4\n      11\n    \n    \n      1\n      6\n      7\n    \n    \n      2\n      8\n      14\n    \n  \n\n\n\n\nNotice that this is equivalent to counting cyl on the raw data.\n\nmtcars >> count(_.cyl)\n\n\n\n\n\n  \n    \n      \n      cyl\n      n\n    \n  \n  \n    \n      0\n      4\n      11\n    \n    \n      1\n      6\n      7\n    \n    \n      2\n      8\n      14"
   },
   {
     "objectID": "guide/wrangle-helpers.html#separate-strings-into-columns",
@@ -660,84 +793,84 @@
   {
     "objectID": "guide/wrangle-joins.html",
     "href": "guide/wrangle-joins.html",
-    "title": "Join tables",
+    "title": "Join tables 📝",
     "section": "",
-    "text": "Warning\n\n\n\nThis page is at the draft stage. The structure, examples, and figures are there, but it lacks narrative structure / needs refining."
+    "text": "Warning\n\n\n\nThis page is at the refinement stage. The structure, examples, and figures are there, but it lacks narrative structure / needs refining."
   },
   {
     "objectID": "guide/wrangle-joins.html#syntax",
     "href": "guide/wrangle-joins.html#syntax",
-    "title": "Join tables",
+    "title": "Join tables 📝",
     "section": "Syntax",
     "text": "Syntax\nLike other siuba verbs, joins can be used in two ways: directly passing both data as arguments, or by piping.\n\n# directly passing data\ninner_join(lhs, rhs, on=\"id\")\n\n# piping\nlhs >> inner_join(_, rhs, on=\"id\")\n\n\n\n\n\n  \n    \n      \n      id\n      val_x\n      val_y\n    \n  \n  \n    \n      0\n      1\n      lhs.1\n      rhs.1\n    \n    \n      1\n      2\n      lhs.2\n      rhs.2\n    \n  \n\n\n\n\nNote that when used in a pipe, the first argument to the join must be _, to represent the data."
   },
   {
     "objectID": "guide/wrangle-joins.html#mutating-joins",
     "href": "guide/wrangle-joins.html#mutating-joins",
-    "title": "Join tables",
+    "title": "Join tables 📝",
     "section": "Mutating joins",
     "text": "Mutating joins\n\n\nInner join\n\ninner_join(lhs, rhs, on=\"id\")\n\n\n\n\n\n  \n    \n      \n      id\n      val_x\n      val_y\n    \n  \n  \n    \n      0\n      1\n      lhs.1\n      rhs.1\n    \n    \n      1\n      2\n      lhs.2\n      rhs.2\n    \n  \n\n\n\n\n\n\nOuter joins\n\nleft_join(lhs, rhs, on=\"id\")\n\n\n\n\n\n  \n    \n      \n      id\n      val_x\n      val_y\n    \n  \n  \n    \n      0\n      1\n      lhs.1\n      rhs.1\n    \n    \n      1\n      2\n      lhs.2\n      rhs.2\n    \n    \n      2\n      3\n      lhs.3\n      NaN\n    \n  \n\n\n\n\n\nfull_join(lhs, rhs, on=\"id\")\n\n\n\n\n\n  \n    \n      \n      id\n      val_x\n      val_y\n    \n  \n  \n    \n      0\n      1\n      lhs.1\n      rhs.1\n    \n    \n      1\n      2\n      lhs.2\n      rhs.2\n    \n    \n      2\n      3\n      lhs.3\n      NaN\n    \n    \n      3\n      4\n      NaN\n      rhs.3"
   },
   {
     "objectID": "guide/wrangle-joins.html#filtering-joins",
     "href": "guide/wrangle-joins.html#filtering-joins",
-    "title": "Join tables",
+    "title": "Join tables 📝",
     "section": "Filtering joins",
     "text": "Filtering joins\n\nsemi_join(lhs, rhs, on=\"id\")\n\n\n\n\n\n  \n    \n      \n      id\n      val\n    \n  \n  \n    \n      0\n      1\n      lhs.1\n    \n    \n      1\n      2\n      lhs.2\n    \n  \n\n\n\n\n\nanti_join(lhs, rhs, on=\"id\")\n\n\n\n\n\n  \n    \n      \n      id\n      val\n    \n  \n  \n    \n      2\n      3\n      lhs.3"
   },
   {
     "objectID": "guide/wrangle-joins.html#duplicate-matches",
     "href": "guide/wrangle-joins.html#duplicate-matches",
-    "title": "Join tables",
+    "title": "Join tables 📝",
     "section": "Duplicate matches",
     "text": "Duplicate matches\n\n\n\n\n\n\n\n\n\n\n\n\nimport pandas as pd\nlhs_dupes = pd.DataFrame({\n    \"id\": [1, 2, 2, 3], \n    \"val\": [\"lhs.1\", \"lhs.2\", \"lhs.3\", \"lhs.4\"]\n})\n\nrhs_dupes = pd.DataFrame({\n    \"id\": [1, 2, 2, 4],\n    \"val\": [\"rhs.1\", \"rhs.2\", \"rhs.3\", \"rhs.4\"]\n})\n\n\n\n\nlhs_dupes\n\n\n\n\n\n  \n    \n      \n      id\n      val\n    \n  \n  \n    \n      0\n      1\n      lhs.1\n    \n    \n      1\n      2\n      lhs.2\n    \n    \n      2\n      2\n      lhs.3\n    \n    \n      3\n      3\n      lhs.4\n    \n  \n\n\n\n\n\nrhs_dupes\n\n\n\n\n\n  \n    \n      \n      id\n      val\n    \n  \n  \n    \n      0\n      1\n      rhs.1\n    \n    \n      1\n      2\n      rhs.2\n    \n    \n      2\n      2\n      rhs.3\n    \n    \n      3\n      4\n      rhs.4\n    \n  \n\n\n\n\n\n\n\ninner_join(lhs_dupes, rhs_dupes, on=\"id\")\n\n\n\n\n\n  \n    \n      \n      id\n      val_x\n      val_y\n    \n  \n  \n    \n      0\n      1\n      lhs.1\n      rhs.1\n    \n    \n      1\n      2\n      lhs.2\n      rhs.2\n    \n    \n      2\n      2\n      lhs.2\n      rhs.3\n    \n    \n      3\n      2\n      lhs.3\n      rhs.2\n    \n    \n      4\n      2\n      lhs.3\n      rhs.3"
   },
   {
     "objectID": "guide/wrangle-joins.html#na-handling",
     "href": "guide/wrangle-joins.html#na-handling",
-    "title": "Join tables",
+    "title": "Join tables 📝",
     "section": "NA handling",
     "text": "NA handling\n\n\n\n\n\n\n\n\n\n\n\nSame as dplyr\n\nimport pandas as pd\nlhs_na = pd.DataFrame({\"id\": [1, pd.NA, 3]})\nrhs_na = pd.DataFrame({\"id\": [1, pd.NA, 2]})\nleft_join(lhs_na, rhs_na, on=\"id\")\n\n\n\n\n\n  \n    \n      \n      id\n    \n  \n  \n    \n      0\n      1\n    \n    \n      1\n      <NA>\n    \n    \n      2\n      3"
   },
   {
     "objectID": "guide/wrangle-joins.html#match-on-multiple-columns",
     "href": "guide/wrangle-joins.html#match-on-multiple-columns",
-    "title": "Join tables",
+    "title": "Join tables 📝",
     "section": "Match on multiple columns",
     "text": "Match on multiple columns\n\nlhs_multi = pd.DataFrame({\n    \"source\": [\"a\", \"a\", \"b\"],\n    \"id\": [1, 2, 1],\n    \"val\": [\"lhs.1\", \"lhs.2\", \"lhs.3\"]\n})\n\nrhs_multi = pd.DataFrame({\n    \"source\": [\"a\", \"b\", \"c\"],\n    \"id\": [1, 1, 1],\n    \"val\": [\"lhs.1\", \"lhs.2\", \"lhs.3\"]\n})\n\ninner_join(lhs_multi, rhs_multi, on=[\"source\", \"id\"])\n\n\n\n\n\n  \n    \n      \n      source\n      id\n      val_x\n      val_y\n    \n  \n  \n    \n      0\n      a\n      1\n      lhs.1\n      lhs.1\n    \n    \n      1\n      b\n      1\n      lhs.3\n      lhs.2\n    \n  \n\n\n\n\n\ninner_join(lhs_multi, rhs_multi, on={\"source\": \"source\", \"id\": \"id\"})\n\n\n\n\n\n  \n    \n      \n      source\n      id\n      val_x\n      val_y\n    \n  \n  \n    \n      0\n      a\n      1\n      lhs.1\n      lhs.1\n    \n    \n      1\n      b\n      1\n      lhs.3\n      lhs.2"
   },
   {
     "objectID": "guide/wrangle-joins.html#match-on-expressions",
     "href": "guide/wrangle-joins.html#match-on-expressions",
-    "title": "Join tables",
+    "title": "Join tables 📝",
     "section": "Match on expressions",
-    "text": "Match on expressions\n\n\n\n\n\n\n\n\n\n\n\nSQL backends can join by expressions.\n\nfrom sqlalchemy import create_engine\nfrom siuba.sql import LazyTbl\n\nengine = create_engine(\"sqlite:///:memory:\")\n\nlhs.to_sql(\"lhs\", engine, index=False)\nrhs.to_sql(\"rhs\", engine, index=False)\n\ntbl_sql_lhs = LazyTbl(engine, \"lhs\")\ntbl_sql_rhs = LazyTbl(engine, \"rhs\")\n\ninner_join(\n    tbl_sql_lhs,\n    tbl_sql_rhs,\n    sql_on = lambda lhs, rhs: lhs.val <= rhs.val\n)\n\n\n# Source: lazy query\n# DB Conn: Engine(sqlite:///:memory:)\n# Preview:\n\n\n\n  \n    \n      \n      id_x\n      val_x\n      id_y\n      val_y\n    \n  \n  \n    \n      0\n      1\n      lhs.1\n      1\n      rhs.1\n    \n    \n      1\n      1\n      lhs.1\n      2\n      rhs.2\n    \n    \n      2\n      1\n      lhs.1\n      4\n      rhs.3\n    \n    \n      3\n      2\n      lhs.2\n      1\n      rhs.1\n    \n    \n      4\n      2\n      lhs.2\n      2\n      rhs.2\n    \n  \n\n# .. may have more rows"
+    "text": "Match on expressions\n\n\n\n\n\n\n\n\n\n\n\nSQL backends can join by expressions.\n\nfrom sqlalchemy import create_engine\nfrom siuba.sql import LazyTbl\n\nengine = create_engine(\"sqlite:///:memory:\")\n\nlhs.to_sql(\"lhs\", engine, index=False)\nrhs.to_sql(\"rhs\", engine, index=False)\n\ntbl_sql_lhs = LazyTbl(engine, \"lhs\")\ntbl_sql_rhs = LazyTbl(engine, \"rhs\")\n\ninner_join(\n    tbl_sql_lhs,\n    tbl_sql_rhs,\n    sql_on = lambda lhs, rhs: lhs.val <= rhs.val\n)\n\n\n# Source: lazy query\n# DB Conn: Engine(sqlite:///:memory:)\n# Preview:\n\n\n\n  \n    \n      \n      id_x\n      val_x\n      val_y\n      id_y\n    \n  \n  \n    \n      0\n      1\n      lhs.1\n      rhs.1\n      1\n    \n    \n      1\n      1\n      lhs.1\n      rhs.2\n      2\n    \n    \n      2\n      1\n      lhs.1\n      rhs.3\n      4\n    \n    \n      3\n      2\n      lhs.2\n      rhs.1\n      1\n    \n    \n      4\n      2\n      lhs.2\n      rhs.2\n      2\n    \n  \n\n# .. may have more rows"
   },
   {
     "objectID": "guide/wrangle-reshape.html",
     "href": "guide/wrangle-reshape.html",
-    "title": "Reshape tables",
+    "title": "Reshape tables 📝",
     "section": "",
     "text": "import pandas as pd\nfrom siuba import _, spread, gather\n\ncosts = pd.DataFrame({\n    'id': [1,2],\n    'price_x': [.1, .2],\n    'price_y': [.4, .5],\n    'price_z': [.7, .8]\n})\n\ncosts\n\n\n\n\n\n  \n    \n      \n      id\n      price_x\n      price_y\n      price_z\n    \n  \n  \n    \n      0\n      1\n      0.1\n      0.4\n      0.7\n    \n    \n      1\n      2\n      0.2\n      0.5\n      0.8"
   },
   {
     "objectID": "guide/wrangle-reshape.html#gather-data-long",
     "href": "guide/wrangle-reshape.html#gather-data-long",
-    "title": "Reshape tables",
+    "title": "Reshape tables 📝",
     "section": "Gather data long",
     "text": "Gather data long\n\n# selecting each variable manually\ncosts >> gather('measure', 'value', _.price_x, _.price_y, _.price_z)\n\n# selecting variables using a slice\ncosts >> gather('measure', 'value', _[\"price_x\":\"price_z\"])\n\n# selecting by excluding id\ncosts >> gather('measure', 'value', -_.id)\n\n\n\n\n\n  \n    \n      \n      id\n      measure\n      value\n    \n  \n  \n    \n      0\n      1\n      price_x\n      0.1\n    \n    \n      1\n      2\n      price_x\n      0.2\n    \n    \n      ...\n      ...\n      ...\n      ...\n    \n    \n      4\n      1\n      price_z\n      0.7\n    \n    \n      5\n      2\n      price_z\n      0.8\n    \n  \n\n6 rows × 3 columns"
   },
   {
     "objectID": "guide/wrangle-reshape.html#spread-data-wide",
     "href": "guide/wrangle-reshape.html#spread-data-wide",
-    "title": "Reshape tables",
+    "title": "Reshape tables 📝",
     "section": "Spread data wide",
     "text": "Spread data wide\n\n(costs\n    >> gather('measure', 'value', -_.id)\n    >> spread('measure', 'value')\n)\n\n\n\n\n\n  \n    \n      \n      id\n      price_x\n      price_y\n      price_z\n    \n  \n  \n    \n      0\n      1\n      0.1\n      0.4\n      0.7\n    \n    \n      1\n      2\n      0.2\n      0.5\n      0.8"
   },
   {
     "objectID": "guide/wrangle-reshape.html#pivot-wider-and-aggregate",
     "href": "guide/wrangle-reshape.html#pivot-wider-and-aggregate",
-    "title": "Reshape tables",
+    "title": "Reshape tables 📝",
     "section": "Pivot wider and aggregate",
     "text": "Pivot wider and aggregate\nIf there would be multiple entries per cell in the spread wide data, then the spread() function raises an error.\nThis is shown below, where there are duplicate entries where id=1 and measure=\"a\".\n\ndf = pd.DataFrame({\n    \"id\": [1, 1, 2],\n    \"measure\": [\"a\", \"a\", \"b\"],\n    \"value\": [8, 9, 10]\n})\n\ndf >> spread(\"measure\", \"value\")\n\nValueError: Index contains duplicate entries, cannot reshape\n\n\nUse the pandas pivot_table function to deal with this situation.\n\ndf.pivot_table(columns=\"measure\", values=\"value\", index=\"id\", aggfunc=list)\n\n\n\n\n\n  \n    \n      measure\n      a\n      b\n    \n    \n      id\n      \n      \n    \n  \n  \n    \n      1\n      [8, 9]\n      NaN\n    \n    \n      2\n      NaN\n      [10]\n    \n  \n\n\n\n\nNotice that the top-left entry is a list of two values, [8, 9]. The aggfunc argument is able to reduce those values down to one.\nFor example, by taking the mean.\n\ndf.pivot_table(columns=\"measure\", values=\"value\", index=\"id\", aggfunc=\"mean\")\n\n\n\n\n\n  \n    \n      measure\n      a\n      b\n    \n    \n      id\n      \n      \n    \n  \n  \n    \n      1\n      8.5\n      NaN\n    \n    \n      2\n      NaN\n      10.0\n    \n  \n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nsiuba can pipe to the pandas DataFrame’s pivot_table method as follows.\n\n(df\n    >> _.pivot_table(...)\n)\n\nWhere you would replace ... with your arguments. See flexible piping for more details."
   },

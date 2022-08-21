@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Siuba – programming-new-verbs</title>
+<title>Siuba - Custom table verbs 🚧</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -118,6 +118,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-submit-button-title": "Submit"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -155,7 +158,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">(Untitled)</h1>
+      <h1 class="quarto-secondary-nav-title">Custom table verbs 🚧</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -238,12 +241,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/ops-strings.html" class="sidebar-item-text sidebar-link">String operations (<code>str</code>)</a>
+  <a href="../guide/ops-strings.html" class="sidebar-item-text sidebar-link">String operations (<code>str</code>) 📝</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/ops-datetime.html" class="sidebar-item-text sidebar-link">Datetime operations (<code>.dt</code>)</a>
+  <a href="../guide/ops-datetime.html" class="sidebar-item-text sidebar-link">Datetime operations (<code>.dt</code>) 📝</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -263,17 +266,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/wrangle-joins.html" class="sidebar-item-text sidebar-link">Join tables</a>
+  <a href="../guide/wrangle-joins.html" class="sidebar-item-text sidebar-link">Join tables 📝</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/wrangle-reshape.html" class="sidebar-item-text sidebar-link">Reshape tables</a>
+  <a href="../guide/wrangle-reshape.html" class="sidebar-item-text sidebar-link">Reshape tables 📝</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/wrangle-nested.html" class="sidebar-item-text sidebar-link">Nested data</a>
+  <a href="../guide/wrangle-nested.html" class="sidebar-item-text sidebar-link">Nested data 🚧</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -293,17 +296,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-pipes.html" class="sidebar-item-text sidebar-link">Flexible pipes</a>
+  <a href="../guide/programming-pipes.html" class="sidebar-item-text sidebar-link">Flexible pipes 📝</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-new-verbs.html" class="sidebar-item-text sidebar-link active">Custom verbs</a>
+  <a href="../guide/programming-new-verbs.html" class="sidebar-item-text sidebar-link active">Custom table verbs 🚧</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-new-ops.html" class="sidebar-item-text sidebar-link">Custom column ops</a>
+  <a href="../guide/programming-new-ops.html" class="sidebar-item-text sidebar-link">Custom column ops 📝</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/programming-adv-sql.html" class="sidebar-item-text sidebar-link">Advanced SQL 🚧</a>
   </div>
 </li>
       </ul>
@@ -318,12 +326,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/workflows-backends.html" class="sidebar-item-text sidebar-link">Backend Examples</a>
+  <a href="../guide/workflows-backends.html" class="sidebar-item-text sidebar-link">Backend Examples 🚧</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/workflows.html" class="sidebar-item-text sidebar-link">Debugging</a>
+  <a href="../guide/workflows.html" class="sidebar-item-text sidebar-link">Debugging 🚧</a>
   </div>
 </li>
       </ul>
@@ -352,22 +360,222 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#custom-verbs" id="toc-custom-verbs" class="nav-link active" data-scroll-target="#custom-verbs">Custom verbs</a></li>
+  <li><a href="#create-a-new-verb-with-verb_dispatch" id="toc-create-a-new-verb-with-verb_dispatch" class="nav-link active" data-scroll-target="#create-a-new-verb-with-verb_dispatch">Create a new verb with <code>verb_dispatch()</code></a></li>
+  <li><a href="#register-a-sql-translation" id="toc-register-a-sql-translation" class="nav-link" data-scroll-target="#register-a-sql-translation">Register a SQL translation</a></li>
+  <li><a href="#why-not-use-methods" id="toc-why-not-use-methods" class="nav-link" data-scroll-target="#why-not-use-methods">Why not use methods?</a></li>
+  <li><a href="#grouped-data" id="toc-grouped-data" class="nav-link" data-scroll-target="#grouped-data">Grouped data</a></li>
+  <li><a href="#handling-indexes" id="toc-handling-indexes" class="nav-link" data-scroll-target="#handling-indexes">Handling indexes</a></li>
+  <li><a href="#verb_dispatch" id="toc-verb_dispatch" class="nav-link" data-scroll-target="#verb_dispatch">verb_dispatch()</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-
-
-<section id="custom-verbs" class="level1">
-<h1>Custom verbs</h1>
-<div class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba.siu <span class="im">import</span> symbolic_dispatch</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pandas.core.groupby <span class="im">import</span> SeriesGroupBy, GroupBy</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pandas <span class="im">import</span> Series</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Custom table verbs 🚧</h1>
 </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<p>You may be wondering how a siuba function, like <code>mutate()</code>, could work on a SQL database. This is because these functions are defined using a technique called single dispatch. This approach allows you to define class-specific versions of a function.</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 🚧 </span><span class="al">TODO</span><span class="co">: expose verb_dispatch on siu module</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba.siu.dispatchers <span class="im">import</span> verb_dispatch</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba.data <span class="im">import</span> mtcars</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="create-a-new-verb-with-verb_dispatch" class="level2">
+<h2 class="anchored" data-anchor-id="create-a-new-verb-with-verb_dispatch">Create a new verb with <code>verb_dispatch()</code></h2>
+<p>Use the <code>verb_dispatch()</code> decorator to create a new table verb function.</p>
+<p>The code below creates a function called head(), with an implementation that works specifically on a DataFrame.</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># DataFrame version of function ---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">@verb_dispatch</span>(pd.DataFrame)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> head(__data, n <span class="op">=</span> <span class="dv">5</span>):</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> __data.head(n)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>head(mtcars, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>mpg</th>
+      <th>cyl</th>
+      <th>disp</th>
+      <th>hp</th>
+      <th>drat</th>
+      <th>wt</th>
+      <th>qsec</th>
+      <th>vs</th>
+      <th>am</th>
+      <th>gear</th>
+      <th>carb</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>21.0</td>
+      <td>6</td>
+      <td>160.0</td>
+      <td>110</td>
+      <td>3.9</td>
+      <td>2.620</td>
+      <td>16.46</td>
+      <td>0</td>
+      <td>1</td>
+      <td>4</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>21.0</td>
+      <td>6</td>
+      <td>160.0</td>
+      <td>110</td>
+      <td>3.9</td>
+      <td>2.875</td>
+      <td>17.02</td>
+      <td>0</td>
+      <td>1</td>
+      <td>4</td>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="register-a-sql-translation" class="level2">
+<h2 class="anchored" data-anchor-id="register-a-sql-translation">Register a SQL translation</h2>
+<p>We can define a SQL specific version, that acts on a SqlAlchemy Table by registering a new translation of our function <code>head</code>, with the <code>@head.register</code> decorator.</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sqlalchemy <span class="im">import</span> Table, Column, MetaData</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">@head.register</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> _head_sql(__data: Table, n <span class="op">=</span> <span class="dv">5</span>):</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> __data.select().limit(n)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>table <span class="op">=</span> Table(<span class="st">"some_table"</span>, MetaData(), Column(<span class="st">'a'</span>), Column(<span class="st">'b'</span>))</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    head(table, <span class="dv">2</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>SELECT some_table.a, some_table.b 
+FROM some_table
+ LIMIT :param_1</code></pre>
+</div>
+</div>
+</section>
+<section id="why-not-use-methods" class="level2">
+<h2 class="anchored" data-anchor-id="why-not-use-methods">Why not use methods?</h2>
+<p>Why use singledispatch rather than create a class method like <code>mtcars.head()</code>?</p>
+<p>There are two big benefits:</p>
+<ol type="1">
+<li><strong>Anyone can define and package a function</strong>. Using it is just a matter of importing it. With a method, you need to somehow put it onto the class representing your data. You end up with 300+ methods on a class.</li>
+<li>Your function might do something that is <strong>not the class’s core responsibility</strong>. In this case, it should not be part of the class definition.</li>
+</ol>
+<p>See the post <a href="https://mchow.com/posts/2020-02-24-single-dispatch-data-science/">Single dispatch for democratizing data science tools</a> for more.</p>
+</section>
+<section id="grouped-data" class="level2">
+<h2 class="anchored" data-anchor-id="grouped-data">Grouped data</h2>
+<p>Since single dispatch functions define how to execute an action for a specific class of data, it allows siuba to handle grouped data in two ways:</p>
+<ul>
+<li>pandas - register dispatchers for its special grouped data classes (<code>DataFrameGroupBy</code>, <code>SeriesGroupBy</code>).</li>
+<li>SQL - use a single class for grouped and ungrouped data, with grouping info as an attribute (<code>siuba.sql.LazyTbl</code>).</li>
+</ul>
+<p>For example, here is a simple verb that calculates the number of rows in a grouped DataFrame.</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pandas.core.groupby <span class="im">import</span> DataFrameGroupBy</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at">@verb_dispatch</span>(DataFrameGroupBy)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> size(__data):</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> __data.size()</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>size(mtcars.groupby(<span class="st">'cyl'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>cyl
+4    11
+6     7
+8    14
+dtype: int64</code></pre>
+</div>
+</div>
+</section>
+<section id="handling-indexes" class="level2">
+<h2 class="anchored" data-anchor-id="handling-indexes">Handling indexes</h2>
+<p>Most siuba table verbs take a DataFrame, and return a DataFrame. Moreover, they don’t stick columns onto the index. This means you don’t need to call <code>reset_index</code> all the time.</p>
+<p>A common place where <code>reset_index</code> is called is after a pandas grouped aggregation.</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba.data <span class="im">import</span> mtcars</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba <span class="im">import</span> summarize</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>g_cyl <span class="op">=</span> mtcars.groupby(<span class="st">"cyl"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>agg_res <span class="op">=</span> g_cyl[[<span class="st">"hp"</span>, <span class="st">"mpg"</span>]].agg(<span class="st">"mean"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># nooooo</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>agg_res</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>hp</th>
+      <th>mpg</th>
+    </tr>
+    <tr>
+      <th>cyl</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>4</th>
+      <td>82.636364</td>
+      <td>26.663636</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>122.285714</td>
+      <td>19.742857</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>209.214286</td>
+      <td>15.100000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="verb_dispatch" class="level2">
+<h2 class="anchored" data-anchor-id="verb_dispatch">verb_dispatch()</h2>
+<p>One thing to note is that siuba’s singledispatch implementation is called <code>singledispatch2</code>. This function (whose name will likely change!) is a very light wrapper around python’s built in <code>functools.singledispatch</code> that does two things:</p>
+<ol type="1">
+<li>Allow verbs to be piped using <code>data &gt;&gt; verb1() &gt;&gt; verb2()</code> syntax.</li>
+<li>Strip out the symbolic part of lazy expressions.</li>
+</ol>
+<p>These two concepts are covered in the next two sections.</p>
 
 
 </section>
@@ -473,12 +681,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../guide/programming-pipes.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Flexible pipes</span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Flexible pipes 📝</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../guide/programming-new-ops.html" class="pagination-link">
-        <span class="nav-page-text">Custom column ops</span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text">Custom column ops 📝</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

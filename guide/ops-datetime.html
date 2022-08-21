@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Siuba – ops-datetime</title>
+<title>Siuba - Datetime operations (.dt) 📝</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -118,6 +118,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-submit-button-title": "Submit"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -155,7 +158,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">(Untitled)</h1>
+      <h1 class="quarto-secondary-nav-title">Datetime operations (<code>.dt</code>) 📝</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -238,12 +241,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/ops-strings.html" class="sidebar-item-text sidebar-link">String operations (<code>str</code>)</a>
+  <a href="../guide/ops-strings.html" class="sidebar-item-text sidebar-link">String operations (<code>str</code>) 📝</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/ops-datetime.html" class="sidebar-item-text sidebar-link active">Datetime operations (<code>.dt</code>)</a>
+  <a href="../guide/ops-datetime.html" class="sidebar-item-text sidebar-link active">Datetime operations (<code>.dt</code>) 📝</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -263,17 +266,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/wrangle-joins.html" class="sidebar-item-text sidebar-link">Join tables</a>
+  <a href="../guide/wrangle-joins.html" class="sidebar-item-text sidebar-link">Join tables 📝</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/wrangle-reshape.html" class="sidebar-item-text sidebar-link">Reshape tables</a>
+  <a href="../guide/wrangle-reshape.html" class="sidebar-item-text sidebar-link">Reshape tables 📝</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/wrangle-nested.html" class="sidebar-item-text sidebar-link">Nested data</a>
+  <a href="../guide/wrangle-nested.html" class="sidebar-item-text sidebar-link">Nested data 🚧</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -293,17 +296,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-pipes.html" class="sidebar-item-text sidebar-link">Flexible pipes</a>
+  <a href="../guide/programming-pipes.html" class="sidebar-item-text sidebar-link">Flexible pipes 📝</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-new-verbs.html" class="sidebar-item-text sidebar-link">Custom verbs</a>
+  <a href="../guide/programming-new-verbs.html" class="sidebar-item-text sidebar-link">Custom table verbs 🚧</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-new-ops.html" class="sidebar-item-text sidebar-link">Custom column ops</a>
+  <a href="../guide/programming-new-ops.html" class="sidebar-item-text sidebar-link">Custom column ops 📝</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/programming-adv-sql.html" class="sidebar-item-text sidebar-link">Advanced SQL 🚧</a>
   </div>
 </li>
       </ul>
@@ -318,12 +326,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/workflows-backends.html" class="sidebar-item-text sidebar-link">Backend Examples</a>
+  <a href="../guide/workflows-backends.html" class="sidebar-item-text sidebar-link">Backend Examples 🚧</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/workflows.html" class="sidebar-item-text sidebar-link">Debugging</a>
+  <a href="../guide/workflows.html" class="sidebar-item-text sidebar-link">Debugging 🚧</a>
   </div>
 </li>
       </ul>
@@ -352,25 +360,316 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#datetime-operations-.dt" id="toc-datetime-operations-.dt" class="nav-link active" data-scroll-target="#datetime-operations-.dt">Datetime operations (<code>.dt</code>)</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
+  <ul class="collapse">
+  <li><a href="#creating-datetime-columns" id="toc-creating-datetime-columns" class="nav-link" data-scroll-target="#creating-datetime-columns">Creating datetime columns</a></li>
+  <li><a href="#using-datetime-methods-.dt" id="toc-using-datetime-methods-.dt" class="nav-link" data-scroll-target="#using-datetime-methods-.dt">Using datetime methods (<code>.dt</code>)</a></li>
+  <li><a href="#use-in-a-verb" id="toc-use-in-a-verb" class="nav-link" data-scroll-target="#use-in-a-verb">Use in a verb</a></li>
+  </ul></li>
+  <li><a href="#change-granularity-with-floor_date" id="toc-change-granularity-with-floor_date" class="nav-link" data-scroll-target="#change-granularity-with-floor_date">Change granularity with <code>floor_date()</code></a>
+  <ul class="collapse">
+  <li><a href="#basics" id="toc-basics" class="nav-link" data-scroll-target="#basics">Basics</a></li>
+  <li><a href="#datetime-unit-options" id="toc-datetime-unit-options" class="nav-link" data-scroll-target="#datetime-unit-options">Datetime unit options</a></li>
+  <li><a href="#round-up-with-ceil_date" id="toc-round-up-with-ceil_date" class="nav-link" data-scroll-target="#round-up-with-ceil_date">Round up with <code>ceil_date()</code></a></li>
+  <li><a href="#preserving-input-type" id="toc-preserving-input-type" class="nav-link" data-scroll-target="#preserving-input-type">Preserving input type</a></li>
+  <li><a href="#unit-start-vs-unit-end" id="toc-unit-start-vs-unit-end" class="nav-link" data-scroll-target="#unit-start-vs-unit-end">Unit start vs unit end</a></li>
+  </ul></li>
+  <li><a href="#translating-to-sql" id="toc-translating-to-sql" class="nav-link" data-scroll-target="#translating-to-sql">Translating to SQL</a></li>
+  <li><a href="#learning-more" id="toc-learning-more" class="nav-link" data-scroll-target="#learning-more">Learning more</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Datetime operations (<code>.dt</code>) 📝</h1>
+</div>
 
 
-<section id="datetime-operations-.dt" class="level1">
-<h1>Datetime operations (<code>.dt</code>)</h1>
-<div class="cell" data-execution_count="1">
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This section is in the <strong>draft</strong> phase.</p>
+</div>
+</div>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>This page covers how to work with dates and times in siuba. siuba works by using pandas methods, either by calling them directly, or translating them to SQL.</p>
+<div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">"display.max_rows"</span>, <span class="dv">5</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba.data <span class="im">import</span> penguins</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba <span class="im">import</span> _, summarize, group_by</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba <span class="im">import</span> _, count, mutate</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba.siu <span class="im">import</span> call</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<section id="creating-datetime-columns" class="level3">
+<h3 class="anchored" data-anchor-id="creating-datetime-columns">Creating datetime columns</h3>
+<p>There are roughly two ways to create a datetime column in pandas:</p>
+<ul>
+<li><code>pd.to_datetime()</code> which takes a range of inputs.</li>
+<li><code>pd.Series.astype("datetime64[ns]")</code> method call.</li>
+</ul>
+<p>The <code>pd.to_datetime()</code> function is flexible, and can also take a list of datetimes or a Series.</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dt_index <span class="op">=</span> pd.to_datetime([<span class="st">"2021-01-02 01:02:03"</span>, <span class="st">"2022-02-03 04:05:06"</span>])</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dt_index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>DatetimeIndex(['2021-01-02 01:02:03', '2022-02-03 04:05:06'], dtype='datetime64[ns]', freq=None)</code></pre>
+</div>
+</div>
+<p>Note that sometimes the result is not a Series. For example, the above object is a DatetimeIndex. Generally, everything is easier after wrapping it in a pandas Series.</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ser_times <span class="op">=</span> pd.Series(dt_index)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>On the other hand, the <code>.astype()</code> method is a simple way to convert a series to a datetime.</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pd.Series([<span class="st">"2021-01-02 03:04:05"</span>]).astype(<span class="st">"datetime64[ns]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>0   2021-01-02 03:04:05
+dtype: datetime64[ns]</code></pre>
+</div>
+</div>
+<p>The <a href="https://pandas.pydata.org/docs/user_guide/timeseries.html">pandas time series docs</a> discuss in exquisite detail the intricacies of different datetime objects, and how they’re created! The rest of this page will just use pandas Series to look at datetime operations.</p>
+</section>
+<section id="using-datetime-methods-.dt" class="level3">
+<h3 class="anchored" data-anchor-id="using-datetime-methods-.dt">Using datetime methods (<code>.dt</code>)</h3>
+<p>siuba uses Pandas methods, so can use any of the datetime methods it makes available, like <code>.dt.month_name()</code>.</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ser_times.dt.month_name()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>0     January
+1    February
+dtype: object</code></pre>
+</div>
+</div>
+</section>
+<section id="use-in-a-verb" class="level3">
+<h3 class="anchored" data-anchor-id="use-in-a-verb">Use in a verb</h3>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"times"</span>: ser_times,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"raw"</span>: [<span class="st">"2023-04-05 06:07:08"</span>, <span class="st">"2024-05-06 07:08:09"</span>],</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">&gt;&gt;</span> count(month <span class="op">=</span> _.times.dt.month_name())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>month</th>
+      <th>n</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>February</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>January</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<p>You can call functions like <code>pd.to_datetime()</code> using siuba’s <code>call()</code>.</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> df <span class="op">&gt;&gt;</span> mutate(parsed <span class="op">=</span> call(pd.to_datetime, _.raw))</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>res.parsed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>0   2023-04-05 06:07:08
+1   2024-05-06 07:08:09
+Name: parsed, dtype: datetime64[ns]</code></pre>
+</div>
+</div>
+<p>Notice that this creates a new datetime column by calling <code>pd.to_datetime(df.raw)</code>.</p>
+</section>
+</section>
+<section id="change-granularity-with-floor_date" class="level2">
+<h2 class="anchored" data-anchor-id="change-granularity-with-floor_date">Change granularity with <code>floor_date()</code></h2>
+<p>Siuba has an experimental function called <code>floor_date()</code> for rounding down to a specific unit of time (e.g.&nbsp;the week, the day, or the hour).</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba.experimental.datetime <span class="im">import</span> floor_date, ceil_date</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>dates <span class="op">=</span> pd.to_datetime([<span class="st">"2021-01-01 01:02:03"</span>, <span class="st">"2021-01-08 01:02:03"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="basics" class="level3">
+<h3 class="anchored" data-anchor-id="basics">Basics</h3>
+<p>The <code>floor_date()</code> functions takes two arguments:</p>
+<ul>
+<li>A column to round down (e.g.&nbsp;a pandas Series).</li>
+<li>A datetime unit to round to (e.g.&nbsp;“MS” for “Month Start”; see the <a href="https://pandas.pydata.org/docs/user_guide/timeseries.html#offset-aliases">pandas unit alias doc</a>)</li>
+</ul>
+<p>For example, the code below rounds dates down to the nearest week.</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>floor_date(dates, <span class="st">"W"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>DatetimeIndex(['2021-01-01', '2021-01-08'], dtype='datetime64[ns]', freq=None)</code></pre>
+</div>
+</div>
+</section>
+<section id="datetime-unit-options" class="level3">
+<h3 class="anchored" data-anchor-id="datetime-unit-options">Datetime unit options</h3>
+<p>There are a lot of useful time units, such as “MS” for the start of a month. Below is a table of some of the most useful ones.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">human speak</th>
+<th style="text-align: left;">pandas alias</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">second</td>
+<td style="text-align: left;">S</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">minute</td>
+<td style="text-align: left;">M</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">hour</td>
+<td style="text-align: left;">H</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">day</td>
+<td style="text-align: left;">D</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">week</td>
+<td style="text-align: left;">W</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">month</td>
+<td style="text-align: left;">M</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bimonth</td>
+<td style="text-align: left;">2M</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">quarter</td>
+<td style="text-align: left;">Q</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">season</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">halfyear</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">year</td>
+<td style="text-align: left;">Y</td>
+</tr>
+</tbody>
+</table>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># month start</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>floor_date(dates, <span class="st">"MS"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>DatetimeIndex(['2021-01-01', '2021-01-01'], dtype='datetime64[ns]', freq=None)</code></pre>
+</div>
+</div>
+</section>
+<section id="round-up-with-ceil_date" class="level3">
+<h3 class="anchored" data-anchor-id="round-up-with-ceil_date">Round up with <code>ceil_date()</code></h3>
+<p>The counterpart function <code>ceil_date()</code> rounds up to the specified unit of time.</p>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># round up to month end</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>ceil_date(dates, <span class="st">"M"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>DatetimeIndex(['2021-01-31', '2021-01-31'], dtype='datetime64[ns]', freq=None)</code></pre>
+</div>
+</div>
+</section>
+<section id="preserving-input-type" class="level3">
+<h3 class="anchored" data-anchor-id="preserving-input-type">Preserving input type</h3>
+<p>Note that pandas has <a href="https://pandas.pydata.org/docs/user_guide/timeseries.html#timestamps-vs-time-spans">multiple formats</a> for representing datetime:</p>
+<ul>
+<li>Timestamp: directly representing points in time.</li>
+<li>Period: representing time as number of spans of some time unit from a reference point (e.g.&nbsp;120 months from Jan, 1970).</li>
+</ul>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="st">"2021-01-01 01:02:03"</span>, <span class="st">"2021-02-03 01:02:03"</span>]</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>dt_index <span class="op">=</span> pd.DatetimeIndex(x)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>floor_date(dt_index, <span class="st">"W"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>DatetimeIndex(['2021-01-01', '2021-02-03'], dtype='datetime64[ns]', freq=None)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># note freq="m" refers to minute frequency</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>per_index <span class="op">=</span> pd.PeriodIndex(x, freq<span class="op">=</span><span class="st">"m"</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>floor_date(per_index, <span class="st">"W"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>PeriodIndex(['2020-12-28/2021-01-03', '2021-02-01/2021-02-07'], dtype='period[W-SUN]')</code></pre>
+</div>
+</div>
+<p>Note that the <code>"W"</code> stands for week.</p>
+</section>
+<section id="unit-start-vs-unit-end" class="level3">
+<h3 class="anchored" data-anchor-id="unit-start-vs-unit-end">Unit start vs unit end</h3>
+<p>Note that the units we discussed here all referred to “unit start”. This is a bit tricky, so might be explained best in an example using month units.</p>
+<ul>
+<li>month start: “2021-02-03” becomes “2021-02-01”</li>
+<li>month end: “2021-02-03” becomes “2021-01-31”</li>
+</ul>
+<p>For most time units pandas has a unit end version, such as:</p>
+<ul>
+<li>“M”: month end (vs “MS” for month start)</li>
+<li>“Y”: year end (vs “YS” for year start)</li>
+<li>“Q”: quarter end (vs “QS” for quarter start)</li>
+</ul>
+<p>It’s a bit confusing that “M” stands for month <strong>end</strong>, but “D” stands for day <strong>start</strong>. In general, time units at the day level or finer grain only do unit start, so be careful with units!</p>
+</section>
+</section>
+<section id="translating-to-sql" class="level2">
+<h2 class="anchored" data-anchor-id="translating-to-sql">Translating to SQL</h2>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba <span class="im">import</span> _, count</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba.data <span class="im">import</span> cars_sql</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>🚧 TODO: add a basic SQL dataset with time columns</p>
+</section>
+<section id="learning-more" class="level2">
+<h2 class="anchored" data-anchor-id="learning-more">Learning more</h2>
+<ul>
+<li><a href="https://pandas.pydata.org/docs/user_guide/timeseries.html">Pandas user guide on timeseries</a></li>
+<li><a href="https://pandas.pydata.org/docs/reference/series.html#api-series-dt">Pandas Series API on <code>.dt</code> accessor methods</a></li>
+</ul>
 
 
 </section>
@@ -476,7 +775,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../guide/ops-strings.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">String operations (<code>str</code>)</span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">String operations (<code>str</code>) 📝</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
