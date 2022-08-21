@@ -1,5 +1,5 @@
 ---
-title: "Custom column ops"
+title: "Custom column ops 📝"
 jupyter:
   jupytext:
     formats: 'qmd:quarto'
@@ -20,7 +20,7 @@ This function creates what are called single generic functions---
 which let you register different ways to handle different types of data.
 
 
-## Defining a new function
+## Define a new function
 
 ```{python}
 from siuba.siu import symbolic_dispatch
@@ -28,16 +28,59 @@ from pandas.core.groupby import SeriesGroupBy
 from pandas import Series
 
 @symbolic_dispatch
-def cummean(x):
-    raise NotImplementedError(f"Not implemented for class {type(x)}")
+def like(col, text):
+    raise NotImplementedError(f"Not implemented for class {type(col)}")
 
-@cummean.register
-def cummean(x: Series):
-    """Return a same-length array, containing the cumulative mean."""
-    return x.expanding().mean()
+@like.register
+def _like_ser(col: Series, text: str) -> Series:
+    """Return transformation. Checks whether text is in each entry of col."""
+    return col.str.contains(text)
+```
+
+## Check for a translation
+
+```{python}
+like.dispatch(Series)
+```
+
+## Register an error with FunctionLookupBound
+
+```{python}
+from siuba.siu import FunctionLookupBound
+
+@symbolic_dispatch
+def some_func(x):
+    return 1
+
+some_func.register(Series, FunctionLookupBound("Not implemented"))
+```
+
+
+```{python}
+f_concrete = some_func.dispatch(Series)
+
+# indicates that a function is *not* implemented
+isinstance(f_concrete, FunctionLookupBound)
 ```
 
 ## Registering SQL translation
 
-## Check whether a translation exists
+```{python}
+from sqlalchemy import sql
 
+from siuba.sql.dialects.postgresql import PostgresqlColumn, PostgresqlColumnAgg
+
+@like.register
+def _like_pg(codata: PostgresqlColumn, col: sql.ClauseElement, text: str) -> sql.ClauseElement:
+    return col.like(text)
+```
+
+```{python}
+expr = like(PostgresqlColumn(), sql.column("a"), "yo")
+print(expr)
+```
+
+
+## Register a SQL window function
+
+## Extending existing column op

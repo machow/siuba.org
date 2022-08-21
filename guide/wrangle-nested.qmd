@@ -1,4 +1,5 @@
 ---
+title: Nested data 🚧
 jupyter:
   jupytext:
     formats: 'qmd:quarto'
@@ -12,6 +13,4 @@ jupyter:
     language: python
     name: python3
 ---
-
-# Nested data
 

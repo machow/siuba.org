@@ -1,0 +1,31 @@
+---
+title: Advanced SQL 🚧
+jupyter:
+  jupytext:
+    formats: 'qmd:quarto'
+    text_representation:
+      extension: .qmd
+      format_name: quarto
+      format_version: '1.0'
+      jupytext_version: 1.14.0
+  kernelspec:
+    display_name: Python 3 (ipykernel)
+    language: python
+    name: python3
+---
+
+```{python}
+#| include: false
+import pandas as pd
+
+pd.set_option("display.max_rows", 5)
+```
+
+* Single code-chunk review of basics: show_query, collect, preview
+* LazyTbl from query string (in dbcooper currently?)
+* simplify query (show_query(simplify=True))
+* `siuba.sql.sql_raw`
+* LazyTbl core properties
+  * last_op
+* Custom over clauses
+* Translate function

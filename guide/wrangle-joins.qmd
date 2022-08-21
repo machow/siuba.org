@@ -1,5 +1,5 @@
 ---
-title: Join tables
+title: Join tables 📝
 jupyter:
   jupytext:
     formats: 'qmd:quarto'
@@ -15,7 +15,7 @@ jupyter:
 ---
 
 :::{.callout-warning}
-This page is at the **draft** stage. The structure, examples, and figures are there,
+This page is at the **refinement** stage. The structure, examples, and figures are there,
 but it lacks narrative structure / needs refining.
 :::
 

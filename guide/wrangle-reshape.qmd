@@ -1,5 +1,5 @@
 ---
-title: "Reshape tables"
+title: "Reshape tables 📝"
 jupyter:
   jupytext:
     formats: 'qmd:quarto'

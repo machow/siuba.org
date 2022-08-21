@@ -1,4 +1,5 @@
 ---
+title: "Custom table verbs 🚧"
 jupyter:
   jupytext:
     formats: 'qmd:quarto'
@@ -13,10 +14,104 @@ jupyter:
     name: python3
 ---
 
-# Custom verbs
+You may be wondering how a siuba function, like `mutate()`, could work on a SQL database.
+This is because these functions are defined using a technique called single dispatch.
+This approach allows you to define class-specific versions of a function.
 
 ```{python}
-from siuba.siu import symbolic_dispatch
-from pandas.core.groupby import SeriesGroupBy, GroupBy
-from pandas import Series
+# 🚧 TODO: expose verb_dispatch on siu module
+import pandas as pd
+
+from siuba.siu.dispatchers import verb_dispatch
+from siuba.data import mtcars
 ```
+
+## Create a new verb with `verb_dispatch()`
+
+Use the `verb_dispatch()` decorator to create a new table verb function.
+
+The code below creates a function called head(), with an implementation that works specifically on a DataFrame.
+
+```{python}
+
+# DataFrame version of function ---
+
+@verb_dispatch(pd.DataFrame)
+def head(__data, n = 5):
+    return __data.head(n)
+
+head(mtcars, 2)
+```
+
+## Register a SQL translation
+
+We can define a SQL specific version, that acts on a SqlAlchemy Table by registering a new translation of our function `head`, with the `@head.register` decorator.
+
+```{python}
+from sqlalchemy import Table, Column, MetaData
+
+@head.register
+def _head_sql(__data: Table, n = 5):
+    return __data.select().limit(n)
+
+table = Table("some_table", MetaData(), Column('a'), Column('b'))
+print(
+    head(table, 2)
+)
+```
+
+## Why not use methods?
+
+Why use singledispatch rather than create a class method like `mtcars.head()`?
+
+There are two big benefits:
+
+1. **Anyone can define and package a function**. Using it is just a matter of importing it. With a method, you need to somehow put it onto the class representing your data. You end up with 300+ methods on a class.
+2. Your function might do something that is **not the class's core responsibility**. In this case, it should not be part of the class definition.
+
+See the post [Single dispatch for democratizing data science tools](https://mchow.com/posts/2020-02-24-single-dispatch-data-science/) for more.
+
+## Grouped data
+
+
+Since single dispatch functions define how to execute an action for a specific class of data, it allows siuba to handle grouped data in two ways:
+
+* pandas - register dispatchers for its special grouped data classes (`DataFrameGroupBy`, `SeriesGroupBy`).
+* SQL - use a single class for grouped and ungrouped data, with grouping info as an attribute (`siuba.sql.LazyTbl`).
+
+For example, here is a simple verb that calculates the number of rows in a grouped DataFrame.
+
+```{python}
+from pandas.core.groupby import DataFrameGroupBy
+@verb_dispatch(DataFrameGroupBy)
+def size(__data):
+    return __data.size()
+size(mtcars.groupby('cyl'))
+```
+
+## Handling indexes
+
+Most siuba table verbs take a DataFrame, and return a DataFrame.
+Moreover, they don't stick columns onto the index.
+This means you don't need to call `reset_index` all the time.
+
+A common place where `reset_index` is called is after a pandas grouped aggregation.
+
+```{python}
+from siuba.data import mtcars
+from siuba import summarize
+g_cyl = mtcars.groupby("cyl")
+agg_res = g_cyl[["hp", "mpg"]].agg("mean")
+# nooooo
+agg_res
+```
+
+## verb_dispatch()
+
+
+One thing to note is that siuba's singledispatch implementation is called `singledispatch2`. This function (whose name will likely change!) is a very light wrapper around python's built in `functools.singledispatch` that does two things:
+
+1. Allow verbs to be piped using `data >> verb1() >> verb2()` syntax.
+2. Strip out the symbolic part of lazy expressions.
+
+These two concepts are covered in the next two sections.

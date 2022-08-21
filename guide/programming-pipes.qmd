@@ -1,5 +1,5 @@
 ---
-title: "Flexible pipes"
+title: "Flexible pipes 📝"
 jupyter:
   jupytext:
     formats: 'qmd:quarto'
@@ -14,16 +14,142 @@ jupyter:
     name: python3
 ---
 
+```{python}
+#| include: false
+
+import pandas as pd
+
+pd.set_option("display.max_rows", 5)
+```
+
+A commonly used feature of siuba is the `>>` operator for piping the result of one
+verb into another. This feature may seem silly compared to method chaining. However,
+it makes it easy for other packages to contribute new verbs, and lazy pipes can be combined together. 
+
+
+This page will focus on three pieces of piping:
+
+* Piping with the `>>` operator.
+* Using `call()` to add external functions to a pipe.
+* Using `pipe()` create pipes without `>>`.
 
 ```{python}
+import pandas as pd
+
 from siuba.siu import _, pipe, call
-from siuba import count
+from siuba import group_by, summarize, inner_join, head, filter
 from siuba.data import mtcars
 ```
 
+## Basic pipe
+
+Use the `>>` operator to pass the result of one verb into another.
+
+```{python}
+(mtcars
+    >> group_by(_.cyl)
+    >> summarize(res = _.hp.mean())
+)
+```
+
+Note that this is equivalent to the code below, but much more readable.
+
+```{python}
+summarize(
+    group_by(
+        mtcars,
+        _.cyl
+    ),
+    res = _.hp.mean()
+)
+```
 
 
-## Pipe to DataFrame methods
+## Lazy pipes
+
+Start a pipe with `_` to create a lazy pipes.
+Lazy pipes are a lot like functions---they run once data is passed to them.
+
+```{python}
+filter_cyl = _ >> filter(_.cyl.isin([4, 8]))
+
+mtcars >> filter_cyl >> head()
+```
+
+Multiple lazy pipes can be combined in a pipe.
+
+```{python}
+head_5 = _ >> head(n=5)
+
+mtcars >> filter_cyl >> head_5
+```
+
+This allows them to work as building blocks during an analysis!
+
+
+## How do verbs work?
+
+The key to using verbs in a pipe is they have two modes, depending on what they receive as their first argument:
+
+* `verb(DataFrame, ...)`: execute the verb right away.
+* `verb(...)`: delay execution, and return a `Call`, which can be used in a pipe.
+
+For example, here is a summarize being executed directly.
+
+```{python}
+summarize(mtcars, avg = _.mpg.mean())
+```
+
+Here is an example of a group_by call that could be used in a pipe.
+
+```{python}
+group_cyl = group_by(_.cyl)
+
+type(group_cyl)
+```
+
+```{python}
+mtcars >> group_cyl >> summarize(res = _.hp.mean())
+```
+
+### Explicit use of verbs in a pipe
+
+Use `_` as the first argument to a verb, in order to return a `Call`.
+
+```{python}
+# eagerly evaluated ----
+group_by(mtcars, _.cyl)
+
+# lazy: both of these can be used in a pipe ----
+
+# implicit
+group_by(_.cyl)
+
+# explicit
+group_by(_, _.cyl)
+
+```
+
+This is much more explicit, but also a bit more clunky looking.
+
+## Call two-table verbs
+
+Some verbs take two tables of data. For example, `inner_join()` merges two tables
+of data based on some condition matching them up.
+
+For two-table verbs, use `_` as the first argument, to indicate it is being used in a pipe.
+
+```{python}
+tbl_labels = pd.DataFrame({"cyl": [4, 6, 8], "label": ["four", "six", "eight"]})
+
+# executed right away
+inner_join(mtcars, tbl_labels, "cyl")
+
+# piping approach
+mtcars >> inner_join(_, tbl_labels, "cyl")
+```
+
+## Call DataFrame methods
 
 Sometimes it is helpful to use Pandas DataFrame methods, in addition to siuba verbs.
 This can be done by piping the data to `_.<some_method>()`.
@@ -59,7 +185,7 @@ mtcars.shape[0]
 
 
 
-## Pipe to external functions
+## Call external functions
 
 Use `call()` to pipe data into any function call.
 
@@ -69,7 +195,10 @@ The example below pipes to the seaborn's `barplot` function.
 from siuba.siu import call
 import seaborn as sns
 
-mtcars >> count(_.cyl) >> call(sns.barplot, x="cyl", y="n", data=_)
+(mtcars
+    >> count(_.cyl)
+    >> call(sns.barplot, x="cyl", y="n", data=_)
+)
 ```
 
 Note that `sns.barplot()` expects the data as a named argument,
@@ -90,3 +219,31 @@ len(mtcars)
 ```
 
 :::
+
+## `pipe()` as an alternative to `>>`
+
+:::{layout-ncol=2}
+
+```{python}
+(
+    mtcars
+    >> group_by(_.cyl, _.gear)
+    >> summarize(res = _.hp.mean())
+    >> call(print, "Printed output -\n", _)
+)
+
+```
+
+```{python}
+#| output: false
+pipe(
+    mtcars
+    , group_by(_.cyl, _.gear)
+    , summarize(res = _.hp.mean())
+    , call(print, "Printed output -\n", _)
+)
+```
+
+:::
+
+

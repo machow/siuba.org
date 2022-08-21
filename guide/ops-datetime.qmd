@@ -1,4 +1,5 @@
 ---
+title: "Datetime operations (`.dt`) 📝"
 jupyter:
   jupytext:
     formats: 'qmd:quarto'
@@ -13,13 +14,204 @@ jupyter:
     name: python3
 ---
 
-# Datetime operations (`.dt`)
+
+```{python}
+#| include: false
+
+import pandas as pd
+
+pd.set_option("display.max_rows", 5)
+```
+
+:::{.callout-warning}
+This section is in the **draft** phase.
+:::
+
+## Overview
+
+This page covers how to work with dates and times in siuba.
+siuba works by using pandas methods, either by calling them directly, or
+translating them to SQL.
 
 ```{python}
 import pandas as pd
 
-pd.set_option("display.max_rows", 5)
-
-from siuba.data import penguins
-from siuba import _, summarize, group_by
+from siuba import _, count, mutate
+from siuba.siu import call
 ```
+
+### Creating datetime columns
+
+There are roughly two ways to create a datetime column in pandas:
+
+* `pd.to_datetime()` which takes a range of inputs.
+* `pd.Series.astype("datetime64[ns]")` method call.
+
+The `pd.to_datetime()` function is flexible, and can also take a list of datetimes or a Series.
+
+```{python}
+dt_index = pd.to_datetime(["2021-01-02 01:02:03", "2022-02-03 04:05:06"])
+dt_index
+```
+
+Note that sometimes the result is not a Series. For example, the above object is a DatetimeIndex.
+Generally, everything is easier after wrapping it in a pandas Series.
+
+```{python}
+ser_times = pd.Series(dt_index)
+```
+
+On the other hand, the `.astype()` method is a simple way to convert a series to a datetime.
+
+```{python}
+pd.Series(["2021-01-02 03:04:05"]).astype("datetime64[ns]")
+```
+
+The [pandas time series docs](https://pandas.pydata.org/docs/user_guide/timeseries.html)
+discuss in exquisite detail the intricacies of different datetime objects, and how they're created!
+The rest of this page will just use pandas Series to look at datetime operations.
+
+
+### Using datetime methods (`.dt`)
+
+siuba uses Pandas methods, so can use any of the datetime methods it makes available, like `.dt.month_name()`.
+
+```{python}
+ser_times.dt.month_name()
+```
+
+
+### Use in a verb
+
+```{python}
+df = pd.DataFrame({
+    "times": ser_times,
+    "raw": ["2023-04-05 06:07:08", "2024-05-06 07:08:09"],
+})
+
+
+df >> count(month = _.times.dt.month_name())
+```
+
+You can call functions like `pd.to_datetime()` using siuba's `call()`.
+
+```{python}
+res = df >> mutate(parsed = call(pd.to_datetime, _.raw))
+
+res.parsed
+```
+
+Notice that this creates a new datetime column by calling `pd.to_datetime(df.raw)`.
+
+## Change granularity with `floor_date()`
+
+Siuba has an experimental function called `floor_date()` for rounding down to a specific unit of time (e.g. the week, the day, or the hour).
+
+
+```{python}
+import pandas as pd
+
+from siuba.experimental.datetime import floor_date, ceil_date
+
+dates = pd.to_datetime(["2021-01-01 01:02:03", "2021-01-08 01:02:03"])
+```
+
+### Basics
+
+The `floor_date()` functions takes two arguments:
+
+* A column to round down (e.g. a pandas Series).
+* A datetime unit to round to (e.g. "MS" for "Month Start"; see the [pandas unit alias doc](https://pandas.pydata.org/docs/user_guide/timeseries.html#offset-aliases))
+
+For example, the code below rounds dates down to the nearest week.
+
+```{python}
+floor_date(dates, "W")
+```
+
+### Datetime unit options
+
+There are a lot of useful time units, such as "MS" for the start of a month.
+Below is a table of some of the most useful ones.
+
+```{python}
+#| echo: false
+#| output: "asis"
+
+from siuba.experimental.datetime import LUBRIDATE_OFFSETS
+from tabulate import tabulate
+
+print(
+    tabulate(list(LUBRIDATE_OFFSETS.items()), headers=["human speak", "pandas alias"], tablefmt="markdown")
+)
+```
+
+
+
+```{python}
+# month start
+floor_date(dates, "MS")
+```
+
+### Round up with `ceil_date()`
+
+The counterpart function `ceil_date()` rounds up to the specified unit of time.
+
+```{python}
+# round up to month end
+ceil_date(dates, "M")
+```
+
+
+### Preserving input type
+
+Note that pandas has [multiple formats](https://pandas.pydata.org/docs/user_guide/timeseries.html#timestamps-vs-time-spans) for representing datetime:
+
+* Timestamp: directly representing points in time.
+* Period: representing time as number of spans of some time unit from a reference point (e.g. 120 months from Jan, 1970).
+
+```{python}
+x = ["2021-01-01 01:02:03", "2021-02-03 01:02:03"]
+
+dt_index = pd.DatetimeIndex(x)
+floor_date(dt_index, "W")
+```
+
+```{python}
+# note freq="m" refers to minute frequency
+per_index = pd.PeriodIndex(x, freq="m")
+floor_date(per_index, "W")
+```
+
+Note that the `"W"` stands for week.
+
+### Unit start vs unit end
+
+Note that the units we discussed here all referred to "unit start".
+This is a bit tricky, so might be explained best in an example using month units.
+
+* month start: "2021-02-03" becomes "2021-02-01"
+* month end: "2021-02-03" becomes "2021-01-31"
+
+For most time units pandas has a unit end version, such as:
+
+* "M": month end (vs "MS" for month start)
+* "Y": year end (vs "YS" for year start)
+* "Q": quarter end (vs "QS" for quarter start)
+
+It's a bit confusing that "M" stands for month **end**, but "D" stands for day **start**.
+In general, time units at the day level or finer grain only do unit start, so be careful with units!
+
+## Translating to SQL
+
+```{python}
+from siuba import _, count
+from siuba.data import cars_sql
+```
+
+🚧 TODO: add a basic SQL dataset with time columns
+
+## Learning more
+
+* [Pandas user guide on timeseries](https://pandas.pydata.org/docs/user_guide/timeseries.html)
+* [Pandas Series API on `.dt` accessor methods](https://pandas.pydata.org/docs/reference/series.html#api-series-dt)

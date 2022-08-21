@@ -64,6 +64,7 @@ website:
             # - guide/programming-over.qmd
             - guide/programming-new-verbs.qmd
             - guide/programming-new-ops.qmd
+            - guide/programming-adv-sql.qmd
         - section: "Workflows"
           contents:
             - guide/workflows-backends.qmd
