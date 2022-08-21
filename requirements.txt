@@ -80,6 +80,7 @@ soupsieve==2.3.2.post1
 SQLAlchemy==1.4.40
 stack-data==0.3.0
 statsmodels==0.13.2
+tabulate==0.8.10
 terminado==0.15.0
 tinycss2==1.1.1
 tornado==6.2
