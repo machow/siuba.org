@@ -1,5 +1,5 @@
 ---
-title: Backend Examples 🚧
+title: "Backend Examples 🚧"
 jupyter:
   jupytext:
     formats: 'qmd:quarto'
@@ -7,7 +7,7 @@ jupyter:
       extension: .qmd
       format_name: quarto
       format_version: '1.0'
-      jupytext_version: 1.14.0
+      jupytext_version: 1.13.6
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -55,6 +55,5 @@ tbl_filtered
 ```
 
 ```{python}
-
 q = tbl_filtered >> show_query(simplify=True)
 ```

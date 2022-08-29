@@ -5,7 +5,6 @@ execute:
 format:
   html:
     toc-depth: 3
-    toc-title: wat
 jupyter:
   jupytext:
     formats: 'qmd:quarto'
@@ -81,7 +80,7 @@ table = tabulate.tabulate([
 </div>
 
 
-### Built on pandas
+## Built on pandas
 
 pandas is everywhere in python data analysis. The siuba library builds on this incredible work by using pandas Series methods as its reference implementation. This means that you use the pandas methods you've already learned!
 
@@ -196,7 +195,7 @@ mtcars.assign(demeaned = g_cyl.obj.hp - g_cyl.hp.transform("mean"))
 
 Note that `g_cyl` does not have an `assign` method, and requires passing what operation you want to do (`"mean"`) as a string to `.transform()`.
 
-### Going beyond
+## Fast and flexible
 
 ### Fast grouped operations
 
@@ -318,3 +317,5 @@ tagged = pd.DataFrame({
     >> unnest("split_tags")
 )
 ```
+
+## Learning more

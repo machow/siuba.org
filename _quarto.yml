@@ -6,7 +6,11 @@ project:
     - guide/*.qmd
     - api/*.qmd
     - examples/*.qmd
-    #- about/*.qmd
+    - about/*.qmd
+    - develop/*.qmd
+    - develop/*.ipynb
+  resources:
+    - api/**
 
 website:
   title: "Siuba"
@@ -16,13 +20,15 @@ website:
     left:
       - text: "Guide"
         file: guide/overview.qmd
-#      - text: "API"
-#        href: api/index.qmd
-#      - text: "Examples"
-#        href: examples/index.qmd
-#      - text: "About"
-#        menu:
-#          - about/key_features.qmd
+      - text: "Reference"
+        href: api/
+      - text: "Examples"
+        href: examples/index.qmd
+      - text: "Develop"
+        href: develop/index.qmd
+      - text: "About"
+        menu:
+          - about/key_features.qmd
     right:
       - icon: github
         href: https://github.com/machow/siuba/
@@ -73,6 +79,22 @@ website:
           contents:
             - guide/extra-r-to-python.qmd
         #    - guide/guide_programming.qmd
+    - id: develop
+      style: floating
+      collapse-level: 2
+      align: left
+      contents:
+        - develop/index.qmd
+        - section: "Backends"
+          contents:
+            - develop/backend_sql.qmd
+            - develop/backend_pandas.qmd
+        - section: "Core"
+          contents:
+            - develop/guide_programming.qmd
+            - develop/sql-translators.ipynb
+            - develop/call_trees.qmd
+            - develop/pandas-group-ops.qmd
     - id: dummy
 
 format:
