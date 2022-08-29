@@ -1,0 +1,56 @@
+site_name: Siuba Reference
+  
+theme:
+  name: material
+  features:
+    - navigation.indexes
+    - navigation.top
+    - navigation.tabs
+    - navigation.expand
+
+plugins:
+  - search
+  - mkdocstrings:
+      handler: python
+      handlers:
+        python:
+          options:
+            docstring_style: numpy
+            show_root_heading: true
+            show_root_full_path: false
+
+nav: 
+  - Guide: '../guide/'
+  - Reference:
+    - "Overview": "./index.md"
+    - "Core verbs - one table":
+      - arrange: "./verb-arrange.md"
+      - count, tally: "./verb-count.md"
+      - distinct: "./verb-distinct.md"
+      - filter: "./verb-filter.md"
+      - mutate, transmute: "./verbs-mutate-transmute.md"
+      - rename: "./verb-rename.md"
+      - select: "./verb-select.md"
+      - summarize: "./verb-summarize.md"
+      - "group_by, ungroup": "./verb-group_by.md"
+    - "Core verbs - two table":
+      - mutate joins (inner, left, full): "./verbs-joins.md"
+      - filter joins (anti, semi): "./verbs-filter-joins.md"
+    - "Query verbs":
+      - collect: "./verb-collect.md"
+      - show_query: "./verb-show_query.md"
+    - "Tidy verbs":
+      - complete: "./verb-complete.md"
+      - extract: "./verb-extract.md"
+      - gather, spread: "./verb-gather.md"
+      - separate, unite: "./verb-separate.md"
+      - nest, unnest: "./verb-nest.md"
+    - "Column operations":
+      - "Forcats": "./forcats.md"
+      - "Datetime (experimental)": "./experimental.md"
+      - "General": "./vector.md"
+    
+  - Examples: '../examples/'
+  - Develop: '../develop/'
+  - About:
+    - "Key Features": '../about/key_features.html'
