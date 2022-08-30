@@ -1,0 +1,22 @@
+---
+title: Developing siuba
+format:
+  html:
+    toc: false
+---
+
+### Backends
+
+| | |
+| --- | --- |
+| [Sql Backend](backend_sql.qmd) | How to implement translations for a new SQL dialect, or extend the SQL backend. |
+| [Pandas Backend](backend_pandas.qmd) | How the pandas backend implements fast grouped operations. |
+
+### Core
+
+| | |
+| --- | --- |
+| [Programming guide](guide_programming.qmd) | DESCRIPTION | 
+| [Sql Translators](sql-translators.ipynb) | A closer look at the translation process, focused on SQL and the CallTreeLocal tree listener. |
+| [Call Trees](call_trees.qmd) | Calls represent “what” operations users want to do. This document describes how they are constructed, transformed, and executed. |
+| [Fast Pandas Grouped Ops](pandas-group-ops.qmd) | Why are grouped operations cumbersome? How does siuba simplify them? |
