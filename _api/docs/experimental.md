@@ -4,6 +4,6 @@
 from siuba.experimental.datetime import floor_date, ceil_date
 ```
 
-::: siuba.experimental.floor_date
+::: siuba.experimental.datetime.floor_date
 
 
