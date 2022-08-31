@@ -1,0 +1,2980 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.2">
+    
+    
+      
+        <title>General - Siuba Reference</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.69437709.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#importing" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Siuba Reference" class="md-header__button md-logo" aria-label="Siuba Reference" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Siuba Reference
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              General
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../guide/" class="md-tabs__link">
+      Guide
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link md-tabs__link--active">
+        Reference
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../examples/" class="md-tabs__link">
+      Examples
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../develop/" class="md-tabs__link">
+      Develop
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../about/key_features.html" class="md-tabs__link">
+        About
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Siuba Reference" class="md-nav__button md-logo" aria-label="Siuba Reference" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Siuba Reference
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/" class="md-nav__link">
+        Guide
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="..">Reference</a>
+          
+            <label for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Core verbs - one table
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Core verbs - one table" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Core verbs - one table
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-arrange/" class="md-nav__link">
+        arrange
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-count/" class="md-nav__link">
+        count, tally
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-distinct/" class="md-nav__link">
+        distinct
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-filter/" class="md-nav__link">
+        filter
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verbs-mutate-transmute/" class="md-nav__link">
+        mutate, transmute
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-rename/" class="md-nav__link">
+        rename
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-select/" class="md-nav__link">
+        select
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-summarize/" class="md-nav__link">
+        summarize
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-group_by/" class="md-nav__link">
+        group_by, ungroup
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Core verbs - two table
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Core verbs - two table" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Core verbs - two table
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verbs-joins/" class="md-nav__link">
+        mutate joins (inner, left, full)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verbs-filter-joins/" class="md-nav__link">
+        filter joins (anti, semi)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          Query verbs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Query verbs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Query verbs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-collect/" class="md-nav__link">
+        collect
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-show_query/" class="md-nav__link">
+        show_query
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_5">
+          Tidy verbs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tidy verbs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Tidy verbs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-complete/" class="md-nav__link">
+        complete
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-extract/" class="md-nav__link">
+        extract
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-gather/" class="md-nav__link">
+        gather, spread
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-separate/" class="md-nav__link">
+        separate, unite
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-nest/" class="md-nav__link">
+        nest, unnest
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_6">
+          Column operations
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Column operations" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Column operations
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../forcats/" class="md-nav__link">
+        Forcats
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimental/" class="md-nav__link">
+        Datetime (experimental)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          General
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        General
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#importing" class="md-nav__link">
+    Importing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#siuba.dply.vector" class="md-nav__link">
+    vector
+  </a>
+  
+    <nav class="md-nav" aria-label="vector">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.between" class="md-nav__link">
+    between()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.coalesce" class="md-nav__link">
+    coalesce()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.cumall" class="md-nav__link">
+    cumall()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.cumany" class="md-nav__link">
+    cumany()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.cume_dist" class="md-nav__link">
+    cume_dist()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.cummean" class="md-nav__link">
+    cummean()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.dense_rank" class="md-nav__link">
+    dense_rank()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.desc" class="md-nav__link">
+    desc()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.first" class="md-nav__link">
+    first()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.lag" class="md-nav__link">
+    lag()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.last" class="md-nav__link">
+    last()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.lead" class="md-nav__link">
+    lead()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.min_rank" class="md-nav__link">
+    min_rank()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.n" class="md-nav__link">
+    n()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.n_distinct" class="md-nav__link">
+    n_distinct()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.na_if" class="md-nav__link">
+    na_if()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.near" class="md-nav__link">
+    near()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.nth" class="md-nav__link">
+    nth()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.ntile" class="md-nav__link">
+    ntile()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.percent_rank" class="md-nav__link">
+    percent_rank()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.row_number" class="md-nav__link">
+    row_number()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conditionals" class="md-nav__link">
+    Conditionals
+  </a>
+  
+    <nav class="md-nav" aria-label="Conditionals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.case_when" class="md-nav__link">
+    case_when()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.if_else" class="md-nav__link">
+    if_else()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/" class="md-nav__link">
+        Examples
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../develop/" class="md-nav__link">
+        Develop
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          About
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="About" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          About
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/key_features.html" class="md-nav__link">
+        Key Features
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#importing" class="md-nav__link">
+    Importing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#siuba.dply.vector" class="md-nav__link">
+    vector
+  </a>
+  
+    <nav class="md-nav" aria-label="vector">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.between" class="md-nav__link">
+    between()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.coalesce" class="md-nav__link">
+    coalesce()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.cumall" class="md-nav__link">
+    cumall()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.cumany" class="md-nav__link">
+    cumany()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.cume_dist" class="md-nav__link">
+    cume_dist()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.cummean" class="md-nav__link">
+    cummean()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.dense_rank" class="md-nav__link">
+    dense_rank()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.desc" class="md-nav__link">
+    desc()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.first" class="md-nav__link">
+    first()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.lag" class="md-nav__link">
+    lag()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.last" class="md-nav__link">
+    last()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.lead" class="md-nav__link">
+    lead()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.min_rank" class="md-nav__link">
+    min_rank()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.n" class="md-nav__link">
+    n()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.n_distinct" class="md-nav__link">
+    n_distinct()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.na_if" class="md-nav__link">
+    na_if()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.near" class="md-nav__link">
+    near()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.nth" class="md-nav__link">
+    nth()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.ntile" class="md-nav__link">
+    ntile()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.percent_rank" class="md-nav__link">
+    percent_rank()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.vector.row_number" class="md-nav__link">
+    row_number()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conditionals" class="md-nav__link">
+    Conditionals
+  </a>
+  
+    <nav class="md-nav" aria-label="Conditionals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.case_when" class="md-nav__link">
+    case_when()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.if_else" class="md-nav__link">
+    if_else()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+  <h1>General</h1>
+
+<h2 id="importing">Importing</h2>
+<pre><code class="language-python">from siuba.dply.vector import n, lead, lag
+</code></pre>
+
+
+  <div class="doc doc-object doc-module">
+
+
+
+<h2 id="siuba.dply.vector" class="doc doc-heading">
+        <code>siuba.dply.vector</code>
+
+
+
+</h2>
+
+    <div class="doc doc-contents first">
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="siuba.dply.vector.between" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return whether a value is between left and right (including either side).</p>
+
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">between</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="mi">0</span>     <span class="kc">True</span>
+<span class="mi">1</span>     <span class="kc">True</span>
+<span class="mi">2</span>    <span class="kc">False</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="nb">bool</span>
+</code></pre></div>
+      <p>!!! note
+    This is a thin wrapper around pd.Series.between(left, right)</p>
+
+        <details class="quote">
+          <summary>Source code in <code>siuba/dply/vector.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@symbolic_dispatch</span><span class="p">(</span><span class="bp">cls</span> <span class="o">=</span> <span class="n">Series</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return whether a value is between left and right (including either side).</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; between(pd.Series([1,2,3]), 0, 2)</span>
+<span class="sd">        0     True</span>
+<span class="sd">        1     True</span>
+<span class="sd">        2    False</span>
+<span class="sd">        dtype: bool</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        This is a thin wrapper around pd.Series.between(left, right)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># note: NA -&gt; False, in tidyverse NA -&gt; NA</span>
+    <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;between function must use default = False for pandas Series&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="siuba.dply.vector.coalesce" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">coalesce</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Returns a copy of x, with NaN values filled in from *args. Ignores indexes.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>x</code></td>
+        <td></td>
+        <td><p>a pandas Series object</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>*args</code></td>
+        <td></td>
+        <td><p>other Series that are the same length as x, or a scalar</p></td>
+        <td><code>()</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mf">1.1</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">abc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">xyz</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">coalesce</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">abc</span><span class="p">)</span>
+<span class="mi">0</span>     <span class="mf">1.1</span>
+<span class="mi">1</span>       <span class="n">b</span>
+<span class="mi">2</span>    <span class="kc">None</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="nb">object</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">coalesce</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">abc</span><span class="p">,</span> <span class="n">xyz</span><span class="p">)</span>
+<span class="mi">0</span>    <span class="mf">1.1</span>
+<span class="mi">1</span>      <span class="n">b</span>
+<span class="mi">2</span>      <span class="n">z</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="nb">object</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>siuba/dply/vector.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@symbolic_dispatch</span><span class="p">(</span><span class="bp">cls</span> <span class="o">=</span> <span class="n">Series</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">coalesce</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns a copy of x, with NaN values filled in from \*args. Ignores indexes.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        x: a pandas Series object</span>
+<span class="sd">        *args: other Series that are the same length as x, or a scalar</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; x = pd.Series([1.1, None, None])</span>
+<span class="sd">        &gt;&gt;&gt; abc = pd.Series([&#39;a&#39;, &#39;b&#39;, None])</span>
+<span class="sd">        &gt;&gt;&gt; xyz = pd.Series([&#39;x&#39;, &#39;y&#39;, &#39;z&#39;])</span>
+<span class="sd">        &gt;&gt;&gt; coalesce(x, abc)</span>
+<span class="sd">        0     1.1</span>
+<span class="sd">        1       b</span>
+<span class="sd">        2    None</span>
+<span class="sd">        dtype: object</span>
+
+<span class="sd">        &gt;&gt;&gt; coalesce(x, abc, xyz)</span>
+<span class="sd">        0    1.1</span>
+<span class="sd">        1      b</span>
+<span class="sd">        2      z</span>
+<span class="sd">        dtype: object</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">crnt</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">other</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+            <span class="n">other</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">crnt</span> <span class="o">=</span> <span class="n">crnt</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">crnt</span><span class="o">.</span><span class="n">notna</span><span class="p">(),</span> <span class="n">other</span><span class="p">)</span>
+
+    <span class="n">crnt</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">index</span>
+    <span class="k">return</span> <span class="n">crnt</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="siuba.dply.vector.cumall" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">cumall</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return a same-length array. For each entry, indicates whether that entry and all previous are True-like.</p>
+
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">cumall</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">]))</span>
+<span class="mi">0</span>     <span class="kc">True</span>
+<span class="mi">1</span>    <span class="kc">False</span>
+<span class="mi">2</span>    <span class="kc">False</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="nb">bool</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>siuba/dply/vector.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@symbolic_dispatch</span><span class="p">(</span><span class="bp">cls</span> <span class="o">=</span> <span class="n">Series</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cumall</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return a same-length array. For each entry, indicates whether that entry and all previous are True-like.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; cumall(pd.Series([True, False, False]))</span>
+<span class="sd">        0     True</span>
+<span class="sd">        1    False</span>
+<span class="sd">        2    False</span>
+<span class="sd">        dtype: bool</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_expand_bool</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="siuba.dply.vector.cumany" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">cumany</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return a same-length array. For each entry, indicates whether that entry or any previous are True-like.</p>
+
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">cumany</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]))</span>
+<span class="mi">0</span>    <span class="kc">False</span>
+<span class="mi">1</span>     <span class="kc">True</span>
+<span class="mi">2</span>     <span class="kc">True</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="nb">bool</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>siuba/dply/vector.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@symbolic_dispatch</span><span class="p">(</span><span class="bp">cls</span> <span class="o">=</span> <span class="n">Series</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cumany</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return a same-length array. For each entry, indicates whether that entry or any previous are True-like.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; cumany(pd.Series([False, True, False]))</span>
+<span class="sd">        0    False</span>
+<span class="sd">        1     True</span>
+<span class="sd">        2     True</span>
+<span class="sd">        dtype: bool</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_expand_bool</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="siuba.dply.vector.cume_dist" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">cume_dist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">na_option</span><span class="o">=</span><span class="s1">&#39;keep&#39;</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return the cumulative distribution corresponding to each value in x.</p>
+<p>This reflects the proportion of values that are less than or equal to each value.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>siuba/dply/vector.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@symbolic_dispatch</span><span class="p">(</span><span class="bp">cls</span> <span class="o">=</span> <span class="n">Series</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cume_dist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">na_option</span> <span class="o">=</span> <span class="s2">&quot;keep&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return the cumulative distribution corresponding to each value in x.</span>
+
+<span class="sd">    This reflects the proportion of values that are less than or equal to each value.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s2">&quot;max&quot;</span><span class="p">,</span> <span class="n">na_option</span> <span class="o">=</span> <span class="n">na_option</span><span class="p">)</span> <span class="o">/</span> <span class="n">x</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="siuba.dply.vector.cummean" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">cummean</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return a same-length array, containing the cumulative mean.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>siuba/dply/vector.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@symbolic_dispatch</span><span class="p">(</span><span class="bp">cls</span> <span class="o">=</span> <span class="n">Series</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cummean</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return a same-length array, containing the cumulative mean.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">expanding</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="siuba.dply.vector.dense_rank" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">dense_rank</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">na_option</span><span class="o">=</span><span class="s1">&#39;keep&#39;</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return the dense rank.</p>
+<p>This method of ranking returns values ranging from 1 to the number of unique entries.
+Ties are all given the same ranking.</p>
+
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">dense_rank</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">]))</span>
+<span class="mi">0</span>    <span class="mf">1.0</span>
+<span class="mi">1</span>    <span class="mf">2.0</span>
+<span class="mi">2</span>    <span class="mf">2.0</span>
+<span class="mi">3</span>    <span class="mf">3.0</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">float64</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>siuba/dply/vector.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@symbolic_dispatch</span><span class="p">(</span><span class="bp">cls</span> <span class="o">=</span> <span class="n">Series</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">dense_rank</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">na_option</span> <span class="o">=</span> <span class="s2">&quot;keep&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return the dense rank.</span>
+
+<span class="sd">    This method of ranking returns values ranging from 1 to the number of unique entries.</span>
+<span class="sd">    Ties are all given the same ranking.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; dense_rank(pd.Series([1,3,3,5]))</span>
+<span class="sd">        0    1.0</span>
+<span class="sd">        1    2.0</span>
+<span class="sd">        2    2.0</span>
+<span class="sd">        3    3.0</span>
+<span class="sd">        dtype: float64</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s2">&quot;dense&quot;</span><span class="p">,</span> <span class="n">na_option</span> <span class="o">=</span> <span class="n">na_option</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="siuba.dply.vector.desc" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">desc</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return array sorted in descending order.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>siuba/dply/vector.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@symbolic_dispatch</span><span class="p">(</span><span class="bp">cls</span> <span class="o">=</span> <span class="n">Series</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">desc</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return array sorted in descending order.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="siuba.dply.vector.first" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">first</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">order_by</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return the nth entry of x. Similar to x[n].</p>
+<p>!!! note
+    first(x) and last(x) are nth(x, 0) and nth(x, -1).</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>x</code></td>
+        <td></td>
+        <td><p>series to get entry from.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>n</code></td>
+        <td></td>
+        <td><p>position of entry to get from x (0 indicates first entry).</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>order_by</code></td>
+        <td></td>
+        <td><p>optional Series used to reorder x.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>default</code></td>
+        <td></td>
+        <td><p>(not implemented) value to return if no entry at n.</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">ser</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">nth</span><span class="p">(</span><span class="n">ser</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="s1">&#39;b&#39;</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">sorter</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">nth</span><span class="p">(</span><span class="n">ser</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">order_by</span> <span class="o">=</span> <span class="n">sorter</span><span class="p">)</span>
+<span class="s1">&#39;a&#39;</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">nth</span><span class="p">(</span><span class="n">ser</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">nth</span><span class="p">(</span><span class="n">ser</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">first</span><span class="p">(</span><span class="n">ser</span><span class="p">),</span> <span class="n">last</span><span class="p">(</span><span class="n">ser</span><span class="p">)</span>
+<span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>siuba/dply/vector.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@symbolic_dispatch</span><span class="p">(</span><span class="bp">cls</span> <span class="o">=</span> <span class="n">Series</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">nth</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">order_by</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return the nth entry of x. Similar to x[n].</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        first(x) and last(x) are nth(x, 0) and nth(x, -1).</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        x: series to get entry from.</span>
+<span class="sd">        n: position of entry to get from x (0 indicates first entry).</span>
+<span class="sd">        order_by: optional Series used to reorder x.</span>
+<span class="sd">        default: (not implemented) value to return if no entry at n.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; ser = pd.Series([&#39;a&#39;, &#39;b&#39;, &#39;c&#39;])</span>
+<span class="sd">        &gt;&gt;&gt; nth(ser, 1)</span>
+<span class="sd">        &#39;b&#39;</span>
+
+<span class="sd">        &gt;&gt;&gt; sorter = pd.Series([1, 2, 0])</span>
+<span class="sd">        &gt;&gt;&gt; nth(ser, 1, order_by = sorter)</span>
+<span class="sd">        &#39;a&#39;</span>
+
+<span class="sd">        &gt;&gt;&gt; nth(ser, 0), nth(ser, -1)</span>
+<span class="sd">        (&#39;a&#39;, &#39;c&#39;)</span>
+
+<span class="sd">        &gt;&gt;&gt; first(ser), last(ser)</span>
+<span class="sd">        (&#39;a&#39;, &#39;c&#39;)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;default argument not implemented&quot;</span><span class="p">)</span> 
+
+    <span class="c1"># check indexing is in range, handles positive and negative cases.</span>
+    <span class="c1"># TODO: is returning None the correct behavior for an empty Series?</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">abs</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">default</span>
+
+    <span class="k">if</span> <span class="n">order_by</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+
+    <span class="c1"># case where order_by is specified and n in range ----</span>
+    <span class="c1"># TODO: ensure order_by is arraylike</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">order_by</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+                <span class="s2">&quot;order_by argument is type </span><span class="si">%s</span><span class="s2">, but currently only&quot;</span>
+                <span class="s2">&quot;implemented for Series&quot;</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="n">order_by</span><span class="p">)</span>
+                <span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">order_by</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;x and order_by arguments must be same length&quot;</span><span class="p">)</span>
+
+    <span class="n">order_indx</span> <span class="o">=</span> <span class="n">order_by</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">index</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">order_indx</span><span class="p">[</span><span class="n">n</span><span class="p">]]</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="siuba.dply.vector.lag" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">lag</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return an array with each value replaced by the previous (or further backward) value in the array.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>x</code></td>
+        <td></td>
+        <td><p>a pandas Series object</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>n</code></td>
+        <td></td>
+        <td><p>number of next values backward to replace each value with</p></td>
+        <td><code>1</code></td>
+      </tr>
+      <tr>
+        <td><code>default</code></td>
+        <td></td>
+        <td><p>what to replace the n final values of the array with</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">lag</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]),</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="mi">0</span>    <span class="n">NaN</span>
+<span class="mi">1</span>    <span class="mf">1.0</span>
+<span class="mi">2</span>    <span class="mf">2.0</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">float64</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">lag</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]),</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="mi">99</span><span class="p">)</span>
+<span class="mi">0</span>    <span class="mf">99.0</span>
+<span class="mi">1</span>     <span class="mf">1.0</span>
+<span class="mi">2</span>     <span class="mf">2.0</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">float64</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>siuba/dply/vector.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@symbolic_dispatch</span><span class="p">(</span><span class="bp">cls</span> <span class="o">=</span> <span class="n">Series</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">lag</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return an array with each value replaced by the previous (or further backward) value in the array.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        x: a pandas Series object</span>
+<span class="sd">        n: number of next values backward to replace each value with</span>
+<span class="sd">        default: what to replace the n final values of the array with</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; lag(pd.Series([1,2,3]), n=1)</span>
+<span class="sd">        0    NaN</span>
+<span class="sd">        1    1.0</span>
+<span class="sd">        2    2.0</span>
+<span class="sd">        dtype: float64</span>
+
+<span class="sd">        &gt;&gt;&gt; lag(pd.Series([1,2,3]), n=1, default = 99)</span>
+<span class="sd">        0    99.0</span>
+<span class="sd">        1     1.0</span>
+<span class="sd">        2     2.0</span>
+<span class="sd">        dtype: float64</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">default</span>
+
+    <span class="k">return</span> <span class="n">res</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="siuba.dply.vector.last" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">last</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">order_by</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return the nth entry of x. Similar to x[n].</p>
+<p>!!! note
+    first(x) and last(x) are nth(x, 0) and nth(x, -1).</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>x</code></td>
+        <td></td>
+        <td><p>series to get entry from.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>n</code></td>
+        <td></td>
+        <td><p>position of entry to get from x (0 indicates first entry).</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>order_by</code></td>
+        <td></td>
+        <td><p>optional Series used to reorder x.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>default</code></td>
+        <td></td>
+        <td><p>(not implemented) value to return if no entry at n.</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">ser</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">nth</span><span class="p">(</span><span class="n">ser</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="s1">&#39;b&#39;</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">sorter</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">nth</span><span class="p">(</span><span class="n">ser</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">order_by</span> <span class="o">=</span> <span class="n">sorter</span><span class="p">)</span>
+<span class="s1">&#39;a&#39;</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">nth</span><span class="p">(</span><span class="n">ser</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">nth</span><span class="p">(</span><span class="n">ser</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">first</span><span class="p">(</span><span class="n">ser</span><span class="p">),</span> <span class="n">last</span><span class="p">(</span><span class="n">ser</span><span class="p">)</span>
+<span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>siuba/dply/vector.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@symbolic_dispatch</span><span class="p">(</span><span class="bp">cls</span> <span class="o">=</span> <span class="n">Series</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">nth</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">order_by</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return the nth entry of x. Similar to x[n].</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        first(x) and last(x) are nth(x, 0) and nth(x, -1).</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        x: series to get entry from.</span>
+<span class="sd">        n: position of entry to get from x (0 indicates first entry).</span>
+<span class="sd">        order_by: optional Series used to reorder x.</span>
+<span class="sd">        default: (not implemented) value to return if no entry at n.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; ser = pd.Series([&#39;a&#39;, &#39;b&#39;, &#39;c&#39;])</span>
+<span class="sd">        &gt;&gt;&gt; nth(ser, 1)</span>
+<span class="sd">        &#39;b&#39;</span>
+
+<span class="sd">        &gt;&gt;&gt; sorter = pd.Series([1, 2, 0])</span>
+<span class="sd">        &gt;&gt;&gt; nth(ser, 1, order_by = sorter)</span>
+<span class="sd">        &#39;a&#39;</span>
+
+<span class="sd">        &gt;&gt;&gt; nth(ser, 0), nth(ser, -1)</span>
+<span class="sd">        (&#39;a&#39;, &#39;c&#39;)</span>
+
+<span class="sd">        &gt;&gt;&gt; first(ser), last(ser)</span>
+<span class="sd">        (&#39;a&#39;, &#39;c&#39;)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;default argument not implemented&quot;</span><span class="p">)</span> 
+
+    <span class="c1"># check indexing is in range, handles positive and negative cases.</span>
+    <span class="c1"># TODO: is returning None the correct behavior for an empty Series?</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">abs</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">default</span>
+
+    <span class="k">if</span> <span class="n">order_by</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+
+    <span class="c1"># case where order_by is specified and n in range ----</span>
+    <span class="c1"># TODO: ensure order_by is arraylike</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">order_by</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+                <span class="s2">&quot;order_by argument is type </span><span class="si">%s</span><span class="s2">, but currently only&quot;</span>
+                <span class="s2">&quot;implemented for Series&quot;</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="n">order_by</span><span class="p">)</span>
+                <span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">order_by</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;x and order_by arguments must be same length&quot;</span><span class="p">)</span>
+
+    <span class="n">order_indx</span> <span class="o">=</span> <span class="n">order_by</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">index</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">order_indx</span><span class="p">[</span><span class="n">n</span><span class="p">]]</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="siuba.dply.vector.lead" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">lead</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return an array with each value replaced by the next (or further forward) value in the array.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>x</code></td>
+        <td></td>
+        <td><p>a pandas Series object</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>n</code></td>
+        <td></td>
+        <td><p>number of next values forward to replace each value with</p></td>
+        <td><code>1</code></td>
+      </tr>
+      <tr>
+        <td><code>default</code></td>
+        <td></td>
+        <td><p>what to replace the n final values of the array with</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">lead</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]),</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="mi">0</span>    <span class="mf">2.0</span>
+<span class="mi">1</span>    <span class="mf">3.0</span>
+<span class="mi">2</span>    <span class="n">NaN</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">float64</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">lead</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]),</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="mi">99</span><span class="p">)</span>
+<span class="mi">0</span>     <span class="mi">2</span>
+<span class="mi">1</span>     <span class="mi">3</span>
+<span class="mi">2</span>    <span class="mi">99</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>siuba/dply/vector.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@symbolic_dispatch</span><span class="p">(</span><span class="bp">cls</span> <span class="o">=</span> <span class="n">Series</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">lead</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return an array with each value replaced by the next (or further forward) value in the array.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        x: a pandas Series object</span>
+<span class="sd">        n: number of next values forward to replace each value with</span>
+<span class="sd">        default: what to replace the n final values of the array with</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; lead(pd.Series([1,2,3]), n=1)</span>
+<span class="sd">        0    2.0</span>
+<span class="sd">        1    3.0</span>
+<span class="sd">        2    NaN</span>
+<span class="sd">        dtype: float64</span>
+
+<span class="sd">        &gt;&gt;&gt; lead(pd.Series([1,2,3]), n=1, default = 99)</span>
+<span class="sd">        0     2</span>
+<span class="sd">        1     3</span>
+<span class="sd">        2    99</span>
+<span class="sd">        dtype: int64</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">n</span><span class="p">,</span> <span class="n">fill_value</span> <span class="o">=</span> <span class="n">default</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">res</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="siuba.dply.vector.min_rank" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">min_rank</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">na_option</span><span class="o">=</span><span class="s1">&#39;keep&#39;</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return the min rank. See pd.Series.rank with method="min" for details.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>siuba/dply/vector.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@symbolic_dispatch</span><span class="p">(</span><span class="bp">cls</span> <span class="o">=</span> <span class="n">Series</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">min_rank</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">na_option</span> <span class="o">=</span> <span class="s2">&quot;keep&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return the min rank. See pd.Series.rank with method=&quot;min&quot; for details.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="n">na_option</span> <span class="o">=</span> <span class="n">na_option</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="siuba.dply.vector.n" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">n</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return the total number of elements in the array (or rows in a DataFrame).</p>
+
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">ser</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">n</span><span class="p">(</span><span class="n">ser</span><span class="p">)</span>
+<span class="mi">3</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">ser</span><span class="p">})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">n</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="mi">3</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>siuba/dply/vector.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@symbolic_dispatch</span><span class="p">(</span><span class="bp">cls</span> <span class="o">=</span> <span class="n">NDFrame</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">n</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return the total number of elements in the array (or rows in a DataFrame).</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; ser = pd.Series([1,2,3])</span>
+<span class="sd">        &gt;&gt;&gt; n(ser)</span>
+<span class="sd">        3</span>
+
+<span class="sd">        &gt;&gt;&gt; df = pd.DataFrame({&#39;x&#39;: ser})</span>
+<span class="sd">        &gt;&gt;&gt; n(df)</span>
+<span class="sd">        3</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="siuba.dply.vector.n_distinct" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">n_distinct</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return the total number of distinct (i.e. unique) elements in an array.</p>
+
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">n_distinct</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">]))</span>
+<span class="mi">2</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>siuba/dply/vector.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@alias_series_agg</span><span class="p">(</span><span class="s1">&#39;nunique&#39;</span><span class="p">)</span>
+<span class="nd">@symbolic_dispatch</span><span class="p">(</span><span class="bp">cls</span> <span class="o">=</span> <span class="n">Series</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">n_distinct</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return the total number of distinct (i.e. unique) elements in an array.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; n_distinct(pd.Series([1,1,2,2]))</span>
+<span class="sd">        2</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="siuba.dply.vector.na_if" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">na_if</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return a array like x, but with values in y replaced by NAs.</p>
+
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">na_if</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]),</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="mi">0</span>    <span class="n">NaN</span>
+<span class="mi">1</span>    <span class="mf">2.0</span>
+<span class="mi">2</span>    <span class="n">NaN</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">float64</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>siuba/dply/vector.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@symbolic_dispatch</span><span class="p">(</span><span class="bp">cls</span> <span class="o">=</span> <span class="n">Series</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">na_if</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return a array like x, but with values in y replaced by NAs.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; na_if(pd.Series([1,2,3]), [1,3])</span>
+<span class="sd">        0    NaN</span>
+<span class="sd">        1    2.0</span>
+<span class="sd">        2    NaN</span>
+<span class="sd">        dtype: float64</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">ndim</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="k">else</span> <span class="n">y</span>
+
+    <span class="n">tmp_x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">tmp_x</span><span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">y</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+    <span class="k">return</span> <span class="n">tmp_x</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="siuba.dply.vector.near" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">near</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>TODO: Not Implemented</p>
+
+        <details class="quote">
+          <summary>Source code in <code>siuba/dply/vector.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@symbolic_dispatch</span><span class="p">(</span><span class="bp">cls</span> <span class="o">=</span> <span class="n">Series</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">near</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO: Not Implemented&quot;&quot;&quot;</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;near not implemented&quot;</span><span class="p">)</span> 
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="siuba.dply.vector.nth" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">nth</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">order_by</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return the nth entry of x. Similar to x[n].</p>
+<p>!!! note
+    first(x) and last(x) are nth(x, 0) and nth(x, -1).</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>x</code></td>
+        <td></td>
+        <td><p>series to get entry from.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>n</code></td>
+        <td></td>
+        <td><p>position of entry to get from x (0 indicates first entry).</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>order_by</code></td>
+        <td></td>
+        <td><p>optional Series used to reorder x.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>default</code></td>
+        <td></td>
+        <td><p>(not implemented) value to return if no entry at n.</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">ser</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">nth</span><span class="p">(</span><span class="n">ser</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="s1">&#39;b&#39;</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">sorter</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">nth</span><span class="p">(</span><span class="n">ser</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">order_by</span> <span class="o">=</span> <span class="n">sorter</span><span class="p">)</span>
+<span class="s1">&#39;a&#39;</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">nth</span><span class="p">(</span><span class="n">ser</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">nth</span><span class="p">(</span><span class="n">ser</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">first</span><span class="p">(</span><span class="n">ser</span><span class="p">),</span> <span class="n">last</span><span class="p">(</span><span class="n">ser</span><span class="p">)</span>
+<span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>siuba/dply/vector.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@symbolic_dispatch</span><span class="p">(</span><span class="bp">cls</span> <span class="o">=</span> <span class="n">Series</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">nth</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">order_by</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return the nth entry of x. Similar to x[n].</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        first(x) and last(x) are nth(x, 0) and nth(x, -1).</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        x: series to get entry from.</span>
+<span class="sd">        n: position of entry to get from x (0 indicates first entry).</span>
+<span class="sd">        order_by: optional Series used to reorder x.</span>
+<span class="sd">        default: (not implemented) value to return if no entry at n.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; ser = pd.Series([&#39;a&#39;, &#39;b&#39;, &#39;c&#39;])</span>
+<span class="sd">        &gt;&gt;&gt; nth(ser, 1)</span>
+<span class="sd">        &#39;b&#39;</span>
+
+<span class="sd">        &gt;&gt;&gt; sorter = pd.Series([1, 2, 0])</span>
+<span class="sd">        &gt;&gt;&gt; nth(ser, 1, order_by = sorter)</span>
+<span class="sd">        &#39;a&#39;</span>
+
+<span class="sd">        &gt;&gt;&gt; nth(ser, 0), nth(ser, -1)</span>
+<span class="sd">        (&#39;a&#39;, &#39;c&#39;)</span>
+
+<span class="sd">        &gt;&gt;&gt; first(ser), last(ser)</span>
+<span class="sd">        (&#39;a&#39;, &#39;c&#39;)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;default argument not implemented&quot;</span><span class="p">)</span> 
+
+    <span class="c1"># check indexing is in range, handles positive and negative cases.</span>
+    <span class="c1"># TODO: is returning None the correct behavior for an empty Series?</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">abs</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">default</span>
+
+    <span class="k">if</span> <span class="n">order_by</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+
+    <span class="c1"># case where order_by is specified and n in range ----</span>
+    <span class="c1"># TODO: ensure order_by is arraylike</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">order_by</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+                <span class="s2">&quot;order_by argument is type </span><span class="si">%s</span><span class="s2">, but currently only&quot;</span>
+                <span class="s2">&quot;implemented for Series&quot;</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="n">order_by</span><span class="p">)</span>
+                <span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">order_by</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;x and order_by arguments must be same length&quot;</span><span class="p">)</span>
+
+    <span class="n">order_indx</span> <span class="o">=</span> <span class="n">order_by</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">index</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">order_indx</span><span class="p">[</span><span class="n">n</span><span class="p">]]</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="siuba.dply.vector.ntile" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">ntile</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>TODO: Not Implemented</p>
+
+        <details class="quote">
+          <summary>Source code in <code>siuba/dply/vector.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@symbolic_dispatch</span><span class="p">(</span><span class="bp">cls</span> <span class="o">=</span> <span class="n">Series</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">ntile</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TODO: Not Implemented&quot;&quot;&quot;</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;ntile not implemented&quot;</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="siuba.dply.vector.percent_rank" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">percent_rank</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">na_option</span><span class="o">=</span><span class="s1">&#39;keep&#39;</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return the percent rank.</p>
+<p>!!! note
+    Uses minimum rank, and reports the proportion of unique ranks each entry is greater than.</p>
+
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">percent_rank</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]))</span>
+<span class="mi">0</span>    <span class="mf">0.0</span>
+<span class="mi">1</span>    <span class="mf">0.5</span>
+<span class="mi">2</span>    <span class="mf">1.0</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">float64</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">percent_rank</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]))</span>
+<span class="mi">0</span>    <span class="mf">0.0</span>
+<span class="mi">1</span>    <span class="mf">0.5</span>
+<span class="mi">2</span>    <span class="mf">0.5</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">float64</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">percent_rank</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">]))</span>
+<span class="mi">0</span>   <span class="n">NaN</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">float64</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>siuba/dply/vector.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@symbolic_dispatch</span><span class="p">(</span><span class="bp">cls</span> <span class="o">=</span> <span class="n">Series</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">percent_rank</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">na_option</span> <span class="o">=</span> <span class="s2">&quot;keep&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return the percent rank.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        Uses minimum rank, and reports the proportion of unique ranks each entry is greater than.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; percent_rank(pd.Series([1, 2, 3]))</span>
+<span class="sd">        0    0.0</span>
+<span class="sd">        1    0.5</span>
+<span class="sd">        2    1.0</span>
+<span class="sd">        dtype: float64</span>
+
+<span class="sd">        &gt;&gt;&gt; percent_rank(pd.Series([1, 2, 2]))</span>
+<span class="sd">        0    0.0</span>
+<span class="sd">        1    0.5</span>
+<span class="sd">        2    0.5</span>
+<span class="sd">        dtype: float64</span>
+
+<span class="sd">        &gt;&gt;&gt; percent_rank(pd.Series([1]))</span>
+<span class="sd">        0   NaN</span>
+<span class="sd">        dtype: float64</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">min_rank</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="siuba.dply.vector.row_number" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">row_number</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return the row number (position) for each value in x, beginning with 1.</p>
+
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">ser</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">row_number</span><span class="p">(</span><span class="n">ser</span><span class="p">)</span>
+<span class="mi">0</span>    <span class="mi">1</span>
+<span class="mi">1</span>    <span class="mi">2</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">row_number</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="n">ser</span><span class="p">}))</span>
+<span class="mi">0</span>    <span class="mi">1</span>
+<span class="mi">1</span>    <span class="mi">2</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">row_number</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">],</span> <span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]))</span>
+<span class="mi">3</span>    <span class="mi">1</span>
+<span class="mi">4</span>    <span class="mi">2</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>siuba/dply/vector.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@symbolic_dispatch</span><span class="p">(</span><span class="bp">cls</span> <span class="o">=</span> <span class="n">NDFrame</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">row_number</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return the row number (position) for each value in x, beginning with 1.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; ser = pd.Series([7,8])</span>
+<span class="sd">        &gt;&gt;&gt; row_number(ser)</span>
+<span class="sd">        0    1</span>
+<span class="sd">        1    2</span>
+<span class="sd">        dtype: int64</span>
+
+<span class="sd">        &gt;&gt;&gt; row_number(pd.DataFrame({&#39;a&#39;: ser}))</span>
+<span class="sd">        0    1</span>
+<span class="sd">        1    2</span>
+<span class="sd">        dtype: int64</span>
+
+<span class="sd">        &gt;&gt;&gt; row_number(pd.Series([7,8], index = [3, 4]))</span>
+<span class="sd">        3    1</span>
+<span class="sd">        4    2</span>
+<span class="sd">        dtype: int64</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+    <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># could use single dispatch, but for now ensure output data type matches input</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">_constructor</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">fastpath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">fastpath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+<h2 id="conditionals">Conditionals</h2>
+<p>Note that these functions currently can be imported from the top level:</p>
+<pre><code class="language-python">from siuba import case_when, if_else
+</code></pre>
+<p>They will be moved into the <code>siuba.dply.vector</code> module, but the above import will
+continue to work for backwards compatibility.</p>
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="siuba.dply.verbs.case_when" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">case_when</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="n">cases</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents first">
+
+
+        <details class="quote">
+          <summary>Source code in <code>siuba/dply/verbs.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@singledispatch2</span><span class="p">((</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">case_when</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="n">cases</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cases</span><span class="p">,</span> <span class="n">Call</span><span class="p">):</span>
+        <span class="n">cases</span> <span class="o">=</span> <span class="n">cases</span><span class="p">(</span><span class="n">__data</span><span class="p">)</span>
+    <span class="c1"># TODO: handle when receive list of (k,v) pairs for py &lt; 3.5 compat?</span>
+
+    <span class="n">stripped_cases</span> <span class="o">=</span> <span class="p">{</span><span class="n">strip_symbolic</span><span class="p">(</span><span class="n">k</span><span class="p">):</span> <span class="n">strip_symbolic</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">cases</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">__data</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">stripped_cases</span><span class="o">.</span><span class="n">items</span><span class="p">())):</span>
+        <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">_val_call</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">__data</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+            <span class="n">indx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">result</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="n">val_res</span> <span class="o">=</span> <span class="n">_val_call</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">__data</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">indx</span><span class="p">)</span>
+            <span class="n">out</span><span class="p">[</span><span class="n">indx</span><span class="p">]</span> <span class="o">=</span> <span class="n">val_res</span>
+        <span class="k">elif</span> <span class="n">k</span><span class="p">:</span>
+            <span class="c1"># e.g. k is just True, etc..</span>
+            <span class="n">val_res</span> <span class="o">=</span> <span class="n">_val_call</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">__data</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+            <span class="n">out</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">val_res</span>
+
+    <span class="c1"># by recreating an array, attempts to cast as best dtype</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">out</span><span class="p">))</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="siuba.dply.verbs.if_else" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">if_else</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents first">
+
+
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">ser1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">if_else</span><span class="p">(</span><span class="n">ser1</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">ser1</span><span class="p">)</span>
+<span class="mi">0</span>    <span class="mf">1.0</span>
+<span class="mi">1</span>    <span class="mf">2.0</span>
+<span class="mi">2</span>    <span class="n">NaN</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">float64</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba</span> <span class="kn">import</span> <span class="n">_</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span> <span class="o">=</span> <span class="n">if_else</span><span class="p">(</span><span class="n">_</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="p">(</span><span class="n">ser1</span><span class="p">)</span>
+<span class="mi">0</span>    <span class="mi">1</span>
+<span class="mi">1</span>    <span class="mi">2</span>
+<span class="mi">2</span>    <span class="mi">2</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ser2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;NA&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">if_else</span><span class="p">(</span><span class="n">ser2</span> <span class="o">==</span> <span class="s1">&#39;NA&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">ser2</span><span class="p">)</span>
+<span class="mi">0</span>    <span class="n">NaN</span>
+<span class="mi">1</span>      <span class="n">a</span>
+<span class="mi">2</span>      <span class="n">b</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="nb">object</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>siuba/dply/verbs.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@singledispatch</span>
+<span class="k">def</span> <span class="nf">if_else</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; ser1 = pd.Series([1,2,3])</span>
+<span class="sd">        &gt;&gt;&gt; if_else(ser1 &gt; 2, np.nan, ser1)</span>
+<span class="sd">        0    1.0</span>
+<span class="sd">        1    2.0</span>
+<span class="sd">        2    NaN</span>
+<span class="sd">        dtype: float64</span>
+
+<span class="sd">        &gt;&gt;&gt; from siuba import _</span>
+<span class="sd">        &gt;&gt;&gt; f = if_else(_ &lt; 2, _, 2)</span>
+<span class="sd">        &gt;&gt;&gt; f(ser1)</span>
+<span class="sd">        0    1</span>
+<span class="sd">        1    2</span>
+<span class="sd">        2    2</span>
+<span class="sd">        dtype: int64</span>
+
+<span class="sd">        &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">        &gt;&gt;&gt; ser2 = pd.Series([&#39;NA&#39;, &#39;a&#39;, &#39;b&#39;])</span>
+<span class="sd">        &gt;&gt;&gt; if_else(ser2 == &#39;NA&#39;, np.nan, ser2)</span>
+<span class="sd">        0    NaN</span>
+<span class="sd">        1      a</span>
+<span class="sd">        2      b</span>
+<span class="sd">        dtype: object</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">raise_type_error</span><span class="p">(</span><span class="n">__data</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../experimental/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Datetime (experimental)" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Datetime (experimental)
+            </div>
+          </div>
+        </a>
+      
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.indexes", "navigation.top", "navigation.tabs", "navigation.expand"], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.9c69f0bc.min.js"></script>
+      
+    
+  </body>
+</html>

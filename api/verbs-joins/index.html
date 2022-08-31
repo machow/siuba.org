@@ -1,0 +1,1475 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.2">
+    
+    
+      
+        <title>mutate joins (inner, left, full) - Siuba Reference</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.69437709.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#siuba.dply.verbs.join" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Siuba Reference" class="md-header__button md-logo" aria-label="Siuba Reference" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Siuba Reference
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              mutate joins (inner, left, full)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../guide/" class="md-tabs__link">
+      Guide
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link md-tabs__link--active">
+        Reference
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../examples/" class="md-tabs__link">
+      Examples
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../develop/" class="md-tabs__link">
+      Develop
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../about/key_features.html" class="md-tabs__link">
+        About
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Siuba Reference" class="md-nav__button md-logo" aria-label="Siuba Reference" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Siuba Reference
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/" class="md-nav__link">
+        Guide
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="..">Reference</a>
+          
+            <label for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Core verbs - one table
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Core verbs - one table" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Core verbs - one table
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-arrange/" class="md-nav__link">
+        arrange
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-count/" class="md-nav__link">
+        count, tally
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-distinct/" class="md-nav__link">
+        distinct
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-filter/" class="md-nav__link">
+        filter
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verbs-mutate-transmute/" class="md-nav__link">
+        mutate, transmute
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-rename/" class="md-nav__link">
+        rename
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-select/" class="md-nav__link">
+        select
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-summarize/" class="md-nav__link">
+        summarize
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-group_by/" class="md-nav__link">
+        group_by, ungroup
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Core verbs - two table
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Core verbs - two table" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Core verbs - two table
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          mutate joins (inner, left, full)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        mutate joins (inner, left, full)
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.join" class="md-nav__link">
+    join()
+  </a>
+  
+    <nav class="md-nav" aria-label="join()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.join--parameters" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.join--returns" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.join--examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.join--left_joindf3-df4-na_matches-never" class="md-nav__link">
+    &gt;&gt;&gt; left_join(df3, df4, na_matches = "never")
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.join--x-y-z" class="md-nav__link">
+    x  y  z
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.join--0-10-2-3" class="md-nav__link">
+    0  1.0  2  3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.join--1-nan-2-3" class="md-nav__link">
+    1  nan  2  3
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verbs-filter-joins/" class="md-nav__link">
+        filter joins (anti, semi)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          Query verbs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Query verbs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Query verbs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-collect/" class="md-nav__link">
+        collect
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-show_query/" class="md-nav__link">
+        show_query
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_5">
+          Tidy verbs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tidy verbs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Tidy verbs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-complete/" class="md-nav__link">
+        complete
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-extract/" class="md-nav__link">
+        extract
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-gather/" class="md-nav__link">
+        gather, spread
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-separate/" class="md-nav__link">
+        separate, unite
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-nest/" class="md-nav__link">
+        nest, unnest
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_6">
+          Column operations
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Column operations" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Column operations
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../forcats/" class="md-nav__link">
+        Forcats
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimental/" class="md-nav__link">
+        Datetime (experimental)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vector/" class="md-nav__link">
+        General
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/" class="md-nav__link">
+        Examples
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../develop/" class="md-nav__link">
+        Develop
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          About
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="About" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          About
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/key_features.html" class="md-nav__link">
+        Key Features
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.join" class="md-nav__link">
+    join()
+  </a>
+  
+    <nav class="md-nav" aria-label="join()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.join--parameters" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.join--returns" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.join--examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.join--left_joindf3-df4-na_matches-never" class="md-nav__link">
+    &gt;&gt;&gt; left_join(df3, df4, na_matches = "never")
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.join--x-y-z" class="md-nav__link">
+    x  y  z
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.join--0-10-2-3" class="md-nav__link">
+    0  1.0  2  3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.join--1-nan-2-3" class="md-nav__link">
+    1  nan  2  3
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+  <h1>mutate joins (inner, left, full)</h1>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="siuba.dply.verbs.join" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">join</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents first">
+
+      <p>Join two tables together, by matching on specified columns.</p>
+<h4 id="siuba.dply.verbs.join--parameters">Parameters</h4>
+<p>left :
+    The left-hand table.
+right :
+    The right-hand table.
+on :
+    How to match them. Note that the keyword "by" can also be used for this
+    parameter, in order to support compatibility with dplyr.
+how :
+    The type of join to perform (inner, full, left, right).
+<em>args:
+    Additional postition arguments. Currently not supported.
+</em>*kwargs:
+    Additional keyword arguments. Currently not supported.</p>
+<h4 id="siuba.dply.verbs.join--returns">Returns</h4>
+<p>pd.DataFrame</p>
+<h4 id="siuba.dply.verbs.join--examples">Examples</h4>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>from siuba.data import band_members, band_instruments
+band_members
+   name     band
+0  Mick   Stones
+1  John  Beatles
+2  Paul  Beatles</p>
+<p>band_instruments
+    name   plays
+0   John  guitar
+1   Paul    bass
+2  Keith  guitar</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>Notice that above, only John and Paul have entries for band instruments.
+This means that they will be the only two rows in the inner_join result:</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>band_members &gt;&gt; inner_join(_, band_instruments)
+   name     band   plays
+0  John  Beatles  guitar
+1  Paul  Beatles    bass</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>A left join ensures all original rows of the left hand data are included.</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>band_members &gt;&gt; left_join(_, band_instruments)
+   name     band   plays
+0  Mick   Stones     NaN
+1  John  Beatles  guitar
+2  Paul  Beatles    bass</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>A full join is similar, but ensures all rows of both data are included.</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>band_members &gt;&gt; full_join(_, band_instruments)
+    name     band   plays
+0   Mick   Stones     NaN
+1   John  Beatles  guitar
+2   Paul  Beatles    bass
+3  Keith      NaN  guitar</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>You can explicilty specify columns to join on using the "by" argument:</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>band_members &gt;&gt; inner_join(_, band_instruments, by = "name")
+0 ...</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>Use a dictionary for the by argument, to match up columns with different names:</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>band_members &gt;&gt; full_join(_, band_instruments2, {"name": "artist"})
+0 ...</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>Joins create a new row for each pair of matches. For example, the value 1
+is in two rows on the left, and 2 rows on the right so 4 rows will be created.</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>df1 = pd.DataFrame({"x": [1, 1, 3]})
+df2 = pd.DataFrame({"x": [1, 1, 2], "y": ["first", "second", "third"]})
+df1 &gt;&gt; left_join(_, df2)
+   x       y
+0  1   first
+1  1  second
+2  1   first
+3  1  second
+4  3     NaN</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>Missing values count as matches to eachother by default:</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>df3 = pd.DataFrame({"x": [1, None], "y": 2})
+df4 = pd.DataFrame({"x": [1, None], "z": 3})
+left_join(df3, df4)
+     x  y  z
+0  1.0  2  3
+1  nan  2  3</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>TODO: add na_matches argument</p>
+<h3 id="siuba.dply.verbs.join--left_joindf3-df4-na_matches-never">&gt;&gt;&gt; left_join(df3, df4, na_matches = "never")</h3>
+<h3 id="siuba.dply.verbs.join--x-y-z">x  y  z</h3>
+<h3 id="siuba.dply.verbs.join--0-10-2-3">0  1.0  2  3</h3>
+<h3 id="siuba.dply.verbs.join--1-nan-2-3">1  nan  2  3</h3>
+
+        <details class="quote">
+          <summary>Source code in <code>siuba/dply/verbs.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@singledispatch2</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">join</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">by</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Join two tables together, by matching on specified columns.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    left :</span>
+<span class="sd">        The left-hand table.</span>
+<span class="sd">    right :</span>
+<span class="sd">        The right-hand table.</span>
+<span class="sd">    on :</span>
+<span class="sd">        How to match them. Note that the keyword &quot;by&quot; can also be used for this</span>
+<span class="sd">        parameter, in order to support compatibility with dplyr.</span>
+<span class="sd">    how :</span>
+<span class="sd">        The type of join to perform (inner, full, left, right).</span>
+<span class="sd">    *args:</span>
+<span class="sd">        Additional postition arguments. Currently not supported.</span>
+<span class="sd">    **kwargs:</span>
+<span class="sd">        Additional keyword arguments. Currently not supported.</span>
+
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pd.DataFrame</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    &gt;&gt;&gt; from siuba.data import band_members, band_instruments</span>
+<span class="sd">    &gt;&gt;&gt; band_members</span>
+<span class="sd">       name     band</span>
+<span class="sd">    0  Mick   Stones</span>
+<span class="sd">    1  John  Beatles</span>
+<span class="sd">    2  Paul  Beatles</span>
+
+<span class="sd">    &gt;&gt;&gt; band_instruments</span>
+<span class="sd">        name   plays</span>
+<span class="sd">    0   John  guitar</span>
+<span class="sd">    1   Paul    bass</span>
+<span class="sd">    2  Keith  guitar</span>
+
+<span class="sd">    Notice that above, only John and Paul have entries for band instruments.</span>
+<span class="sd">    This means that they will be the only two rows in the inner_join result:</span>
+
+<span class="sd">    &gt;&gt;&gt; band_members &gt;&gt; inner_join(_, band_instruments)</span>
+<span class="sd">       name     band   plays</span>
+<span class="sd">    0  John  Beatles  guitar</span>
+<span class="sd">    1  Paul  Beatles    bass</span>
+
+<span class="sd">    A left join ensures all original rows of the left hand data are included.</span>
+
+<span class="sd">    &gt;&gt;&gt; band_members &gt;&gt; left_join(_, band_instruments)</span>
+<span class="sd">       name     band   plays</span>
+<span class="sd">    0  Mick   Stones     NaN</span>
+<span class="sd">    1  John  Beatles  guitar</span>
+<span class="sd">    2  Paul  Beatles    bass</span>
+
+<span class="sd">    A full join is similar, but ensures all rows of both data are included.</span>
+
+<span class="sd">    &gt;&gt;&gt; band_members &gt;&gt; full_join(_, band_instruments)</span>
+<span class="sd">        name     band   plays</span>
+<span class="sd">    0   Mick   Stones     NaN</span>
+<span class="sd">    1   John  Beatles  guitar</span>
+<span class="sd">    2   Paul  Beatles    bass</span>
+<span class="sd">    3  Keith      NaN  guitar</span>
+
+<span class="sd">    You can explicilty specify columns to join on using the &quot;by&quot; argument:</span>
+
+<span class="sd">    &gt;&gt;&gt; band_members &gt;&gt; inner_join(_, band_instruments, by = &quot;name&quot;)</span>
+<span class="sd">    0 ...</span>
+
+<span class="sd">    Use a dictionary for the by argument, to match up columns with different names:</span>
+
+<span class="sd">    &gt;&gt;&gt; band_members &gt;&gt; full_join(_, band_instruments2, {&quot;name&quot;: &quot;artist&quot;})</span>
+<span class="sd">    0 ...</span>
+
+<span class="sd">    Joins create a new row for each pair of matches. For example, the value 1</span>
+<span class="sd">    is in two rows on the left, and 2 rows on the right so 4 rows will be created.</span>
+
+<span class="sd">    &gt;&gt;&gt; df1 = pd.DataFrame({&quot;x&quot;: [1, 1, 3]})</span>
+<span class="sd">    &gt;&gt;&gt; df2 = pd.DataFrame({&quot;x&quot;: [1, 1, 2], &quot;y&quot;: [&quot;first&quot;, &quot;second&quot;, &quot;third&quot;]})</span>
+<span class="sd">    &gt;&gt;&gt; df1 &gt;&gt; left_join(_, df2)</span>
+<span class="sd">       x       y</span>
+<span class="sd">    0  1   first</span>
+<span class="sd">    1  1  second</span>
+<span class="sd">    2  1   first</span>
+<span class="sd">    3  1  second</span>
+<span class="sd">    4  3     NaN</span>
+
+<span class="sd">    Missing values count as matches to eachother by default:</span>
+
+
+<span class="sd">    &gt;&gt;&gt; df3 = pd.DataFrame({&quot;x&quot;: [1, None], &quot;y&quot;: 2})</span>
+<span class="sd">    &gt;&gt;&gt; df4 = pd.DataFrame({&quot;x&quot;: [1, None], &quot;z&quot;: 3})</span>
+<span class="sd">    left_join(df3, df4)</span>
+<span class="sd">         x  y  z</span>
+<span class="sd">    0  1.0  2  3</span>
+<span class="sd">    1  nan  2  3</span>
+
+<span class="sd">    TODO: add na_matches argument</span>
+<span class="sd">    # &gt;&gt;&gt; left_join(df3, df4, na_matches = &quot;never&quot;)</span>
+<span class="sd">    #      x  y  z</span>
+<span class="sd">    # 0  1.0  2  3</span>
+<span class="sd">    # 1  nan  2  3</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">right</span><span class="p">,</span> <span class="n">DataFrame</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;right hand table must be a DataFrame&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">how</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Must specify how argument&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;extra arguments to pandas join not currently supported&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">on</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">by</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">on</span> <span class="o">=</span> <span class="n">by</span>
+
+    <span class="c1"># pandas uses outer, but dplyr uses term full</span>
+    <span class="k">if</span> <span class="n">how</span> <span class="o">==</span> <span class="s2">&quot;full&quot;</span><span class="p">:</span>
+        <span class="n">how</span> <span class="o">=</span> <span class="s2">&quot;outer&quot;</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">on</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">):</span>
+        <span class="n">left_on</span><span class="p">,</span> <span class="n">right_on</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">on</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">left</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">right</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="n">how</span><span class="p">,</span> <span class="n">left_on</span> <span class="o">=</span> <span class="n">left_on</span><span class="p">,</span> <span class="n">right_on</span> <span class="o">=</span> <span class="n">right_on</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">left</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">right</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="n">how</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="n">on</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../verb-group_by/" class="md-footer__link md-footer__link--prev" aria-label="Previous: group_by, ungroup" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              group_by, ungroup
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../verbs-filter-joins/" class="md-footer__link md-footer__link--next" aria-label="Next: filter joins (anti, semi)" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              filter joins (anti, semi)
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.indexes", "navigation.top", "navigation.tabs", "navigation.expand"], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.9c69f0bc.min.js"></script>
+      
+    
+  </body>
+</html>

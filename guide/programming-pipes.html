@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.163">
+<meta name="generator" content="quarto-1.1.168">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -813,7 +813,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># explicit</span></span>
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>group_by(_, _.cyl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
-<pre><code>&lt;function group_by at 0x7f4fece09fc0&gt;(_,_.cyl())</code></pre>
+<pre><code>&lt;function group_by at 0x7f9908083f40&gt;(_,_.cyl())</code></pre>
 </div>
 </div>
 <p>This is much more explicit, but also a bit more clunky looking.</p>
@@ -1014,7 +1014,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>&lt;AxesSubplot:xlabel='cyl', ylabel='n'&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="programming-pipes_files/figure-html/cell-16-output-2.png" class="img-fluid"></p>
+<p><img src="programming-pipes_files/figure-html/cell-16-output-2.png" width="585" height="429"></p>
 </div>
 </div>
 <p>Note that <code>sns.barplot()</code> expects the data as a named argument, so we pass <code>data=_</code>, where <code>_</code> is a placeholder for the data.</p>

@@ -1,0 +1,1326 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.2">
+    
+    
+      
+        <title>Overview - Siuba Reference</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.69437709.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#function-reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="Siuba Reference" class="md-header__button md-logo" aria-label="Siuba Reference" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Siuba Reference
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Overview
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../guide/" class="md-tabs__link">
+      Guide
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="." class="md-tabs__link md-tabs__link--active">
+        Reference
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../examples/" class="md-tabs__link">
+      Examples
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../develop/" class="md-tabs__link">
+      Develop
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../about/key_features.html" class="md-tabs__link">
+        About
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="Siuba Reference" class="md-nav__button md-logo" aria-label="Siuba Reference" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Siuba Reference
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/" class="md-nav__link">
+        Guide
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index md-nav__link--active">
+          <a href=".">Reference</a>
+          
+            <label for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Core verbs - one table
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Core verbs - one table" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Core verbs - one table
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="verb-arrange/" class="md-nav__link">
+        arrange
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="verb-count/" class="md-nav__link">
+        count, tally
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="verb-distinct/" class="md-nav__link">
+        distinct
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="verb-filter/" class="md-nav__link">
+        filter
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="verbs-mutate-transmute/" class="md-nav__link">
+        mutate, transmute
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="verb-rename/" class="md-nav__link">
+        rename
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="verb-select/" class="md-nav__link">
+        select
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="verb-summarize/" class="md-nav__link">
+        summarize
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="verb-group_by/" class="md-nav__link">
+        group_by, ungroup
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Core verbs - two table
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Core verbs - two table" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Core verbs - two table
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="verbs-joins/" class="md-nav__link">
+        mutate joins (inner, left, full)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="verbs-filter-joins/" class="md-nav__link">
+        filter joins (anti, semi)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          Query verbs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Query verbs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Query verbs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="verb-collect/" class="md-nav__link">
+        collect
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="verb-show_query/" class="md-nav__link">
+        show_query
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_5">
+          Tidy verbs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tidy verbs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Tidy verbs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="verb-complete/" class="md-nav__link">
+        complete
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="verb-extract/" class="md-nav__link">
+        extract
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="verb-gather/" class="md-nav__link">
+        gather, spread
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="verb-separate/" class="md-nav__link">
+        separate, unite
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="verb-nest/" class="md-nav__link">
+        nest, unnest
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_6">
+          Column operations
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Column operations" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Column operations
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="forcats/" class="md-nav__link">
+        Forcats
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="experimental/" class="md-nav__link">
+        Datetime (experimental)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="vector/" class="md-nav__link">
+        General
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/" class="md-nav__link">
+        Examples
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../develop/" class="md-nav__link">
+        Develop
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          About
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="About" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          About
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/key_features.html" class="md-nav__link">
+        Key Features
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#core-verbs-one-table" class="md-nav__link">
+    Core verbs - one table
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-verbs-two-table" class="md-nav__link">
+    Core verbs - two table
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#query-verbs" class="md-nav__link">
+    Query verbs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tidy-verbs" class="md-nav__link">
+    Tidy verbs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#column-operations" class="md-nav__link">
+    Column Operations
+  </a>
+  
+    <nav class="md-nav" aria-label="Column Operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#forcats" class="md-nav__link">
+    Forcats
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#datetime" class="md-nav__link">
+    Datetime
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vector" class="md-nav__link">
+    Vector
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+<h1 id="function-reference">Function reference</h1>
+<h2 id="core-verbs-one-table">Core verbs - one table</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a class="autorefs autorefs-internal" href="verb-arrange/#siuba.dply.verbs.arrange">arrange</a></td>
+<td>Sort rows based on one or more columns.</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="verb-count/#siuba.dply.verbs.count">count</a></td>
+<td>Count observations by group.</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="verb-distinct/#siuba.dply.verbs.distinct">distinct</a></td>
+<td>Count observations by group.</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="verbs-filter/#siuba.dply.verbs.filter">filter</a></td>
+<td>Keep rows that match condition.</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="verb-head/#siuba.dply.verbs.head">head</a></td>
+<td>Keep the first n rows of data.</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="verbs-mutate-transmute/#siuba.dply.verbs.mutate">mutate</a>, <a class="autorefs autorefs-internal" href="verbs-mutate-transmute/#siuba.dply.verbs.transmute">transmute</a></td>
+<td>Create or replace columns.</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="verb-rename/#siuba.dply.verbs.rename">rename</a></td>
+<td>Rename columns.</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="verbs-select/#siuba.dply.verbs.select">select</a></td>
+<td>Keep, drop, or rename specific columns.</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="verb-summarize/#siuba.dply.verbs.summarize">summarize</a></td>
+<td>Calculate a single number per grouping.</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="verb-group_by/#siuba.dply.verbs.group_by">group_by</a>, <a class="autorefs autorefs-internal" href="verb-ungroup/#siuba.dply.verbs.ungroup">ungroup</a></td>
+<td>Specify groups for splitting rows of data.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="core-verbs-two-table">Core verbs - two table</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a class="autorefs autorefs-internal" href="verbs-joins/#siuba.dply.verbs.join">inner_join, left_join, right_join, full_join</a></td>
+<td>Mutating joins</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="verbs-filter-joins/#siuba.dply.verbs.semi_join">semi_join</a>, <a class="autorefs autorefs-internal" href="verbs-filter-joins/#siuba.dply.verbs.anti_join">anti_join</a></td>
+<td>Filtering joins</td>
+</tr>
+</tbody>
+</table>
+<h2 id="query-verbs">Query verbs</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a class="autorefs autorefs-internal" href="verb-collect/#siuba.dply.verbs.collect">collect</a></td>
+<td>Retrieve data into a DataFrame.</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="verb-show_query/#siuba.dply.verbs.show_query">show_query</a></td>
+<td>Print the query being generated.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tidy-verbs">Tidy verbs</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a class="autorefs autorefs-internal" href="verb-complete/#siuba.dply.verbs.complete">complete</a></td>
+<td>Add rows for missing combinations in the data.</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="verb-extract/#siuba.dply.verbs.extract">extract</a></td>
+<td>Add new columns by matching a pattern on a column of strings.</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="verb-gather/#siuba.dply.verbs.gather">gather</a>, <a class="autorefs autorefs-internal" href="verb-spread/#siuba.dply.verbs.spread">spread</a></td>
+<td>Gather columns in to long format. Spread out to wide format.</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="verb-separate/#siuba.dply.verbs.separate">separate</a>, <a class="autorefs autorefs-internal" href="verb-unite/#siuba.dply.verbs.unite">unite</a></td>
+<td>Add new columns by splitting a character column.</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="verb-nest/#siuba.dply.verbs.nest">nest</a>, <a class="autorefs autorefs-internal" href="verb-unnest/#siuba.dply.verbs.unnest">unnest</a></td>
+<td>Create a column where each entry is a DataFrame.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="column-operations">Column Operations</h2>
+<h3 id="forcats">Forcats</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a class="autorefs autorefs-internal" href="forcats/#siuba.dply.forcats.fct_collapse">fct_collapse</a></td>
+<td>Rename categories. Optionally group all others.</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="forcats/#siuba.dply.forcats.fct_infreq">fct_infreq</a></td>
+<td>Order categories by frequency (largest first)</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="forcats/#siuba.dply.forcats.fct_inorder">fct_inorder</a></td>
+<td>Order categories by when they first appear.</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="forcats/#siuba.dply.forcats.fct_lump">fct_lump</a></td>
+<td>Lump infrequently observed categories together.</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="forcats/#siuba.dply.forcats.fct_recode">fct_recode</a></td>
+<td>Rename categories.</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="forcats/#siuba.dply.forcats.fct_reorder">fct_reorder</a></td>
+<td>Reordered categories, using a calculation over another column.</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="forcats/#siuba.dply.forcats.fct_rev">fct_rev</a></td>
+<td>Reverse category levels.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="datetime">Datetime</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a class="autorefs autorefs-internal" href="experimental/#siuba.experimental.datetime.floor_date">floor_date, ceil_date</a></td>
+<td>Round datetimes down or up to a specific granularity (e.g. week).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="vector">Vector</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a class="autorefs autorefs-internal" href="vector/#siuba.dply.vector.between">between()</a></td>
+<td>Check whether values are in a specified range.</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="vector/#siuba.dply.verbs.case_when">case_when()</a>, <a class="autorefs autorefs-internal" href="vector/#siuba.dply.verbs.if_else">if_else()</a></td>
+<td>Generalized if statements.</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="vector/#siuba.dply.vector.coalesce">coalesce()</a></td>
+<td>Use first non-missing element across columns.</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="vector/#siuba.dply.vector.cumall">cumall()</a>, <a class="autorefs autorefs-internal" href="vector/#siuba.dply.vector.cumany">cumany()</a>, <a class="autorefs autorefs-internal" href="vector/#siuba.dply.vector.cummean">cummean()</a></td>
+<td>Cumulative all, any, and mean.</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="vector/#siuba.dply.vector.lag">lag()</a>, <a class="autorefs autorefs-internal" href="vector/#siuba.dply.vector.lead">lead()</a></td>
+<td>Shift values later (lag) or earlier (lead) in time.</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="vector/#siuba.dply.vector.n">n()</a></td>
+<td>Calculate the number of observations in a vector.</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="vector/#siuba.dply.vector.n_distinct">n_distinct()</a></td>
+<td>Count the number of unique values.</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="vector/#siuba.dply.vector.na_if">na_if()</a></td>
+<td>Convert a value to NA.</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="vector/#siuba.dply.vector.near">near()</a></td>
+<td>Check whether every pair of values in two vectors are close.</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="vector/#siuba.dply.vector.nth">nth()</a>, <a class="autorefs autorefs-internal" href="vector/#siuba.dply.vector.first">first()</a>, <a class="autorefs autorefs-internal" href="vector/#siuba.dply.vector.last">last()</a></td>
+<td>Return the first, last, or nth value.</td>
+</tr>
+<tr>
+<td><a class="autorefs autorefs-internal" href="vector/#siuba.dply.vector.row_number">row_number()</a>, <a class="autorefs autorefs-internal" href="vector/#siuba.dply.vector.ntile">ntile()</a>, <a class="autorefs autorefs-internal" href="vector/#siuba.dply.vector.min_rank">min_rank()</a>, <a class="autorefs autorefs-internal" href="vector/#siuba.dply.vector.dense_rank">dense_rank()</a>, <a class="autorefs autorefs-internal" href="vector/#siuba.dply.vector.percent_rank">percent_rank()</a>, <a class="autorefs autorefs-internal" href="vector/#siuba.dply.vector.cume_dist">cume_dist()</a></td>
+<td>Windowed rank functions.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+      
+        
+        <a href="verb-arrange/" class="md-footer__link md-footer__link--next" aria-label="Next: arrange" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              arrange
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.indexes", "navigation.top", "navigation.tabs", "navigation.expand"], "search": "assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.9c69f0bc.min.js"></script>
+      
+    
+  </body>
+</html>
