@@ -1085,13 +1085,13 @@ from siuba.data import cars</p>
 0    4     33.9     113
 1    6     21.4     175
 2    8     19.2     335</p>
-<p>by_cyl &gt;&gt; filter(<em>.disp == </em>.disp.max())
+<p>by_cyl &gt;&gt; filter(<em>.mpg == </em>.mpg.max())
 (grouped data frame)
     cyl   mpg   hp
 3     6  21.4  110
 19    4  33.9   65
 24    8  19.2  175</p>
-<p>mtcars &gt;&gt; group_by(cyl2 = _.cyl + 1) &gt;&gt; head(2)
+<p>cars &gt;&gt; group_by(cyl2 = _.cyl + 1) &gt;&gt; head(2)
 (grouped data frame)
    cyl   mpg   hp  cyl2
 0    6  21.0  110     7
@@ -1105,12 +1105,14 @@ Use an explicit mutate on the grouped data perform the operation within groups.<
 <blockquote>
 <blockquote>
 <blockquote>
-<p>(cars
+<p>from siuba.siu import call
+(cars
 ...     &gt;&gt; group_by(<em>.cyl)
 ...     &gt;&gt; mutate(mpg_bin = call(pd.cut, </em>.mpg, 3))
 ...     &gt;&gt; group_by(_.mpg_bin, add=True)
 ...     &gt;&gt; head(2)
 ... )
+(grouped data frame)
    cyl   mpg   hp       mpg_bin
 0    6  21.0  110  (20.2, 21.4]
 1    6  21.0  110  (20.2, 21.4]</p>
@@ -1154,14 +1156,14 @@ Use an explicit mutate on the grouped data perform the operation within groups.<
 <span class="sd">    1    6     21.4     175</span>
 <span class="sd">    2    8     19.2     335</span>
 
-<span class="sd">    &gt;&gt;&gt; by_cyl &gt;&gt; filter(_.disp == _.disp.max())</span>
+<span class="sd">    &gt;&gt;&gt; by_cyl &gt;&gt; filter(_.mpg == _.mpg.max())</span>
 <span class="sd">    (grouped data frame)</span>
 <span class="sd">        cyl   mpg   hp</span>
 <span class="sd">    3     6  21.4  110</span>
 <span class="sd">    19    4  33.9   65</span>
 <span class="sd">    24    8  19.2  175</span>
 
-<span class="sd">    &gt;&gt;&gt; mtcars &gt;&gt; group_by(cyl2 = _.cyl + 1) &gt;&gt; head(2)</span>
+<span class="sd">    &gt;&gt;&gt; cars &gt;&gt; group_by(cyl2 = _.cyl + 1) &gt;&gt; head(2)</span>
 <span class="sd">    (grouped data frame)</span>
 <span class="sd">       cyl   mpg   hp  cyl2</span>
 <span class="sd">    0    6  21.0  110     7</span>
@@ -1172,12 +1174,14 @@ Use an explicit mutate on the grouped data perform the operation within groups.<
 
 <span class="sd">    For example, the code below calls pd.cut on the mpg column, within each cyl group.</span>
 
+<span class="sd">    &gt;&gt;&gt; from siuba.siu import call</span>
 <span class="sd">    &gt;&gt;&gt; (cars</span>
 <span class="sd">    ...     &gt;&gt; group_by(_.cyl)</span>
 <span class="sd">    ...     &gt;&gt; mutate(mpg_bin = call(pd.cut, _.mpg, 3))</span>
 <span class="sd">    ...     &gt;&gt; group_by(_.mpg_bin, add=True)</span>
 <span class="sd">    ...     &gt;&gt; head(2)</span>
 <span class="sd">    ... )</span>
+<span class="sd">    (grouped data frame)</span>
 <span class="sd">       cyl   mpg   hp       mpg_bin</span>
 <span class="sd">    0    6  21.0  110  (20.2, 21.4]</span>
 <span class="sd">    1    6  21.0  110  (20.2, 21.4]</span>

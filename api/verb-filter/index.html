@@ -1070,7 +1070,8 @@
 <blockquote>
 <blockquote>
 <blockquote>
-<p>from siuba.data import cars</p>
+<p>from siuba import _, filter
+from siuba.data import cars</p>
 </blockquote>
 </blockquote>
 </blockquote>
@@ -1115,6 +1116,7 @@ rows where hp is over 250 <em>or</em> mpg is over 32.</p>
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 
+<span class="sd">    &gt;&gt;&gt; from siuba import _, filter</span>
 <span class="sd">    &gt;&gt;&gt; from siuba.data import cars</span>
 
 <span class="sd">    Keep rows where cyl is 4 *and* mpg is less than 25.</span>

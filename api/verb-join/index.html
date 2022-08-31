@@ -1053,7 +1053,8 @@ how :
 <blockquote>
 <blockquote>
 <blockquote>
-<p>from siuba.data import band_members, band_instruments
+<p>from siuba import _, inner_join, left_join, full_join, right_join
+from siuba.data import band_members, band_instruments, band_instruments2
 band_members
    name     band
 0  Mick   Stones
@@ -1109,7 +1110,7 @@ This means that they will be the only two rows in the inner_join result:</p>
 <blockquote>
 <blockquote>
 <p>band_members &gt;&gt; inner_join(_, band_instruments, by = "name")
-0 ...</p>
+   n...</p>
 </blockquote>
 </blockquote>
 </blockquote>
@@ -1118,7 +1119,7 @@ This means that they will be the only two rows in the inner_join result:</p>
 <blockquote>
 <blockquote>
 <p>band_members &gt;&gt; full_join(_, band_instruments2, {"name": "artist"})
-0 ...</p>
+   n...</p>
 </blockquote>
 </blockquote>
 </blockquote>
@@ -1148,7 +1149,7 @@ df4 = pd.DataFrame({"x": [1, None], "z": 3})
 left_join(df3, df4)
      x  y  z
 0  1.0  2  3
-1  nan  2  3</p>
+1  NaN  2  3</p>
 </blockquote>
 </blockquote>
 </blockquote>
@@ -1188,7 +1189,8 @@ left_join(df3, df4)
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 
-<span class="sd">    &gt;&gt;&gt; from siuba.data import band_members, band_instruments</span>
+<span class="sd">    &gt;&gt;&gt; from siuba import _, inner_join, left_join, full_join, right_join</span>
+<span class="sd">    &gt;&gt;&gt; from siuba.data import band_members, band_instruments, band_instruments2</span>
 <span class="sd">    &gt;&gt;&gt; band_members</span>
 <span class="sd">       name     band</span>
 <span class="sd">    0  Mick   Stones</span>
@@ -1229,12 +1231,12 @@ left_join(df3, df4)
 <span class="sd">    You can explicilty specify columns to join on using the &quot;by&quot; argument:</span>
 
 <span class="sd">    &gt;&gt;&gt; band_members &gt;&gt; inner_join(_, band_instruments, by = &quot;name&quot;)</span>
-<span class="sd">    0 ...</span>
+<span class="sd">       n...</span>
 
 <span class="sd">    Use a dictionary for the by argument, to match up columns with different names:</span>
 
 <span class="sd">    &gt;&gt;&gt; band_members &gt;&gt; full_join(_, band_instruments2, {&quot;name&quot;: &quot;artist&quot;})</span>
-<span class="sd">    0 ...</span>
+<span class="sd">       n...</span>
 
 <span class="sd">    Joins create a new row for each pair of matches. For example, the value 1</span>
 <span class="sd">    is in two rows on the left, and 2 rows on the right so 4 rows will be created.</span>
@@ -1254,10 +1256,10 @@ left_join(df3, df4)
 
 <span class="sd">    &gt;&gt;&gt; df3 = pd.DataFrame({&quot;x&quot;: [1, None], &quot;y&quot;: 2})</span>
 <span class="sd">    &gt;&gt;&gt; df4 = pd.DataFrame({&quot;x&quot;: [1, None], &quot;z&quot;: 3})</span>
-<span class="sd">    left_join(df3, df4)</span>
+<span class="sd">    &gt;&gt;&gt; left_join(df3, df4)</span>
 <span class="sd">         x  y  z</span>
 <span class="sd">    0  1.0  2  3</span>
-<span class="sd">    1  nan  2  3</span>
+<span class="sd">    1  NaN  2  3</span>
 
 <span class="sd">    TODO: add na_matches argument</span>
 <span class="sd">    # &gt;&gt;&gt; left_join(df3, df4, na_matches = &quot;never&quot;)</span>

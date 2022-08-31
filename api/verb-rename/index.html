@@ -481,6 +481,26 @@
     rename()
   </a>
   
+    <nav class="md-nav" aria-label="rename()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.rename--parameters" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.rename--examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -990,6 +1010,26 @@
     rename()
   </a>
   
+    <nav class="md-nav" aria-label="rename()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.rename--parameters" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.rename--examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1020,11 +1060,67 @@
 
     <div class="doc doc-contents first">
 
+      <p>Rename columns of a table.</p>
+<h4 id="siuba.dply.verbs.rename--parameters">Parameters</h4>
+<p>!!! __data
+    The input table.
+**kwargs:
+    Keyword arguments of the form new_name = _.old_name, or new_name = "old_name".</p>
+<h4 id="siuba.dply.verbs.rename--examples">Examples</h4>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>import pandas as pd
+from siuba import _, rename, select</p>
+<p>df = pd.DataFrame({"zzz": [1], "b": [2]})
+df &gt;&gt; rename(a = _.zzz)
+   a  b
+0  1  2</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>Note that this is equivalent to this select code:</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>df &gt;&gt; select(<em>.a == </em>.zzz, _.b)
+   a  b
+0  1  2</p>
+</blockquote>
+</blockquote>
+</blockquote>
 
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="nd">@singledispatch2</span><span class="p">(</span><span class="n">DataFrame</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">rename</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Rename columns of a table.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    __data:</span>
+<span class="sd">        The input table.</span>
+<span class="sd">    **kwargs:</span>
+<span class="sd">        Keyword arguments of the form new_name = _.old_name, or new_name = &quot;old_name&quot;.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">    &gt;&gt;&gt; from siuba import _, rename, select</span>
+
+<span class="sd">    &gt;&gt;&gt; df = pd.DataFrame({&quot;zzz&quot;: [1], &quot;b&quot;: [2]})</span>
+<span class="sd">    &gt;&gt;&gt; df &gt;&gt; rename(a = _.zzz)</span>
+<span class="sd">       a  b</span>
+<span class="sd">    0  1  2</span>
+
+<span class="sd">    Note that this is equivalent to this select code:</span>
+
+<span class="sd">    &gt;&gt;&gt; df &gt;&gt; select(_.a == _.zzz, _.b)</span>
+<span class="sd">       a  b</span>
+<span class="sd">    0  1  2</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># TODO: allow names with spaces, etc..</span>
     <span class="n">col_names</span> <span class="o">=</span> <span class="p">{</span><span class="n">simple_varname</span><span class="p">(</span><span class="n">v</span><span class="p">):</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
     <span class="k">if</span> <span class="kc">None</span> <span class="ow">in</span> <span class="n">col_names</span><span class="p">:</span>

@@ -947,6 +947,26 @@
     select()
   </a>
   
+    <nav class="md-nav" aria-label="select()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.select--parameters" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.select--examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -977,11 +997,142 @@
 
     <div class="doc doc-contents first">
 
+      <p>Select columns of a table to keep or drop (and optionally rename).</p>
+<h4 id="siuba.dply.verbs.select--parameters">Parameters</h4>
+<p>!!! __data
+    The input table.
+<em>args: 
+    An expression specifying columns to keep or drop. 
+</em>*kwargs:
+    Not implemented.</p>
+<h4 id="siuba.dply.verbs.select--examples">Examples</h4>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>from siuba import _, select
+from siuba.data import cars</p>
+<p>small_cars = cars.head(1)
+small_cars
+   cyl   mpg   hp
+0    6  21.0  110</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>You can refer to columns by name or position.</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>small_cars &gt;&gt; select(<em>.cyl, </em>[2])
+   cyl   hp
+0    6  110</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>Use a <code>~</code> sign to exclude a column.</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>small_cars &gt;&gt; select(~_.cyl)
+    mpg   hp
+0  21.0  110</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>You can use any methods you'd find on the .columns.str accessor:</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>small_cars.columns.str.contains("p")
+array([False,  True,  True])</p>
+<p>small_cars &gt;&gt; select(_.contains("p"))
+    mpg   hp
+0  21.0  110</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>Use a slice to select a range of columns:</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>small_cars &gt;&gt; select(_[0:2])
+   cyl   mpg
+0    6  21.0</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>Multiple expressions can be combined using _[a, b, c] syntax. This is useful
+for dropping a complex set of matches.</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>small_cars &gt;&gt; select(~<em>[</em>.startswith("c"), -1])
+    mpg
+0  21.0</p>
+</blockquote>
+</blockquote>
+</blockquote>
 
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="nd">@singledispatch2</span><span class="p">(</span><span class="n">DataFrame</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Select columns of a table to keep or drop (and optionally rename).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    __data:</span>
+<span class="sd">        The input table.</span>
+<span class="sd">    *args: </span>
+<span class="sd">        An expression specifying columns to keep or drop. </span>
+<span class="sd">    **kwargs:</span>
+<span class="sd">        Not implemented.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from siuba import _, select</span>
+<span class="sd">    &gt;&gt;&gt; from siuba.data import cars</span>
+
+<span class="sd">    &gt;&gt;&gt; small_cars = cars.head(1)</span>
+<span class="sd">    &gt;&gt;&gt; small_cars</span>
+<span class="sd">       cyl   mpg   hp</span>
+<span class="sd">    0    6  21.0  110</span>
+
+<span class="sd">    You can refer to columns by name or position.</span>
+
+<span class="sd">    &gt;&gt;&gt; small_cars &gt;&gt; select(_.cyl, _[2])</span>
+<span class="sd">       cyl   hp</span>
+<span class="sd">    0    6  110</span>
+
+<span class="sd">    Use a `~` sign to exclude a column.</span>
+
+<span class="sd">    &gt;&gt;&gt; small_cars &gt;&gt; select(~_.cyl)</span>
+<span class="sd">        mpg   hp</span>
+<span class="sd">    0  21.0  110</span>
+
+<span class="sd">    You can use any methods you&#39;d find on the .columns.str accessor:</span>
+
+<span class="sd">    &gt;&gt;&gt; small_cars.columns.str.contains(&quot;p&quot;)</span>
+<span class="sd">    array([False,  True,  True])</span>
+
+<span class="sd">    &gt;&gt;&gt; small_cars &gt;&gt; select(_.contains(&quot;p&quot;))</span>
+<span class="sd">        mpg   hp</span>
+<span class="sd">    0  21.0  110</span>
+
+<span class="sd">    Use a slice to select a range of columns:</span>
+
+<span class="sd">    &gt;&gt;&gt; small_cars &gt;&gt; select(_[0:2])</span>
+<span class="sd">       cyl   mpg</span>
+<span class="sd">    0    6  21.0</span>
+
+<span class="sd">    Multiple expressions can be combined using _[a, b, c] syntax. This is useful</span>
+<span class="sd">    for dropping a complex set of matches.</span>
+
+<span class="sd">    &gt;&gt;&gt; small_cars &gt;&gt; select(~_[_.startswith(&quot;c&quot;), -1])</span>
+<span class="sd">        mpg</span>
+<span class="sd">    0  21.0</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">if</span> <span class="n">kwargs</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
                 <span class="s2">&quot;Using kwargs in select not currently supported. &quot;</span>

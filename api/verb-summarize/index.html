@@ -1078,13 +1078,17 @@ from siuba.data import cars</p>
 <p>cars &gt;&gt; summarize(avg = <em>.mpg.mean(), n = </em>.shape[0])
          avg   n
 0  20.090625  32</p>
-<p>g_cyl = cars &gt;&gt; group_by(_.cyl)</p>
-<p>g_cyl &gt;&gt; summarize(min = _.mpg.min())
+<p>g_cyl = cars &gt;&gt; group_by(<em>.cyl)
+g_cyl &gt;&gt; summarize(min = </em>.mpg.min())
    cyl   min
 0    4  21.4
 1    6  17.8
 2    8  10.4</p>
-<p>g_cyl &gt;&gt; summarize(mpg_std_err = <em>.mpg.std() / </em>.shape[0]**.5)</p>
+<p>g_cyl &gt;&gt; summarize(mpg_std_err = <em>.mpg.std() / </em>.shape[0]**.5)
+   cyl  mpg_std_err
+0    4     1.359764
+1    6     0.549397
+2    8     0.684202</p>
 </blockquote>
 </blockquote>
 </blockquote>
@@ -1117,7 +1121,6 @@ from siuba.data import cars</p>
 <span class="sd">    0  20.090625  32</span>
 
 <span class="sd">    &gt;&gt;&gt; g_cyl = cars &gt;&gt; group_by(_.cyl)</span>
-
 <span class="sd">    &gt;&gt;&gt; g_cyl &gt;&gt; summarize(min = _.mpg.min())</span>
 <span class="sd">       cyl   min</span>
 <span class="sd">    0    4  21.4</span>
@@ -1125,6 +1128,10 @@ from siuba.data import cars</p>
 <span class="sd">    2    8  10.4</span>
 
 <span class="sd">    &gt;&gt;&gt; g_cyl &gt;&gt; summarize(mpg_std_err = _.mpg.std() / _.shape[0]**.5)</span>
+<span class="sd">       cyl  mpg_std_err</span>
+<span class="sd">    0    4     1.359764</span>
+<span class="sd">    1    6     0.549397</span>
+<span class="sd">    2    8     0.684202</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>

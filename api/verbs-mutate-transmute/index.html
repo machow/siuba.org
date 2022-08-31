@@ -1227,6 +1227,36 @@ cars &gt;&gt; mutate(cyl2 = </em>.cyl * 2, cyl4 = _.cyl2 * 2) &gt;&gt; head(2)
 <h4 id="siuba.dply.verbs.transmute--see-also">See Also</h4>
 <p>mutate : Assign new columns, or modify existing ones.</p>
 <h4 id="siuba.dply.verbs.transmute--examples">Examples</h4>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>from siuba import _, transmute, mutate, head
+from siuba.data import cars</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>Notice that transmute results in a table with only the new column:</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>cars &gt;&gt; transmute(cyl2 = _.cyl + 1) &gt;&gt; head(2)
+   cyl2
+0     7
+1     7</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>By contrast, mutate adds the new column to the end of the table:</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>cars &gt;&gt;  mutate(cyl2 = _.cyl + 1) &gt;&gt; head(2)
+   cyl   mpg   hp  cyl2
+0    6  21.0  110     7
+1    6  21.0  110     7</p>
+</blockquote>
+</blockquote>
+</blockquote>
 
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>
@@ -1247,6 +1277,24 @@ cars &gt;&gt; mutate(cyl2 = </em>.cyl * 2, cyl4 = _.cyl2 * 2) &gt;&gt; head(2)
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
+
+<span class="sd">    &gt;&gt;&gt; from siuba import _, transmute, mutate, head</span>
+<span class="sd">    &gt;&gt;&gt; from siuba.data import cars</span>
+
+<span class="sd">    Notice that transmute results in a table with only the new column:</span>
+
+<span class="sd">    &gt;&gt;&gt; cars &gt;&gt; transmute(cyl2 = _.cyl + 1) &gt;&gt; head(2)</span>
+<span class="sd">       cyl2</span>
+<span class="sd">    0     7</span>
+<span class="sd">    1     7</span>
+
+<span class="sd">    By contrast, mutate adds the new column to the end of the table:</span>
+
+<span class="sd">    &gt;&gt;&gt; cars &gt;&gt;  mutate(cyl2 = _.cyl + 1) &gt;&gt; head(2)</span>
+<span class="sd">       cyl   mpg   hp  cyl2</span>
+<span class="sd">    0    6  21.0  110     7</span>
+<span class="sd">    1    6  21.0  110     7</span>
+
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">arg_vars</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">simple_varname</span><span class="p">,</span> <span class="n">args</span><span class="p">))</span>

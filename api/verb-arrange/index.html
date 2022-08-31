@@ -411,6 +411,26 @@
     arrange()
   </a>
   
+    <nav class="md-nav" aria-label="arrange()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.arrange--parameters" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.arrange--examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -990,6 +1010,26 @@
     arrange()
   </a>
   
+    <nav class="md-nav" aria-label="arrange()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.arrange--parameters" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.arrange--examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1020,11 +1060,135 @@
 
     <div class="doc doc-contents first">
 
+      <p>Re-order the rows of a DataFrame using the values of specified columns.</p>
+<h4 id="siuba.dply.verbs.arrange--parameters">Parameters</h4>
+<p>!!! __data
+    The input table.
+*args:
+    Columns or expressions used to sort the rows.</p>
+<h4 id="siuba.dply.verbs.arrange--examples">Examples</h4>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>import pandas as pd
+from siuba import _, arrange, mutate</p>
+<p>df = pd.DataFrame({"x": [2, 1, 1], "y": ["aa", "b", "aa"]})
+df
+   x   y
+0  2  aa
+1  1   b
+2  1  aa</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>Arrange sorts on the first argument, then the second, etc..</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>df &gt;&gt; arrange(<em>.x, </em>.y)
+   x   y
+2  1  aa
+1  1   b
+0  2  aa</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>Use a minus sign (<code>-</code>) to sort is descending order.</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>df &gt;&gt; arrange(-_.x)
+   x   y
+0  2  aa
+1  1   b
+2  1  aa</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>Note that arrange can sort on complex expressions:</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>df &gt;&gt; arrange(-_.y.str.len())
+   x   y
+0  2  aa
+2  1  aa
+1  1   b</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>The case above is equivalent to running a mutate before arrange:</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>df &gt;&gt; mutate(res = -<em>.y.str.len()) &gt;&gt; arrange(</em>.res)
+   x   y  res
+0  2  aa   -2
+2  1  aa   -2
+1  1   b   -1</p>
+</blockquote>
+</blockquote>
+</blockquote>
 
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="nd">@singledispatch2</span><span class="p">(</span><span class="n">DataFrame</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">arrange</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Re-order the rows of a DataFrame using the values of specified columns.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    __data:</span>
+<span class="sd">        The input table.</span>
+<span class="sd">    *args:</span>
+<span class="sd">        Columns or expressions used to sort the rows.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">    &gt;&gt;&gt; from siuba import _, arrange, mutate</span>
+
+<span class="sd">    &gt;&gt;&gt; df = pd.DataFrame({&quot;x&quot;: [2, 1, 1], &quot;y&quot;: [&quot;aa&quot;, &quot;b&quot;, &quot;aa&quot;]})</span>
+<span class="sd">    &gt;&gt;&gt; df</span>
+<span class="sd">       x   y</span>
+<span class="sd">    0  2  aa</span>
+<span class="sd">    1  1   b</span>
+<span class="sd">    2  1  aa</span>
+
+<span class="sd">    Arrange sorts on the first argument, then the second, etc..</span>
+
+<span class="sd">    &gt;&gt;&gt; df &gt;&gt; arrange(_.x, _.y)</span>
+<span class="sd">       x   y</span>
+<span class="sd">    2  1  aa</span>
+<span class="sd">    1  1   b</span>
+<span class="sd">    0  2  aa</span>
+
+<span class="sd">    Use a minus sign (`-`) to sort is descending order.</span>
+
+<span class="sd">    &gt;&gt;&gt; df &gt;&gt; arrange(-_.x)</span>
+<span class="sd">       x   y</span>
+<span class="sd">    0  2  aa</span>
+<span class="sd">    1  1   b</span>
+<span class="sd">    2  1  aa</span>
+
+<span class="sd">    Note that arrange can sort on complex expressions:</span>
+
+<span class="sd">    &gt;&gt;&gt; df &gt;&gt; arrange(-_.y.str.len())</span>
+<span class="sd">       x   y</span>
+<span class="sd">    0  2  aa</span>
+<span class="sd">    2  1  aa</span>
+<span class="sd">    1  1   b</span>
+
+<span class="sd">    The case above is equivalent to running a mutate before arrange:</span>
+
+<span class="sd">    &gt;&gt;&gt; df &gt;&gt; mutate(res = -_.y.str.len()) &gt;&gt; arrange(_.res)</span>
+<span class="sd">       x   y  res</span>
+<span class="sd">    0  2  aa   -2</span>
+<span class="sd">    2  1  aa   -2</span>
+<span class="sd">    1  1   b   -1</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># TODO:</span>
     <span class="c1">#   - add arguments to pass to sort_values (e.g. ascending, kind)</span>
     <span class="c1"># </span>

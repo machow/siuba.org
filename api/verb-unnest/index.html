@@ -951,6 +951,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.unnest--parameters" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#siuba.dply.verbs.unnest--examples" class="md-nav__link">
     Examples
   </a>
@@ -991,36 +998,25 @@
     <div class="doc doc-contents first">
 
       <p>Unnest a column holding nested data (e.g. Series of lists or DataFrames).</p>
-
-<p><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
-      <tr>
-        <td><code>___data</code></td>
-        <td></td>
-        <td><p>a DataFrame</p></td>
-        <td><em>required</em></td>
-      </tr>
-      <tr>
-        <td><code>key</code></td>
-        <td></td>
-        <td><p>the name of the column to be unnested.</p></td>
-        <td><code>&#39;data&#39;</code></td>
-      </tr>
-  </tbody>
-</table>      <h4 id="siuba.dply.verbs.unnest--examples">Examples</h4>
-<p>::
-    import pandas as pd
-    df = pd.DataFrame({'id': [1,2], 'data': [['a', 'b'], ['c', 'd']]})
-    df &gt;&gt; unnest()</p>
+<h4 id="siuba.dply.verbs.unnest--parameters">Parameters</h4>
+<p>!!! ___data
+    A DataFrame.
+!!! key
+    The name of the column to be unnested.</p>
+<h4 id="siuba.dply.verbs.unnest--examples">Examples</h4>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>import pandas as pd
+df = pd.DataFrame({'id': [1,2], 'data': [['a', 'b'], ['c']]})
+df &gt;&gt; unnest()
+   id data
+0   1    a
+1   1    b
+2   2    c</p>
+</blockquote>
+</blockquote>
+</blockquote>
 
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>
@@ -1028,17 +1024,23 @@
 <span class="k">def</span> <span class="nf">unnest</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;data&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Unnest a column holding nested data (e.g. Series of lists or DataFrames).</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        ___data: a DataFrame</span>
-<span class="sd">        key: the name of the column to be unnested.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ___data:</span>
+<span class="sd">        A DataFrame.</span>
+<span class="sd">    key:</span>
+<span class="sd">        The name of the column to be unnested.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 
-<span class="sd">    ::</span>
-<span class="sd">        import pandas as pd</span>
-<span class="sd">        df = pd.DataFrame({&#39;id&#39;: [1,2], &#39;data&#39;: [[&#39;a&#39;, &#39;b&#39;], [&#39;c&#39;, &#39;d&#39;]]})</span>
-<span class="sd">        df &gt;&gt; unnest()</span>
+<span class="sd">    &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">    &gt;&gt;&gt; df = pd.DataFrame({&#39;id&#39;: [1,2], &#39;data&#39;: [[&#39;a&#39;, &#39;b&#39;], [&#39;c&#39;]]})</span>
+<span class="sd">    &gt;&gt;&gt; df &gt;&gt; unnest()</span>
+<span class="sd">       id data</span>
+<span class="sd">    0   1    a</span>
+<span class="sd">    1   1    b</span>
+<span class="sd">    2   2    c</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># TODO: currently only takes key, not expressions</span>

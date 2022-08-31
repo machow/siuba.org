@@ -947,6 +947,26 @@
     head()
   </a>
   
+    <nav class="md-nav" aria-label="head()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.head--parameters" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.head--examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -978,41 +998,48 @@
     <div class="doc doc-contents first">
 
       <p>Return the first n rows of the data.</p>
+<h4 id="siuba.dply.verbs.head--parameters">Parameters</h4>
+<p>!!! __data
+    a DataFrame.
+!!! n
+    The number of rows of data to keep.</p>
+<h4 id="siuba.dply.verbs.head--examples">Examples</h4>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>from siuba import head
+from siuba.data import cars</p>
+<p>cars &gt;&gt; head(2)
+   cyl   mpg   hp
+0    6  21.0  110
+1    6  21.0  110</p>
+</blockquote>
+</blockquote>
+</blockquote>
 
-<p><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
-      <tr>
-        <td><code>__data</code></td>
-        <td></td>
-        <td><p>a DataFrame.</p></td>
-        <td><em>required</em></td>
-      </tr>
-      <tr>
-        <td><code>n</code></td>
-        <td></td>
-        <td><p>the number of rows of data to keep.</p></td>
-        <td><code>5</code></td>
-      </tr>
-  </tbody>
-</table>
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="nd">@singledispatch2</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">head</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">5</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Return the first n rows of the data.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        __data: a DataFrame.</span>
-<span class="sd">        n: the number of rows of data to keep.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    __data:</span>
+<span class="sd">        a DataFrame.</span>
+<span class="sd">    n:</span>
+<span class="sd">        The number of rows of data to keep.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    &gt;&gt;&gt; from siuba import head</span>
+<span class="sd">    &gt;&gt;&gt; from siuba.data import cars</span>
+
+<span class="sd">    &gt;&gt;&gt; cars &gt;&gt; head(2)</span>
+<span class="sd">       cyl   mpg   hp</span>
+<span class="sd">    0    6  21.0  110</span>
+<span class="sd">    1    6  21.0  110</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">return</span> <span class="n">__data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>

@@ -1037,6 +1037,19 @@
     if_else()
   </a>
   
+    <nav class="md-nav" aria-label="if_else()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.if_else--examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -1358,6 +1371,19 @@
   <a href="#siuba.dply.verbs.if_else" class="md-nav__link">
     if_else()
   </a>
+  
+    <nav class="md-nav" aria-label="if_else()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.if_else--examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2847,60 +2873,63 @@ continue to work for backwards compatibility.</p>
 
     <div class="doc doc-contents first">
 
-
-<p><strong>Examples:</strong></p>
-    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">ser1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">if_else</span><span class="p">(</span><span class="n">ser1</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">ser1</span><span class="p">)</span>
-<span class="mi">0</span>    <span class="mf">1.0</span>
-<span class="mi">1</span>    <span class="mf">2.0</span>
-<span class="mi">2</span>    <span class="n">NaN</span>
-<span class="n">dtype</span><span class="p">:</span> <span class="n">float64</span>
-</code></pre></div>
-    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba</span> <span class="kn">import</span> <span class="n">_</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span> <span class="o">=</span> <span class="n">if_else</span><span class="p">(</span><span class="n">_</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="p">(</span><span class="n">ser1</span><span class="p">)</span>
-<span class="mi">0</span>    <span class="mi">1</span>
-<span class="mi">1</span>    <span class="mi">2</span>
-<span class="mi">2</span>    <span class="mi">2</span>
-<span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
-</code></pre></div>
-    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">ser2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;NA&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">])</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">if_else</span><span class="p">(</span><span class="n">ser2</span> <span class="o">==</span> <span class="s1">&#39;NA&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">ser2</span><span class="p">)</span>
-<span class="mi">0</span>    <span class="n">NaN</span>
-<span class="mi">1</span>      <span class="n">a</span>
-<span class="mi">2</span>      <span class="n">b</span>
-<span class="n">dtype</span><span class="p">:</span> <span class="nb">object</span>
-</code></pre></div>
+      <h5 id="siuba.dply.verbs.if_else--examples">Examples</h5>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>ser1 = pd.Series([1,2,3])
+if_else(ser1 &gt; 2, np.nan, ser1)
+0    1.0
+1    2.0
+2    NaN
+dtype: float64</p>
+<p>from siuba import _
+f = if_else(<em> &lt; 2, </em>, 2)
+f(ser1)
+0    1
+1    2
+2    2
+dtype: int64</p>
+<p>import numpy as np
+ser2 = pd.Series(['NA', 'a', 'b'])
+if_else(ser2 == 'NA', np.nan, ser2)
+0    NaN
+1      a
+2      b
+dtype: object</p>
+</blockquote>
+</blockquote>
+</blockquote>
 
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="nd">@singledispatch</span>
 <span class="k">def</span> <span class="nf">if_else</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Example:</span>
-<span class="sd">        &gt;&gt;&gt; ser1 = pd.Series([1,2,3])</span>
-<span class="sd">        &gt;&gt;&gt; if_else(ser1 &gt; 2, np.nan, ser1)</span>
-<span class="sd">        0    1.0</span>
-<span class="sd">        1    2.0</span>
-<span class="sd">        2    NaN</span>
-<span class="sd">        dtype: float64</span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; ser1 = pd.Series([1,2,3])</span>
+<span class="sd">    &gt;&gt;&gt; if_else(ser1 &gt; 2, np.nan, ser1)</span>
+<span class="sd">    0    1.0</span>
+<span class="sd">    1    2.0</span>
+<span class="sd">    2    NaN</span>
+<span class="sd">    dtype: float64</span>
 
-<span class="sd">        &gt;&gt;&gt; from siuba import _</span>
-<span class="sd">        &gt;&gt;&gt; f = if_else(_ &lt; 2, _, 2)</span>
-<span class="sd">        &gt;&gt;&gt; f(ser1)</span>
-<span class="sd">        0    1</span>
-<span class="sd">        1    2</span>
-<span class="sd">        2    2</span>
-<span class="sd">        dtype: int64</span>
+<span class="sd">    &gt;&gt;&gt; from siuba import _</span>
+<span class="sd">    &gt;&gt;&gt; f = if_else(_ &lt; 2, _, 2)</span>
+<span class="sd">    &gt;&gt;&gt; f(ser1)</span>
+<span class="sd">    0    1</span>
+<span class="sd">    1    2</span>
+<span class="sd">    2    2</span>
+<span class="sd">    dtype: int64</span>
 
-<span class="sd">        &gt;&gt;&gt; import numpy as np</span>
-<span class="sd">        &gt;&gt;&gt; ser2 = pd.Series([&#39;NA&#39;, &#39;a&#39;, &#39;b&#39;])</span>
-<span class="sd">        &gt;&gt;&gt; if_else(ser2 == &#39;NA&#39;, np.nan, ser2)</span>
-<span class="sd">        0    NaN</span>
-<span class="sd">        1      a</span>
-<span class="sd">        2      b</span>
-<span class="sd">        dtype: object</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; ser2 = pd.Series([&#39;NA&#39;, &#39;a&#39;, &#39;b&#39;])</span>
+<span class="sd">    &gt;&gt;&gt; if_else(ser2 == &#39;NA&#39;, np.nan, ser2)</span>
+<span class="sd">    0    NaN</span>
+<span class="sd">    1      a</span>
+<span class="sd">    2      b</span>
+<span class="sd">    dtype: object</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">raise_type_error</span><span class="p">(</span><span class="n">__data</span><span class="p">)</span>
