@@ -89,7 +89,7 @@ QtPy==2.2.0
 scipy==1.9.1
 seaborn==0.11.2
 Send2Trash==1.8.0
--e git+https://github.com/machow/siuba.git@91d85d3d797bf6f13ab5bfc96a1219761e8e8c2b#egg=siuba
+-e git+https://github.com/machow/siuba.git@docs-docstrings#egg=siuba
 six==1.16.0
 soupsieve==2.3.2.post1
 SQLAlchemy==1.4.40
