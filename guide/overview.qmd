@@ -2,6 +2,7 @@
 title: Overview
 aliases:
   - ../index.html
+  - ./index.html
 jupyter:
   jupytext:
     formats: 'qmd:quarto'
