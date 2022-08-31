@@ -730,19 +730,6 @@
     extract()
   </a>
   
-    <nav class="md-nav" aria-label="extract()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.extract--parameters" class="md-nav__link">
-    Parameters
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -1003,19 +990,6 @@
     extract()
   </a>
   
-    <nav class="md-nav" aria-label="extract()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.extract--parameters" class="md-nav__link">
-    Parameters
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -1048,22 +1022,62 @@
 
       <p>Pull out len(into) fields from character strings. </p>
 <p>Returns a DataFrame with a column added for each piece.</p>
-<h4 id="siuba.dply.verbs.extract--parameters">Parameters</h4>
-<p>!!! __data
-    a DataFrame
-!!! col
-    name of column to split (either string, or siu expression).
-!!! into
-    names of resulting columns holding each entry in pulled out fields.
-!!! regex
-    regular expression used to extract field. Passed to col.str.extract method.
-!!! remove
-    whether to remove col from the returned DataFrame.
-!!! convert
-    whether to attempt to convert the split columns to numerics.
-!!! flags
-    flags from the re module, passed to col.str.extract.</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>__data</code></td>
+        <td></td>
+        <td><p>a DataFrame</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>col</code></td>
+        <td></td>
+        <td><p>name of column to split (either string, or siu expression).</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>into</code></td>
+        <td></td>
+        <td><p>names of resulting columns holding each entry in pulled out fields.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>regex</code></td>
+        <td></td>
+        <td><p>regular expression used to extract field. Passed to col.str.extract method.</p></td>
+        <td><code>&#39;(\\w+)&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>remove</code></td>
+        <td></td>
+        <td><p>whether to remove col from the returned DataFrame.</p></td>
+        <td><code>True</code></td>
+      </tr>
+      <tr>
+        <td><code>convert</code></td>
+        <td></td>
+        <td><p>whether to attempt to convert the split columns to numerics.</p></td>
+        <td><code>False</code></td>
+      </tr>
+      <tr>
+        <td><code>flags</code></td>
+        <td></td>
+        <td><p>flags from the re module, passed to col.str.extract.</p></td>
+        <td><code>0</code></td>
+      </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="nd">@singledispatch2</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>

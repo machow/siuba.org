@@ -772,26 +772,6 @@
     nest()
   </a>
   
-    <nav class="md-nav" aria-label="nest()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.nest--parameters" class="md-nav__link">
-    Parameters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.nest--examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -1010,26 +990,6 @@
     nest()
   </a>
   
-    <nav class="md-nav" aria-label="nest()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.nest--parameters" class="md-nav__link">
-    Parameters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.nest--examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -1061,37 +1021,53 @@
     <div class="doc doc-contents first">
 
       <p>Nest columns within a DataFrame.</p>
-<h4 id="siuba.dply.verbs.nest--parameters">Parameters</h4>
-<p>!!! __data
-    A DataFrame.
-*args:
-    The names of columns to be nested. May use any syntax used by the
-    <code>select</code> function.
-!!! key
-    The name of the column that will hold the nested columns.</p>
-<h4 id="siuba.dply.verbs.nest--examples">Examples</h4>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>from siuba import <em>, nest
-from siuba.data import cars
-nested_cars = cars &gt;&gt; nest(-</em>.cyl)</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>Note that pandas with nested DataFrames looks okay in juypter notebooks,
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>__data</code></td>
+        <td></td>
+        <td><p>A DataFrame.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>*args</code></td>
+        <td></td>
+        <td><p>The names of columns to be nested. May use any syntax used by the
+<code>select</code> function.</p></td>
+        <td><code>()</code></td>
+      </tr>
+      <tr>
+        <td><code>key</code></td>
+        <td></td>
+        <td><p>The name of the column that will hold the nested columns.</p></td>
+        <td><code>&#39;data&#39;</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba</span> <span class="kn">import</span> <span class="n">_</span><span class="p">,</span> <span class="n">nest</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba.data</span> <span class="kn">import</span> <span class="n">cars</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">nested_cars</span> <span class="o">=</span> <span class="n">cars</span> <span class="o">&gt;&gt;</span> <span class="n">nest</span><span class="p">(</span><span class="o">-</span><span class="n">_</span><span class="o">.</span><span class="n">cyl</span><span class="p">)</span>
+</code></pre></div>
+    <p>Note that pandas with nested DataFrames looks okay in juypter notebooks,
 but has a weird representation in the IPython console, so the example below
 shows that each entry in the data column is a DataFrame.</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>nested_cars.shape
-(3, 2)</p>
-<p>type(nested_cars.data[0])
-<class 'pandas.core.frame.DataFrame'></p>
-</blockquote>
-</blockquote>
-</blockquote>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">nested_cars</span><span class="o">.</span><span class="n">shape</span>
+<span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">nested_cars</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">pandas</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="s1">&#39;&gt;</span>
+</code></pre></div>
 
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>

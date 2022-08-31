@@ -411,26 +411,6 @@
     arrange()
   </a>
   
-    <nav class="md-nav" aria-label="arrange()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.arrange--parameters" class="md-nav__link">
-    Parameters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.arrange--examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -1010,26 +990,6 @@
     arrange()
   </a>
   
-    <nav class="md-nav" aria-label="arrange()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.arrange--parameters" class="md-nav__link">
-    Parameters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.arrange--examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -1061,74 +1021,71 @@
     <div class="doc doc-contents first">
 
       <p>Re-order the rows of a DataFrame using the values of specified columns.</p>
-<h4 id="siuba.dply.verbs.arrange--parameters">Parameters</h4>
-<p>!!! __data
-    The input table.
-*args:
-    Columns or expressions used to sort the rows.</p>
-<h4 id="siuba.dply.verbs.arrange--examples">Examples</h4>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>import pandas as pd
-from siuba import _, arrange, mutate</p>
-<p>df = pd.DataFrame({"x": [2, 1, 1], "y": ["aa", "b", "aa"]})
-df
-   x   y
-0  2  aa
-1  1   b
-2  1  aa</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>Arrange sorts on the first argument, then the second, etc..</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>df &gt;&gt; arrange(<em>.x, </em>.y)
-   x   y
-2  1  aa
-1  1   b
-0  2  aa</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>Use a minus sign (<code>-</code>) to sort is descending order.</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>df &gt;&gt; arrange(-_.x)
-   x   y
-0  2  aa
-1  1   b
-2  1  aa</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>Note that arrange can sort on complex expressions:</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>df &gt;&gt; arrange(-_.y.str.len())
-   x   y
-0  2  aa
-2  1  aa
-1  1   b</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>The case above is equivalent to running a mutate before arrange:</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>df &gt;&gt; mutate(res = -<em>.y.str.len()) &gt;&gt; arrange(</em>.res)
-   x   y  res
-0  2  aa   -2
-2  1  aa   -2
-1  1   b   -1</p>
-</blockquote>
-</blockquote>
-</blockquote>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>__data</code></td>
+        <td></td>
+        <td><p>The input table.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>*args</code></td>
+        <td></td>
+        <td><p>Columns or expressions used to sort the rows.</p></td>
+        <td><code>()</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba</span> <span class="kn">import</span> <span class="n">_</span><span class="p">,</span> <span class="n">arrange</span><span class="p">,</span> <span class="n">mutate</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;aa&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;aa&quot;</span><span class="p">]})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">df</span>
+   <span class="n">x</span>   <span class="n">y</span>
+<span class="mi">0</span>  <span class="mi">2</span>  <span class="n">aa</span>
+<span class="mi">1</span>  <span class="mi">1</span>   <span class="n">b</span>
+<span class="mi">2</span>  <span class="mi">1</span>  <span class="n">aa</span>
+</code></pre></div>
+    <p>Arrange sorts on the first argument, then the second, etc..</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">df</span> <span class="o">&gt;&gt;</span> <span class="n">arrange</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">_</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+   <span class="n">x</span>   <span class="n">y</span>
+<span class="mi">2</span>  <span class="mi">1</span>  <span class="n">aa</span>
+<span class="mi">1</span>  <span class="mi">1</span>   <span class="n">b</span>
+<span class="mi">0</span>  <span class="mi">2</span>  <span class="n">aa</span>
+</code></pre></div>
+    <p>Use a minus sign (<code>-</code>) to sort is descending order.</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">df</span> <span class="o">&gt;&gt;</span> <span class="n">arrange</span><span class="p">(</span><span class="o">-</span><span class="n">_</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+   <span class="n">x</span>   <span class="n">y</span>
+<span class="mi">0</span>  <span class="mi">2</span>  <span class="n">aa</span>
+<span class="mi">1</span>  <span class="mi">1</span>   <span class="n">b</span>
+<span class="mi">2</span>  <span class="mi">1</span>  <span class="n">aa</span>
+</code></pre></div>
+    <p>Note that arrange can sort on complex expressions:</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">df</span> <span class="o">&gt;&gt;</span> <span class="n">arrange</span><span class="p">(</span><span class="o">-</span><span class="n">_</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">())</span>
+   <span class="n">x</span>   <span class="n">y</span>
+<span class="mi">0</span>  <span class="mi">2</span>  <span class="n">aa</span>
+<span class="mi">2</span>  <span class="mi">1</span>  <span class="n">aa</span>
+<span class="mi">1</span>  <span class="mi">1</span>   <span class="n">b</span>
+</code></pre></div>
+    <p>The case above is equivalent to running a mutate before arrange:</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">df</span> <span class="o">&gt;&gt;</span> <span class="n">mutate</span><span class="p">(</span><span class="n">res</span> <span class="o">=</span> <span class="o">-</span><span class="n">_</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">())</span> <span class="o">&gt;&gt;</span> <span class="n">arrange</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">res</span><span class="p">)</span>
+   <span class="n">x</span>   <span class="n">y</span>  <span class="n">res</span>
+<span class="mi">0</span>  <span class="mi">2</span>  <span class="n">aa</span>   <span class="o">-</span><span class="mi">2</span>
+<span class="mi">2</span>  <span class="mi">1</span>  <span class="n">aa</span>   <span class="o">-</span><span class="mi">2</span>
+<span class="mi">1</span>  <span class="mi">1</span>   <span class="n">b</span>   <span class="o">-</span><span class="mi">1</span>
+</code></pre></div>
 
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>

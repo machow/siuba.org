@@ -481,26 +481,6 @@
     rename()
   </a>
   
-    <nav class="md-nav" aria-label="rename()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.rename--parameters" class="md-nav__link">
-    Parameters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.rename--examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -1010,26 +990,6 @@
     rename()
   </a>
   
-    <nav class="md-nav" aria-label="rename()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.rename--parameters" class="md-nav__link">
-    Parameters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.rename--examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -1061,34 +1021,46 @@
     <div class="doc doc-contents first">
 
       <p>Rename columns of a table.</p>
-<h4 id="siuba.dply.verbs.rename--parameters">Parameters</h4>
-<p>!!! __data
-    The input table.
-**kwargs:
-    Keyword arguments of the form new_name = _.old_name, or new_name = "old_name".</p>
-<h4 id="siuba.dply.verbs.rename--examples">Examples</h4>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>import pandas as pd
-from siuba import _, rename, select</p>
-<p>df = pd.DataFrame({"zzz": [1], "b": [2]})
-df &gt;&gt; rename(a = _.zzz)
-   a  b
-0  1  2</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>Note that this is equivalent to this select code:</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>df &gt;&gt; select(<em>.a == </em>.zzz, _.b)
-   a  b
-0  1  2</p>
-</blockquote>
-</blockquote>
-</blockquote>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>__data</code></td>
+        <td></td>
+        <td><p>The input table.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>**kwargs</code></td>
+        <td></td>
+        <td><p>Keyword arguments of the form new_name = _.old_name, or new_name = "old_name".</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba</span> <span class="kn">import</span> <span class="n">_</span><span class="p">,</span> <span class="n">rename</span><span class="p">,</span> <span class="n">select</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;zzz&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">]})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">df</span> <span class="o">&gt;&gt;</span> <span class="n">rename</span><span class="p">(</span><span class="n">a</span> <span class="o">=</span> <span class="n">_</span><span class="o">.</span><span class="n">zzz</span><span class="p">)</span>
+   <span class="n">a</span>  <span class="n">b</span>
+<span class="mi">0</span>  <span class="mi">1</span>  <span class="mi">2</span>
+</code></pre></div>
+    <p>Note that this is equivalent to this select code:</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">df</span> <span class="o">&gt;&gt;</span> <span class="n">select</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">a</span> <span class="o">==</span> <span class="n">_</span><span class="o">.</span><span class="n">zzz</span><span class="p">,</span> <span class="n">_</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
+   <span class="n">a</span>  <span class="n">b</span>
+<span class="mi">0</span>  <span class="mi">1</span>  <span class="mi">2</span>
+</code></pre></div>
 
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>

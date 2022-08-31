@@ -523,26 +523,6 @@
     group_by()
   </a>
   
-    <nav class="md-nav" aria-label="group_by()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.group_by--parameters" class="md-nav__link">
-    Parameters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.group_by--examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -1010,26 +990,6 @@
     group_by()
   </a>
   
-    <nav class="md-nav" aria-label="group_by()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.group_by--parameters" class="md-nav__link">
-    Parameters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.group_by--examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -1063,62 +1023,85 @@
       <p>Return a grouped DataFrame, using columns or expressions to define groups.</p>
 <p>Any operations (e.g. summarize, mutate, filter) performed on grouped data
 will be performed "by group". Use <code>ungroup()</code> to remove the groupings.</p>
-<h4 id="siuba.dply.verbs.group_by--parameters">Parameters</h4>
-<p>!!! __data
-    The data being grouped.
-<em>args:
-    Lazy expressions used to select the grouping columns. Currently, each
-    arg must refer to a single columns (e.g. <em>.cyl, </em>.mpg).
-!!! add "bool"
-    If the data is already grouped, whether to add these groupings on top of those.
-</em>*kwargs:
-    Keyword arguments define new columns used to group the data.</p>
-<h4 id="siuba.dply.verbs.group_by--examples">Examples</h4>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>from siuba import _, group_by, summarize, filter, mutate, head
-from siuba.data import cars</p>
-<p>by_cyl = cars &gt;&gt; group_by(_.cyl)</p>
-<p>by_cyl &gt;&gt; summarize(max_mpg = <em>.mpg.max(), max_hp = </em>.hp.max())
-   cyl  max_mpg  max_hp
-0    4     33.9     113
-1    6     21.4     175
-2    8     19.2     335</p>
-<p>by_cyl &gt;&gt; filter(<em>.mpg == </em>.mpg.max())
-(grouped data frame)
-    cyl   mpg   hp
-3     6  21.4  110
-19    4  33.9   65
-24    8  19.2  175</p>
-<p>cars &gt;&gt; group_by(cyl2 = _.cyl + 1) &gt;&gt; head(2)
-(grouped data frame)
-   cyl   mpg   hp  cyl2
-0    6  21.0  110     7
-1    6  21.0  110     7</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>Note that creating the new grouping column is always performed on ungrouped data.
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>__data</code></td>
+        <td></td>
+        <td><p>The data being grouped.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>*args</code></td>
+        <td></td>
+        <td><p>Lazy expressions used to select the grouping columns. Currently, each
+arg must refer to a single columns (e.g. <em>.cyl, </em>.mpg).</p></td>
+        <td><code>()</code></td>
+      </tr>
+      <tr>
+        <td><code>add</code></td>
+        <td><code>bool</code></td>
+        <td><p>If the data is already grouped, whether to add these groupings on top of those.</p></td>
+        <td><code>False</code></td>
+      </tr>
+      <tr>
+        <td><code>**kwargs</code></td>
+        <td></td>
+        <td><p>Keyword arguments define new columns used to group the data.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba</span> <span class="kn">import</span> <span class="n">_</span><span class="p">,</span> <span class="n">group_by</span><span class="p">,</span> <span class="n">summarize</span><span class="p">,</span> <span class="nb">filter</span><span class="p">,</span> <span class="n">mutate</span><span class="p">,</span> <span class="n">head</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba.data</span> <span class="kn">import</span> <span class="n">cars</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">by_cyl</span> <span class="o">=</span> <span class="n">cars</span> <span class="o">&gt;&gt;</span> <span class="n">group_by</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">cyl</span><span class="p">)</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">by_cyl</span> <span class="o">&gt;&gt;</span> <span class="n">summarize</span><span class="p">(</span><span class="n">max_mpg</span> <span class="o">=</span> <span class="n">_</span><span class="o">.</span><span class="n">mpg</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">max_hp</span> <span class="o">=</span> <span class="n">_</span><span class="o">.</span><span class="n">hp</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+   <span class="n">cyl</span>  <span class="n">max_mpg</span>  <span class="n">max_hp</span>
+<span class="mi">0</span>    <span class="mi">4</span>     <span class="mf">33.9</span>     <span class="mi">113</span>
+<span class="mi">1</span>    <span class="mi">6</span>     <span class="mf">21.4</span>     <span class="mi">175</span>
+<span class="mi">2</span>    <span class="mi">8</span>     <span class="mf">19.2</span>     <span class="mi">335</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">by_cyl</span> <span class="o">&gt;&gt;</span> <span class="nb">filter</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">mpg</span> <span class="o">==</span> <span class="n">_</span><span class="o">.</span><span class="n">mpg</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+<span class="p">(</span><span class="n">grouped</span> <span class="n">data</span> <span class="n">frame</span><span class="p">)</span>
+    <span class="n">cyl</span>   <span class="n">mpg</span>   <span class="n">hp</span>
+<span class="mi">3</span>     <span class="mi">6</span>  <span class="mf">21.4</span>  <span class="mi">110</span>
+<span class="mi">19</span>    <span class="mi">4</span>  <span class="mf">33.9</span>   <span class="mi">65</span>
+<span class="mi">24</span>    <span class="mi">8</span>  <span class="mf">19.2</span>  <span class="mi">175</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">cars</span> <span class="o">&gt;&gt;</span> <span class="n">group_by</span><span class="p">(</span><span class="n">cyl2</span> <span class="o">=</span> <span class="n">_</span><span class="o">.</span><span class="n">cyl</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="p">(</span><span class="n">grouped</span> <span class="n">data</span> <span class="n">frame</span><span class="p">)</span>
+   <span class="n">cyl</span>   <span class="n">mpg</span>   <span class="n">hp</span>  <span class="n">cyl2</span>
+<span class="mi">0</span>    <span class="mi">6</span>  <span class="mf">21.0</span>  <span class="mi">110</span>     <span class="mi">7</span>
+<span class="mi">1</span>    <span class="mi">6</span>  <span class="mf">21.0</span>  <span class="mi">110</span>     <span class="mi">7</span>
+</code></pre></div>
+    <p>Note that creating the new grouping column is always performed on ungrouped data.
 Use an explicit mutate on the grouped data perform the operation within groups.</p>
 <p>For example, the code below calls pd.cut on the mpg column, within each cyl group.</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>from siuba.siu import call
-(cars
-...     &gt;&gt; group_by(<em>.cyl)
-...     &gt;&gt; mutate(mpg_bin = call(pd.cut, </em>.mpg, 3))
-...     &gt;&gt; group_by(_.mpg_bin, add=True)
-...     &gt;&gt; head(2)
-... )
-(grouped data frame)
-   cyl   mpg   hp       mpg_bin
-0    6  21.0  110  (20.2, 21.4]
-1    6  21.0  110  (20.2, 21.4]</p>
-</blockquote>
-</blockquote>
-</blockquote>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba.siu</span> <span class="kn">import</span> <span class="n">call</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">(</span><span class="n">cars</span>
+<span class="o">...</span>     <span class="o">&gt;&gt;</span> <span class="n">group_by</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">cyl</span><span class="p">)</span>
+<span class="o">...</span>     <span class="o">&gt;&gt;</span> <span class="n">mutate</span><span class="p">(</span><span class="n">mpg_bin</span> <span class="o">=</span> <span class="n">call</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">,</span> <span class="n">_</span><span class="o">.</span><span class="n">mpg</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="o">...</span>     <span class="o">&gt;&gt;</span> <span class="n">group_by</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">mpg_bin</span><span class="p">,</span> <span class="n">add</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="o">...</span>     <span class="o">&gt;&gt;</span> <span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">...</span> <span class="p">)</span>
+<span class="p">(</span><span class="n">grouped</span> <span class="n">data</span> <span class="n">frame</span><span class="p">)</span>
+   <span class="n">cyl</span>   <span class="n">mpg</span>   <span class="n">hp</span>       <span class="n">mpg_bin</span>
+<span class="mi">0</span>    <span class="mi">6</span>  <span class="mf">21.0</span>  <span class="mi">110</span>  <span class="p">(</span><span class="mf">20.2</span><span class="p">,</span> <span class="mf">21.4</span><span class="p">]</span>
+<span class="mi">1</span>    <span class="mi">6</span>  <span class="mf">21.0</span>  <span class="mi">110</span>  <span class="p">(</span><span class="mf">20.2</span><span class="p">,</span> <span class="mf">21.4</span><span class="p">]</span>
+</code></pre></div>
 
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>

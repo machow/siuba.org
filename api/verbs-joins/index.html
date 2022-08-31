@@ -580,27 +580,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.join--parameters" class="md-nav__link">
-    Parameters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.join--returns" class="md-nav__link">
-    Returns
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.join--examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#siuba.dply.verbs.join--left_joindf3-df4-na_matches-never" class="md-nav__link">
     &gt;&gt;&gt; left_join(df3, df4, na_matches = "never")
   </a>
@@ -1049,27 +1028,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.join--parameters" class="md-nav__link">
-    Parameters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.join--returns" class="md-nav__link">
-    Returns
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.join--examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#siuba.dply.verbs.join--left_joindf3-df4-na_matches-never" class="md-nav__link">
     &gt;&gt;&gt; left_join(df3, df4, na_matches = "never")
   </a>
@@ -1131,132 +1089,143 @@
     <div class="doc doc-contents first">
 
       <p>Join two tables together, by matching on specified columns.</p>
-<h4 id="siuba.dply.verbs.join--parameters">Parameters</h4>
-<p>left :
-    The left-hand table.
-right :
-    The right-hand table.
-on :
-    How to match them. Note that the keyword "by" can also be used for this
-    parameter, in order to support compatibility with dplyr.
-how :
-    The type of join to perform (inner, full, left, right).
-<em>args:
-    Additional postition arguments. Currently not supported.
-</em>*kwargs:
-    Additional keyword arguments. Currently not supported.</p>
-<h4 id="siuba.dply.verbs.join--returns">Returns</h4>
-<p>pd.DataFrame</p>
-<h4 id="siuba.dply.verbs.join--examples">Examples</h4>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>from siuba import _, inner_join, left_join, full_join, right_join
-from siuba.data import band_members, band_instruments, band_instruments2
-band_members
-   name     band
-0  Mick   Stones
-1  John  Beatles
-2  Paul  Beatles</p>
-<p>band_instruments
-    name   plays
-0   John  guitar
-1   Paul    bass
-2  Keith  guitar</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>Notice that above, only John and Paul have entries for band instruments.
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>left</code></td>
+        <td></td>
+        <td><p>The left-hand table.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>right</code></td>
+        <td></td>
+        <td><p>The right-hand table.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>on</code></td>
+        <td></td>
+        <td><p>How to match them. Note that the keyword "by" can also be used for this
+parameter, in order to support compatibility with dplyr.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>how</code></td>
+        <td></td>
+        <td><p>The type of join to perform (inner, full, left, right).</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>*args</code></td>
+        <td></td>
+        <td><p>Additional postition arguments. Currently not supported.</p></td>
+        <td><code>()</code></td>
+      </tr>
+      <tr>
+        <td><code>**kwargs</code></td>
+        <td></td>
+        <td><p>Additional keyword arguments. Currently not supported.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba</span> <span class="kn">import</span> <span class="n">_</span><span class="p">,</span> <span class="n">inner_join</span><span class="p">,</span> <span class="n">left_join</span><span class="p">,</span> <span class="n">full_join</span><span class="p">,</span> <span class="n">right_join</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba.data</span> <span class="kn">import</span> <span class="n">band_members</span><span class="p">,</span> <span class="n">band_instruments</span><span class="p">,</span> <span class="n">band_instruments2</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">band_members</span>
+   <span class="n">name</span>     <span class="n">band</span>
+<span class="mi">0</span>  <span class="n">Mick</span>   <span class="n">Stones</span>
+<span class="mi">1</span>  <span class="n">John</span>  <span class="n">Beatles</span>
+<span class="mi">2</span>  <span class="n">Paul</span>  <span class="n">Beatles</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">band_instruments</span>
+    <span class="n">name</span>   <span class="n">plays</span>
+<span class="mi">0</span>   <span class="n">John</span>  <span class="n">guitar</span>
+<span class="mi">1</span>   <span class="n">Paul</span>    <span class="n">bass</span>
+<span class="mi">2</span>  <span class="n">Keith</span>  <span class="n">guitar</span>
+</code></pre></div>
+    <p>Notice that above, only John and Paul have entries for band instruments.
 This means that they will be the only two rows in the inner_join result:</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>band_members &gt;&gt; inner_join(_, band_instruments)
-   name     band   plays
-0  John  Beatles  guitar
-1  Paul  Beatles    bass</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>A left join ensures all original rows of the left hand data are included.</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>band_members &gt;&gt; left_join(_, band_instruments)
-   name     band   plays
-0  Mick   Stones     NaN
-1  John  Beatles  guitar
-2  Paul  Beatles    bass</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>A full join is similar, but ensures all rows of both data are included.</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>band_members &gt;&gt; full_join(_, band_instruments)
-    name     band   plays
-0   Mick   Stones     NaN
-1   John  Beatles  guitar
-2   Paul  Beatles    bass
-3  Keith      NaN  guitar</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>You can explicilty specify columns to join on using the "by" argument:</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>band_members &gt;&gt; inner_join(_, band_instruments, by = "name")
-   n...</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>Use a dictionary for the by argument, to match up columns with different names:</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>band_members &gt;&gt; full_join(_, band_instruments2, {"name": "artist"})
-   n...</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>Joins create a new row for each pair of matches. For example, the value 1
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">band_members</span> <span class="o">&gt;&gt;</span> <span class="n">inner_join</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">band_instruments</span><span class="p">)</span>
+   <span class="n">name</span>     <span class="n">band</span>   <span class="n">plays</span>
+<span class="mi">0</span>  <span class="n">John</span>  <span class="n">Beatles</span>  <span class="n">guitar</span>
+<span class="mi">1</span>  <span class="n">Paul</span>  <span class="n">Beatles</span>    <span class="n">bass</span>
+</code></pre></div>
+    <p>A left join ensures all original rows of the left hand data are included.</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">band_members</span> <span class="o">&gt;&gt;</span> <span class="n">left_join</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">band_instruments</span><span class="p">)</span>
+   <span class="n">name</span>     <span class="n">band</span>   <span class="n">plays</span>
+<span class="mi">0</span>  <span class="n">Mick</span>   <span class="n">Stones</span>     <span class="n">NaN</span>
+<span class="mi">1</span>  <span class="n">John</span>  <span class="n">Beatles</span>  <span class="n">guitar</span>
+<span class="mi">2</span>  <span class="n">Paul</span>  <span class="n">Beatles</span>    <span class="n">bass</span>
+</code></pre></div>
+    <p>A full join is similar, but ensures all rows of both data are included.</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">band_members</span> <span class="o">&gt;&gt;</span> <span class="n">full_join</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">band_instruments</span><span class="p">)</span>
+    <span class="n">name</span>     <span class="n">band</span>   <span class="n">plays</span>
+<span class="mi">0</span>   <span class="n">Mick</span>   <span class="n">Stones</span>     <span class="n">NaN</span>
+<span class="mi">1</span>   <span class="n">John</span>  <span class="n">Beatles</span>  <span class="n">guitar</span>
+<span class="mi">2</span>   <span class="n">Paul</span>  <span class="n">Beatles</span>    <span class="n">bass</span>
+<span class="mi">3</span>  <span class="n">Keith</span>      <span class="n">NaN</span>  <span class="n">guitar</span>
+</code></pre></div>
+    <p>You can explicilty specify columns to join on using the "by" argument:</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">band_members</span> <span class="o">&gt;&gt;</span> <span class="n">inner_join</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">band_instruments</span><span class="p">,</span> <span class="n">by</span> <span class="o">=</span> <span class="s2">&quot;name&quot;</span><span class="p">)</span>
+   <span class="n">n</span><span class="o">...</span>
+</code></pre></div>
+    <p>Use a dictionary for the by argument, to match up columns with different names:</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">band_members</span> <span class="o">&gt;&gt;</span> <span class="n">full_join</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">band_instruments2</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;artist&quot;</span><span class="p">})</span>
+   <span class="n">n</span><span class="o">...</span>
+</code></pre></div>
+    <p>Joins create a new row for each pair of matches. For example, the value 1
 is in two rows on the left, and 2 rows on the right so 4 rows will be created.</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>df1 = pd.DataFrame({"x": [1, 1, 3]})
-df2 = pd.DataFrame({"x": [1, 1, 2], "y": ["first", "second", "third"]})
-df1 &gt;&gt; left_join(_, df2)
-   x       y
-0  1   first
-1  1  second
-2  1   first
-3  1  second
-4  3     NaN</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>Missing values count as matches to eachother by default:</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>df3 = pd.DataFrame({"x": [1, None], "y": 2})
-df4 = pd.DataFrame({"x": [1, None], "z": 3})
-left_join(df3, df4)
-     x  y  z
-0  1.0  2  3
-1  NaN  2  3</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>TODO: add na_matches argument</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;first&quot;</span><span class="p">,</span> <span class="s2">&quot;second&quot;</span><span class="p">,</span> <span class="s2">&quot;third&quot;</span><span class="p">]})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">df1</span> <span class="o">&gt;&gt;</span> <span class="n">left_join</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">df2</span><span class="p">)</span>
+   <span class="n">x</span>       <span class="n">y</span>
+<span class="mi">0</span>  <span class="mi">1</span>   <span class="n">first</span>
+<span class="mi">1</span>  <span class="mi">1</span>  <span class="n">second</span>
+<span class="mi">2</span>  <span class="mi">1</span>   <span class="n">first</span>
+<span class="mi">3</span>  <span class="mi">1</span>  <span class="n">second</span>
+<span class="mi">4</span>  <span class="mi">3</span>     <span class="n">NaN</span>
+</code></pre></div>
+    <p>Missing values count as matches to eachother by default:</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">df3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">df4</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">left_join</span><span class="p">(</span><span class="n">df3</span><span class="p">,</span> <span class="n">df4</span><span class="p">)</span>
+     <span class="n">x</span>  <span class="n">y</span>  <span class="n">z</span>
+<span class="mi">0</span>  <span class="mf">1.0</span>  <span class="mi">2</span>  <span class="mi">3</span>
+<span class="mi">1</span>  <span class="n">NaN</span>  <span class="mi">2</span>  <span class="mi">3</span>
+</code></pre></div>
+    <p>TODO: add na_matches argument</p>
 <h3 id="siuba.dply.verbs.join--left_joindf3-df4-na_matches-never">&gt;&gt;&gt; left_join(df3, df4, na_matches = "never")</h3>
 <h3 id="siuba.dply.verbs.join--x-y-z">x  y  z</h3>
 <h3 id="siuba.dply.verbs.join--0-10-2-3">0  1.0  2  3</h3>
 <h3 id="siuba.dply.verbs.join--1-nan-2-3">1  nan  2  3</h3>
 
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>pd.DataFrame</code></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="nd">@singledispatch2</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>

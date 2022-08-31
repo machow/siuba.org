@@ -657,19 +657,6 @@
     show_query()
   </a>
   
-    <nav class="md-nav" aria-label="show_query()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.show_query--parameters" class="md-nav__link">
-    Parameters
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -1003,19 +990,6 @@
     show_query()
   </a>
   
-    <nav class="md-nav" aria-label="show_query()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.show_query--parameters" class="md-nav__link">
-    Parameters
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -1047,14 +1021,38 @@
     <div class="doc doc-contents first">
 
       <p>Print the details of a query.</p>
-<h4 id="siuba.dply.verbs.show_query--parameters">Parameters</h4>
-<p>!!! __data
-    A DataFrame of siuba.sql.LazyTbl.
-!!! simplify
-    Whether to attempt to simplify the query.
-**kwargs:
-    Additional arguments passed to specific implementations.</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>__data</code></td>
+        <td></td>
+        <td><p>A DataFrame of siuba.sql.LazyTbl.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>simplify</code></td>
+        <td></td>
+        <td><p>Whether to attempt to simplify the query.</p></td>
+        <td><code>False</code></td>
+      </tr>
+      <tr>
+        <td><code>**kwargs</code></td>
+        <td></td>
+        <td><p>Additional arguments passed to specific implementations.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="nd">@pipe_no_args</span>

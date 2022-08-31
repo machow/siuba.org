@@ -495,26 +495,6 @@
     select()
   </a>
   
-    <nav class="md-nav" aria-label="select()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.select--parameters" class="md-nav__link">
-    Parameters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.select--examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -1010,26 +990,6 @@
     select()
   </a>
   
-    <nav class="md-nav" aria-label="select()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.select--parameters" class="md-nav__link">
-    Parameters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.select--examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -1061,79 +1021,76 @@
     <div class="doc doc-contents first">
 
       <p>Select columns of a table to keep or drop (and optionally rename).</p>
-<h4 id="siuba.dply.verbs.select--parameters">Parameters</h4>
-<p>!!! __data
-    The input table.
-<em>args: 
-    An expression specifying columns to keep or drop. 
-</em>*kwargs:
-    Not implemented.</p>
-<h4 id="siuba.dply.verbs.select--examples">Examples</h4>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>from siuba import _, select
-from siuba.data import cars</p>
-<p>small_cars = cars.head(1)
-small_cars
-   cyl   mpg   hp
-0    6  21.0  110</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>You can refer to columns by name or position.</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>small_cars &gt;&gt; select(<em>.cyl, </em>[2])
-   cyl   hp
-0    6  110</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>Use a <code>~</code> sign to exclude a column.</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>small_cars &gt;&gt; select(~_.cyl)
-    mpg   hp
-0  21.0  110</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>You can use any methods you'd find on the .columns.str accessor:</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>small_cars.columns.str.contains("p")
-array([False,  True,  True])</p>
-<p>small_cars &gt;&gt; select(_.contains("p"))
-    mpg   hp
-0  21.0  110</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>Use a slice to select a range of columns:</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>small_cars &gt;&gt; select(_[0:2])
-   cyl   mpg
-0    6  21.0</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>Multiple expressions can be combined using _[a, b, c] syntax. This is useful
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>__data</code></td>
+        <td></td>
+        <td><p>The input table.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>*args</code></td>
+        <td></td>
+        <td><p>An expression specifying columns to keep or drop.</p></td>
+        <td><code>()</code></td>
+      </tr>
+      <tr>
+        <td><code>**kwargs</code></td>
+        <td></td>
+        <td><p>Not implemented.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba</span> <span class="kn">import</span> <span class="n">_</span><span class="p">,</span> <span class="n">select</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba.data</span> <span class="kn">import</span> <span class="n">cars</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">small_cars</span> <span class="o">=</span> <span class="n">cars</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">small_cars</span>
+   <span class="n">cyl</span>   <span class="n">mpg</span>   <span class="n">hp</span>
+<span class="mi">0</span>    <span class="mi">6</span>  <span class="mf">21.0</span>  <span class="mi">110</span>
+</code></pre></div>
+    <p>You can refer to columns by name or position.</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">small_cars</span> <span class="o">&gt;&gt;</span> <span class="n">select</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">cyl</span><span class="p">,</span> <span class="n">_</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+   <span class="n">cyl</span>   <span class="n">hp</span>
+<span class="mi">0</span>    <span class="mi">6</span>  <span class="mi">110</span>
+</code></pre></div>
+    <p>Use a <code>~</code> sign to exclude a column.</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">small_cars</span> <span class="o">&gt;&gt;</span> <span class="n">select</span><span class="p">(</span><span class="o">~</span><span class="n">_</span><span class="o">.</span><span class="n">cyl</span><span class="p">)</span>
+    <span class="n">mpg</span>   <span class="n">hp</span>
+<span class="mi">0</span>  <span class="mf">21.0</span>  <span class="mi">110</span>
+</code></pre></div>
+    <p>You can use any methods you'd find on the .columns.str accessor:</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">small_cars</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">)</span>
+<span class="n">array</span><span class="p">([</span><span class="kc">False</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">])</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">small_cars</span> <span class="o">&gt;&gt;</span> <span class="n">select</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">))</span>
+    <span class="n">mpg</span>   <span class="n">hp</span>
+<span class="mi">0</span>  <span class="mf">21.0</span>  <span class="mi">110</span>
+</code></pre></div>
+    <p>Use a slice to select a range of columns:</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">small_cars</span> <span class="o">&gt;&gt;</span> <span class="n">select</span><span class="p">(</span><span class="n">_</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+   <span class="n">cyl</span>   <span class="n">mpg</span>
+<span class="mi">0</span>    <span class="mi">6</span>  <span class="mf">21.0</span>
+</code></pre></div>
+    <p>Multiple expressions can be combined using _[a, b, c] syntax. This is useful
 for dropping a complex set of matches.</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>small_cars &gt;&gt; select(~<em>[</em>.startswith("c"), -1])
-    mpg
-0  21.0</p>
-</blockquote>
-</blockquote>
-</blockquote>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">small_cars</span> <span class="o">&gt;&gt;</span> <span class="n">select</span><span class="p">(</span><span class="o">~</span><span class="n">_</span><span class="p">[</span><span class="n">_</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;c&quot;</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">mpg</span>
+<span class="mi">0</span>  <span class="mf">21.0</span>
+</code></pre></div>
 
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>

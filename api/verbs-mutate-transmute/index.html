@@ -467,66 +467,12 @@
     mutate()
   </a>
   
-    <nav class="md-nav" aria-label="mutate()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.mutate--parameters" class="md-nav__link">
-    Parameters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.mutate--see-also" class="md-nav__link">
-    See Also
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.mutate--examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
   <a href="#siuba.dply.verbs.transmute" class="md-nav__link">
     transmute()
   </a>
-  
-    <nav class="md-nav" aria-label="transmute()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.transmute--parameters" class="md-nav__link">
-    Parameters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.transmute--see-also" class="md-nav__link">
-    See Also
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.transmute--examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1051,66 +997,12 @@
     mutate()
   </a>
   
-    <nav class="md-nav" aria-label="mutate()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.mutate--parameters" class="md-nav__link">
-    Parameters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.mutate--see-also" class="md-nav__link">
-    See Also
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.mutate--examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
   <a href="#siuba.dply.verbs.transmute" class="md-nav__link">
     transmute()
   </a>
-  
-    <nav class="md-nav" aria-label="transmute()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.transmute--parameters" class="md-nav__link">
-    Parameters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.transmute--see-also" class="md-nav__link">
-    See Also
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.transmute--examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1143,26 +1035,41 @@
     <div class="doc doc-contents first">
 
       <p>Assign new variables to a DataFrame, while keeping existing ones.</p>
-<h4 id="siuba.dply.verbs.mutate--parameters">Parameters</h4>
-<p>__data: pd.DataFrame
-**kwargs:
-    new_col_name=value pairs, where value can be a function taking a singledispatch2
-    argument for the data being operated on.</p>
-<h4 id="siuba.dply.verbs.mutate--see-also">See Also</h4>
-<p>transmute : Returns a DataFrame with only the newly created columns.</p>
-<h4 id="siuba.dply.verbs.mutate--examples">Examples</h4>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>from siuba import <em>, mutate, head
-from siuba.data import cars
-cars &gt;&gt; mutate(cyl2 = </em>.cyl * 2, cyl4 = _.cyl2 * 2) &gt;&gt; head(2)
-   cyl   mpg   hp  cyl2  cyl4
-0    6  21.0  110    12    24
-1    6  21.0  110    12    24</p>
-</blockquote>
-</blockquote>
-</blockquote>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>__data</code></td>
+        <td><code>pd.DataFrame</code></td>
+        <td></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>**kwargs</code></td>
+        <td></td>
+        <td><p>new_col_name=value pairs, where value can be a function taking a singledispatch2
+argument for the data being operated on.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba</span> <span class="kn">import</span> <span class="n">_</span><span class="p">,</span> <span class="n">mutate</span><span class="p">,</span> <span class="n">head</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba.data</span> <span class="kn">import</span> <span class="n">cars</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">cars</span> <span class="o">&gt;&gt;</span> <span class="n">mutate</span><span class="p">(</span><span class="n">cyl2</span> <span class="o">=</span> <span class="n">_</span><span class="o">.</span><span class="n">cyl</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">cyl4</span> <span class="o">=</span> <span class="n">_</span><span class="o">.</span><span class="n">cyl2</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+   <span class="n">cyl</span>   <span class="n">mpg</span>   <span class="n">hp</span>  <span class="n">cyl2</span>  <span class="n">cyl4</span>
+<span class="mi">0</span>    <span class="mi">6</span>  <span class="mf">21.0</span>  <span class="mi">110</span>    <span class="mi">12</span>    <span class="mi">24</span>
+<span class="mi">1</span>    <span class="mi">6</span>  <span class="mf">21.0</span>  <span class="mi">110</span>    <span class="mi">12</span>    <span class="mi">24</span>
+</code></pre></div>
 
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>
@@ -1219,44 +1126,48 @@ cars &gt;&gt; mutate(cyl2 = </em>.cyl * 2, cyl4 = _.cyl2 * 2) &gt;&gt; head(2)
     <div class="doc doc-contents first">
 
       <p>Assign new columns to a DataFrame, while dropping previous columns.</p>
-<h4 id="siuba.dply.verbs.transmute--parameters">Parameters</h4>
-<p>!!! __data
-    The input data.
-**kwargs:
-    Each keyword argument is the name of a new column, and an expression.</p>
-<h4 id="siuba.dply.verbs.transmute--see-also">See Also</h4>
-<p>mutate : Assign new columns, or modify existing ones.</p>
-<h4 id="siuba.dply.verbs.transmute--examples">Examples</h4>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>from siuba import _, transmute, mutate, head
-from siuba.data import cars</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>Notice that transmute results in a table with only the new column:</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>cars &gt;&gt; transmute(cyl2 = _.cyl + 1) &gt;&gt; head(2)
-   cyl2
-0     7
-1     7</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>By contrast, mutate adds the new column to the end of the table:</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>cars &gt;&gt;  mutate(cyl2 = _.cyl + 1) &gt;&gt; head(2)
-   cyl   mpg   hp  cyl2
-0    6  21.0  110     7
-1    6  21.0  110     7</p>
-</blockquote>
-</blockquote>
-</blockquote>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>__data</code></td>
+        <td></td>
+        <td><p>The input data.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>**kwargs</code></td>
+        <td></td>
+        <td><p>Each keyword argument is the name of a new column, and an expression.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba</span> <span class="kn">import</span> <span class="n">_</span><span class="p">,</span> <span class="n">transmute</span><span class="p">,</span> <span class="n">mutate</span><span class="p">,</span> <span class="n">head</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba.data</span> <span class="kn">import</span> <span class="n">cars</span>
+</code></pre></div>
+    <p>Notice that transmute results in a table with only the new column:</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">cars</span> <span class="o">&gt;&gt;</span> <span class="n">transmute</span><span class="p">(</span><span class="n">cyl2</span> <span class="o">=</span> <span class="n">_</span><span class="o">.</span><span class="n">cyl</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+   <span class="n">cyl2</span>
+<span class="mi">0</span>     <span class="mi">7</span>
+<span class="mi">1</span>     <span class="mi">7</span>
+</code></pre></div>
+    <p>By contrast, mutate adds the new column to the end of the table:</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">cars</span> <span class="o">&gt;&gt;</span>  <span class="n">mutate</span><span class="p">(</span><span class="n">cyl2</span> <span class="o">=</span> <span class="n">_</span><span class="o">.</span><span class="n">cyl</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+   <span class="n">cyl</span>   <span class="n">mpg</span>   <span class="n">hp</span>  <span class="n">cyl2</span>
+<span class="mi">0</span>    <span class="mi">6</span>  <span class="mf">21.0</span>  <span class="mi">110</span>     <span class="mi">7</span>
+<span class="mi">1</span>    <span class="mi">6</span>  <span class="mf">21.0</span>  <span class="mi">110</span>     <span class="mi">7</span>
+</code></pre></div>
 
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>

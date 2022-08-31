@@ -848,33 +848,6 @@
     floor_date()
   </a>
   
-    <nav class="md-nav" aria-label="floor_date()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.experimental.datetime.floor_date--parameters" class="md-nav__link">
-    Parameters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.experimental.datetime.floor_date--notes" class="md-nav__link">
-    Notes
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.experimental.datetime.floor_date--examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -1031,33 +1004,6 @@
     floor_date()
   </a>
   
-    <nav class="md-nav" aria-label="floor_date()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.experimental.datetime.floor_date--parameters" class="md-nav__link">
-    Parameters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.experimental.datetime.floor_date--notes" class="md-nav__link">
-    Notes
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.experimental.datetime.floor_date--examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -1096,74 +1042,64 @@
       <p>floor_date and ceil_date return dates rounded to nearest specified unit.</p>
 <p>These functions address limitations in pandas' round() method, which cannot
 round down to, e.g., the month.</p>
-<h4 id="siuba.experimental.datetime.floor_date--parameters">Parameters</h4>
-<p>!!! x
-    a DatetimeIndex, PeriodIndex, or their underlying arrays or elements.
-!!! units
-    a date or time unit for rounding (eg. "MS" rounds down or up to the start of a month)</p>
-<h4 id="siuba.experimental.datetime.floor_date--notes">Notes</h4>
-<p>For a full list of units run the following:</p>
-<pre><code>from pandas.tseries.offsets import prefix_mapping
-</code></pre>
-<p>Common time units include seconds (S), minute (T), hour (H), week (W). 
-Some date units are month end (M), month start (MS), year start (AS)</p>
-<p>The main feature of floor_date is that it works on things like Months, which is
-not supported in the floor method.</p>
-<h4 id="siuba.experimental.datetime.floor_date--examples">Examples</h4>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>import pandas as pd
-a_date = "2020-02-02 02:02:02"
-dti = pd.DatetimeIndex([a_date])
-dti.floor("MS")
-Traceback (most recent call last):
-...
-ValueError: <MonthBegin> is a non-fixed frequency</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>Month start will always go to the first day of a month.</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>floor_date(dti, "MS") 
-DatetimeIndex(['2020-02-01'], dtype='datetime64[ns]', freq=None)</p>
-<p>ceil_date(dti, "MS")
-DatetimeIndex(['2020-03-01'], dtype='datetime64[ns]', freq=None)</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>On the other hand, here is month end.</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>floor_date(dti, "M") 
-DatetimeIndex(['2020-01-31'], dtype='datetime64[ns]', freq=None)</p>
-<p>ceil_date(dti, "M")
-DatetimeIndex(['2020-02-29'], dtype='datetime64[ns]', freq=None)</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>It also works on things supported by the Series.dt.floor method, like hours.</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>floor_date(dti, "H")
-DatetimeIndex(['2020-02-02 02:00:00'], dtype='datetime64[ns]', freq=None)</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>You can also use it on other types, like a PeriodIndex</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>per = pd.PeriodIndex([a_date], freq = "S")
-floor_date(per, "M")
-PeriodIndex(['2020-02'], dtype='period[M]'...</p>
-</blockquote>
-</blockquote>
-</blockquote>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>x</code></td>
+        <td></td>
+        <td><p>a DatetimeIndex, PeriodIndex, or their underlying arrays or elements.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>units</code></td>
+        <td></td>
+        <td><p>a date or time unit for rounding (eg. "MS" rounds down or up to the start of a month)</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a_date</span> <span class="o">=</span> <span class="s2">&quot;2020-02-02 02:02:02&quot;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">dti</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">([</span><span class="n">a_date</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">dti</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="s2">&quot;MS&quot;</span><span class="p">)</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<span class="o">...</span>
+<span class="ne">ValueError</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">MonthBegin</span><span class="o">&gt;</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">non</span><span class="o">-</span><span class="n">fixed</span> <span class="n">frequency</span>
+</code></pre></div>
+    <p>Month start will always go to the first day of a month.</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">floor_date</span><span class="p">(</span><span class="n">dti</span><span class="p">,</span> <span class="s2">&quot;MS&quot;</span><span class="p">)</span> 
+<span class="n">DatetimeIndex</span><span class="p">([</span><span class="s1">&#39;2020-02-01&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;datetime64[ns]&#39;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">ceil_date</span><span class="p">(</span><span class="n">dti</span><span class="p">,</span> <span class="s2">&quot;MS&quot;</span><span class="p">)</span>
+<span class="n">DatetimeIndex</span><span class="p">([</span><span class="s1">&#39;2020-03-01&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;datetime64[ns]&#39;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+    <p>On the other hand, here is month end.</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">floor_date</span><span class="p">(</span><span class="n">dti</span><span class="p">,</span> <span class="s2">&quot;M&quot;</span><span class="p">)</span> 
+<span class="n">DatetimeIndex</span><span class="p">([</span><span class="s1">&#39;2020-01-31&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;datetime64[ns]&#39;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">ceil_date</span><span class="p">(</span><span class="n">dti</span><span class="p">,</span> <span class="s2">&quot;M&quot;</span><span class="p">)</span>
+<span class="n">DatetimeIndex</span><span class="p">([</span><span class="s1">&#39;2020-02-29&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;datetime64[ns]&#39;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+    <p>It also works on things supported by the Series.dt.floor method, like hours.</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">floor_date</span><span class="p">(</span><span class="n">dti</span><span class="p">,</span> <span class="s2">&quot;H&quot;</span><span class="p">)</span>
+<span class="n">DatetimeIndex</span><span class="p">([</span><span class="s1">&#39;2020-02-02 02:00:00&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;datetime64[ns]&#39;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+    <p>You can also use it on other types, like a PeriodIndex</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">per</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">PeriodIndex</span><span class="p">([</span><span class="n">a_date</span><span class="p">],</span> <span class="n">freq</span> <span class="o">=</span> <span class="s2">&quot;S&quot;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">floor_date</span><span class="p">(</span><span class="n">per</span><span class="p">,</span> <span class="s2">&quot;M&quot;</span><span class="p">)</span>
+<span class="n">PeriodIndex</span><span class="p">([</span><span class="s1">&#39;2020-02&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;period[M]&#39;</span><span class="o">...</span>
+</code></pre></div>
 
         <details class="quote">
           <summary>Source code in <code>siuba/experimental/datetime.py</code></summary>

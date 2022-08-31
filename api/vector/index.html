@@ -1037,19 +1037,6 @@
     if_else()
   </a>
   
-    <nav class="md-nav" aria-label="if_else()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.if_else--examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
       </ul>
@@ -1372,19 +1359,6 @@
     if_else()
   </a>
   
-    <nav class="md-nav" aria-label="if_else()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.if_else--examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
       </ul>
@@ -1461,8 +1435,6 @@
 <span class="mi">2</span>    <span class="kc">False</span>
 <span class="n">dtype</span><span class="p">:</span> <span class="nb">bool</span>
 </code></pre></div>
-      <p>!!! note
-    This is a thin wrapper around pd.Series.between(left, right)</p>
 
         <details class="quote">
           <summary>Source code in <code>siuba/dply/vector.py</code></summary>
@@ -1521,13 +1493,13 @@
   <tbody>
       <tr>
         <td><code>x</code></td>
-        <td></td>
+        <td><code>None</code></td>
         <td><p>a pandas Series object</p></td>
         <td><em>required</em></td>
       </tr>
       <tr>
         <td><code>*args</code></td>
-        <td></td>
+        <td><code>None</code></td>
         <td><p>other Series that are the same length as x, or a scalar</p></td>
         <td><code>()</code></td>
       </tr>
@@ -1842,7 +1814,7 @@ Ties are all given the same ranking.</p>
     <div class="doc doc-contents ">
 
       <p>Return the nth entry of x. Similar to x[n].</p>
-<p>!!! note
+<p>Note:
     first(x) and last(x) are nth(x, 0) and nth(x, -1).</p>
 
 <p><strong>Parameters:</strong></p>
@@ -1858,25 +1830,25 @@ Ties are all given the same ranking.</p>
   <tbody>
       <tr>
         <td><code>x</code></td>
-        <td></td>
+        <td><code>None</code></td>
         <td><p>series to get entry from.</p></td>
         <td><em>required</em></td>
       </tr>
       <tr>
         <td><code>n</code></td>
-        <td></td>
+        <td><code>None</code></td>
         <td><p>position of entry to get from x (0 indicates first entry).</p></td>
         <td><em>required</em></td>
       </tr>
       <tr>
         <td><code>order_by</code></td>
-        <td></td>
+        <td><code>None</code></td>
         <td><p>optional Series used to reorder x.</p></td>
         <td><code>None</code></td>
       </tr>
       <tr>
         <td><code>default</code></td>
-        <td></td>
+        <td><code>None</code></td>
         <td><p>(not implemented) value to return if no entry at n.</p></td>
         <td><code>None</code></td>
       </tr>
@@ -1989,19 +1961,19 @@ Ties are all given the same ranking.</p>
   <tbody>
       <tr>
         <td><code>x</code></td>
-        <td></td>
+        <td><code>None</code></td>
         <td><p>a pandas Series object</p></td>
         <td><em>required</em></td>
       </tr>
       <tr>
         <td><code>n</code></td>
-        <td></td>
+        <td><code>None</code></td>
         <td><p>number of next values backward to replace each value with</p></td>
         <td><code>1</code></td>
       </tr>
       <tr>
         <td><code>default</code></td>
-        <td></td>
+        <td><code>None</code></td>
         <td><p>what to replace the n final values of the array with</p></td>
         <td><code>None</code></td>
       </tr>
@@ -2074,7 +2046,7 @@ Ties are all given the same ranking.</p>
     <div class="doc doc-contents ">
 
       <p>Return the nth entry of x. Similar to x[n].</p>
-<p>!!! note
+<p>Note:
     first(x) and last(x) are nth(x, 0) and nth(x, -1).</p>
 
 <p><strong>Parameters:</strong></p>
@@ -2090,25 +2062,25 @@ Ties are all given the same ranking.</p>
   <tbody>
       <tr>
         <td><code>x</code></td>
-        <td></td>
+        <td><code>None</code></td>
         <td><p>series to get entry from.</p></td>
         <td><em>required</em></td>
       </tr>
       <tr>
         <td><code>n</code></td>
-        <td></td>
+        <td><code>None</code></td>
         <td><p>position of entry to get from x (0 indicates first entry).</p></td>
         <td><em>required</em></td>
       </tr>
       <tr>
         <td><code>order_by</code></td>
-        <td></td>
+        <td><code>None</code></td>
         <td><p>optional Series used to reorder x.</p></td>
         <td><code>None</code></td>
       </tr>
       <tr>
         <td><code>default</code></td>
-        <td></td>
+        <td><code>None</code></td>
         <td><p>(not implemented) value to return if no entry at n.</p></td>
         <td><code>None</code></td>
       </tr>
@@ -2221,19 +2193,19 @@ Ties are all given the same ranking.</p>
   <tbody>
       <tr>
         <td><code>x</code></td>
-        <td></td>
+        <td><code>None</code></td>
         <td><p>a pandas Series object</p></td>
         <td><em>required</em></td>
       </tr>
       <tr>
         <td><code>n</code></td>
-        <td></td>
+        <td><code>None</code></td>
         <td><p>number of next values forward to replace each value with</p></td>
         <td><code>1</code></td>
       </tr>
       <tr>
         <td><code>default</code></td>
-        <td></td>
+        <td><code>None</code></td>
         <td><p>what to replace the n final values of the array with</p></td>
         <td><code>None</code></td>
       </tr>
@@ -2502,7 +2474,7 @@ Ties are all given the same ranking.</p>
     <div class="doc doc-contents ">
 
       <p>Return the nth entry of x. Similar to x[n].</p>
-<p>!!! note
+<p>Note:
     first(x) and last(x) are nth(x, 0) and nth(x, -1).</p>
 
 <p><strong>Parameters:</strong></p>
@@ -2518,25 +2490,25 @@ Ties are all given the same ranking.</p>
   <tbody>
       <tr>
         <td><code>x</code></td>
-        <td></td>
+        <td><code>None</code></td>
         <td><p>series to get entry from.</p></td>
         <td><em>required</em></td>
       </tr>
       <tr>
         <td><code>n</code></td>
-        <td></td>
+        <td><code>None</code></td>
         <td><p>position of entry to get from x (0 indicates first entry).</p></td>
         <td><em>required</em></td>
       </tr>
       <tr>
         <td><code>order_by</code></td>
-        <td></td>
+        <td><code>None</code></td>
         <td><p>optional Series used to reorder x.</p></td>
         <td><code>None</code></td>
       </tr>
       <tr>
         <td><code>default</code></td>
-        <td></td>
+        <td><code>None</code></td>
         <td><p>(not implemented) value to return if no entry at n.</p></td>
         <td><code>None</code></td>
       </tr>
@@ -2663,7 +2635,7 @@ Ties are all given the same ranking.</p>
     <div class="doc doc-contents ">
 
       <p>Return the percent rank.</p>
-<p>!!! note
+<p>Note:
     Uses minimum rank, and reports the proportion of unique ranks each entry is greater than.</p>
 
 <p><strong>Examples:</strong></p>
@@ -2873,33 +2845,31 @@ continue to work for backwards compatibility.</p>
 
     <div class="doc doc-contents first">
 
-      <h5 id="siuba.dply.verbs.if_else--examples">Examples</h5>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>ser1 = pd.Series([1,2,3])
-if_else(ser1 &gt; 2, np.nan, ser1)
-0    1.0
-1    2.0
-2    NaN
-dtype: float64</p>
-<p>from siuba import _
-f = if_else(<em> &lt; 2, </em>, 2)
-f(ser1)
-0    1
-1    2
-2    2
-dtype: int64</p>
-<p>import numpy as np
-ser2 = pd.Series(['NA', 'a', 'b'])
-if_else(ser2 == 'NA', np.nan, ser2)
-0    NaN
-1      a
-2      b
-dtype: object</p>
-</blockquote>
-</blockquote>
-</blockquote>
+
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">ser1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">if_else</span><span class="p">(</span><span class="n">ser1</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">ser1</span><span class="p">)</span>
+<span class="mi">0</span>    <span class="mf">1.0</span>
+<span class="mi">1</span>    <span class="mf">2.0</span>
+<span class="mi">2</span>    <span class="n">NaN</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">float64</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba</span> <span class="kn">import</span> <span class="n">_</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span> <span class="o">=</span> <span class="n">if_else</span><span class="p">(</span><span class="n">_</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="p">(</span><span class="n">ser1</span><span class="p">)</span>
+<span class="mi">0</span>    <span class="mi">1</span>
+<span class="mi">1</span>    <span class="mi">2</span>
+<span class="mi">2</span>    <span class="mi">2</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ser2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;NA&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">if_else</span><span class="p">(</span><span class="n">ser2</span> <span class="o">==</span> <span class="s1">&#39;NA&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">ser2</span><span class="p">)</span>
+<span class="mi">0</span>    <span class="n">NaN</span>
+<span class="mi">1</span>      <span class="n">a</span>
+<span class="mi">2</span>      <span class="n">b</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="nb">object</span>
+</code></pre></div>
 
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>

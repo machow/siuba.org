@@ -947,26 +947,6 @@
     unnest()
   </a>
   
-    <nav class="md-nav" aria-label="unnest()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.unnest--parameters" class="md-nav__link">
-    Parameters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.unnest--examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -998,25 +978,41 @@
     <div class="doc doc-contents first">
 
       <p>Unnest a column holding nested data (e.g. Series of lists or DataFrames).</p>
-<h4 id="siuba.dply.verbs.unnest--parameters">Parameters</h4>
-<p>!!! ___data
-    A DataFrame.
-!!! key
-    The name of the column to be unnested.</p>
-<h4 id="siuba.dply.verbs.unnest--examples">Examples</h4>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>import pandas as pd
-df = pd.DataFrame({'id': [1,2], 'data': [['a', 'b'], ['c']]})
-df &gt;&gt; unnest()
-   id data
-0   1    a
-1   1    b
-2   2    c</p>
-</blockquote>
-</blockquote>
-</blockquote>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>___data</code></td>
+        <td></td>
+        <td><p>A DataFrame.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>key</code></td>
+        <td></td>
+        <td><p>The name of the column to be unnested.</p></td>
+        <td><code>&#39;data&#39;</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]]})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">df</span> <span class="o">&gt;&gt;</span> <span class="n">unnest</span><span class="p">()</span>
+   <span class="nb">id</span> <span class="n">data</span>
+<span class="mi">0</span>   <span class="mi">1</span>    <span class="n">a</span>
+<span class="mi">1</span>   <span class="mi">1</span>    <span class="n">b</span>
+<span class="mi">2</span>   <span class="mi">2</span>    <span class="n">c</span>
+</code></pre></div>
 
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>

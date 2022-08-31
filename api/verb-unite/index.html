@@ -947,19 +947,6 @@
     unite()
   </a>
   
-    <nav class="md-nav" aria-label="unite()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.unite--parameters" class="md-nav__link">
-    Parameters
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -991,18 +978,50 @@
     <div class="doc doc-contents first">
 
       <p>Combine multiple columns into a single column. Return DataFrame that column included.</p>
-<h4 id="siuba.dply.verbs.unite--parameters">Parameters</h4>
-<p>!!! __data
-    a DataFrame
-!!! col
-    name of the to-be-created column (string).
-*args:
-    names of each column to combine.
-!!! sep
-    separator joining each column being combined.
-!!! remove
-    whether to remove the combined columns from the returned DataFrame.</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>__data</code></td>
+        <td></td>
+        <td><p>a DataFrame</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>col</code></td>
+        <td></td>
+        <td><p>name of the to-be-created column (string).</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>*args</code></td>
+        <td></td>
+        <td><p>names of each column to combine.</p></td>
+        <td><code>()</code></td>
+      </tr>
+      <tr>
+        <td><code>sep</code></td>
+        <td></td>
+        <td><p>separator joining each column being combined.</p></td>
+        <td><code>&#39;_&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>remove</code></td>
+        <td></td>
+        <td><p>whether to remove the combined columns from the returned DataFrame.</p></td>
+        <td><code>True</code></td>
+      </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="nd">@singledispatch2</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>

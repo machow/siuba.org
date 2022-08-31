@@ -947,26 +947,6 @@
     top_n()
   </a>
   
-    <nav class="md-nav" aria-label="top_n()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.top_n--parameters" class="md-nav__link">
-    Parameters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.top_n--examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -998,34 +978,56 @@
     <div class="doc doc-contents first">
 
       <p>Filter to keep the top or bottom entries in each group.</p>
-<h4 id="siuba.dply.verbs.top_n--parameters">Parameters</h4>
-<p>!!! ___data
-    A DataFrame.
-!!! n
-    The number of rows to keep in each group.
-!!! wt
-    A column or expression that determines ordering (defaults to last column in data).</p>
-<h4 id="siuba.dply.verbs.top_n--examples">Examples</h4>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>from siuba import <em>, top_n
-df = pd.DataFrame({'x': [3, 1, 2, 4], 'y': [1, 1, 0, 0]})
-top_n(df, 2, </em>.x)
-   x  y
-0  3  1
-3  4  0</p>
-<p>top_n(df, -2, _.x)
-   x  y
-1  1  1
-2  2  0</p>
-<p>top_n(df, 2, <em>.x*</em>.y)
-   x  y
-0  3  1
-1  1  1</p>
-</blockquote>
-</blockquote>
-</blockquote>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>___data</code></td>
+        <td></td>
+        <td><p>A DataFrame.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>n</code></td>
+        <td></td>
+        <td><p>The number of rows to keep in each group.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>wt</code></td>
+        <td></td>
+        <td><p>A column or expression that determines ordering (defaults to last column in data).</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba</span> <span class="kn">import</span> <span class="n">_</span><span class="p">,</span> <span class="n">top_n</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">top_n</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">_</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+   <span class="n">x</span>  <span class="n">y</span>
+<span class="mi">0</span>  <span class="mi">3</span>  <span class="mi">1</span>
+<span class="mi">3</span>  <span class="mi">4</span>  <span class="mi">0</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">top_n</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">_</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+   <span class="n">x</span>  <span class="n">y</span>
+<span class="mi">1</span>  <span class="mi">1</span>  <span class="mi">1</span>
+<span class="mi">2</span>  <span class="mi">2</span>  <span class="mi">0</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">top_n</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">_</span><span class="o">.</span><span class="n">x</span><span class="o">*</span><span class="n">_</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+   <span class="n">x</span>  <span class="n">y</span>
+<span class="mi">0</span>  <span class="mi">3</span>  <span class="mi">1</span>
+<span class="mi">1</span>  <span class="mi">1</span>  <span class="mi">1</span>
+</code></pre></div>
 
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>

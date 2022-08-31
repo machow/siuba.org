@@ -425,26 +425,6 @@
     count()
   </a>
   
-    <nav class="md-nav" aria-label="count()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.count--parameters" class="md-nav__link">
-    Parameters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.count--examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -1010,26 +990,6 @@
     count()
   </a>
   
-    <nav class="md-nav" aria-label="count()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.count--parameters" class="md-nav__link">
-    Parameters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.count--examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -1061,56 +1021,75 @@
     <div class="doc doc-contents first">
 
       <p>Return the number of rows for each grouping of data.</p>
-<h4 id="siuba.dply.verbs.count--parameters">Parameters</h4>
-<p>!!! __data
-    A DataFrame.
-<em>args:
-    The names of columns to be used for grouping. Passed to group_by.
-!!! wt
-    The name of a column to use as a weighted for each row.
-!!! sort
-    Whether to sort the results in descending order.
-</em>*kwargs:
-    Creates a new named column, and uses for grouping. Passed to group_by.</p>
-<h4 id="siuba.dply.verbs.count--examples">Examples</h4>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>from siuba import _, count, group_by, summarize, arrange
-from siuba.data import mtcars</p>
-<p>count(mtcars, <em>.cyl, high_mpg = </em>.mpg &gt; 30)
-   cyl  high_mpg   n
-0    4     False   7
-1    4      True   4
-2    6     False   7
-3    8     False  14</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>Use sort to order results by number of observations (in descending order).</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>count(mtcars, _.cyl, sort=True)
-   cyl   n
-0    8  14
-1    4  11
-2    6   7</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>count is equivalent to doing a grouped summarize:</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>mtcars &gt;&gt; group_by(<em>.cyl) &gt;&gt; summarize(n = </em>.shape[0]) &gt;&gt; arrange(-_.n)
-   cyl   n
-2    8  14
-0    4  11
-1    6   7</p>
-</blockquote>
-</blockquote>
-</blockquote>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>__data</code></td>
+        <td></td>
+        <td><p>A DataFrame.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>*args</code></td>
+        <td></td>
+        <td><p>The names of columns to be used for grouping. Passed to group_by.</p></td>
+        <td><code>()</code></td>
+      </tr>
+      <tr>
+        <td><code>wt</code></td>
+        <td></td>
+        <td><p>The name of a column to use as a weighted for each row.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>sort</code></td>
+        <td></td>
+        <td><p>Whether to sort the results in descending order.</p></td>
+        <td><code>False</code></td>
+      </tr>
+      <tr>
+        <td><code>**kwargs</code></td>
+        <td></td>
+        <td><p>Creates a new named column, and uses for grouping. Passed to group_by.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba</span> <span class="kn">import</span> <span class="n">_</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">group_by</span><span class="p">,</span> <span class="n">summarize</span><span class="p">,</span> <span class="n">arrange</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba.data</span> <span class="kn">import</span> <span class="n">mtcars</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">count</span><span class="p">(</span><span class="n">mtcars</span><span class="p">,</span> <span class="n">_</span><span class="o">.</span><span class="n">cyl</span><span class="p">,</span> <span class="n">high_mpg</span> <span class="o">=</span> <span class="n">_</span><span class="o">.</span><span class="n">mpg</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">)</span>
+   <span class="n">cyl</span>  <span class="n">high_mpg</span>   <span class="n">n</span>
+<span class="mi">0</span>    <span class="mi">4</span>     <span class="kc">False</span>   <span class="mi">7</span>
+<span class="mi">1</span>    <span class="mi">4</span>      <span class="kc">True</span>   <span class="mi">4</span>
+<span class="mi">2</span>    <span class="mi">6</span>     <span class="kc">False</span>   <span class="mi">7</span>
+<span class="mi">3</span>    <span class="mi">8</span>     <span class="kc">False</span>  <span class="mi">14</span>
+</code></pre></div>
+    <p>Use sort to order results by number of observations (in descending order).</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">count</span><span class="p">(</span><span class="n">mtcars</span><span class="p">,</span> <span class="n">_</span><span class="o">.</span><span class="n">cyl</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+   <span class="n">cyl</span>   <span class="n">n</span>
+<span class="mi">0</span>    <span class="mi">8</span>  <span class="mi">14</span>
+<span class="mi">1</span>    <span class="mi">4</span>  <span class="mi">11</span>
+<span class="mi">2</span>    <span class="mi">6</span>   <span class="mi">7</span>
+</code></pre></div>
+    <p>count is equivalent to doing a grouped summarize:</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">mtcars</span> <span class="o">&gt;&gt;</span> <span class="n">group_by</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">cyl</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="n">summarize</span><span class="p">(</span><span class="n">n</span> <span class="o">=</span> <span class="n">_</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&gt;&gt;</span> <span class="n">arrange</span><span class="p">(</span><span class="o">-</span><span class="n">_</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
+   <span class="n">cyl</span>   <span class="n">n</span>
+<span class="mi">2</span>    <span class="mi">8</span>  <span class="mi">14</span>
+<span class="mi">0</span>    <span class="mi">4</span>  <span class="mi">11</span>
+<span class="mi">1</span>    <span class="mi">6</span>   <span class="mi">7</span>
+</code></pre></div>
 
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>

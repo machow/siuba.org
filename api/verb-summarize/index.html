@@ -509,26 +509,6 @@
     summarize()
   </a>
   
-    <nav class="md-nav" aria-label="summarize()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.summarize--parameters" class="md-nav__link">
-    Parameters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.summarize--examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -1010,26 +990,6 @@
     summarize()
   </a>
   
-    <nav class="md-nav" aria-label="summarize()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.summarize--parameters" class="md-nav__link">
-    Parameters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.verbs.summarize--examples" class="md-nav__link">
-    Examples
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -1063,35 +1023,54 @@
       <p>Assign variables that are single number summaries of a DataFrame.</p>
 <p>Grouped DataFrames will produce one row for each group. Otherwise, summarize
 produces a DataFrame with a single row.</p>
-<h4 id="siuba.dply.verbs.summarize--parameters">Parameters</h4>
-<p>!!! __data "a DataFrame"
-    The data being summarized.
-**kwargs:
-    new_col_name=value pairs, where value can be a function taking
-    a single argument for the data being operated on.</p>
-<h4 id="siuba.dply.verbs.summarize--examples">Examples</h4>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>from siuba import _, group_by, summarize
-from siuba.data import cars</p>
-<p>cars &gt;&gt; summarize(avg = <em>.mpg.mean(), n = </em>.shape[0])
-         avg   n
-0  20.090625  32</p>
-<p>g_cyl = cars &gt;&gt; group_by(<em>.cyl)
-g_cyl &gt;&gt; summarize(min = </em>.mpg.min())
-   cyl   min
-0    4  21.4
-1    6  17.8
-2    8  10.4</p>
-<p>g_cyl &gt;&gt; summarize(mpg_std_err = <em>.mpg.std() / </em>.shape[0]**.5)
-   cyl  mpg_std_err
-0    4     1.359764
-1    6     0.549397
-2    8     0.684202</p>
-</blockquote>
-</blockquote>
-</blockquote>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>__data</code></td>
+        <td><code>a DataFrame</code></td>
+        <td><p>The data being summarized.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>**kwargs</code></td>
+        <td></td>
+        <td><p>new_col_name=value pairs, where value can be a function taking
+a single argument for the data being operated on.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba</span> <span class="kn">import</span> <span class="n">_</span><span class="p">,</span> <span class="n">group_by</span><span class="p">,</span> <span class="n">summarize</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba.data</span> <span class="kn">import</span> <span class="n">cars</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">cars</span> <span class="o">&gt;&gt;</span> <span class="n">summarize</span><span class="p">(</span><span class="n">avg</span> <span class="o">=</span> <span class="n">_</span><span class="o">.</span><span class="n">mpg</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">n</span> <span class="o">=</span> <span class="n">_</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+         <span class="n">avg</span>   <span class="n">n</span>
+<span class="mi">0</span>  <span class="mf">20.090625</span>  <span class="mi">32</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">g_cyl</span> <span class="o">=</span> <span class="n">cars</span> <span class="o">&gt;&gt;</span> <span class="n">group_by</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">cyl</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">g_cyl</span> <span class="o">&gt;&gt;</span> <span class="n">summarize</span><span class="p">(</span><span class="nb">min</span> <span class="o">=</span> <span class="n">_</span><span class="o">.</span><span class="n">mpg</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+   <span class="n">cyl</span>   <span class="nb">min</span>
+<span class="mi">0</span>    <span class="mi">4</span>  <span class="mf">21.4</span>
+<span class="mi">1</span>    <span class="mi">6</span>  <span class="mf">17.8</span>
+<span class="mi">2</span>    <span class="mi">8</span>  <span class="mf">10.4</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">g_cyl</span> <span class="o">&gt;&gt;</span> <span class="n">summarize</span><span class="p">(</span><span class="n">mpg_std_err</span> <span class="o">=</span> <span class="n">_</span><span class="o">.</span><span class="n">mpg</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">/</span> <span class="n">_</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mf">.5</span><span class="p">)</span>
+   <span class="n">cyl</span>  <span class="n">mpg_std_err</span>
+<span class="mi">0</span>    <span class="mi">4</span>     <span class="mf">1.359764</span>
+<span class="mi">1</span>    <span class="mi">6</span>     <span class="mf">0.549397</span>
+<span class="mi">2</span>    <span class="mi">8</span>     <span class="mf">0.684202</span>
+</code></pre></div>
 
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>
