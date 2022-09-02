@@ -1,5 +1,5 @@
 ---
-title: Join tables 📝
+title: Join tables
 jupyter:
   jupytext:
     formats: 'qmd:quarto'
@@ -14,22 +14,21 @@ jupyter:
     name: python3
 ---
 
-:::{.callout-warning}
-This page is at the **refinement** stage. The structure, examples, and figures are there,
-but it lacks narrative structure / needs refining.
-:::
-
-:::{.callout-note}
-The format of these plots and structure of examples takes heavy inspiration from
-[R for Data Science](https://r4ds.had.co.nz/relational-data.html).
-:::
-
 ```{python}
 #| include: false
 import pandas as pd
 
 pd.set_option("display.max_rows", 5)
 ```
+
+
+Joins allow you to combine data from two tables, using two steps:
+
+* **determining matches** in values between a set of specified columns.
+* **merging columns** from matching rows into a new table.
+
+The number of ways joins can be used is surprisingly deep, and provides an important
+foundation for most data analyses!
 
 
 ```{python}
@@ -55,9 +54,16 @@ rhs
 
 :::
 
+
+:::{.callout-note}
+The format of graphs and the structure of examples takes heavy inspiration from
+[R for Data Science](https://r4ds.had.co.nz/relational-data.html).
+:::
+
+
 ## Syntax
 
-Like other siuba verbs, joins can be used in two ways: directly passing both data
+Like other siuba verbs, joins can be used in two ways: by directly passing both data
 as arguments, or by piping.
 
 ```{python}
@@ -71,10 +77,70 @@ lhs >> inner_join(_, rhs, on="id")
 Note that when used in a pipe, the first argument to the join **must be `_`**,
 to represent the data.
 
+## How joins work
+
+This page will use graphs to illustrate how joins work. They show the values being
+joined on for the left-hand side on the rows, and those for the right-hand side
+on the columns.
+
+For example, consider the inner join from the last section:
+
+```{python}
+inner_join(lhs, rhs, on="id")
+```
+
+Here is a graph for this inner join:
+
+:::{.grid}
+:::{.g-col-lg-3}
+:::
+:::{.g-col-9 .g-col-md-6}
+![](_assets/joins-inner.png)
+:::
+:::{.g-col-lg-3}
+:::
+:::
+
+Notice that `1, 2, 3` come from the `lhs.id` column, and `1, 2, 4` from `rhs.id`.
+
+There are two steps to any join:
+
+* **Determine matches**. The colored squares mark new rows that will be created.
+These are determined by looking at every pair of values from the left- and right-hand sides,
+and checking whether they're equal.
+This means that there are 9 checks in total (one for each square in the grid).
+* **Merge rows**. For each match, a row is created that has columns from both tables.
+
+The next two sections on this page discuss different types of joins:
+
+* Mutating joins: what should happen if a row or column doesn't have any matches?
+* Filtering joins: using matching rules without merging to filter the left-hand table.
+
+The remaining four sections discuss important situations related to matching:
+duplicates, missing values, using multiple columns, and expressions.
 
 ## Mutating joins
 
+Up to this point we've looked at an inner join. We'll call this a mutating join,
+because it puts the columns from both tables into the final result.
+In this section, we'll look at two more important joins: left join and full join.
+
+The diagram below shows these three mutating joins. 
+
 ![](_assets/joins-mutate.png)
+
+Left and full joins define a new matching rule for rows of data that don't have any matches:
+
+**Left join**. Include rows from the left-hand table that didn't have any matches.
+This is done by matching left-hand rows with no matches, to a "dummy" right-hand row
+of all missing values. This is signified in the graph by the circled NA column.
+
+**Full join**: Similar to left join, but extended to include unmatched rows from
+both tables. Notice that the graph for full join has two "dummy circled NA" entries,
+one to match rows, and one to match columns.
+
+
+
 
 ### Inner join
 
@@ -95,15 +161,46 @@ full_join(lhs, rhs, on="id")
 
 ## Filtering joins
 
+Filtering joins use some of the same logic to determine matches as a join, but
+only to filter (remove) rows from the left-hand table.
+
+We'll use the data from the previous section to look at filtering joins.
+
+
+::: {layout-ncol=2}
+
+```{python}
+lhs
+```
+
+```{python}
+rhs
+```
+
+:::
+
+Use `semi_join()` to keep rows in the left-hand table that would have a match:
+
 ```{python}
 semi_join(lhs, rhs, on="id")
 ```
+
+Use `anti_join()` to keep the rows that a `semi_join()` would drop---the rows
+with no matches:
+
 
 ```{python}
 anti_join(lhs, rhs, on="id")
 ```
 
 ## Duplicate matches
+
+Mutating joins create a new row for each match between value pairs.
+This means that a join can duplicate rows from the left- or right-hand data.
+
+For example, consider the situation where the left- and right-hand data both
+have the value `2` multiple times in the columns they're joining on.
+
 
 :::{.grid}
 :::{.g-col-lg-3}
@@ -114,6 +211,11 @@ anti_join(lhs, rhs, on="id")
 :::{.g-col-lg-3}
 :::
 :::
+
+This is shown in the graph above---for an inner join, where both tables contain the value `2` twice.
+In this case, it results in 4 matches, which will each produce a row in the final result.
+
+Here is the code corresponding to the graph above.
 
 ```{python}
 import pandas as pd
@@ -127,7 +229,6 @@ rhs_dupes = pd.DataFrame({
     "val": ["rhs.1", "rhs.2", "rhs.3", "rhs.4"]
 })
 ```
-
 
 ::: {layout-ncol=2}
 
@@ -146,6 +247,10 @@ inner_join(lhs_dupes, rhs_dupes, on="id")
 
 ## NA handling
 
+By default, missing values are matched to each other in joins.
+
+This is shown in the left join below, where each table has a single `NA` value.
+
 :::{.grid}
 :::{.g-col-lg-3}
 :::
@@ -156,17 +261,24 @@ inner_join(lhs_dupes, rhs_dupes, on="id")
 :::
 :::
 
-Same as dplyr
+Note the purple mark indicating a match between the `NA` values. Importantly,
+literal `NA` values here are different from the circled dummy NA (top right),
+which indicates the special matching rule for left joins.
+
+Here is the code for the example:
 
 ```{python}
 import pandas as pd
-lhs_na = pd.DataFrame({"id": [1, pd.NA, 3]})
-rhs_na = pd.DataFrame({"id": [1, pd.NA, 2]})
+lhs_na = pd.DataFrame({"id": [1, pd.NA, 3], 'val': ['lhs.1', 'lhs.2', 'lhs.3']})
+rhs_na = pd.DataFrame({"id": [1, pd.NA, 2], 'val': ['rhs.1', 'rhs.2', 'rhs.3']})
 left_join(lhs_na, rhs_na, on="id")
 ```
 
 
 ## Match on multiple columns
+
+Joins can be performed by comparing multiple pairs of columns to each other---
+such as the `source` and `id` columns in the data below.
 
 ```{python}
 lhs_multi = pd.DataFrame({
@@ -178,17 +290,65 @@ lhs_multi = pd.DataFrame({
 rhs_multi = pd.DataFrame({
     "source": ["a", "b", "c"],
     "id": [1, 1, 1],
-    "val": ["lhs.1", "lhs.2", "lhs.3"]
+    "val": ["rhs.1", "rhs.2", "rhs.3"]
 })
+```
 
-inner_join(lhs_multi, rhs_multi, on=["source", "id"])
+
+::: {layout-ncol=2}
+
+```{python}
+lhs_multi
 ```
 
 ```{python}
-
-inner_join(lhs_multi, rhs_multi, on={"source": "source", "id": "id"})
+rhs_multi
 ```
+
+:::
+
+In this case, a match happens when `source` matches AND `id` matches---as shown
+by the composite values `(source, id)` in the graph below.
+
+:::{.grid}
+:::{.g-col-lg-3}
+:::
+:::{.g-col-9 .g-col-md-6}
+![](_assets/joins-multiple-keys.png)
+:::
+:::{.g-col-lg-3}
+:::
+:::
+
+
+### Using a list of columns
+
+Use the `on=` argument with a list of columns, in order to join on multiple columns.
+
+
+```{python}
+inner_join(lhs_multi, rhs_multi, on=["source", "id"])
+```
+
+
+### Using a dictionary of columns
+
+Use the `on=` argument with a dictionary to join pairs of columns with different names.
+
+```{python}
+from siuba import rename
+
+rhs_multi2 = rename(rhs_multi, some_source = "source")
+
+inner_join(lhs_multi, rhs_multi2, {"source": "some_source", "id": "id"})
+```
+
+
 ## Match on expressions
+
+Some siuba backends---like those that execute SQL---can join by expressions for determining matches.
+
+For example, the graph below shows an inner join, where a match occurs when the left-hand value is less than or equal to the right-hand value.
 
 :::{.grid}
 :::{.g-col-lg-3}
@@ -200,13 +360,20 @@ inner_join(lhs_multi, rhs_multi, on={"source": "source", "id": "id"})
 :::
 :::
 
-SQL backends can join by expressions.
+Notice that the value `1` on the left-hand side matches everything on the right-hand side (top row).
+
+### SQL backend `sql_on` argument.
+
+Here is a full example, using sqlite:
 
 ```{python}
 from sqlalchemy import create_engine
 from siuba.sql import LazyTbl
 
 engine = create_engine("sqlite:///:memory:")
+
+lhs = pd.DataFrame({'id': [1,2,3], 'val': ['lhs.1', 'lhs.2', 'lhs.3']})
+rhs = pd.DataFrame({'id': [1,2,4], 'val': ['rhs.1', 'rhs.2', 'rhs.3']})
 
 lhs.to_sql("lhs", engine, index=False)
 rhs.to_sql("rhs", engine, index=False)
@@ -220,3 +387,6 @@ inner_join(
     sql_on = lambda lhs, rhs: lhs.val <= rhs.val
 )
 ```
+
+Note that the function passed to `sql_on` takes sqlalchemy columns for the left- and right-hand sides,
+so currently limited to what can be done in sqlalchemy.
