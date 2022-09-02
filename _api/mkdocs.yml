@@ -8,6 +8,9 @@ theme:
     - navigation.tabs
     - navigation.expand
 
+extra_css:
+  - static/styles.css
+
 plugins:
   - search
   - mkdocstrings:
@@ -25,7 +28,7 @@ nav:
     - "Overview": "./index.md"
     - "Core verbs - one table":
       - arrange: "./verb-arrange.md"
-      - count, tally: "./verb-count.md"
+      - count: "./verb-count.md"
       - distinct: "./verb-distinct.md"
       - filter: "./verb-filter.md"
       - mutate, transmute: "./verbs-mutate-transmute.md"

@@ -4,3 +4,13 @@
   --site-color-primary: #C29A68;
 }
 
+.md-nav__item--nested {
+  padding-top: 16px;
+}
+
+.md-nav[data-md-level="1"] label.md-nav__link {
+  font-weight: bold;
+}
+.md-nav[data-md-level="2"] li {
+  padding-left: 0px;
+}
