@@ -387,7 +387,7 @@ Warning
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>expr_rank <span class="op">=</span> window[<span class="st">"rank"</span>](WowSqlColumn(), sql.column(<span class="st">"a_col"</span>))</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>expr_rank</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>&lt;siuba.sql.translate.RankOver object at 0x7f03010f0eb0&gt;</code></pre>
+<pre><code>&lt;siuba.sql.translate.RankOver object at 0x7f17190bf790&gt;</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="4">
@@ -416,7 +416,7 @@ Warning
 <div class="cell-output cell-output-stdout">
 <pre><code>█─'__call__'
 ├─█─'__custom_func__'
-│ └─&lt;function singledispatch.&lt;locals&gt;.wrapper at 0x7f02f9759360&gt;
+│ └─&lt;function singledispatch.&lt;locals&gt;.wrapper at 0x7f16e4099360&gt;
 ├─█─.
 │ ├─_
 │ └─'x'
@@ -436,8 +436,8 @@ Warning
 <div class="cell-output cell-output-stdout">
 <pre><code>█─'__call__'
 ├─█─'__custom_func__'
-│ └─&lt;function sql_colmeth.&lt;locals&gt;.f at 0x7f02f94aacb0&gt;
-├─&lt;__main__.WowSqlColumn object at 0x7f02f932f340&gt;
+│ └─&lt;function sql_colmeth.&lt;locals&gt;.f at 0x7f16dddcacb0&gt;
+├─&lt;__main__.WowSqlColumn object at 0x7f16e598bdc0&gt;
 ├─█─.
 │ ├─_
 │ └─'x'
@@ -463,11 +463,11 @@ Warning
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We can see this in action by calling the translation directly.</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>scalar[<span class="st">"__add__"</span>](WowSqlColumn(), sel.columns.x, sel.columns.y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_3191/1405687756.py:2: SADeprecationWarning: The SelectBase.c and SelectBase.columns attributes are deprecated and will be removed in a future release; these attributes implicitly create a subquery that should be explicit.  Please call SelectBase.subquery() first in order to create a subquery, which then contains this attribute.  To access the columns that this SELECT object SELECTs from, use the SelectBase.selected_columns attribute. (deprecated since: 1.4)
+<pre><code>/tmp/ipykernel_3243/1405687756.py:2: SADeprecationWarning: The SelectBase.c and SelectBase.columns attributes are deprecated and will be removed in a future release; these attributes implicitly create a subquery that should be explicit.  Please call SelectBase.subquery() first in order to create a subquery, which then contains this attribute.  To access the columns that this SELECT object SELECTs from, use the SelectBase.selected_columns attribute. (deprecated since: 1.4)
   scalar["__add__"](WowSqlColumn(), sel.columns.x, sel.columns.y)</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="9">
-<pre><code>&lt;sqlalchemy.sql.elements.BinaryExpression object at 0x7f03010d7a30&gt;</code></pre>
+<pre><code>&lt;sqlalchemy.sql.elements.BinaryExpression object at 0x7f16e598bd60&gt;</code></pre>
 </div>
 </div>
 <p>By default the translate method assumes the expression is using window functions, so operations like <code>.mean()</code> return SqlAlchemy Over clauses.</p>
@@ -479,11 +479,11 @@ Warning
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>expr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_3191/2826175941.py:4: SADeprecationWarning: The SelectBase.c and SelectBase.columns attributes are deprecated and will be removed in a future release; these attributes implicitly create a subquery that should be explicit.  Please call SelectBase.subquery() first in order to create a subquery, which then contains this attribute.  To access the columns that this SELECT object SELECTs from, use the SelectBase.selected_columns attribute. (deprecated since: 1.4)
+<pre><code>/tmp/ipykernel_3243/2826175941.py:4: SADeprecationWarning: The SelectBase.c and SelectBase.columns attributes are deprecated and will be removed in a future release; these attributes implicitly create a subquery that should be explicit.  Please call SelectBase.subquery() first in order to create a subquery, which then contains this attribute.  To access the columns that this SELECT object SELECTs from, use the SelectBase.selected_columns attribute. (deprecated since: 1.4)
   expr = f_translate_co(sel.columns)</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="10">
-<pre><code>&lt;siuba.sql.translate.AggOver object at 0x7f02f932f370&gt;</code></pre>
+<pre><code>&lt;siuba.sql.translate.AggOver object at 0x7f16ddc477c0&gt;</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="11">
@@ -517,7 +517,7 @@ Warning
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>█─'__call__'
 ├─█─'__custom_func__'
-│ └─&lt;function round at 0x7f02f9334ca0&gt;
+│ └─&lt;function round at 0x7f16ddc50d30&gt;
 └─_</code></pre>
 </div>
 </div>
@@ -529,7 +529,7 @@ Warning
 <pre><code>█─+
 ├─█─'__call__'
 │ ├─█─'__custom_func__'
-│ │ └─&lt;function round at 0x7f02f9334ca0&gt;
+│ │ └─&lt;function round at 0x7f16ddc50d30&gt;
 │ └─_
 └─9999</code></pre>
 </div>
@@ -680,11 +680,11 @@ Warning
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>f_add <span class="op">=</span> tbl_cars.shape_call(_.mpg <span class="op">+</span> _.hp)</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>f_add(tbl_cars.last_op.columns)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_3191/710220926.py:3: SADeprecationWarning: The SelectBase.c and SelectBase.columns attributes are deprecated and will be removed in a future release; these attributes implicitly create a subquery that should be explicit.  Please call SelectBase.subquery() first in order to create a subquery, which then contains this attribute.  To access the columns that this SELECT object SELECTs from, use the SelectBase.selected_columns attribute. (deprecated since: 1.4)
+<pre><code>/tmp/ipykernel_3243/710220926.py:3: SADeprecationWarning: The SelectBase.c and SelectBase.columns attributes are deprecated and will be removed in a future release; these attributes implicitly create a subquery that should be explicit.  Please call SelectBase.subquery() first in order to create a subquery, which then contains this attribute.  To access the columns that this SELECT object SELECTs from, use the SelectBase.selected_columns attribute. (deprecated since: 1.4)
   f_add(tbl_cars.last_op.columns)</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="16">
-<pre><code>&lt;sqlalchemy.sql.elements.BinaryExpression object at 0x7f02f93bee30&gt;</code></pre>
+<pre><code>&lt;sqlalchemy.sql.elements.BinaryExpression object at 0x7f16ddcd7040&gt;</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="17">
@@ -735,7 +735,7 @@ Warning
 <span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-25"><a href="#cb37-25" aria-hidden="true" tabindex="-1"></a>tbl_assigned </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_3191/1832454076.py:12: SADeprecationWarning: The SelectBase.c and SelectBase.columns attributes are deprecated and will be removed in a future release; these attributes implicitly create a subquery that should be explicit.  Please call SelectBase.subquery() first in order to create a subquery, which then contains this attribute.  To access the columns that this SELECT object SELECTs from, use the SelectBase.selected_columns attribute. (deprecated since: 1.4)
+<pre><code>/tmp/ipykernel_3243/1832454076.py:12: SADeprecationWarning: The SelectBase.c and SelectBase.columns attributes are deprecated and will be removed in a future release; these attributes implicitly create a subquery that should be explicit.  Please call SelectBase.subquery() first in order to create a subquery, which then contains this attribute.  To access the columns that this SELECT object SELECTs from, use the SelectBase.selected_columns attribute. (deprecated since: 1.4)
   sql_expr = new_call(__data.last_op.columns)</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="19">
@@ -805,7 +805,7 @@ FROM mtcars) AS anon_1</code></pre>
 <span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>f_and <span class="op">=</span> annotate(<span class="kw">lambda</span> col: col <span class="op">&amp;</span> <span class="va">False</span>, input_type <span class="op">=</span> <span class="st">"bool"</span>)</span>
 <span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>f_and(sql.column(<span class="st">'a'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
-<pre><code>&lt;sqlalchemy.sql.elements.AsBoolean object at 0x7f0334825a50&gt;</code></pre>
+<pre><code>&lt;sqlalchemy.sql.elements.AsBoolean object at 0x7f16ddcd64a0&gt;</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="22">

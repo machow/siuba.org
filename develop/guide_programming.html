@@ -939,7 +939,7 @@ dtype: int64</code></pre>
 <div class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>mutate(hp_per_cyl <span class="op">=</span> <span class="kw">lambda</span> d: d.hp <span class="op">/</span> d.cyl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
-<pre><code>&lt;function mutate at 0x7feb1cc07880&gt;(_,hp_per_cyl = &lt;function &lt;lambda&gt; at 0x7feb193823b0&gt;())</code></pre>
+<pre><code>&lt;function mutate at 0x7f69bcb2b880&gt;(_,hp_per_cyl = &lt;function &lt;lambda&gt; at 0x7f69bc29a560&gt;())</code></pre>
 </div>
 </div>
 <p>There are two <strong>implicit</strong> cases that create a Pipeable.</p>
@@ -953,7 +953,7 @@ dtype: int64</code></pre>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>mutate(_, hp_per_cyl <span class="op">=</span> <span class="kw">lambda</span> d: d.hp <span class="op">/</span> d.cyl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
-<pre><code>&lt;function mutate at 0x7feb1cc07880&gt;(_,hp_per_cyl = &lt;function &lt;lambda&gt; at 0x7feb193824d0&gt;())</code></pre>
+<pre><code>&lt;function mutate at 0x7f69bcb2b880&gt;(_,hp_per_cyl = &lt;function &lt;lambda&gt; at 0x7f69bc29a320&gt;())</code></pre>
 </div>
 </div>
 <p>In this case, we are taking advantage of siuba’s lazy expressions, and using <code>_</code> as a “placeholder” for the data. Since <code>_</code> is an instance of the <code>Symbolic</code> class, this is just using single dispatch with one small twist.</p>
@@ -979,7 +979,7 @@ dtype: int64</code></pre>
 <span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># dispatching on Call to create a pipeable</span></span>
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>mutate(call)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="18">
-<pre><code>&lt;function mutate at 0x7feb1cc07880&gt;(_)</code></pre>
+<pre><code>&lt;function mutate at 0x7f69bcb2b880&gt;(_)</code></pre>
 </div>
 </div>
 <p>The following section explains the relationship between <code>Symbolic</code> and <code>Call</code>, and how they enable lazy expressions.</p>
@@ -1145,7 +1145,7 @@ Name: cyl, Length: 32, dtype: float64</code></pre>
 <div class="cell-output cell-output-display" data-execution_count="28">
 <pre><code>█─'__call__'
 ├─█─'__custom_func__'
-│ └─&lt;function n at 0x7feb18dd0790&gt;
+│ └─&lt;function n at 0x7f69b4bfc790&gt;
 └─█─.
   ├─_
   └─'hp'</code></pre>
@@ -1161,7 +1161,7 @@ Name: cyl, Length: 32, dtype: float64</code></pre>
 <div class="cell-output cell-output-display" data-execution_count="29">
 <pre><code>█─'__call__'
 ├─█─'__custom_func__'
-│ └─&lt;function n at 0x7feb18dd0790&gt;
+│ └─&lt;function n at 0x7f69b4bfc790&gt;
 └─█─.
   ├─_
   └─'hp'</code></pre>
@@ -1186,7 +1186,7 @@ Name: cyl, Length: 32, dtype: float64</code></pre>
 <div class="cell-output cell-output-display" data-execution_count="32">
 <pre><code>█─'__call__'
 ├─█─'__custom_func__'
-│ └─&lt;function another_n at 0x7feb18e72440&gt;
+│ └─&lt;function another_n at 0x7f69b4ca2440&gt;
 └─█─.
   ├─_
   └─'a'</code></pre>

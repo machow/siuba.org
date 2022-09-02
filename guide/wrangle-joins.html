@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Siuba - Join tables 📝</title>
+<title>Siuba - Join tables</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -183,7 +183,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Join tables 📝</h1>
+      <h1 class="quarto-secondary-nav-title">Join tables</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -291,7 +291,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/wrangle-joins.html" class="sidebar-item-text sidebar-link active">Join tables 📝</a>
+  <a href="../guide/wrangle-joins.html" class="sidebar-item-text sidebar-link active">Join tables</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -386,6 +386,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    
   <ul>
   <li><a href="#syntax" id="toc-syntax" class="nav-link active" data-scroll-target="#syntax">Syntax</a></li>
+  <li><a href="#how-joins-work" id="toc-how-joins-work" class="nav-link" data-scroll-target="#how-joins-work">How joins work</a></li>
   <li><a href="#mutating-joins" id="toc-mutating-joins" class="nav-link" data-scroll-target="#mutating-joins">Mutating joins</a>
   <ul class="collapse">
   <li><a href="#inner-join" id="toc-inner-join" class="nav-link" data-scroll-target="#inner-join">Inner join</a></li>
@@ -394,8 +395,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#filtering-joins" id="toc-filtering-joins" class="nav-link" data-scroll-target="#filtering-joins">Filtering joins</a></li>
   <li><a href="#duplicate-matches" id="toc-duplicate-matches" class="nav-link" data-scroll-target="#duplicate-matches">Duplicate matches</a></li>
   <li><a href="#na-handling" id="toc-na-handling" class="nav-link" data-scroll-target="#na-handling">NA handling</a></li>
-  <li><a href="#match-on-multiple-columns" id="toc-match-on-multiple-columns" class="nav-link" data-scroll-target="#match-on-multiple-columns">Match on multiple columns</a></li>
-  <li><a href="#match-on-expressions" id="toc-match-on-expressions" class="nav-link" data-scroll-target="#match-on-expressions">Match on expressions</a></li>
+  <li><a href="#match-on-multiple-columns" id="toc-match-on-multiple-columns" class="nav-link" data-scroll-target="#match-on-multiple-columns">Match on multiple columns</a>
+  <ul class="collapse">
+  <li><a href="#using-a-list-of-columns" id="toc-using-a-list-of-columns" class="nav-link" data-scroll-target="#using-a-list-of-columns">Using a list of columns</a></li>
+  <li><a href="#using-a-dictionary-of-columns" id="toc-using-a-dictionary-of-columns" class="nav-link" data-scroll-target="#using-a-dictionary-of-columns">Using a dictionary of columns</a></li>
+  </ul></li>
+  <li><a href="#match-on-expressions" id="toc-match-on-expressions" class="nav-link" data-scroll-target="#match-on-expressions">Match on expressions</a>
+  <ul class="collapse">
+  <li><a href="#sql-backend-sql_on-argument." id="toc-sql-backend-sql_on-argument." class="nav-link" data-scroll-target="#sql-backend-sql_on-argument.">SQL backend <code>sql_on</code> argument.</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -404,7 +412,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Join tables 📝</h1>
+<h1 class="title d-none d-lg-block">Join tables</h1>
 </div>
 
 
@@ -418,32 +426,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<div class="callout-warning callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>This page is at the <strong>refinement</strong> stage. The structure, examples, and figures are there, but it lacks narrative structure / needs refining.</p>
-</div>
-</div>
-<div class="callout-note callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The format of these plots and structure of examples takes heavy inspiration from <a href="https://r4ds.had.co.nz/relational-data.html">R for Data Science</a>.</p>
-</div>
-</div>
+<p>Joins allow you to combine data from two tables, using two steps:</p>
+<ul>
+<li><strong>determining matches</strong> in values between a set of specified columns.</li>
+<li><strong>merging columns</strong> from matching rows into a new table.</li>
+</ul>
+<p>The number of ways joins can be used is surprisingly deep, and provides an important foundation for most data analyses!</p>
 <div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba <span class="im">import</span> (</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    _,</span>
@@ -528,9 +516,22 @@ Note
 </div>
 </div>
 </div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The format of graphs and the structure of examples takes heavy inspiration from <a href="https://r4ds.had.co.nz/relational-data.html">R for Data Science</a>.</p>
+</div>
+</div>
 <section id="syntax" class="level2">
 <h2 class="anchored" data-anchor-id="syntax">Syntax</h2>
-<p>Like other siuba verbs, joins can be used in two ways: directly passing both data as arguments, or by piping.</p>
+<p>Like other siuba verbs, joins can be used in two ways: by directly passing both data as arguments, or by piping.</p>
 <div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># directly passing data</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>inner_join(lhs, rhs, on<span class="op">=</span><span class="st">"id"</span>)</span>
@@ -570,11 +571,10 @@ Note
 </div>
 <p>Note that when used in a pipe, the first argument to the join <strong>must be <code>_</code></strong>, to represent the data.</p>
 </section>
-<section id="mutating-joins" class="level2">
-<h2 class="anchored" data-anchor-id="mutating-joins">Mutating joins</h2>
-<p><img src="_assets/joins-mutate.png" class="img-fluid"></p>
-<section id="inner-join" class="level3">
-<h3 class="anchored" data-anchor-id="inner-join">Inner join</h3>
+<section id="how-joins-work" class="level2">
+<h2 class="anchored" data-anchor-id="how-joins-work">How joins work</h2>
+<p>This page will use graphs to illustrate how joins work. They show the values being joined on for the left-hand side on the rows, and those for the right-hand side on the columns.</p>
+<p>For example, consider the inner join from the last section:</p>
 <div class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>inner_join(lhs, rhs, on<span class="op">=</span><span class="st">"id"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
@@ -608,12 +608,80 @@ Note
 </div>
 </div>
 </div>
+<p>Here is a graph for this inner join:</p>
+<div class="grid">
+<div class="g-col-lg-3">
+
+</div>
+<div class="g-col-9 g-col-md-6">
+<p><img src="_assets/joins-inner.png" class="img-fluid"></p>
+</div>
+<div class="g-col-lg-3">
+
+</div>
+</div>
+<p>Notice that <code>1, 2, 3</code> come from the <code>lhs.id</code> column, and <code>1, 2, 4</code> from <code>rhs.id</code>.</p>
+<p>There are two steps to any join:</p>
+<ul>
+<li><strong>Determine matches</strong>. The colored squares mark new rows that will be created. These are determined by looking at every pair of values from the left- and right-hand sides, and checking whether they’re equal. This means that there are 9 checks in total (one for each square in the grid).</li>
+<li><strong>Merge rows</strong>. For each match, a row is created that has columns from both tables.</li>
+</ul>
+<p>The next two sections on this page discuss different types of joins:</p>
+<ul>
+<li>Mutating joins: what should happen if a row or column doesn’t have any matches?</li>
+<li>Filtering joins: using matching rules without merging to filter the left-hand table.</li>
+</ul>
+<p>The remaining four sections discuss important situations related to matching: duplicates, missing values, using multiple columns, and expressions.</p>
+</section>
+<section id="mutating-joins" class="level2">
+<h2 class="anchored" data-anchor-id="mutating-joins">Mutating joins</h2>
+<p>Up to this point we’ve looked at an inner join. We’ll call this a mutating join, because it puts the columns from both tables into the final result. In this section, we’ll look at two more important joins: left join and full join.</p>
+<p>The diagram below shows these three mutating joins.</p>
+<p><img src="_assets/joins-mutate.png" class="img-fluid"></p>
+<p>Left and full joins define a new matching rule for rows of data that don’t have any matches:</p>
+<p><strong>Left join</strong>. Include rows from the left-hand table that didn’t have any matches. This is done by matching left-hand rows with no matches, to a “dummy” right-hand row of all missing values. This is signified in the graph by the circled NA column.</p>
+<p><strong>Full join</strong>: Similar to left join, but extended to include unmatched rows from both tables. Notice that the graph for full join has two “dummy circled NA” entries, one to match rows, and one to match columns.</p>
+<section id="inner-join" class="level3">
+<h3 class="anchored" data-anchor-id="inner-join">Inner join</h3>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>inner_join(lhs, rhs, on<span class="op">=</span><span class="st">"id"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>id</th>
+      <th>val_x</th>
+      <th>val_y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>lhs.1</td>
+      <td>rhs.1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>lhs.2</td>
+      <td>rhs.2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
 </section>
 <section id="outer-joins" class="level3">
 <h3 class="anchored" data-anchor-id="outer-joins">Outer joins</h3>
-<div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>left_join(lhs, rhs, on<span class="op">=</span><span class="st">"id"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>left_join(lhs, rhs, on<span class="op">=</span><span class="st">"id"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
 
 <div>
 
@@ -650,9 +718,9 @@ Note
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>full_join(lhs, rhs, on<span class="op">=</span><span class="st">"id"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>full_join(lhs, rhs, on<span class="op">=</span><span class="st">"id"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
 
 <div>
 
@@ -699,9 +767,86 @@ Note
 </section>
 <section id="filtering-joins" class="level2">
 <h2 class="anchored" data-anchor-id="filtering-joins">Filtering joins</h2>
-<div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>semi_join(lhs, rhs, on<span class="op">=</span><span class="st">"id"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
+<p>Filtering joins use some of the same logic to determine matches as a join, but only to filter (remove) rows from the left-hand table.</p>
+<p>We’ll use the data from the previous section to look at filtering joins.</p>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell quarto-layout-cell" data-execution_count="10" style="flex-basis: 50.0%;justify-content: center;">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>lhs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>id</th>
+      <th>val</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>lhs.1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>lhs.2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>lhs.3</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell quarto-layout-cell" data-execution_count="11" style="flex-basis: 50.0%;justify-content: center;">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>rhs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>id</th>
+      <th>val</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>rhs.1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>rhs.2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4</td>
+      <td>rhs.3</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Use <code>semi_join()</code> to keep rows in the left-hand table that would have a match:</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>semi_join(lhs, rhs, on<span class="op">=</span><span class="st">"id"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
 
 <div>
 
@@ -729,9 +874,10 @@ Note
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>anti_join(lhs, rhs, on<span class="op">=</span><span class="st">"id"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<p>Use <code>anti_join()</code> to keep the rows that a <code>semi_join()</code> would drop—the rows with no matches:</p>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>anti_join(lhs, rhs, on<span class="op">=</span><span class="st">"id"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
 
 <div>
 
@@ -757,6 +903,8 @@ Note
 </section>
 <section id="duplicate-matches" class="level2">
 <h2 class="anchored" data-anchor-id="duplicate-matches">Duplicate matches</h2>
+<p>Mutating joins create a new row for each match between value pairs. This means that a join can duplicate rows from the left- or right-hand data.</p>
+<p>For example, consider the situation where the left- and right-hand data both have the value <code>2</code> multiple times in the columns they’re joining on.</p>
 <div class="grid">
 <div class="g-col-lg-3">
 
@@ -768,23 +916,25 @@ Note
 
 </div>
 </div>
-<div class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>lhs_dupes <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"id"</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>], </span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"val"</span>: [<span class="st">"lhs.1"</span>, <span class="st">"lhs.2"</span>, <span class="st">"lhs.3"</span>, <span class="st">"lhs.4"</span>]</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>rhs_dupes <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"id"</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>],</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"val"</span>: [<span class="st">"rhs.1"</span>, <span class="st">"rhs.2"</span>, <span class="st">"rhs.3"</span>, <span class="st">"rhs.4"</span>]</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This is shown in the graph above—for an inner join, where both tables contain the value <code>2</code> twice. In this case, it results in 4 matches, which will each produce a row in the final result.</p>
+<p>Here is the code corresponding to the graph above.</p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>lhs_dupes <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"id"</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>], </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"val"</span>: [<span class="st">"lhs.1"</span>, <span class="st">"lhs.2"</span>, <span class="st">"lhs.3"</span>, <span class="st">"lhs.4"</span>]</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>rhs_dupes <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"id"</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>],</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"val"</span>: [<span class="st">"rhs.1"</span>, <span class="st">"rhs.2"</span>, <span class="st">"rhs.3"</span>, <span class="st">"rhs.4"</span>]</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
-<div class="cell quarto-layout-cell" data-execution_count="12" style="flex-basis: 50.0%;justify-content: center;">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>lhs_dupes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
+<div class="cell quarto-layout-cell" data-execution_count="15" style="flex-basis: 50.0%;justify-content: center;">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>lhs_dupes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
 
 <div>
 
@@ -822,9 +972,9 @@ Note
 </div>
 </div>
 </div>
-<div class="cell quarto-layout-cell" data-execution_count="13" style="flex-basis: 50.0%;justify-content: center;">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>rhs_dupes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
+<div class="cell quarto-layout-cell" data-execution_count="16" style="flex-basis: 50.0%;justify-content: center;">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>rhs_dupes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
 
 <div>
 
@@ -864,9 +1014,9 @@ Note
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>inner_join(lhs_dupes, rhs_dupes, on<span class="op">=</span><span class="st">"id"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="14">
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>inner_join(lhs_dupes, rhs_dupes, on<span class="op">=</span><span class="st">"id"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
 
 <div>
 
@@ -918,6 +1068,8 @@ Note
 </section>
 <section id="na-handling" class="level2">
 <h2 class="anchored" data-anchor-id="na-handling">NA handling</h2>
+<p>By default, missing values are matched to each other in joins.</p>
+<p>This is shown in the left join below, where each table has a single <code>NA</code> value.</p>
 <div class="grid">
 <div class="g-col-lg-3">
 
@@ -929,13 +1081,14 @@ Note
 
 </div>
 </div>
-<p>Same as dplyr</p>
-<div class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>lhs_na <span class="op">=</span> pd.DataFrame({<span class="st">"id"</span>: [<span class="dv">1</span>, pd.NA, <span class="dv">3</span>]})</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>rhs_na <span class="op">=</span> pd.DataFrame({<span class="st">"id"</span>: [<span class="dv">1</span>, pd.NA, <span class="dv">2</span>]})</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>left_join(lhs_na, rhs_na, on<span class="op">=</span><span class="st">"id"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
+<p>Note the purple mark indicating a match between the <code>NA</code> values. Importantly, literal <code>NA</code> values here are different from the circled dummy NA (top right), which indicates the special matching rule for left joins.</p>
+<p>Here is the code for the example:</p>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>lhs_na <span class="op">=</span> pd.DataFrame({<span class="st">"id"</span>: [<span class="dv">1</span>, pd.NA, <span class="dv">3</span>], <span class="st">'val'</span>: [<span class="st">'lhs.1'</span>, <span class="st">'lhs.2'</span>, <span class="st">'lhs.3'</span>]})</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>rhs_na <span class="op">=</span> pd.DataFrame({<span class="st">"id"</span>: [<span class="dv">1</span>, pd.NA, <span class="dv">2</span>], <span class="st">'val'</span>: [<span class="st">'rhs.1'</span>, <span class="st">'rhs.2'</span>, <span class="st">'rhs.3'</span>]})</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>left_join(lhs_na, rhs_na, on<span class="op">=</span><span class="st">"id"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
 
 <div>
 
@@ -944,20 +1097,28 @@ Note
     <tr>
       <th></th>
       <th>id</th>
+      <th>val_x</th>
+      <th>val_y</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
       <td>1</td>
+      <td>lhs.1</td>
+      <td>rhs.1</td>
     </tr>
     <tr>
       <th>1</th>
       <td>&lt;NA&gt;</td>
+      <td>lhs.2</td>
+      <td>rhs.2</td>
     </tr>
     <tr>
       <th>2</th>
       <td>3</td>
+      <td>lhs.3</td>
+      <td>NaN</td>
     </tr>
   </tbody>
 </table>
@@ -967,21 +1128,25 @@ Note
 </section>
 <section id="match-on-multiple-columns" class="level2">
 <h2 class="anchored" data-anchor-id="match-on-multiple-columns">Match on multiple columns</h2>
-<div class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>lhs_multi <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"source"</span>: [<span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span>],</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"id"</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>],</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"val"</span>: [<span class="st">"lhs.1"</span>, <span class="st">"lhs.2"</span>, <span class="st">"lhs.3"</span>]</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>rhs_multi <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"source"</span>: [<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>],</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"id"</span>: [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>],</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"val"</span>: [<span class="st">"lhs.1"</span>, <span class="st">"lhs.2"</span>, <span class="st">"lhs.3"</span>]</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>inner_join(lhs_multi, rhs_multi, on<span class="op">=</span>[<span class="st">"source"</span>, <span class="st">"id"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="16">
+<p>Joins can be performed by comparing multiple pairs of columns to each other— such as the <code>source</code> and <code>id</code> columns in the data below.</p>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>lhs_multi <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"source"</span>: [<span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span>],</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"id"</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>],</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"val"</span>: [<span class="st">"lhs.1"</span>, <span class="st">"lhs.2"</span>, <span class="st">"lhs.3"</span>]</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>rhs_multi <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"source"</span>: [<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>],</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"id"</span>: [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>],</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"val"</span>: [<span class="st">"rhs.1"</span>, <span class="st">"rhs.2"</span>, <span class="st">"rhs.3"</span>]</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell quarto-layout-cell" data-execution_count="20" style="flex-basis: 50.0%;justify-content: center;">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>lhs_multi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
 
 <div>
 
@@ -991,8 +1156,7 @@ Note
       <th></th>
       <th>source</th>
       <th>id</th>
-      <th>val_x</th>
-      <th>val_y</th>
+      <th>val</th>
     </tr>
   </thead>
   <tbody>
@@ -1001,23 +1165,83 @@ Note
       <td>a</td>
       <td>1</td>
       <td>lhs.1</td>
-      <td>lhs.1</td>
     </tr>
     <tr>
       <th>1</th>
+      <td>a</td>
+      <td>2</td>
+      <td>lhs.2</td>
+    </tr>
+    <tr>
+      <th>2</th>
       <td>b</td>
       <td>1</td>
       <td>lhs.3</td>
-      <td>lhs.2</td>
     </tr>
   </tbody>
 </table>
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>inner_join(lhs_multi, rhs_multi, on<span class="op">=</span>{<span class="st">"source"</span>: <span class="st">"source"</span>, <span class="st">"id"</span>: <span class="st">"id"</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="17">
+<div class="cell quarto-layout-cell" data-execution_count="21" style="flex-basis: 50.0%;justify-content: center;">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>rhs_multi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>source</th>
+      <th>id</th>
+      <th>val</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>a</td>
+      <td>1</td>
+      <td>rhs.1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>b</td>
+      <td>1</td>
+      <td>rhs.2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>c</td>
+      <td>1</td>
+      <td>rhs.3</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>In this case, a match happens when <code>source</code> matches AND <code>id</code> matches—as shown by the composite values <code>(source, id)</code> in the graph below.</p>
+<div class="grid">
+<div class="g-col-lg-3">
+
+</div>
+<div class="g-col-9 g-col-md-6">
+<p><img src="_assets/joins-multiple-keys.png" class="img-fluid"></p>
+</div>
+<div class="g-col-lg-3">
+
+</div>
+</div>
+<section id="using-a-list-of-columns" class="level3">
+<h3 class="anchored" data-anchor-id="using-a-list-of-columns">Using a list of columns</h3>
+<p>Use the <code>on=</code> argument with a list of columns, in order to join on multiple columns.</p>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>inner_join(lhs_multi, rhs_multi, on<span class="op">=</span>[<span class="st">"source"</span>, <span class="st">"id"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
 
 <div>
 
@@ -1037,14 +1261,14 @@ Note
       <td>a</td>
       <td>1</td>
       <td>lhs.1</td>
-      <td>lhs.1</td>
+      <td>rhs.1</td>
     </tr>
     <tr>
       <th>1</th>
       <td>b</td>
       <td>1</td>
       <td>lhs.3</td>
-      <td>lhs.2</td>
+      <td>rhs.2</td>
     </tr>
   </tbody>
 </table>
@@ -1052,8 +1276,58 @@ Note
 </div>
 </div>
 </section>
+<section id="using-a-dictionary-of-columns" class="level3">
+<h3 class="anchored" data-anchor-id="using-a-dictionary-of-columns">Using a dictionary of columns</h3>
+<p>Use the <code>on=</code> argument with a dictionary to join pairs of columns with different names.</p>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba <span class="im">import</span> rename</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>rhs_multi2 <span class="op">=</span> rename(rhs_multi, some_source <span class="op">=</span> <span class="st">"source"</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>inner_join(lhs_multi, rhs_multi2, {<span class="st">"source"</span>: <span class="st">"some_source"</span>, <span class="st">"id"</span>: <span class="st">"id"</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>source</th>
+      <th>id</th>
+      <th>val_x</th>
+      <th>some_source</th>
+      <th>val_y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>a</td>
+      <td>1</td>
+      <td>lhs.1</td>
+      <td>a</td>
+      <td>rhs.1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>b</td>
+      <td>1</td>
+      <td>lhs.3</td>
+      <td>b</td>
+      <td>rhs.2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
 <section id="match-on-expressions" class="level2">
 <h2 class="anchored" data-anchor-id="match-on-expressions">Match on expressions</h2>
+<p>Some siuba backends—like those that execute SQL—can join by expressions for determining matches.</p>
+<p>For example, the graph below shows an inner join, where a match occurs when the left-hand value is less than or equal to the right-hand value.</p>
 <div class="grid">
 <div class="g-col-lg-3">
 
@@ -1065,25 +1339,31 @@ Note
 
 </div>
 </div>
-<p>SQL backends can join by expressions.</p>
-<div class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sqlalchemy <span class="im">import</span> create_engine</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba.sql <span class="im">import</span> LazyTbl</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>engine <span class="op">=</span> create_engine(<span class="st">"sqlite:///:memory:"</span>)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>lhs.to_sql(<span class="st">"lhs"</span>, engine, index<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>rhs.to_sql(<span class="st">"rhs"</span>, engine, index<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>tbl_sql_lhs <span class="op">=</span> LazyTbl(engine, <span class="st">"lhs"</span>)</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>tbl_sql_rhs <span class="op">=</span> LazyTbl(engine, <span class="st">"rhs"</span>)</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>inner_join(</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    tbl_sql_lhs,</span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    tbl_sql_rhs,</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    sql_on <span class="op">=</span> <span class="kw">lambda</span> lhs, rhs: lhs.val <span class="op">&lt;=</span> rhs.val</span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="18">
+<p>Notice that the value <code>1</code> on the left-hand side matches everything on the right-hand side (top row).</p>
+<section id="sql-backend-sql_on-argument." class="level3">
+<h3 class="anchored" data-anchor-id="sql-backend-sql_on-argument.">SQL backend <code>sql_on</code> argument.</h3>
+<p>Here is a full example, using sqlite:</p>
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sqlalchemy <span class="im">import</span> create_engine</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba.sql <span class="im">import</span> LazyTbl</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>engine <span class="op">=</span> create_engine(<span class="st">"sqlite:///:memory:"</span>)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>lhs <span class="op">=</span> pd.DataFrame({<span class="st">'id'</span>: [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>], <span class="st">'val'</span>: [<span class="st">'lhs.1'</span>, <span class="st">'lhs.2'</span>, <span class="st">'lhs.3'</span>]})</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>rhs <span class="op">=</span> pd.DataFrame({<span class="st">'id'</span>: [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>], <span class="st">'val'</span>: [<span class="st">'rhs.1'</span>, <span class="st">'rhs.2'</span>, <span class="st">'rhs.3'</span>]})</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>lhs.to_sql(<span class="st">"lhs"</span>, engine, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>rhs.to_sql(<span class="st">"rhs"</span>, engine, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>tbl_sql_lhs <span class="op">=</span> LazyTbl(engine, <span class="st">"lhs"</span>)</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>tbl_sql_rhs <span class="op">=</span> LazyTbl(engine, <span class="st">"rhs"</span>)</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>inner_join(</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>    tbl_sql_lhs,</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>    tbl_sql_rhs,</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>    sql_on <span class="op">=</span> <span class="kw">lambda</span> lhs, rhs: lhs.val <span class="op">&lt;=</span> rhs.val</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
 
 <div><pre># Source: lazy query
 # DB Conn: Engine(sqlite:///:memory:)
@@ -1141,8 +1421,10 @@ Note
 </div><p># .. may have more rows</p></div>
 </div>
 </div>
+<p>Note that the function passed to <code>sql_on</code> takes sqlalchemy columns for the left- and right-hand sides, so currently limited to what can be done in sqlalchemy.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
