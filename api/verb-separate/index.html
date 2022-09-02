@@ -38,6 +38,8 @@
     
       <link rel="stylesheet" href="../assets/_mkdocstrings.css">
     
+      <link rel="stylesheet" href="../static/styles.css">
+    
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -390,7 +392,7 @@
   
     <li class="md-nav__item">
       <a href="../verb-count/" class="md-nav__link">
-        count, tally
+        count
       </a>
     </li>
   
@@ -760,6 +762,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.unite" class="md-nav__link">
+    unite()
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -992,6 +1001,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.unite" class="md-nav__link">
+    unite()
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1196,6 +1212,119 @@
         <span class="k">return</span> <span class="n">out</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="n">col_name</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">out</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="siuba.dply.verbs.unite" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">unite</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="n">remove</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents first">
+
+      <p>Combine multiple columns into a single column. Return DataFrame that column included.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>__data</code></td>
+        <td></td>
+        <td><p>a DataFrame</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>col</code></td>
+        <td></td>
+        <td><p>name of the to-be-created column (string).</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>*args</code></td>
+        <td></td>
+        <td><p>names of each column to combine.</p></td>
+        <td><code>()</code></td>
+      </tr>
+      <tr>
+        <td><code>sep</code></td>
+        <td></td>
+        <td><p>separator joining each column being combined.</p></td>
+        <td><code>&#39;_&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>remove</code></td>
+        <td></td>
+        <td><p>whether to remove the combined columns from the returned DataFrame.</p></td>
+        <td><code>True</code></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>siuba/dply/verbs.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@singledispatch2</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">unite</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="n">remove</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Combine multiple columns into a single column. Return DataFrame that column included.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    __data:</span>
+<span class="sd">        a DataFrame</span>
+<span class="sd">    col:</span>
+<span class="sd">        name of the to-be-created column (string).</span>
+<span class="sd">    *args:</span>
+<span class="sd">        names of each column to combine.</span>
+<span class="sd">    sep:</span>
+<span class="sd">        separator joining each column being combined.</span>
+<span class="sd">    remove:</span>
+<span class="sd">        whether to remove the combined columns from the returned DataFrame.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">unite_col_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">simple_varname</span><span class="p">,</span> <span class="n">args</span><span class="p">))</span>
+    <span class="n">out_col_name</span> <span class="o">=</span> <span class="n">simple_varname</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+
+    <span class="c1"># validations ----</span>
+    <span class="k">if</span> <span class="kc">None</span> <span class="ow">in</span> <span class="n">unite_col_names</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;*args must be string, or simple column name, e.g. _.col_name&quot;</span><span class="p">)</span>
+
+    <span class="n">missing_cols</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">unite_col_names</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">__data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">missing_cols</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;columns </span><span class="si">%s</span><span class="s2"> not in DataFrame.columns&quot;</span> <span class="o">%</span><span class="n">missing_cols</span><span class="p">)</span>
+
+
+    <span class="n">unite_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">_coerce_to_str</span><span class="p">(</span><span class="n">__data</span><span class="p">[</span><span class="n">col_name</span><span class="p">])</span> <span class="k">for</span> <span class="n">col_name</span> <span class="ow">in</span> <span class="n">unite_col_names</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">out_col_name</span> <span class="ow">in</span> <span class="n">__data</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;col argument </span><span class="si">%s</span><span class="s2"> already a column in data&quot;</span> <span class="o">%</span> <span class="n">out_col_name</span><span class="p">)</span>
+
+    <span class="c1"># perform unite ----</span>
+    <span class="c1"># TODO: this is probably not very efficient. Maybe try with transform or apply?</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">sep</span> <span class="o">+</span> <span class="n">y</span><span class="p">,</span> <span class="n">unite_cols</span><span class="p">)</span>
+
+    <span class="n">out_df</span> <span class="o">=</span> <span class="n">__data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">out_df</span><span class="p">[</span><span class="n">out_col_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span>
+
+    <span class="k">if</span> <span class="n">remove</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">out_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="n">unite_col_names</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">out_df</span>
 </code></pre></div>
         </details>
     </div>

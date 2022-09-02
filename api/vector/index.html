@@ -38,6 +38,8 @@
     
       <link rel="stylesheet" href="../assets/_mkdocstrings.css">
     
+      <link rel="stylesheet" href="../static/styles.css">
+    
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -390,7 +392,7 @@
   
     <li class="md-nav__item">
       <a href="../verb-count/" class="md-nav__link">
-        count, tally
+        count
       </a>
     </li>
   
@@ -2799,11 +2801,100 @@ continue to work for backwards compatibility.</p>
 
     <div class="doc doc-contents first">
 
+      <p>Generalized, vectorized if statement.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>__data</code></td>
+        <td></td>
+        <td><p>The input data.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>cases</code></td>
+        <td><code>dict</code></td>
+        <td><p>A mapping of condition : value.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba</span> <span class="kn">import</span> <span class="n">_</span><span class="p">,</span> <span class="n">case_when</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">case_when</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="p">{</span><span class="n">_</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="n">_</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;two&quot;</span><span class="p">})</span>
+<span class="mi">0</span>     <span class="n">one</span>
+<span class="mi">1</span>     <span class="n">two</span>
+<span class="mi">2</span>    <span class="kc">None</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="nb">object</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">df</span> <span class="o">&gt;&gt;</span> <span class="n">case_when</span><span class="p">({</span><span class="n">_</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="n">_</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;two&quot;</span><span class="p">})</span>
+<span class="mi">0</span>     <span class="n">one</span>
+<span class="mi">1</span>     <span class="n">two</span>
+<span class="mi">2</span>    <span class="kc">None</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="nb">object</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">df</span> <span class="o">&gt;&gt;</span> <span class="n">case_when</span><span class="p">({</span><span class="n">_</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="n">_</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;two&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">:</span> <span class="s2">&quot;other&quot;</span><span class="p">})</span>
+<span class="mi">0</span>      <span class="n">one</span>
+<span class="mi">1</span>      <span class="n">two</span>
+<span class="mi">2</span>    <span class="n">other</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="nb">object</span>
+</code></pre></div>
 
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="nd">@singledispatch2</span><span class="p">((</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">))</span>
-<span class="k">def</span> <span class="nf">case_when</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="n">cases</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">case_when</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="n">cases</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Generalized, vectorized if statement.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    __data:</span>
+<span class="sd">        The input data.</span>
+<span class="sd">    cases: dict</span>
+<span class="sd">        A mapping of condition : value.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    if_else : Handles the special case of two conditions.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">    &gt;&gt;&gt; from siuba import _, case_when</span>
+
+<span class="sd">    &gt;&gt;&gt; df = pd.DataFrame({&quot;x&quot;: [1, 2, 3]})</span>
+<span class="sd">    &gt;&gt;&gt; case_when(df, {_.x == 1: &quot;one&quot;, _.x == 2: &quot;two&quot;})</span>
+<span class="sd">    0     one</span>
+<span class="sd">    1     two</span>
+<span class="sd">    2    None</span>
+<span class="sd">    dtype: object</span>
+
+<span class="sd">    &gt;&gt;&gt; df &gt;&gt; case_when({_.x == 1: &quot;one&quot;, _.x == 2: &quot;two&quot;})</span>
+<span class="sd">    0     one</span>
+<span class="sd">    1     two</span>
+<span class="sd">    2    None</span>
+<span class="sd">    dtype: object</span>
+
+<span class="sd">    &gt;&gt;&gt; df &gt;&gt; case_when({_.x == 1: &quot;one&quot;, _.x == 2: &quot;two&quot;, True: &quot;other&quot;})</span>
+<span class="sd">    0      one</span>
+<span class="sd">    1      two</span>
+<span class="sd">    2    other</span>
+<span class="sd">    dtype: object</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cases</span><span class="p">,</span> <span class="n">Call</span><span class="p">):</span>
         <span class="n">cases</span> <span class="o">=</span> <span class="n">cases</span><span class="p">(</span><span class="n">__data</span><span class="p">)</span>
     <span class="c1"># TODO: handle when receive list of (k,v) pairs for py &lt; 3.5 compat?</span>
@@ -2838,7 +2929,7 @@ continue to work for backwards compatibility.</p>
 
 
 <h3 id="siuba.dply.verbs.if_else" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">if_else</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">if_else</span><span class="p">(</span><span class="n">condition</span><span class="p">,</span> <span class="n">true</span><span class="p">,</span> <span class="n">false</span><span class="p">)</span></code>
 
 
 </h3>
@@ -2846,6 +2937,37 @@ continue to work for backwards compatibility.</p>
     <div class="doc doc-contents first">
 
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>condition</code></td>
+        <td></td>
+        <td><p>Logical vector (or lazy expression).</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>true</code></td>
+        <td></td>
+        <td><p>Values to be used when condition is True.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>false</code></td>
+        <td></td>
+        <td><p>Values to be used when condition is False.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
 <p><strong>Examples:</strong></p>
     <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">ser1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">if_else</span><span class="p">(</span><span class="n">ser1</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">ser1</span><span class="p">)</span>
@@ -2874,8 +2996,21 @@ continue to work for backwards compatibility.</p>
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="nd">@singledispatch</span>
-<span class="k">def</span> <span class="nf">if_else</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">if_else</span><span class="p">(</span><span class="n">condition</span><span class="p">,</span> <span class="n">true</span><span class="p">,</span> <span class="n">false</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    condition:</span>
+<span class="sd">        Logical vector (or lazy expression).</span>
+<span class="sd">    true:</span>
+<span class="sd">        Values to be used when condition is True.</span>
+<span class="sd">    false:</span>
+<span class="sd">        Values to be used when condition is False.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    case_when : Generalized if_else, for handling many cases.</span>
+
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; ser1 = pd.Series([1,2,3])</span>
@@ -2902,7 +3037,7 @@ continue to work for backwards compatibility.</p>
 <span class="sd">    dtype: object</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">raise_type_error</span><span class="p">(</span><span class="n">__data</span><span class="p">)</span>
+    <span class="n">raise_type_error</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>

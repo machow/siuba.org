@@ -38,6 +38,8 @@
     
       <link rel="stylesheet" href="../assets/_mkdocstrings.css">
     
+      <link rel="stylesheet" href="../static/styles.css">
+    
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -392,7 +394,7 @@
   
     <li class="md-nav__item">
       <a href="../verb-count/" class="md-nav__link">
-        count, tally
+        count
       </a>
     </li>
   
@@ -521,6 +523,13 @@
         <li class="md-nav__item">
   <a href="#siuba.dply.verbs.group_by" class="md-nav__link">
     group_by()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.ungroup" class="md-nav__link">
+    ungroup()
   </a>
   
 </li>
@@ -992,6 +1001,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#siuba.dply.verbs.ungroup" class="md-nav__link">
+    ungroup()
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1185,6 +1201,86 @@ Use an explicit mutate on the grouped data perform the operation within groups.<
         <span class="k">return</span> <span class="n">tmp_df</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">all_groups</span><span class="p">))</span>
 
     <span class="k">return</span> <span class="n">tmp_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="n">by_vars</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="siuba.dply.verbs.ungroup" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">ungroup</span><span class="p">(</span><span class="n">__data</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents first">
+
+      <p>Return an ungrouped DataFrame.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>__data</code></td>
+        <td></td>
+        <td><p>The data being ungrouped.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba</span> <span class="kn">import</span> <span class="n">_</span><span class="p">,</span> <span class="n">group_by</span><span class="p">,</span> <span class="n">ungroup</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba.data</span> <span class="kn">import</span> <span class="n">cars</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">g_cyl</span> <span class="o">=</span> <span class="n">cars</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;cyl&quot;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">res1</span> <span class="o">=</span> <span class="n">ungroup</span><span class="p">(</span><span class="n">g_cyl</span><span class="p">)</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">res2</span> <span class="o">=</span> <span class="n">cars</span> <span class="o">&gt;&gt;</span> <span class="n">group_by</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">cyl</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="n">ungroup</span><span class="p">()</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>siuba/dply/verbs.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@singledispatch2</span><span class="p">((</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">DataFrameGroupBy</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">ungroup</span><span class="p">(</span><span class="n">__data</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return an ungrouped DataFrame.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    __data:</span>
+<span class="sd">        The data being ungrouped.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from siuba import _, group_by, ungroup</span>
+<span class="sd">    &gt;&gt;&gt; from siuba.data import cars</span>
+
+<span class="sd">    &gt;&gt;&gt; g_cyl = cars.groupby(&quot;cyl&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; res1 = ungroup(g_cyl)</span>
+
+<span class="sd">    &gt;&gt;&gt; res2 = cars &gt;&gt; group_by(_.cyl) &gt;&gt; ungroup()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO: can we somehow just restore the original df used to construct</span>
+    <span class="c1">#       the groupby?</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">__data</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">__data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">__data</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>

@@ -38,6 +38,8 @@
     
       <link rel="stylesheet" href="../assets/_mkdocstrings.css">
     
+      <link rel="stylesheet" href="../static/styles.css">
+    
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -386,7 +388,7 @@
   
     <li class="md-nav__item">
       <a href="../verb-count/" class="md-nav__link">
-        count, tally
+        count
       </a>
     </li>
   
@@ -977,11 +979,129 @@
 
     <div class="doc doc-contents first">
 
+      <p>Add a column that is the number of observations for each grouping of data.</p>
+<p>Note that this function is similar to count(), but does not aggregate. It's
+useful combined with filter().</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>__data</code></td>
+        <td></td>
+        <td><p>A DataFrame.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>*args</code></td>
+        <td></td>
+        <td><p>The names of columns to be used for grouping. Passed to group_by.</p></td>
+        <td><code>()</code></td>
+      </tr>
+      <tr>
+        <td><code>wt</code></td>
+        <td></td>
+        <td><p>The name of a column to use as a weighted for each row.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>sort</code></td>
+        <td></td>
+        <td><p>Whether to sort the results in descending order.</p></td>
+        <td><code>False</code></td>
+      </tr>
+      <tr>
+        <td><code>**kwargs</code></td>
+        <td></td>
+        <td><p>Creates a new named column, and uses for grouping. Passed to group_by.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba</span> <span class="kn">import</span> <span class="n">_</span><span class="p">,</span> <span class="n">add_count</span><span class="p">,</span> <span class="n">group_by</span><span class="p">,</span> <span class="n">ungroup</span><span class="p">,</span> <span class="n">mutate</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba.data</span> <span class="kn">import</span> <span class="n">mtcars</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">],</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">df</span> <span class="o">&gt;&gt;</span> <span class="n">add_count</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+   <span class="n">x</span>  <span class="n">y</span>  <span class="n">n</span>
+<span class="mi">0</span>  <span class="n">a</span>  <span class="mi">1</span>  <span class="mi">2</span>
+<span class="mi">1</span>  <span class="n">a</span>  <span class="mi">2</span>  <span class="mi">2</span>
+<span class="mi">2</span>  <span class="n">b</span>  <span class="mi">3</span>  <span class="mi">1</span>
+</code></pre></div>
+    <p>This is useful if you want to see data associated with some count:</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">df</span> <span class="o">&gt;&gt;</span> <span class="n">add_count</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="nb">filter</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+   <span class="n">x</span>  <span class="n">y</span>  <span class="n">n</span>
+<span class="mi">2</span>  <span class="n">b</span>  <span class="mi">3</span>  <span class="mi">1</span>
+</code></pre></div>
+    <p>Note that add_count is equivalent to a grouped mutate:</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">df</span> <span class="o">&gt;&gt;</span> <span class="n">group_by</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="n">mutate</span><span class="p">(</span><span class="n">n</span> <span class="o">=</span> <span class="n">_</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&gt;&gt;</span> <span class="n">ungroup</span><span class="p">()</span>
+   <span class="n">x</span>  <span class="n">y</span>  <span class="n">n</span>
+<span class="mi">0</span>  <span class="n">a</span>  <span class="mi">1</span>  <span class="mi">2</span>
+<span class="mi">1</span>  <span class="n">a</span>  <span class="mi">2</span>  <span class="mi">2</span>
+<span class="mi">2</span>  <span class="n">b</span>  <span class="mi">3</span>  <span class="mi">1</span>
+</code></pre></div>
 
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="nd">@singledispatch2</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">add_count</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">wt</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">sort</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Add a column that is the number of observations for each grouping of data.</span>
+
+<span class="sd">    Note that this function is similar to count(), but does not aggregate. It&#39;s</span>
+<span class="sd">    useful combined with filter().</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    __data:</span>
+<span class="sd">        A DataFrame.</span>
+<span class="sd">    *args:</span>
+<span class="sd">        The names of columns to be used for grouping. Passed to group_by.</span>
+<span class="sd">    wt:</span>
+<span class="sd">        The name of a column to use as a weighted for each row.</span>
+<span class="sd">    sort:</span>
+<span class="sd">        Whether to sort the results in descending order.</span>
+<span class="sd">    **kwargs:</span>
+<span class="sd">        Creates a new named column, and uses for grouping. Passed to group_by.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">    &gt;&gt;&gt; from siuba import _, add_count, group_by, ungroup, mutate</span>
+<span class="sd">    &gt;&gt;&gt; from siuba.data import mtcars</span>
+
+<span class="sd">    &gt;&gt;&gt; df = pd.DataFrame({&quot;x&quot;: [&quot;a&quot;, &quot;a&quot;, &quot;b&quot;], &quot;y&quot;: [1, 2, 3]})</span>
+<span class="sd">    &gt;&gt;&gt; df &gt;&gt; add_count(_.x)</span>
+<span class="sd">       x  y  n</span>
+<span class="sd">    0  a  1  2</span>
+<span class="sd">    1  a  2  2</span>
+<span class="sd">    2  b  3  1</span>
+
+<span class="sd">    This is useful if you want to see data associated with some count:</span>
+
+<span class="sd">    &gt;&gt;&gt; df &gt;&gt; add_count(_.x) &gt;&gt; filter(_.n == 1)</span>
+<span class="sd">       x  y  n</span>
+<span class="sd">    2  b  3  1</span>
+
+<span class="sd">    Note that add_count is equivalent to a grouped mutate:</span>
+
+<span class="sd">    &gt;&gt;&gt; df &gt;&gt; group_by(_.x) &gt;&gt; mutate(n = _.shape[0]) &gt;&gt; ungroup()</span>
+<span class="sd">       x  y  n</span>
+<span class="sd">    0  a  1  2</span>
+<span class="sd">    1  a  2  2</span>
+<span class="sd">    2  b  3  1</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">counts</span> <span class="o">=</span> <span class="n">count</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">wt</span> <span class="o">=</span> <span class="n">wt</span><span class="p">,</span> <span class="n">sort</span> <span class="o">=</span> <span class="n">sort</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="n">on</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">counts</span><span class="o">.</span><span class="n">columns</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>

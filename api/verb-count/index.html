@@ -13,7 +13,7 @@
     
     
       
-        <title>count, tally - Siuba Reference</title>
+        <title>count - Siuba Reference</title>
       
     
     
@@ -37,6 +37,8 @@
     
     
       <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../static/styles.css">
     
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -95,7 +97,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              count, tally
+              count
             
           </span>
         </div>
@@ -399,12 +401,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          count, tally
+          count
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        count, tally
+        count
       </a>
       
         
@@ -1006,7 +1008,7 @@
                 
 
 
-  <h1>count, tally</h1>
+  <h1>count</h1>
 
 <div class="doc doc-object doc-function">
 
@@ -1020,7 +1022,7 @@
 
     <div class="doc doc-contents first">
 
-      <p>Return the number of rows for each grouping of data.</p>
+      <p>Summarize data with the number of rows for each grouping of data.</p>
 
 <p><strong>Parameters:</strong></p>
 <table>
@@ -1095,7 +1097,7 @@
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="nd">@singledispatch2</span><span class="p">((</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">DataFrameGroupBy</span><span class="p">))</span>
 <span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">wt</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">sort</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Return the number of rows for each grouping of data.</span>
+    <span class="sd">&quot;&quot;&quot;Summarize data with the number of rows for each grouping of data.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>

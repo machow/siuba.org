@@ -38,6 +38,8 @@
     
       <link rel="stylesheet" href="../assets/_mkdocstrings.css">
     
+      <link rel="stylesheet" href="../static/styles.css">
+    
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -392,7 +394,7 @@
   
     <li class="md-nav__item">
       <a href="../verb-count/" class="md-nav__link">
-        count, tally
+        count
       </a>
     </li>
   
@@ -1020,14 +1022,112 @@
 
     <div class="doc doc-contents first">
 
-      <p>Keep only distinct rows from a table.</p>
+      <p>Keep only distinct (unique) rows from a table.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>__data</code></td>
+        <td></td>
+        <td><p>The input data.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>*args</code></td>
+        <td></td>
+        <td><p>Columns to use when determining which rows are unique.</p></td>
+        <td><code>()</code></td>
+      </tr>
+      <tr>
+        <td><code>_keep_all</code></td>
+        <td></td>
+        <td><p>Whether to keep all columns of the original data, not just *args.</p></td>
+        <td><code>False</code></td>
+      </tr>
+      <tr>
+        <td><code>**kwargs</code></td>
+        <td></td>
+        <td><p>If specified, arguments passed to the verb mutate(), and then being used
+in distinct().</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba</span> <span class="kn">import</span> <span class="n">_</span><span class="p">,</span> <span class="n">distinct</span><span class="p">,</span> <span class="n">select</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba.data</span> <span class="kn">import</span> <span class="n">penguins</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">penguins</span> <span class="o">&gt;&gt;</span> <span class="n">distinct</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">species</span><span class="p">,</span> <span class="n">_</span><span class="o">.</span><span class="n">island</span><span class="p">)</span>
+     <span class="n">species</span>     <span class="n">island</span>
+<span class="mi">0</span>     <span class="n">Adelie</span>  <span class="n">Torgersen</span>
+<span class="mi">1</span>     <span class="n">Adelie</span>     <span class="n">Biscoe</span>
+<span class="mi">2</span>     <span class="n">Adelie</span>      <span class="n">Dream</span>
+<span class="mi">3</span>     <span class="n">Gentoo</span>     <span class="n">Biscoe</span>
+<span class="mi">4</span>  <span class="n">Chinstrap</span>      <span class="n">Dream</span>
+</code></pre></div>
+    <p>Use _keep_all=True, to keep all columns in each distinct row. This lets you
+peak at the values of the first unique row.</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">small_penguins</span> <span class="o">=</span> <span class="n">penguins</span> <span class="o">&gt;&gt;</span> <span class="n">select</span><span class="p">(</span><span class="n">_</span><span class="p">[:</span><span class="mi">4</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">small_penguins</span> <span class="o">&gt;&gt;</span> <span class="n">distinct</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">species</span><span class="p">,</span> <span class="n">_keep_all</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+     <span class="n">species</span>     <span class="n">island</span>  <span class="n">bill_length_mm</span>  <span class="n">bill_depth_mm</span>
+<span class="mi">0</span>     <span class="n">Adelie</span>  <span class="n">Torgersen</span>            <span class="mf">39.1</span>           <span class="mf">18.7</span>
+<span class="mi">1</span>     <span class="n">Gentoo</span>     <span class="n">Biscoe</span>            <span class="mf">46.1</span>           <span class="mf">13.2</span>
+<span class="mi">2</span>  <span class="n">Chinstrap</span>      <span class="n">Dream</span>            <span class="mf">46.5</span>           <span class="mf">17.9</span>
+</code></pre></div>
 
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="nd">@singledispatch2</span><span class="p">(</span><span class="n">DataFrame</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">distinct</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">_keep_all</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Keep only distinct rows from a table.</span>
+    <span class="sd">&quot;&quot;&quot;Keep only distinct (unique) rows from a table.</span>
 
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    __data:</span>
+<span class="sd">        The input data.</span>
+<span class="sd">    *args:</span>
+<span class="sd">        Columns to use when determining which rows are unique.</span>
+<span class="sd">    _keep_all:</span>
+<span class="sd">        Whether to keep all columns of the original data, not just *args.</span>
+<span class="sd">    **kwargs:</span>
+<span class="sd">        If specified, arguments passed to the verb mutate(), and then being used</span>
+<span class="sd">        in distinct().</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    count : keep distinct rows, and count their number of observations.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from siuba import _, distinct, select</span>
+<span class="sd">    &gt;&gt;&gt; from siuba.data import penguins</span>
+
+<span class="sd">    &gt;&gt;&gt; penguins &gt;&gt; distinct(_.species, _.island)</span>
+<span class="sd">         species     island</span>
+<span class="sd">    0     Adelie  Torgersen</span>
+<span class="sd">    1     Adelie     Biscoe</span>
+<span class="sd">    2     Adelie      Dream</span>
+<span class="sd">    3     Gentoo     Biscoe</span>
+<span class="sd">    4  Chinstrap      Dream</span>
+
+<span class="sd">    Use _keep_all=True, to keep all columns in each distinct row. This lets you</span>
+<span class="sd">    peak at the values of the first unique row.</span>
+
+<span class="sd">    &gt;&gt;&gt; small_penguins = penguins &gt;&gt; select(_[:4])</span>
+<span class="sd">    &gt;&gt;&gt; small_penguins &gt;&gt; distinct(_.species, _keep_all = True)</span>
+<span class="sd">         species     island  bill_length_mm  bill_depth_mm</span>
+<span class="sd">    0     Adelie  Torgersen            39.1           18.7</span>
+<span class="sd">    1     Gentoo     Biscoe            46.1           13.2</span>
+<span class="sd">    2  Chinstrap      Dream            46.5           17.9</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># using dict as ordered set</span>
     <span class="n">cols</span> <span class="o">=</span> <span class="p">{</span><span class="n">simple_varname</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="kc">True</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">args</span><span class="p">}</span>
@@ -1076,7 +1176,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="../verb-count/" class="md-footer__link md-footer__link--prev" aria-label="Previous: count, tally" rel="prev">
+        <a href="../verb-count/" class="md-footer__link md-footer__link--prev" aria-label="Previous: count" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -1085,7 +1185,7 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              count, tally
+              count
             </div>
           </div>
         </a>

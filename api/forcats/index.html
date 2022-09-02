@@ -38,6 +38,8 @@
     
       <link rel="stylesheet" href="../assets/_mkdocstrings.css">
     
+      <link rel="stylesheet" href="../static/styles.css">
+    
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -390,7 +392,7 @@
   
     <li class="md-nav__item">
       <a href="../verb-count/" class="md-nav__link">
-        count, tally
+        count
       </a>
     </li>
   
@@ -863,45 +865,12 @@
     fct_lump()
   </a>
   
-    <nav class="md-nav" aria-label="fct_lump()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.forcats.fct_lump--todo-implement-prop-arg" class="md-nav__link">
-    TODO: implement prop arg
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
           <li class="md-nav__item">
   <a href="#siuba.dply.forcats.fct_recode" class="md-nav__link">
     fct_recode()
   </a>
-  
-    <nav class="md-nav" aria-label="fct_recode()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.forcats.fct_recode--fct_recodecat-x-a-x-b" class="md-nav__link">
-    &gt;&gt;&gt; fct_recode(cat, x = 'a', x = 'b')
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.forcats.fct_recode--fct_recodecat-x-a-b" class="md-nav__link">
-    &gt;&gt;&gt; fct_recode(cat, x = ['a', 'b'])
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -1121,45 +1090,12 @@
     fct_lump()
   </a>
   
-    <nav class="md-nav" aria-label="fct_lump()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.forcats.fct_lump--todo-implement-prop-arg" class="md-nav__link">
-    TODO: implement prop arg
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
           <li class="md-nav__item">
   <a href="#siuba.dply.forcats.fct_recode" class="md-nav__link">
     fct_recode()
   </a>
-  
-    <nav class="md-nav" aria-label="fct_recode()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.forcats.fct_recode--fct_recodecat-x-a-x-b" class="md-nav__link">
-    &gt;&gt;&gt; fct_recode(cat, x = 'a', x = 'b')
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#siuba.dply.forcats.fct_recode--fct_recodecat-x-a-b" class="md-nav__link">
-    &gt;&gt;&gt; fct_recode(cat, x = ['a', 'b'])
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -1722,7 +1658,6 @@ parameter to override it.</p>
 <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;Other&#39;</span><span class="p">,</span> <span class="s1">&#39;Other&#39;</span><span class="p">]</span>
 <span class="n">Categories</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;Other&#39;</span><span class="p">]</span>
 </code></pre></div>
-    <h4 id="siuba.dply.forcats.fct_lump--todo-implement-prop-arg">TODO: implement prop arg</h4>
     <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">fct_lump</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">],</span> <span class="n">prop</span> <span class="o">=</span> <span class="mf">.2</span><span class="p">)</span>
 <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;Other&#39;</span><span class="p">,</span> <span class="s1">&#39;Other&#39;</span><span class="p">]</span>
 <span class="n">Categories</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;Other&#39;</span><span class="p">]</span>
@@ -1759,7 +1694,6 @@ parameter to override it.</p>
 <span class="sd">    [&#39;a&#39;, &#39;a&#39;, &#39;Other&#39;, &#39;Other&#39;]</span>
 <span class="sd">    Categories (2, object): [&#39;a&#39;, &#39;Other&#39;]</span>
 
-<span class="sd">    # TODO: implement prop arg</span>
 <span class="sd">    &gt;&gt;&gt; fct_lump([&#39;a&#39;, &#39;a&#39;, &#39;b&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;], prop = .2)</span>
 <span class="sd">    [&#39;a&#39;, &#39;a&#39;, &#39;b&#39;, &#39;b&#39;, &#39;Other&#39;, &#39;Other&#39;]</span>
 <span class="sd">    Categories (3, object): [&#39;a&#39;, &#39;b&#39;, &#39;Other&#39;]</span>
@@ -1829,8 +1763,14 @@ parameter to override it.</p>
 <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]</span>
 <span class="n">Categories</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]</span>
 </code></pre></div>
-    <h4 id="siuba.dply.forcats.fct_recode--fct_recodecat-x-a-x-b">&gt;&gt;&gt; fct_recode(cat, x = 'a', x = 'b')</h4>
-<h4 id="siuba.dply.forcats.fct_recode--fct_recodecat-x-a-b">&gt;&gt;&gt; fct_recode(cat, x = ['a', 'b'])</h4>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">fct_recode</span><span class="p">(</span><span class="n">cat</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">])</span>
+<span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]</span>
+<span class="n">Categories</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">fct_recode</span><span class="p">(</span><span class="n">cat</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">]})</span>
+<span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]</span>
+<span class="n">Categories</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]</span>
+</code></pre></div>
 
         <details class="quote">
           <summary>Source code in <code>siuba/dply/forcats.py</code></summary>
@@ -1852,8 +1792,13 @@ parameter to override it.</p>
 <span class="sd">    [&#39;a&#39;, &#39;b&#39;, &#39;z&#39;]</span>
 <span class="sd">    Categories (3, object): [&#39;a&#39;, &#39;b&#39;, &#39;z&#39;]</span>
 
-<span class="sd">    # &gt;&gt;&gt; fct_recode(cat, x = &#39;a&#39;, x = &#39;b&#39;)</span>
-<span class="sd">    # &gt;&gt;&gt; fct_recode(cat, x = [&#39;a&#39;, &#39;b&#39;])</span>
+<span class="sd">    &gt;&gt;&gt; fct_recode(cat, x = [&#39;a&#39;, &#39;b&#39;])</span>
+<span class="sd">    [&#39;x&#39;, &#39;x&#39;, &#39;c&#39;]</span>
+<span class="sd">    Categories (2, object): [&#39;x&#39;, &#39;c&#39;]</span>
+
+<span class="sd">    &gt;&gt;&gt; fct_recode(cat, {&quot;x&quot;: [&#39;a&#39;, &#39;b&#39;]})</span>
+<span class="sd">    [&#39;x&#39;, &#39;x&#39;, &#39;c&#39;]</span>
+<span class="sd">    Categories (2, object): [&#39;x&#39;, &#39;c&#39;]</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -1883,7 +1828,7 @@ parameter to override it.</p>
 
 
 <h3 id="siuba.dply.forcats.fct_reorder" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">fct_reorder</span><span class="p">(</span><span class="n">fct</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">func</span><span class="o">=&lt;</span><span class="n">function</span> <span class="n">median</span> <span class="n">at</span> <span class="mh">0x7f743e87df30</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">fct_reorder</span><span class="p">(</span><span class="n">fct</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">func</span><span class="o">=&lt;</span><span class="n">function</span> <span class="n">median</span> <span class="n">at</span> <span class="mh">0x7f931ea6dea0</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
 
 </h3>
@@ -1919,7 +1864,7 @@ parameter to override it.</p>
         <td><code>func</code></td>
         <td></td>
         <td><p>Function run over all values within a level of the categorical.</p></td>
-        <td><code>&lt;function median at 0x7f743e87df30&gt;</code></td>
+        <td><code>&lt;function median at 0x7f931ea6dea0&gt;</code></td>
       </tr>
       <tr>
         <td><code>desc</code></td>
