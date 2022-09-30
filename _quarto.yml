@@ -9,6 +9,8 @@ project:
     - about/*.qmd
     - develop/*.qmd
     - develop/*.ipynb
+    - contribute/*.qmd
+    - blog/**/*.qmd
   resources:
     - api/**
 
@@ -24,11 +26,14 @@ website:
         href: api/
       - text: "Examples"
         href: examples/index.qmd
-      - text: "Develop"
-        href: develop/index.qmd
+      - text: "Get Involved"
+        href: contribute/index.qmd
+      - text: "Blog"
+        href: blog/index.qmd
       - text: "About"
         menu:
           - about/key_features.qmd
+          - develop/index.qmd
     right:
       - icon: github
         href: https://github.com/machow/siuba/
@@ -57,6 +62,7 @@ website:
             - guide/ops-datetime.qmd
             - guide/ops-categoricals.qmd
             # - guide/ops-autocomplete.qmd
+            - guide/ops-support-table.qmd
         - section: "Wrangling"
           contents:
             - guide/wrangle-joins.qmd

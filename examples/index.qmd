@@ -1,7 +1,21 @@
 ---
-title: Examples
+pagetitle: Examples
+format:
+  html:
+    toc: false
+    css: "_style.css"
+listing:
+  - id: gallery
+    template: gallery.ejs
+    contents: gallery.yml
 ---
 
 
-This page will diagram out key concepts
+::: {.column-page}
 
+
+::: {#gallery}
+:::
+
+
+:::
