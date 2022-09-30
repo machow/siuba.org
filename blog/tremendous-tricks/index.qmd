@@ -1,0 +1,106 @@
+---
+title: "10 Tremendous Tricks of the Siubaverse"
+author: "Michael Chow"
+date: "2022-09-21"
+categories: [tutorial, pandas]
+---
+
+```python
+from gapminder import gapminder
+from siuba import _
+```
+
+
+## `count()`
+
+```python
+# uses phd data, need a wt argument
+#count(gapminder, _.continent, sort=True, wt=, name="graduates")
+```
+
+## `count()` or `group_by()` with expressions
+
+```python
+# maryland bridges
+count(maryland_bridges, decade = 10 * (_.year // 10))
+
+# then plot
+```
+
+
+## `add_count()`
+
+```python
+# show manual counting approach
+```
+
+```python
+# space launches
+# launches >> add_count(_.type) >> filter(_.n >= 20)
+```
+
+
+## `summarize()` to create a list column
+
+```python
+# nyc restaurant data
+# all a t-test
+# (restaurants
+#     >> group_by(_.cuisine)
+#     >> summarize(test = list())
+# )
+```
+
+
+## `fct_reorder()` + `geom_col()` + `coord_flip()`
+
+```python
+# uses it across many datasets
+# bob ross
+# tennis grand slams
+# us majors?
+# common words in medium post titles
+# franchises
+```
+
+## `fct_lump()`
+
+```python
+# horror movies (but do space launches)
+#(horror_movies
+#    >> mutate(rating = fct_lump(rating, 5))
+#    >> mutate(rating = fct_reorder(_.rating, _.score))
+#    >> ggplot(aes("rating", "score"))
+#    + geom_boxplot()
+#    + coord_flip()
+#)
+```
+
+
+## `scale_x/y_log10()`
+
+```python
+# y-axis co2 omissions
+# x-axis gdp
+```
+
+
+## `crossing()`
+
+```python
+# tougher to explain
+```
+
+
+## `separate()`
+
+```python
+# find something with a funky separator
+```
+
+
+## `extract()`
+
+```python
+# bob ross data extract season and episode
+```

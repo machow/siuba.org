@@ -1,0 +1,351 @@
+---
+pagetitle: Siuba | fast and flexible data analysis.
+page-layout: custom
+section-divs: false
+toc: false
+jupyter:
+  jupytext:
+    formats: 'qmd:quarto'
+    text_representation:
+      extension: .qmd
+      format_name: quarto
+      format_version: '1.0'
+      jupytext_version: 1.14.0
+  kernelspec:
+    display_name: Python 3
+    language: python
+    name: python3
+---
+
+
+```{python}
+#| include: false
+import pandas as pd
+pd.set_option("display.max_rows", 5)
+```
+
+::: {.hero-banner}
+
+# Python Data Analysis from Start to Finish {.text-center}
+
+:::
+
+
+:::::: {.content-block}
+
+
+::: {.list .grid}
+
+:::: {.card .border-2 .rounded-3 .g-col-12 .g-col-md-12 .g-col-lg-4 .mb-2}
+::::: {.card-body}
+
+::: {.card-title .text-center}
+##### Move Fast
+:::
+
+<br>
+siuba (小巴) is an analysis framework that makes data science faster.
+It provides a simple, consistent interface that handles messy, real-life data.
+
+<br>
+
+::: {.d-flex .justify-content-center }
+
+[Get Started](./guide){.btn .btn-action .btn-primary .btn-action-primary .justify-content-center }
+
+:::
+
+:::::
+::::
+
+
+:::: {.card .border-2 .rounded-3 .g-col-12 .g-col-md-12 .g-col-lg-4 .mb-2}
+::::: {.card-body}
+
+::: {.card-title .text-center}
+##### Write Once, Run Everywhere
+:::
+
+<br>
+Use the same code to work directly with a pandas DataFrame,
+or execute SQL queries against a database---such
+as postgresql, duckdb or snowflake.
+
+<br>
+
+
+::: {.d-flex .justify-content-center }
+
+[Backends](#backends){.btn .btn-action .btn-primary .btn-action-primary }
+
+:::
+
+:::::
+::::
+
+
+:::: {.card .border-2 .rounded-3 .g-col-12 .g-col-md-12 .g-col-lg-4 .mb-2}
+::::: {.card-body}
+
+::: {.card-title .text-center}
+##### Learn Together
+:::
+
+<br>
+Everybody has to start somewhere.
+Bring your questions, bring your hot takes, bring the excel spreadsheets your boss emailed you.
+
+<br>
+
+
+
+::: {.d-flex .justify-content-center }
+
+[Join Community](#community){.btn .btn-action .btn-primary .btn-action-primary }
+
+:::
+
+:::::
+::::
+
+:::
+
+
+::::::
+
+
+:::::: {.content-block .feature-blocks}
+
+
+## Key Features
+
+:::: {.grid}
+::::: {.g-col-lg-3 .g-col-12 .text-center .text-lg-start}
+### Five core table functions
+:::::
+::::: {.g-col-lg-9 .g-col-12}
+::: {.panel-tabset}
+
+## filter rows
+
+```{python}
+from siuba.data import cars
+from siuba import _, filter
+
+filter(cars, _.mpg == _.mpg.max())
+```
+
+## arrange rows
+
+```{python}
+from siuba.data import cars
+from siuba import _, arrange
+
+arrange(cars, _.mpg)
+```
+
+## select columns
+
+```{python}
+from siuba.data import cars
+from siuba import _, select
+
+select(cars, ~_.hp)
+```
+
+## transform data
+
+```{python}
+from siuba.data import cars
+from siuba import _, mutate
+
+mutate(cars, demeaned = _.hp - _.hp.mean())
+```
+
+## summarize data
+
+```{python}
+from siuba.data import cars
+from siuba import _, group_by, summarize
+
+summarize(cars, hp_per_cyl = (_.hp / _.cyl).mean())
+```
+
+:::
+:::::
+::::
+
+
+:::: {.grid}
+::::: {.g-col-12 .g-col-lg-3 .order-lg-2 .text-center .text-lg-end} 
+### Everything works with `group_by()`
+:::::
+::::: {.g-col-12 .g-col-lg-9 .order-lg-1}
+![](assets/group_by.png)
+:::::
+::::
+
+
+:::: {.grid}
+::::: {.g-col-lg-3 .g-col-12 .text-center .text-lg-start}
+### The pipe (`>>`) puts it all together
+:::::
+::::: {.g-col-lg-9 .g-col-12}
+```{python}
+from siuba.data import mtcars
+from siuba import _, group_by, filter
+
+(mtcars 
+    >> group_by(_.cyl)
+    >> filter(_.hp == _.hp.max())
+)
+```
+:::::
+::::
+
+
+::: {.d-flex .justify-content-center}
+[Get Started](./guide){.btn .btn-action .btn-primary .btn-action-primary }
+[Examples](./examples){.btn .btn-action .btn-primary .btn-action-primary }
+:::
+
+::::::
+
+
+:::::: {.content-block}
+
+
+## Write Once, Run Everywhere {#backends}
+
+
+::: {.panel-tabset}
+
+## pandas
+
+```{python}
+from siuba import _, tbl, group_by, filter
+from siuba.data import cars
+
+# setup ----
+
+
+
+
+
+# analysis ----
+(cars
+    >> group_by(_.cyl)
+    >> filter(_.mpg < _.mpg.mean())
+)
+```
+
+## duckdb
+
+```{python}
+from siuba import _, tbl, group_by, filter
+from siuba.data import cars
+
+# setup ----
+from sqlalchemy import create_engine
+
+engine = create_engine("duckdb:///:memory:")
+
+
+# analysis ----
+(tbl(engine, "cars", cars)
+    >> group_by(_.cyl)
+    >> filter(_.mpg < _.mpg.mean())
+)
+```
+
+## sqlite
+
+```{python}
+from siuba import _, tbl, group_by, filter
+from siuba.data import cars
+
+# setup ----
+from sqlalchemy import create_engine
+
+engine = create_engine("sqlite:///:memory:")
+cars.to_sql("cars", engine, index=False)
+
+# analysis ----
+(tbl(engine, "cars")
+    >> group_by(_.cyl)
+    >> filter(_.mpg < _.mpg.mean())
+)
+```
+
+:::
+
+
+::: {.d-flex .justify-content-center}
+[SQL Backend Quickstart](./guide/basics-sql.qmd){.btn .btn-action .btn-primary .btn-action-primary }
+[Support Table](./examples){.btn .btn-action .btn-primary .btn-action-primary }
+:::
+
+::::::
+
+
+<!--
+:::::: {.content-block}
+
+
+## Blazing Fast
+
+::: { style="width: 50%"}
+```{python}
+#| echo: false
+#| fig-width: 6
+
+import pandas as pd
+
+from plotnine import *
+from siuba.dply.forcats import fct_inorder
+
+timings = pd.DataFrame({
+    "Name": fct_inorder(["DuckDB", "Something Else", "Another", "Pandas"]),
+    "Time": [1, 2.5, 1.7, 2]
+})
+
+ggplot(timings, aes("Name", "Time", fill = "Name")) + geom_col()
+```
+:::
+
+::::::
+
+-->
+
+
+:::::: {.content-block}
+
+
+## Examples
+
+![](./assets/examples.png){width="80%"}
+
+::::::
+
+
+:::::: {.content-block}
+
+
+## Community
+
+::: {.columns}
+
+::: {.column}
+![](assets/community-bus.png)
+:::
+
+::: {.column}
+
+* Come join us (on discord)!
+* Or see our open leadership positions.
+
+:::
+
+:::
+
+::::::

@@ -1,0 +1,28 @@
+- category: Snippets
+  description: ""
+  tiles:
+    - title: TV Ratings Analysis
+      description: |
+        Plotting TV Series with the greatest shift in ratings between seasons.
+        Plotting shows with the most variable ratings.
+        Uses grouped filters, joins, n() for row number.
+      href: https://gallery.shinyapps.io/airmass/
+      code: https://github.com/rstudio/py-shiny/blob/a488ab6534a877beb014f27b59db5ac4c315b2d8/examples/airmass/app.py
+      thumbnail: assets/golden_age_of_tv.png
+
+- category: Example Analyses
+  description: ""
+  tiles:
+    - title: Using duckdb
+      description: I am a description
+      href: https://gallery.shinyapps.io/airmass/
+      code: https://github.com/rstudio/py-shiny/blob/a488ab6534a877beb014f27b59db5ac4c315b2d8/examples/airmass/app.py
+      thumbnail: assets/golden_age_of_tv.png
+    - title: TV Ratings Analysis
+      description: |
+        Plotting TV Series with the greatest shift in ratings between seasons.
+        Plotting shows with the most variable ratings.
+        Uses grouped filters, joins, n() for row number.
+      href: https://gallery.shinyapps.io/airmass/
+      code: https://github.com/rstudio/py-shiny/blob/a488ab6534a877beb014f27b59db5ac4c315b2d8/examples/airmass/app.py
+      thumbnail: assets/golden_age_of_tv.png

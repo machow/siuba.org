@@ -1,0 +1,152 @@
+---
+title: Operation support table
+jupyter:
+  jupytext:
+    formats: 'ipynb,qmd'
+    text_representation:
+      extension: .qmd
+      format_name: quarto
+      format_version: '1.0'
+      jupytext_version: 1.13.8
+  kernelspec:
+    display_name: Python 3 (ipykernel)
+    language: python
+    name: python3
+---
+
+
+```{python}
+#| include: false
+import pandas as pd
+import warnings
+
+from siuba import *
+from siuba.experimental.pivot import pivot_wider, pivot_longer
+from siuba.siu import FunctionLookupBound
+from siuba.ops import ALL_OPS
+
+from pandas.core.groupby import SeriesGroupBy
+from siuba.sql.utils import get_sql_classes
+
+from tabulate import tabulate
+
+URL_PANDAS_API = "https://pandas.pydata.org/docs/reference/api/"
+
+SQL_DIALECTS = ["postgresql", "bigquery", "snowflake", "mysql", "sqlite", "duckdb"]
+
+
+def is_object_dispatch(dialect_cls, f_op):
+    return f_op.dispatch(dialect_cls) is f_op.dispatch(object)
+
+    
+def is_supported(dialect_cls, f_op):
+    return not isinstance(f_op.dispatch(dialect_cls), FunctionLookupBound)
+
+d_dialects = {name: get_sql_classes("postgresql") for name in SQL_DIALECTS}
+
+df_ops = pd.DataFrame([{"op_name": k, "func": v} for k, v in ALL_OPS.items()])
+```
+
+
+```{python}
+#| include: false
+
+df_dialects = (
+    pd.DataFrame(d_dialects)
+    >> _.reset_index()
+    >> rename(op_context = "index")
+    >> mutate(pandas = [SeriesGroupBy, SeriesGroupBy])
+)
+```
+
+
+```{python}
+#| include: false
+
+import pandas as pd
+tbl_crossed_ops = (
+    df_dialects
+    >> pivot_longer(~_.op_context, names_to = "dialect_name", values_to = "dialect_class")
+    >> _.merge(df_ops, how="cross")
+)
+
+tbl_crossed_ops
+```
+
+
+```{python}
+#| include: false
+
+# TODO: check pivot names_vary fastest argument
+#(tbl_support_tidy
+#   >> select(_.op_context, _.op_name, _.dialect_name, _.is_supported)
+#   >> pivot_wider(_.op_name, names_from = _[_.dialect_name, _.op_context], values_from = _.is_supported, names_vary="fastest")
+#   >> select(_.op_name, _.startswith("pandas"))
+#   >> filter(_.pandas_window, _.op_name.str.startswith("str"))
+#)
+```
+
+
+```{python}
+#| include: false
+
+tbl_support_tidy = (tbl_crossed_ops
+    >> mutate(
+        is_supported = _.apply(lambda ser: is_supported(ser["dialect_class"], ser["func"]), axis=1)   ,     
+        is_object = _.apply(lambda ser: is_object_dispatch(ser["dialect_class"], ser["func"]), axis=1)
+    )
+)
+
+# verify that nothing we think is supported is actually dispatching the default
+tbl_support_tidy >> filter(_.is_supported, _.is_object)
+
+tbl_support_tidy >> distinct(_.dialect_name)
+
+tbl_support_wide = (tbl_support_tidy
+    >> pivot_wider(_[_.op_name, _.dialect_name], names_from = _.op_context, values_from = _.is_supported)
+    >> mutate(
+        support = case_when({
+            _["window"] & _["aggregate"] : "all",
+            _["window"] : "window",
+            _["aggregate"] : "aggregate",
+            True : "none"
+        }),
+        support_icons = _.support.map({
+            "all": "✅",
+            "window": "(win)",
+            "aggregate": "(agg)",
+            "none": ""
+        }),
+        op_name_api = _.op_name.apply("".format),
+        op_name_link = _.op_name.apply(
+            lambda s: f'<a href="{URL_PANDAS_API}pandas.Series.{s}.html" target="_blank">{s}</a>'
+        )
+
+    )
+    >> select(_.op_name, _.op_name_link, _.dialect_name, _.support == _.support_icons)
+    >> pivot_wider(names_from = _.dialect_name, values_from = _.support)
+    >> filter(~_.op_name.str.startswith("__"), _.pandas == "✅")
+    >> select(_.op_name_link, _.pandas, _.duckdb, _[:], -_.op_name)
+    >> rename(op_name = "op_name_link")
+)
+```
+
+```{python}
+ttls = (tbl_support_wide.iloc[:, 1:] != "").sum()
+ttls
+```
+
+
+```{python}
+#| echo: false
+#| output: asis
+
+print(
+    tabulate(
+        tbl_support_wide,
+        tablefmt="markdown",
+        headers=list(tbl_support_wide.columns)
+    )
+)
+
+```
