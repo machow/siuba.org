@@ -58,6 +58,7 @@ nbformat==5.6.1
 nest-asyncio==1.5.6
 notebook==6.4.12
 numpy==1.23.3
+nycflights13==0.0.3
 packaging==21.3
 palettable==3.3.0
 pandas==1.5.0
