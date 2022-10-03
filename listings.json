@@ -1,0 +1,12 @@
+[
+  {
+    "listing": "/examples/index.html",
+    "items": []
+  },
+  {
+    "listing": "/blog/index.html",
+    "items": [
+      "/blog/tremendous-tricks/index.html"
+    ]
+  }
+]

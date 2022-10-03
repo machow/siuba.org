@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.179">
+<meta name="generator" content="quarto-1.1.251">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -158,7 +158,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <a class="nav-link" href="../examples/index.html">Examples</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../develop/index.html">Develop</a>
+    <a class="nav-link" href="../contribute/index.html">Get Involved</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../blog/index.html">Blog</a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-about" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
@@ -166,6 +169,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         <li>
     <a class="dropdown-item" href="../about/key_features.html">
  <span class="dropdown-text">Key features</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../develop/index.html">
+ <span class="dropdown-text">Developing siuba</span></a>
   </li>  
     </ul>
   </li>
@@ -277,6 +284,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../guide/ops-categoricals.html" class="sidebar-item-text sidebar-link">Categoricals (forcats)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/ops-support-table.html" class="sidebar-item-text sidebar-link">Operation support table</a>
   </div>
 </li>
       </ul>
@@ -536,6 +548,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>tbl_filtered <span class="op">=</span> tbl_mtcars_duckdb <span class="op">&gt;&gt;</span> filter_mpg</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>tbl_filtered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/opt/hostedtoolcache/Python/3.9.14/x64/lib/python3.9/site-packages/duckdb_engine/__init__.py:229: DuckDBEngineWarning: duckdb-engine doesn't yet support reflection on indices
+  warnings.warn(</code></pre>
+</div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 
 <div><pre># Source: lazy query
@@ -563,73 +579,73 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <tbody>
     <tr>
       <th>0</th>
-      <td>14.3</td>
-      <td>8</td>
-      <td>360.0</td>
-      <td>245</td>
-      <td>3.21</td>
-      <td>3.570</td>
-      <td>15.84</td>
-      <td>0</td>
-      <td>0</td>
-      <td>3</td>
+      <td>22.8</td>
       <td>4</td>
+      <td>108.0</td>
+      <td>93</td>
+      <td>3.85</td>
+      <td>2.320</td>
+      <td>18.61</td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>10.4</td>
-      <td>8</td>
-      <td>472.0</td>
-      <td>205</td>
-      <td>2.93</td>
-      <td>5.250</td>
-      <td>17.98</td>
-      <td>0</td>
-      <td>0</td>
-      <td>3</td>
+      <td>24.4</td>
       <td>4</td>
+      <td>146.7</td>
+      <td>62</td>
+      <td>3.69</td>
+      <td>3.190</td>
+      <td>20.00</td>
+      <td>1</td>
+      <td>0</td>
+      <td>4</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>10.4</td>
-      <td>8</td>
-      <td>460.0</td>
-      <td>215</td>
-      <td>3.00</td>
-      <td>5.424</td>
-      <td>17.82</td>
-      <td>0</td>
-      <td>0</td>
-      <td>3</td>
+      <td>22.8</td>
       <td>4</td>
+      <td>140.8</td>
+      <td>95</td>
+      <td>3.92</td>
+      <td>3.150</td>
+      <td>22.90</td>
+      <td>1</td>
+      <td>0</td>
+      <td>4</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>14.7</td>
-      <td>8</td>
-      <td>440.0</td>
-      <td>230</td>
-      <td>3.23</td>
-      <td>5.345</td>
-      <td>17.42</td>
-      <td>0</td>
+      <td>21.5</td>
+      <td>4</td>
+      <td>120.1</td>
+      <td>97</td>
+      <td>3.70</td>
+      <td>2.465</td>
+      <td>20.01</td>
+      <td>1</td>
       <td>0</td>
       <td>3</td>
-      <td>4</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>13.3</td>
-      <td>8</td>
-      <td>350.0</td>
-      <td>245</td>
-      <td>3.73</td>
-      <td>3.840</td>
-      <td>15.41</td>
-      <td>0</td>
-      <td>0</td>
-      <td>3</td>
+      <td>26.0</td>
       <td>4</td>
+      <td>120.3</td>
+      <td>91</td>
+      <td>4.43</td>
+      <td>2.140</td>
+      <td>16.70</td>
+      <td>0</td>
+      <td>1</td>
+      <td>5</td>
+      <td>2</td>
     </tr>
   </tbody>
 </table>
@@ -637,13 +653,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>q <span class="op">=</span> tbl_filtered <span class="op">&gt;&gt;</span> show_query(simplify<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>q <span class="op">=</span> tbl_filtered <span class="op">&gt;&gt;</span> show_query(simplify<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>SELECT mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb 
-FROM (SELECT *, mpg &lt; avg(mpg) OVER (PARTITION BY cyl) AS win1 
-FROM (SELECT * 
-FROM mtcars) AS anon_2) AS anon_1 
-WHERE win1</code></pre>
+<pre><code>SELECT anon_1.mpg, anon_1.cyl, anon_1.disp, anon_1.hp, anon_1.drat, anon_1.wt, anon_1.qsec, anon_1.vs, anon_1.am, anon_1.gear, anon_1.carb 
+FROM (SELECT *, mtcars_1.mpg &lt; avg(mtcars_1.mpg) OVER (PARTITION BY mtcars_1.cyl) AS win1 
+FROM mtcars AS mtcars_1) AS anon_1 
+WHERE anon_1.win1</code></pre>
 </div>
 </div>
 

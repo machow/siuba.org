@@ -9,7 +9,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.2">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.5.4">
     
     
       
@@ -17,13 +17,14 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.69437709.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.80dcb947.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
         
       
       
+
     
     
     
@@ -44,6 +45,7 @@
     
       
 
+    
     
     
   </head>
@@ -120,7 +122,7 @@
       </label>
       <nav class="md-search__options" aria-label="Search">
         
-        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
       </nav>
@@ -1002,10 +1004,11 @@
               </div>
             
           
-          <div class="md-content" data-md-component="content">
-            <article class="md-content__inner md-typeset">
-              
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
                 
+                  
 
 
   <h1>complete</h1>
@@ -1015,7 +1018,7 @@
 
 
 <h2 id="siuba.dply.verbs.complete" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">complete</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">complete</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">explicit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
 
 
 </h2>
@@ -1055,47 +1058,64 @@
 If a column is not specified, missing values are left as is.</p></td>
         <td><code>None</code></td>
       </tr>
+      <tr>
+        <td><code>explicit</code></td>
+        <td></td>
+        <td><p>Should both NAs created by the complete and pre-existing NAs be filled
+by the fill argument? Defaults to True (filling both). When set to False,
+it will only fill newly created NAs.</p></td>
+        <td><code>True</code></td>
+      </tr>
   </tbody>
 </table>
 <p><strong>Examples:</strong></p>
     <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba</span> <span class="kn">import</span> <span class="n">_</span><span class="p">,</span> <span class="n">expand</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">anti_join</span><span class="p">,</span> <span class="n">right_join</span>
 </code></pre></div>
-    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">],</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">],</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="kc">None</span><span class="p">]})</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">df</span>
-   <span class="n">x</span>  <span class="n">y</span>  <span class="n">z</span>
-<span class="mi">0</span>  <span class="mi">1</span>  <span class="n">a</span>  <span class="mi">1</span>
-<span class="mi">1</span>  <span class="mi">2</span>  <span class="n">a</span>  <span class="mi">1</span>
-<span class="mi">2</span>  <span class="mi">2</span>  <span class="n">b</span>  <span class="mi">1</span>
+   <span class="n">x</span>  <span class="n">y</span>    <span class="n">z</span>
+<span class="mi">0</span>  <span class="mi">1</span>  <span class="n">a</span>  <span class="mf">8.0</span>
+<span class="mi">1</span>  <span class="mi">2</span>  <span class="n">a</span>  <span class="mf">9.0</span>
+<span class="mi">2</span>  <span class="mi">2</span>  <span class="n">b</span>  <span class="n">NaN</span>
 </code></pre></div>
     <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">df</span> <span class="o">&gt;&gt;</span> <span class="n">complete</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">_</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
-     <span class="n">x</span>  <span class="n">y</span>    <span class="n">z</span>
-<span class="mi">0</span>  <span class="mf">1.0</span>  <span class="n">a</span>  <span class="mf">1.0</span>
-<span class="mi">1</span>    <span class="mi">1</span>  <span class="n">b</span>  <span class="n">NaN</span>
-<span class="mi">2</span>  <span class="mf">2.0</span>  <span class="n">a</span>  <span class="mf">1.0</span>
-<span class="mi">3</span>  <span class="mf">2.0</span>  <span class="n">b</span>  <span class="mf">1.0</span>
+   <span class="n">x</span>  <span class="n">y</span>    <span class="n">z</span>
+<span class="mi">0</span>  <span class="mi">1</span>  <span class="n">a</span>  <span class="mf">8.0</span>
+<span class="mi">1</span>  <span class="mi">1</span>  <span class="n">b</span>  <span class="n">NaN</span>
+<span class="mi">2</span>  <span class="mi">2</span>  <span class="n">a</span>  <span class="mf">9.0</span>
+<span class="mi">3</span>  <span class="mi">2</span>  <span class="n">b</span>  <span class="n">NaN</span>
 </code></pre></div>
     <p>Use the fill argument to replace missing values:</p>
     <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">df</span> <span class="o">&gt;&gt;</span> <span class="n">complete</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">_</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="mi">999</span><span class="p">})</span>
-     <span class="n">x</span>  <span class="n">y</span>      <span class="n">z</span>
-<span class="mi">0</span>  <span class="mf">1.0</span>  <span class="n">a</span>    <span class="mf">1.0</span>
-<span class="mi">1</span>    <span class="mi">1</span>  <span class="n">b</span>  <span class="mf">999.0</span>
-<span class="mi">2</span>  <span class="mf">2.0</span>  <span class="n">a</span>    <span class="mf">1.0</span>
-<span class="mi">3</span>  <span class="mf">2.0</span>  <span class="n">b</span>    <span class="mf">1.0</span>
+   <span class="n">x</span>  <span class="n">y</span>      <span class="n">z</span>
+<span class="mi">0</span>  <span class="mi">1</span>  <span class="n">a</span>    <span class="mf">8.0</span>
+<span class="mi">1</span>  <span class="mi">1</span>  <span class="n">b</span>  <span class="mf">999.0</span>
+<span class="mi">2</span>  <span class="mi">2</span>  <span class="n">a</span>    <span class="mf">9.0</span>
+<span class="mi">3</span>  <span class="mi">2</span>  <span class="n">b</span>  <span class="mf">999.0</span>
 </code></pre></div>
     <p>A common use of complete is to make zero counts explicit (e.g. for charting):</p>
     <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">df</span> <span class="o">&gt;&gt;</span> <span class="n">count</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">_</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="n">complete</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">_</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
-     <span class="n">x</span>  <span class="n">y</span>    <span class="n">n</span>
-<span class="mi">0</span>  <span class="mf">1.0</span>  <span class="n">a</span>  <span class="mf">1.0</span>
-<span class="mi">1</span>    <span class="mi">1</span>  <span class="n">b</span>  <span class="mf">0.0</span>
-<span class="mi">2</span>  <span class="mf">2.0</span>  <span class="n">a</span>  <span class="mf">1.0</span>
-<span class="mi">3</span>  <span class="mf">2.0</span>  <span class="n">b</span>  <span class="mf">1.0</span>
+   <span class="n">x</span>  <span class="n">y</span>    <span class="n">n</span>
+<span class="mi">0</span>  <span class="mi">1</span>  <span class="n">a</span>  <span class="mf">1.0</span>
+<span class="mi">1</span>  <span class="mi">1</span>  <span class="n">b</span>  <span class="mf">0.0</span>
+<span class="mi">2</span>  <span class="mi">2</span>  <span class="n">a</span>  <span class="mf">1.0</span>
+<span class="mi">3</span>  <span class="mi">2</span>  <span class="n">b</span>  <span class="mf">1.0</span>
+</code></pre></div>
+    <p>Use explicit=False to only fill the NaNs introduced by complete (implicit missing),
+and not those already in the original data (explicit missing):</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">df</span> <span class="o">&gt;&gt;</span> <span class="n">complete</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">_</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="mi">999</span><span class="p">},</span> <span class="n">explicit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+   <span class="n">x</span>  <span class="n">y</span>      <span class="n">z</span>
+<span class="mi">0</span>  <span class="mi">1</span>  <span class="n">a</span>    <span class="mf">8.0</span>
+<span class="mi">1</span>  <span class="mi">1</span>  <span class="n">b</span>  <span class="mf">999.0</span>
+<span class="mi">2</span>  <span class="mi">2</span>  <span class="n">a</span>    <span class="mf">9.0</span>
+<span class="mi">3</span>  <span class="mi">2</span>  <span class="n">b</span>    <span class="n">NaN</span>
 </code></pre></div>
 
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="nd">@singledispatch2</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">complete</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">fill</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">complete</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">fill</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">explicit</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Add rows to fill in missing combinations in the data.</span>
 
 <span class="sd">    This is a wrapper around expand(), right_join(), along with filling NAs.</span>
@@ -1109,55 +1129,84 @@ If a column is not specified, missing values are left as is.</p></td>
 <span class="sd">    fill:</span>
 <span class="sd">        A dictionary specifying what to use for missing values in each column.</span>
 <span class="sd">        If a column is not specified, missing values are left as is.</span>
+<span class="sd">    explicit:</span>
+<span class="sd">        Should both NAs created by the complete and pre-existing NAs be filled</span>
+<span class="sd">        by the fill argument? Defaults to True (filling both). When set to False,</span>
+<span class="sd">        it will only fill newly created NAs.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; import pandas as pd</span>
 <span class="sd">    &gt;&gt;&gt; from siuba import _, expand, count, anti_join, right_join</span>
 
-<span class="sd">    &gt;&gt;&gt; df = pd.DataFrame({&quot;x&quot;: [1, 2, 2], &quot;y&quot;: [&quot;a&quot;, &quot;a&quot;, &quot;b&quot;], &quot;z&quot;: 1})</span>
+<span class="sd">    &gt;&gt;&gt; df = pd.DataFrame({&quot;x&quot;: [1, 2, 2], &quot;y&quot;: [&quot;a&quot;, &quot;a&quot;, &quot;b&quot;], &quot;z&quot;: [8, 9, None]})</span>
 <span class="sd">    &gt;&gt;&gt; df</span>
-<span class="sd">       x  y  z</span>
-<span class="sd">    0  1  a  1</span>
-<span class="sd">    1  2  a  1</span>
-<span class="sd">    2  2  b  1</span>
+<span class="sd">       x  y    z</span>
+<span class="sd">    0  1  a  8.0</span>
+<span class="sd">    1  2  a  9.0</span>
+<span class="sd">    2  2  b  NaN</span>
 
 <span class="sd">    &gt;&gt;&gt; df &gt;&gt; complete(_.x, _.y)</span>
-<span class="sd">         x  y    z</span>
-<span class="sd">    0  1.0  a  1.0</span>
-<span class="sd">    1    1  b  NaN</span>
-<span class="sd">    2  2.0  a  1.0</span>
-<span class="sd">    3  2.0  b  1.0</span>
+<span class="sd">       x  y    z</span>
+<span class="sd">    0  1  a  8.0</span>
+<span class="sd">    1  1  b  NaN</span>
+<span class="sd">    2  2  a  9.0</span>
+<span class="sd">    3  2  b  NaN</span>
 
 <span class="sd">    Use the fill argument to replace missing values:</span>
 
 <span class="sd">    &gt;&gt;&gt; df &gt;&gt; complete(_.x, _.y, fill={&quot;z&quot;: 999})</span>
-<span class="sd">         x  y      z</span>
-<span class="sd">    0  1.0  a    1.0</span>
-<span class="sd">    1    1  b  999.0</span>
-<span class="sd">    2  2.0  a    1.0</span>
-<span class="sd">    3  2.0  b    1.0</span>
+<span class="sd">       x  y      z</span>
+<span class="sd">    0  1  a    8.0</span>
+<span class="sd">    1  1  b  999.0</span>
+<span class="sd">    2  2  a    9.0</span>
+<span class="sd">    3  2  b  999.0</span>
 
 <span class="sd">    A common use of complete is to make zero counts explicit (e.g. for charting):</span>
 
 <span class="sd">    &gt;&gt;&gt; df &gt;&gt; count(_.x, _.y) &gt;&gt; complete(_.x, _.y, fill={&quot;n&quot;: 0})</span>
-<span class="sd">         x  y    n</span>
-<span class="sd">    0  1.0  a  1.0</span>
-<span class="sd">    1    1  b  0.0</span>
-<span class="sd">    2  2.0  a  1.0</span>
-<span class="sd">    3  2.0  b  1.0</span>
+<span class="sd">       x  y    n</span>
+<span class="sd">    0  1  a  1.0</span>
+<span class="sd">    1  1  b  0.0</span>
+<span class="sd">    2  2  a  1.0</span>
+<span class="sd">    3  2  b  1.0</span>
+
+<span class="sd">    Use explicit=False to only fill the NaNs introduced by complete (implicit missing),</span>
+<span class="sd">    and not those already in the original data (explicit missing):</span>
+
+<span class="sd">    &gt;&gt;&gt; df &gt;&gt; complete(_.x, _.y, fill={&quot;z&quot;: 999}, explicit=False)</span>
+<span class="sd">       x  y      z</span>
+<span class="sd">    0  1  a    8.0</span>
+<span class="sd">    1  1  b  999.0</span>
+<span class="sd">    2  2  a    9.0</span>
+<span class="sd">    3  2  b    NaN</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">expanded</span> <span class="o">=</span> <span class="n">expand</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">fill</span> <span class="o">=</span> <span class="n">fill</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">explicit</span><span class="p">:</span>
+        <span class="n">indicator</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">indicator</span> <span class="o">=</span> <span class="n">_unique_name</span><span class="p">(</span><span class="s2">&quot;__merge_indicator&quot;</span><span class="p">,</span> <span class="p">{</span><span class="o">*</span><span class="n">__data</span><span class="o">.</span><span class="n">columns</span><span class="p">})</span>
+
+
+    <span class="n">expanded</span> <span class="o">=</span> <span class="n">expand</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
 
     <span class="c1"># TODO: should we attempt to coerce cols back to original types?</span>
     <span class="c1">#       e.g. NAs will turn int -&gt; float</span>
     <span class="n">on_cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">expanded</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">__data</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">expanded</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="n">on_cols</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">expanded</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="s2">&quot;outer&quot;</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="n">on_cols</span><span class="p">,</span> <span class="n">indicator</span> <span class="o">=</span> <span class="n">indicator</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">fill</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">col_name</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">fill</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">df</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">explicit</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">col_name</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">fill</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">df</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fill_cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">fill</span><span class="p">)</span>
+            <span class="n">indx</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">indicator</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;left_only&quot;</span>
+            <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">indx</span><span class="p">,</span> <span class="n">fill_cols</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">indx</span><span class="p">,</span> <span class="n">fill_cols</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">fill</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">indicator</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">indicator</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">df</span>
 </code></pre></div>
@@ -1169,10 +1218,12 @@ If a column is not specified, missing values are left as is.</p></td>
 
 
 
-              
-            </article>
-            
-          </div>
+
+                
+              </article>
+            </div>
+          
+          
         </div>
         
           <a href="#" class="md-top md-icon" data-md-component="top" hidden>
@@ -1241,10 +1292,10 @@ If a column is not specified, missing values are left as is.</p></td>
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.indexes", "navigation.top", "navigation.tabs", "navigation.expand"], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.indexes", "navigation.top", "navigation.tabs", "navigation.expand"], "search": "../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.9c69f0bc.min.js"></script>
+      <script src="../assets/javascripts/bundle.078830c0.min.js"></script>
       
     
   </body>

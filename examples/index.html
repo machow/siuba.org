@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.179">
+<meta name="generator" content="quarto-1.1.251">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Siuba - Examples</title>
+<title>Examples</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,6 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-listing/list.min.js"></script>
+<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -58,12 +60,43 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit"
   }
 }</script>
+<script>
 
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-gallery .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-category','listing-description','listing-tiles',{ data: ['index'] },{ data: ['categories'] }],
+      
+      searchColumns: ["listing-category","listing-description","listing-tiles"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-gallery'] = new List('listing-gallery', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="_style.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -89,7 +122,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link active" href="../examples/index.html" aria-current="page">Examples</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../develop/index.html">Develop</a>
+    <a class="nav-link" href="../contribute/index.html">Get Involved</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../blog/index.html">Blog</a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-about" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
@@ -97,6 +133,10 @@ ul.task-list li input[type="checkbox"] {
         <li>
     <a class="dropdown-item" href="../about/key_features.html">
  <span class="dropdown-text">Key features</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../develop/index.html">
+ <span class="dropdown-text">Developing siuba</span></a>
   </li>  
     </ul>
   </li>
@@ -117,29 +157,115 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    </div>
+    
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Examples</h1>
+
+
+<div class="column-page">
+<div id="listing-gallery" class="quarto-listing quarto-listing-container-custom">
+<h2 class="anchored">Snippets</h2>
+<p></p>
+<div class="list grid" style="column-gap: 10px;">
+  <div class="card gallery-entry border-1 rounded-3 g-col-12 g-col-sm-6 g-col-md-4 mb-2" data-index="0">
+    <div class="card-header py-1 px-2 border-bottom border-1 bg-light">
+        <a href="https://gallery.shinyapps.io/airmass/" class="card-text" target="_blank">
+            TV Ratings Analysis
+        </a>
+    </div>
+    <a href="https://gallery.shinyapps.io/airmass/" target="_blank">
+    <div class="gallery-entry__img-container">
+        <img src="assets/golden_age_of_tv.png" alt="Plotting TV Series with the greatest shift in ratings between seasons.
+Plotting shows with the most variable ratings.
+Uses grouped filters, joins, n() for row number.
+" class="card-img-top gallery-entry__img">
+    </div>
+    </a>
+    <div class="card-footer gallery-entry__body bg-light">
+        <span class="text-muted">Plotting TV Series with the greatest shift in ratings between seasons.
+Plotting shows with the most variable ratings.
+Uses grouped filters, joins, n() for row number.
+</span>
+      <ul>
+        <li>
+          <a href="https://github.com/rstudio/py-shiny/blob/a488ab6534a877beb014f27b59db5ac4c315b2d8/examples/airmass/app.py" title="View source code" class="source-code card-text inline-block" target="_blank">
+            View source
+          </a>
+        </li>
+        <li>
+          <a href="https://gallery.shinyapps.io/airmass/" target="_blank">Screencast</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<h2 class="anchored">Example Analyses</h2>
+<p></p>
+<div class="list grid" style="column-gap: 10px;">
+  <div class="card gallery-entry border-1 rounded-3 g-col-12 g-col-sm-6 g-col-md-4 mb-2" data-index="1">
+    <div class="card-header py-1 px-2 border-bottom border-1 bg-light">
+        <a href="https://gallery.shinyapps.io/airmass/" class="card-text" target="_blank">
+            Using duckdb
+        </a>
+    </div>
+    <a href="https://gallery.shinyapps.io/airmass/" target="_blank">
+    <div class="gallery-entry__img-container">
+        <img src="assets/golden_age_of_tv.png" alt="I am a description" class="card-img-top gallery-entry__img">
+    </div>
+    </a>
+    <div class="card-footer gallery-entry__body bg-light">
+        <span class="text-muted">I am a description</span>
+      <ul>
+        <li>
+          <a href="https://github.com/rstudio/py-shiny/blob/a488ab6534a877beb014f27b59db5ac4c315b2d8/examples/airmass/app.py" title="View source code" class="source-code card-text inline-block" target="_blank">
+            View source
+          </a>
+        </li>
+        <li>
+          <a href="https://gallery.shinyapps.io/airmass/" target="_blank">Screencast</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="card gallery-entry border-1 rounded-3 g-col-12 g-col-sm-6 g-col-md-4 mb-2" data-index="2">
+    <div class="card-header py-1 px-2 border-bottom border-1 bg-light">
+        <a href="https://gallery.shinyapps.io/airmass/" class="card-text" target="_blank">
+            TV Ratings Analysis
+        </a>
+    </div>
+    <a href="https://gallery.shinyapps.io/airmass/" target="_blank">
+    <div class="gallery-entry__img-container">
+        <img src="assets/golden_age_of_tv.png" alt="Plotting TV Series with the greatest shift in ratings between seasons.
+Plotting shows with the most variable ratings.
+Uses grouped filters, joins, n() for row number.
+" class="card-img-top gallery-entry__img">
+    </div>
+    </a>
+    <div class="card-footer gallery-entry__body bg-light">
+        <span class="text-muted">Plotting TV Series with the greatest shift in ratings between seasons.
+Plotting shows with the most variable ratings.
+Uses grouped filters, joins, n() for row number.
+</span>
+      <ul>
+        <li>
+          <a href="https://github.com/rstudio/py-shiny/blob/a488ab6534a877beb014f27b59db5ac4c315b2d8/examples/airmass/app.py" title="View source code" class="source-code card-text inline-block" target="_blank">
+            View source
+          </a>
+        </li>
+        <li>
+          <a href="https://gallery.shinyapps.io/airmass/" target="_blank">Screencast</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div>
 </div>
 
-
-
-<div class="quarto-title-meta">
-
-    
-    
-  </div>
-  
-
-</header>
-
-<p>This page will diagram out key concepts</p>
 
 
 

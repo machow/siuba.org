@@ -1,0 +1,2305 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Siuba - Operation support table</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../guide/wrangle-joins.html" rel="next">
+<link href="../guide/ops-categoricals.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Siuba</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../guide/overview.html" aria-current="page">Guide</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../api/">Reference</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../examples/index.html">Examples</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../contribute/index.html">Get Involved</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../blog/index.html">Blog</a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-about" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-about">    
+        <li>
+    <a class="dropdown-item" href="../about/key_features.html">
+ <span class="dropdown-text">Key features</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../develop/index.html">
+ <span class="dropdown-text">Developing siuba</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/machow/siuba/"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Operation support table</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/overview.html" class="sidebar-item-text sidebar-link">Overview</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/basics-lazy-expressions.html" class="sidebar-item-text sidebar-link">Lazy expressions</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/basics-sql.html" class="sidebar-item-text sidebar-link">SQL basics</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Common table verbs</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/verb-filter.html" class="sidebar-item-text sidebar-link">Filter rows</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/verb-arrange.html" class="sidebar-item-text sidebar-link">Arrange rows</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/verb-select.html" class="sidebar-item-text sidebar-link">Select columns</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/verb-mutate.html" class="sidebar-item-text sidebar-link">Mutate to transform</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/verb-summarize.html" class="sidebar-item-text sidebar-link">Summarize to aggregate</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/verb-group-by.html" class="sidebar-item-text sidebar-link">Group by</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Column operations</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/ops-case-when.html" class="sidebar-item-text sidebar-link">Conditionals (if_else)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/ops-strings.html" class="sidebar-item-text sidebar-link">String operations (<code>str</code>) 📝</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/ops-datetime.html" class="sidebar-item-text sidebar-link">Datetime operations (<code>.dt</code>) 📝</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/ops-categoricals.html" class="sidebar-item-text sidebar-link">Categoricals (forcats)</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/ops-support-table.html" class="sidebar-item-text sidebar-link active">Operation support table</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Wrangling</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/wrangle-joins.html" class="sidebar-item-text sidebar-link">Join tables</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/wrangle-reshape.html" class="sidebar-item-text sidebar-link">Reshape tables 📝</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/wrangle-nested.html" class="sidebar-item-text sidebar-link">Nested data 🚧</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/wrangle-helpers.html" class="sidebar-item-text sidebar-link">Helpers: count, separate, complete</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Programming</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/programming-pipes.html" class="sidebar-item-text sidebar-link">Flexible pipes 📝</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/programming-new-verbs.html" class="sidebar-item-text sidebar-link">Custom table verbs 🚧</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/programming-new-ops.html" class="sidebar-item-text sidebar-link">Custom column ops 📝</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/programming-adv-sql.html" class="sidebar-item-text sidebar-link">Advanced SQL 🚧</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">Workflows</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/workflows-backends.html" class="sidebar-item-text sidebar-link">Backend Examples 🚧</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/workflows.html" class="sidebar-item-text sidebar-link">Debugging 🚧</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">Extra topics</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../guide/extra-r-to-python.html" class="sidebar-item-text sidebar-link">R to Python</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Operation support table</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ttls <span class="op">=</span> (tbl_support_wide.iloc[:, <span class="dv">1</span>:] <span class="op">!=</span> <span class="st">""</span>).<span class="bu">sum</span>()</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>ttls</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>pandas        158
+duckdb         80
+bigquery       80
+mysql          80
+postgresql     80
+snowflake      80
+sqlite         80
+dtype: int64</code></pre>
+</div>
+</div>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: left;">op_name</th>
+<th style="text-align: left;">pandas</th>
+<th style="text-align: left;">duckdb</th>
+<th style="text-align: left;">bigquery</th>
+<th style="text-align: left;">mysql</th>
+<th style="text-align: left;">postgresql</th>
+<th style="text-align: left;">snowflake</th>
+<th style="text-align: left;">sqlite</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>32</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.abs.html" target="_blank">abs</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>33</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.add.html" target="_blank">add</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>39</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.all.html" target="_blank">all</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>40</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.any.html" target="_blank">any</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>47</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.asfreq.html" target="_blank">asfreq</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>49</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.astype.html" target="_blank">astype</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>56</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.between.html" target="_blank">between</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>58</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.bfill.html" target="_blank">bfill</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>60</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.cat.add_categories.html" target="_blank">cat.add_categories</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>61</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.cat.as_ordered.html" target="_blank">cat.as_ordered</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>62</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.cat.as_unordered.html" target="_blank">cat.as_unordered</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>66</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.cat.remove_categories.html" target="_blank">cat.remove_categories</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>68</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.cat.rename_categories.html" target="_blank">cat.rename_categories</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>69</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.cat.reorder_categories.html" target="_blank">cat.reorder_categories</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>70</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.cat.set_categories.html" target="_blank">cat.set_categories</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>71</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.clip.html" target="_blank">clip</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>76</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.copy.html" target="_blank">copy</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>78</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.count.html" target="_blank">count</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>80</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.cummax.html" target="_blank">cummax</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>81</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.cummin.html" target="_blank">cummin</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>82</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.cumprod.html" target="_blank">cumprod</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>83</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.cumsum.html" target="_blank">cumsum</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>86</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.diff.html" target="_blank">diff</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>87</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.div.html" target="_blank">div</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>88</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.divide.html" target="_blank">divide</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>95</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.ceil.html" target="_blank">dt.ceil</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>97</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.date.html" target="_blank">dt.date</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>98</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.day.html" target="_blank">dt.day</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>99</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.day_name.html" target="_blank">dt.day_name</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>100</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.dayofweek.html" target="_blank">dt.dayofweek</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>101</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.dayofyear.html" target="_blank">dt.dayofyear</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>102</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.days_in_month.html" target="_blank">dt.days_in_month</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>103</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.daysinmonth.html" target="_blank">dt.daysinmonth</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>105</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.floor.html" target="_blank">dt.floor</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>106</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.freq.html" target="_blank">dt.freq</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>107</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.hour.html" target="_blank">dt.hour</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>108</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.is_leap_year.html" target="_blank">dt.is_leap_year</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>109</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.is_month_end.html" target="_blank">dt.is_month_end</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>110</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.is_month_start.html" target="_blank">dt.is_month_start</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>111</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.is_quarter_end.html" target="_blank">dt.is_quarter_end</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>112</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.is_quarter_start.html" target="_blank">dt.is_quarter_start</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>113</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.is_year_end.html" target="_blank">dt.is_year_end</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>114</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.is_year_start.html" target="_blank">dt.is_year_start</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>115</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.microsecond.html" target="_blank">dt.microsecond</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>116</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.minute.html" target="_blank">dt.minute</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>117</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.month.html" target="_blank">dt.month</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>118</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.month_name.html" target="_blank">dt.month_name</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>119</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.nanosecond.html" target="_blank">dt.nanosecond</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>120</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.normalize.html" target="_blank">dt.normalize</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>121</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.quarter.html" target="_blank">dt.quarter</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>123</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.round.html" target="_blank">dt.round</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>124</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.second.html" target="_blank">dt.second</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>126</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.strftime.html" target="_blank">dt.strftime</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>127</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.time.html" target="_blank">dt.time</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>128</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.timetz.html" target="_blank">dt.timetz</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>129</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.to_period.html" target="_blank">dt.to_period</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>134</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.tz.html" target="_blank">dt.tz</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>136</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.tz_localize.html" target="_blank">dt.tz_localize</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>137</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.week.html" target="_blank">dt.week</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>138</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.weekday.html" target="_blank">dt.weekday</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>139</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.weekofyear.html" target="_blank">dt.weekofyear</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>140</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.year.html" target="_blank">dt.year</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>141</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.dtype.html" target="_blank">dtype</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>145</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.eq.html" target="_blank">eq</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>151</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.ffill.html" target="_blank">ffill</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>152</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.fillna.html" target="_blank">fillna</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>157</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.floordiv.html" target="_blank">floordiv</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>160</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.ge.html" target="_blank">ge</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>164</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.gt.html" target="_blank">gt</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>166</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.head.html" target="_blank">head</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>168</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.idxmax.html" target="_blank">idxmax</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>169</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.idxmin.html" target="_blank">idxmin</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>175</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.is_monotonic_decreasing.html" target="_blank">is_monotonic_decreasing</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>176</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.is_monotonic_increasing.html" target="_blank">is_monotonic_increasing</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>178</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.isin.html" target="_blank">isin</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>179</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.isna.html" target="_blank">isna</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>180</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.isnull.html" target="_blank">isnull</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>190</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.le.html" target="_blank">le</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>192</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.lt.html" target="_blank">lt</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>193</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.mad.html" target="_blank">mad</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>195</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.mask.html" target="_blank">mask</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>196</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.max.html" target="_blank">max</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>197</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.mean.html" target="_blank">mean</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>198</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.median.html" target="_blank">median</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>200</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.min.html" target="_blank">min</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>201</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.mod.html" target="_blank">mod</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>203</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.mul.html" target="_blank">mul</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>204</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.multiply.html" target="_blank">multiply</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>205</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.name.html" target="_blank">name</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>207</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.ndim.html" target="_blank">ndim</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>208</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.ne.html" target="_blank">ne</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>210</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.notna.html" target="_blank">notna</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>211</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.notnull.html" target="_blank">notnull</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>213</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.nunique.html" target="_blank">nunique</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">(agg)</td>
+<td style="text-align: left;">(agg)</td>
+<td style="text-align: left;">(agg)</td>
+<td style="text-align: left;">(agg)</td>
+<td style="text-align: left;">(agg)</td>
+<td style="text-align: left;">(agg)</td>
+</tr>
+<tr class="odd">
+<td>214</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.pct_change.html" target="_blank">pct_change</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>217</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.pow.html" target="_blank">pow</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>218</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.prod.html" target="_blank">prod</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>221</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.quantile.html" target="_blank">quantile</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">(agg)</td>
+<td style="text-align: left;">(agg)</td>
+<td style="text-align: left;">(agg)</td>
+<td style="text-align: left;">(agg)</td>
+<td style="text-align: left;">(agg)</td>
+<td style="text-align: left;">(agg)</td>
+</tr>
+<tr class="odd">
+<td>222</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.radd.html" target="_blank">radd</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>223</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.rank.html" target="_blank">rank</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>225</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.rdiv.html" target="_blank">rdiv</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>233</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.replace.html" target="_blank">replace</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>236</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.rfloordiv.html" target="_blank">rfloordiv</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>237</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.rmod.html" target="_blank">rmod</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>238</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.rmul.html" target="_blank">rmul</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>240</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.round.html" target="_blank">round</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>241</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.rpow.html" target="_blank">rpow</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>242</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.rsub.html" target="_blank">rsub</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>243</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.rtruediv.html" target="_blank">rtruediv</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>246</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.sem.html" target="_blank">sem</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>249</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.shift.html" target="_blank">shift</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>250</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.size.html" target="_blank">size</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>251</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.skew.html" target="_blank">skew</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>263</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.std.html" target="_blank">std</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>264</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.capitalize.html" target="_blank">str.capitalize</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>267</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.center.html" target="_blank">str.center</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>268</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.contains.html" target="_blank">str.contains</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>269</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.count.html" target="_blank">str.count</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>271</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.encode.html" target="_blank">str.encode</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>272</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.endswith.html" target="_blank">str.endswith</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>275</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.find.html" target="_blank">str.find</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>276</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.findall.html" target="_blank">str.findall</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>280</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.isalnum.html" target="_blank">str.isalnum</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>281</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.isalpha.html" target="_blank">str.isalpha</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>282</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.isdecimal.html" target="_blank">str.isdecimal</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>283</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.isdigit.html" target="_blank">str.isdigit</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>284</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.islower.html" target="_blank">str.islower</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>285</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.isnumeric.html" target="_blank">str.isnumeric</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>286</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.isspace.html" target="_blank">str.isspace</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>287</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.istitle.html" target="_blank">str.istitle</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>288</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.isupper.html" target="_blank">str.isupper</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>290</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.len.html" target="_blank">str.len</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>291</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.ljust.html" target="_blank">str.ljust</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>292</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.lower.html" target="_blank">str.lower</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>293</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.lstrip.html" target="_blank">str.lstrip</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>294</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.match.html" target="_blank">str.match</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>296</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.pad.html" target="_blank">str.pad</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>299</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.replace.html" target="_blank">str.replace</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>300</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.rfind.html" target="_blank">str.rfind</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>302</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.rjust.html" target="_blank">str.rjust</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>304</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.rsplit.html" target="_blank">str.rsplit</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>305</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.rstrip.html" target="_blank">str.rstrip</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>306</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.slice.html" target="_blank">str.slice</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>307</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.slice_replace.html" target="_blank">str.slice_replace</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>308</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.split.html" target="_blank">str.split</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>309</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.startswith.html" target="_blank">str.startswith</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>310</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.strip.html" target="_blank">str.strip</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>311</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.swapcase.html" target="_blank">str.swapcase</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td>312</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.title.html" target="_blank">str.title</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>314</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.upper.html" target="_blank">str.upper</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>315</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.str.wrap.html" target="_blank">str.wrap</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>318</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.sub.html" target="_blank">sub</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>319</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.subtract.html" target="_blank">subtract</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>320</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.sum.html" target="_blank">sum</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>323</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.tail.html" target="_blank">tail</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td>332</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.truediv.html" target="_blank">truediv</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="odd">
+<td>340</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.var.html" target="_blank">var</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;">✅</td>
+</tr>
+<tr class="even">
+<td>342</td>
+<td style="text-align: left;"><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.where.html" target="_blank">where</a></td>
+<td style="text-align: left;">✅</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../guide/ops-categoricals.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Categoricals (forcats)</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../guide/wrangle-joins.html" class="pagination-link">
+        <span class="nav-page-text">Join tables</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

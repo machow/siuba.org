@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.179">
+<meta name="generator" content="quarto-1.1.251">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -157,7 +157,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <a class="nav-link" href="../examples/index.html">Examples</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../develop/index.html" aria-current="page">Develop</a>
+    <a class="nav-link" href="../contribute/index.html">Get Involved</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../blog/index.html">Blog</a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-about" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
@@ -165,6 +168,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         <li>
     <a class="dropdown-item" href="../about/key_features.html">
  <span class="dropdown-text">Key features</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../develop/index.html">
+ <span class="dropdown-text">Developing siuba</span></a>
   </li>  
     </ul>
   </li>
@@ -387,7 +394,7 @@ Warning
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>expr_rank <span class="op">=</span> window[<span class="st">"rank"</span>](WowSqlColumn(), sql.column(<span class="st">"a_col"</span>))</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>expr_rank</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>&lt;siuba.sql.translate.RankOver object at 0x7f17190bf790&gt;</code></pre>
+<pre><code>&lt;siuba.sql.translate.RankOver object at 0x7f8c44d039d0&gt;</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="4">
@@ -416,7 +423,7 @@ Warning
 <div class="cell-output cell-output-stdout">
 <pre><code>█─'__call__'
 ├─█─'__custom_func__'
-│ └─&lt;function singledispatch.&lt;locals&gt;.wrapper at 0x7f16e4099360&gt;
+│ └─&lt;function singledispatch.&lt;locals&gt;.wrapper at 0x7f8c441ea4c0&gt;
 ├─█─.
 │ ├─_
 │ └─'x'
@@ -436,8 +443,8 @@ Warning
 <div class="cell-output cell-output-stdout">
 <pre><code>█─'__call__'
 ├─█─'__custom_func__'
-│ └─&lt;function sql_colmeth.&lt;locals&gt;.f at 0x7f16dddcacb0&gt;
-├─&lt;__main__.WowSqlColumn object at 0x7f16e598bdc0&gt;
+│ └─&lt;function sql_colmeth.&lt;locals&gt;.f at 0x7f8c440c8ca0&gt;
+├─&lt;__main__.WowSqlColumn object at 0x7f8c44041d90&gt;
 ├─█─.
 │ ├─_
 │ └─'x'
@@ -463,11 +470,11 @@ Warning
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We can see this in action by calling the translation directly.</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>scalar[<span class="st">"__add__"</span>](WowSqlColumn(), sel.columns.x, sel.columns.y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_3243/1405687756.py:2: SADeprecationWarning: The SelectBase.c and SelectBase.columns attributes are deprecated and will be removed in a future release; these attributes implicitly create a subquery that should be explicit.  Please call SelectBase.subquery() first in order to create a subquery, which then contains this attribute.  To access the columns that this SELECT object SELECTs from, use the SelectBase.selected_columns attribute. (deprecated since: 1.4)
+<pre><code>/tmp/ipykernel_3307/1405687756.py:2: SADeprecationWarning: The SelectBase.c and SelectBase.columns attributes are deprecated and will be removed in a future release; these attributes implicitly create a subquery that should be explicit.  Please call SelectBase.subquery() first in order to create a subquery, which then contains this attribute.  To access the columns that this SELECT object SELECTs from, use the SelectBase.selected_columns attribute. (deprecated since: 1.4)
   scalar["__add__"](WowSqlColumn(), sel.columns.x, sel.columns.y)</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="9">
-<pre><code>&lt;sqlalchemy.sql.elements.BinaryExpression object at 0x7f16e598bd60&gt;</code></pre>
+<pre><code>&lt;sqlalchemy.sql.elements.BinaryExpression object at 0x7f8c44041e50&gt;</code></pre>
 </div>
 </div>
 <p>By default the translate method assumes the expression is using window functions, so operations like <code>.mean()</code> return SqlAlchemy Over clauses.</p>
@@ -479,11 +486,11 @@ Warning
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>expr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_3243/2826175941.py:4: SADeprecationWarning: The SelectBase.c and SelectBase.columns attributes are deprecated and will be removed in a future release; these attributes implicitly create a subquery that should be explicit.  Please call SelectBase.subquery() first in order to create a subquery, which then contains this attribute.  To access the columns that this SELECT object SELECTs from, use the SelectBase.selected_columns attribute. (deprecated since: 1.4)
+<pre><code>/tmp/ipykernel_3307/2826175941.py:4: SADeprecationWarning: The SelectBase.c and SelectBase.columns attributes are deprecated and will be removed in a future release; these attributes implicitly create a subquery that should be explicit.  Please call SelectBase.subquery() first in order to create a subquery, which then contains this attribute.  To access the columns that this SELECT object SELECTs from, use the SelectBase.selected_columns attribute. (deprecated since: 1.4)
   expr = f_translate_co(sel.columns)</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="10">
-<pre><code>&lt;siuba.sql.translate.AggOver object at 0x7f16ddc477c0&gt;</code></pre>
+<pre><code>&lt;siuba.sql.translate.AggOver object at 0x7f8c3cfd2880&gt;</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="11">
@@ -517,7 +524,7 @@ Warning
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>█─'__call__'
 ├─█─'__custom_func__'
-│ └─&lt;function round at 0x7f16ddc50d30&gt;
+│ └─&lt;function round at 0x7f8c3cfe3040&gt;
 └─_</code></pre>
 </div>
 </div>
@@ -529,7 +536,7 @@ Warning
 <pre><code>█─+
 ├─█─'__call__'
 │ ├─█─'__custom_func__'
-│ │ └─&lt;function round at 0x7f16ddc50d30&gt;
+│ │ └─&lt;function round at 0x7f8c3cfe3040&gt;
 │ └─_
 └─9999</code></pre>
 </div>
@@ -679,27 +686,23 @@ Warning
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calls the underlying translator and codata</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>f_add <span class="op">=</span> tbl_cars.shape_call(_.mpg <span class="op">+</span> _.hp)</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>f_add(tbl_cars.last_op.columns)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_3243/710220926.py:3: SADeprecationWarning: The SelectBase.c and SelectBase.columns attributes are deprecated and will be removed in a future release; these attributes implicitly create a subquery that should be explicit.  Please call SelectBase.subquery() first in order to create a subquery, which then contains this attribute.  To access the columns that this SELECT object SELECTs from, use the SelectBase.selected_columns attribute. (deprecated since: 1.4)
-  f_add(tbl_cars.last_op.columns)</code></pre>
-</div>
 <div class="cell-output cell-output-display" data-execution_count="16">
-<pre><code>&lt;sqlalchemy.sql.elements.BinaryExpression object at 0x7f16ddcd7040&gt;</code></pre>
+<pre><code>&lt;sqlalchemy.sql.elements.BinaryExpression object at 0x7f8c3cfa87f0&gt;</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the underlying sqlalchemy source table</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>tbl_cars.tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the underlying sqlalchemy source table</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>tbl_cars.tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>Table('mtcars', MetaData(bind=Engine(sqlite:///:memory:)), Column('index', BIGINT(), table=&lt;mtcars&gt;), Column('mpg', FLOAT(), table=&lt;mtcars&gt;), Column('cyl', BIGINT(), table=&lt;mtcars&gt;), Column('disp', FLOAT(), table=&lt;mtcars&gt;), Column('hp', BIGINT(), table=&lt;mtcars&gt;), Column('drat', FLOAT(), table=&lt;mtcars&gt;), Column('wt', FLOAT(), table=&lt;mtcars&gt;), Column('qsec', FLOAT(), table=&lt;mtcars&gt;), Column('vs', BIGINT(), table=&lt;mtcars&gt;), Column('am', BIGINT(), table=&lt;mtcars&gt;), Column('gear', BIGINT(), table=&lt;mtcars&gt;), Column('carb', BIGINT(), table=&lt;mtcars&gt;), schema=None)</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grouping info</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba <span class="im">import</span> group_by, _</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>tbl2 <span class="op">=</span> group_by(tbl_cars, rounded_mpg <span class="op">=</span> _.mpg.<span class="bu">round</span>(<span class="dv">10</span>))</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>tbl2.group_by</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grouping info</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba <span class="im">import</span> group_by, _</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>tbl2 <span class="op">=</span> group_by(tbl_cars, rounded_mpg <span class="op">=</span> _.mpg.<span class="bu">round</span>(<span class="dv">10</span>))</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>tbl2.group_by</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="18">
 <pre><code>('rounded_mpg',)</code></pre>
 </div>
@@ -709,35 +712,31 @@ Warning
 <h2 class="anchored" data-anchor-id="table-verbs">Table verbs</h2>
 <p>Backends register on a dispatcher called singledispatch2. This is shown below with an <code>assign</code> verb that is a limited implementation of mutate.</p>
 <div class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba.dply.verbs <span class="im">import</span> singledispatch2</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sqlalchemy.sql <span class="im">import</span> select</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="at">@singledispatch2</span>(LazyTbl)</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> assign(__data, <span class="op">**</span>kwargs):</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>    new_cols <span class="op">=</span> []</span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k, expr <span class="kw">in</span> kwargs.items():</span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>        <span class="co"># .shape_call mostly data.translator under the hood</span></span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>        new_call <span class="op">=</span> __data.shape_call(expr)</span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>        sql_expr <span class="op">=</span> new_call(__data.last_op.columns)</span>
-<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>        new_cols.append(sql_expr.label(k))</span>
-<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># copy of data, where .last_op is the new select statement</span></span>
-<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>    new_data <span class="op">=</span> __data.append_op(select(new_cols))</span>
-<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> new_data</span>
-<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a><span class="co"># test out</span></span>
-<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a>tbl_assigned <span class="op">=</span> assign(tbl_cars, res <span class="op">=</span> _.mpg <span class="op">+</span> _.hp)</span>
-<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-25"><a href="#cb37-25" aria-hidden="true" tabindex="-1"></a>tbl_assigned </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_3243/1832454076.py:12: SADeprecationWarning: The SelectBase.c and SelectBase.columns attributes are deprecated and will be removed in a future release; these attributes implicitly create a subquery that should be explicit.  Please call SelectBase.subquery() first in order to create a subquery, which then contains this attribute.  To access the columns that this SELECT object SELECTs from, use the SelectBase.selected_columns attribute. (deprecated since: 1.4)
-  sql_expr = new_call(__data.last_op.columns)</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba.dply.verbs <span class="im">import</span> singledispatch2</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sqlalchemy.sql <span class="im">import</span> select</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="at">@singledispatch2</span>(LazyTbl)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> assign(__data, <span class="op">**</span>kwargs):</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    new_cols <span class="op">=</span> []</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k, expr <span class="kw">in</span> kwargs.items():</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>        <span class="co"># .shape_call mostly data.translator under the hood</span></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>        new_call <span class="op">=</span> __data.shape_call(expr)</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>        sql_expr <span class="op">=</span> new_call(__data.last_op.columns)</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>        new_cols.append(sql_expr.label(k))</span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># copy of data, where .last_op is the new select statement</span></span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>    new_data <span class="op">=</span> __data.append_op(select(new_cols))</span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> new_data</span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a><span class="co"># test out</span></span>
+<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a>tbl_assigned <span class="op">=</span> assign(tbl_cars, res <span class="op">=</span> _.mpg <span class="op">+</span> _.hp)</span>
+<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a>tbl_assigned </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
 
 <div><pre># Source: lazy query
@@ -780,11 +779,10 @@ Warning
 </div>
 <p>Note that the <code>backend.last_op</code> property holds the current select statement, so the verb can adapt it, or wrap it in another select statement.</p>
 <div class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tbl_assigned.last_op)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tbl_assigned.last_op)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>SELECT anon_1.mpg + anon_1.hp AS res 
-FROM (SELECT mtcars."index" AS "index", mtcars.mpg AS mpg, mtcars.cyl AS cyl, mtcars.disp AS disp, mtcars.hp AS hp, mtcars.drat AS drat, mtcars.wt AS wt, mtcars.qsec AS qsec, mtcars.vs AS vs, mtcars.am AS am, mtcars.gear AS gear, mtcars.carb AS carb 
-FROM mtcars) AS anon_1</code></pre>
+<pre><code>SELECT mtcars.mpg + mtcars.hp AS res 
+FROM mtcars</code></pre>
 </div>
 </div>
 </section>
@@ -798,27 +796,27 @@ FROM mtcars) AS anon_1</code></pre>
 </ul>
 <p>In order to mark translations as deviating, you can use the annotation functions.</p>
 <div class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sqlalchemy <span class="im">import</span> sql</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba.sql.translate <span class="im">import</span> annotate, wrap_annotate</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co"># puts an `operation` attribute on function, describing limitations</span></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>f_and <span class="op">=</span> annotate(<span class="kw">lambda</span> col: col <span class="op">&amp;</span> <span class="va">False</span>, input_type <span class="op">=</span> <span class="st">"bool"</span>)</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>f_and(sql.column(<span class="st">'a'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sqlalchemy <span class="im">import</span> sql</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba.sql.translate <span class="im">import</span> annotate, wrap_annotate</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co"># puts an `operation` attribute on function, describing limitations</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>f_and <span class="op">=</span> annotate(<span class="kw">lambda</span> col: col <span class="op">&amp;</span> <span class="va">False</span>, input_type <span class="op">=</span> <span class="st">"bool"</span>)</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>f_and(sql.column(<span class="st">'a'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
-<pre><code>&lt;sqlalchemy.sql.elements.AsBoolean object at 0x7f16ddcd64a0&gt;</code></pre>
+<pre><code>&lt;sqlalchemy.sql.elements.AsBoolean object at 0x7f8c44041f10&gt;</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>f_and.operation</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>f_and.operation</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="22">
 <pre><code>{'input_type': 'bool'}</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># creates a new function (wrapping the old one), and annotates that</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>f_and2 <span class="op">=</span> wrap_annotate(f_and, something_else <span class="op">=</span> <span class="va">False</span>)</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>f_and2.operation</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># creates a new function (wrapping the old one), and annotates that</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>f_and2 <span class="op">=</span> wrap_annotate(f_and, something_else <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>f_and2.operation</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="23">
 <pre><code>{'something_else': False}</code></pre>
 </div>
