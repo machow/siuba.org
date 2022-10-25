@@ -304,6 +304,16 @@ See the [examples page](./examples).
 
 ::::::
 
+
+:::::: {.content-block}
+
+## Community
+
+Visit [siuba on github](https://github.com/machow/siuba), or [open an issue](https://github.com/machow/siuba/issues)
+with a bug or feature request.
+
+::::::
+
 <!--
 
 :::::: {.content-block}
