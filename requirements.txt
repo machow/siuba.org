@@ -51,7 +51,7 @@ mkdocs-autorefs==0.4.1
 mkdocs-material==8.5.4
 mkdocs-material-extensions==1.0.3
 mkdocstrings==0.19.0
--e git+https://github.com/machow/python-legacy.git@6eb11d386b921ff7828c85cb02190b10b6e82e59#egg=mkdocstrings_python_legacy
+-e git+https://github.com/machow/python-legacy.git@066598dd0fd5692e7a19e5d4d7c5633a1d1846d8#egg=mkdocstrings_python_legacy
 nbclient==0.6.8
 nbconvert==7.1.0
 nbformat==5.6.1
