@@ -33,7 +33,7 @@ Siuba is a tool for concise, flexible data-analysis over multiple data sources. 
 
 
 ```bash
-pip install --pre siuba
+pip install siuba
 ```
 
 ## Basic use
@@ -177,7 +177,3 @@ from plotnine import ggplot, aes, geom_point
    + geom_point()
 )
 ```
-
-## Next steps
-
-TODO
