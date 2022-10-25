@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Siuba - Golden Age of Television</title>
+<title>Siuba - Golden Age of Television Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -58,6 +121,9 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -87,12 +153,6 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../examples/index.html">Examples</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../contribute/index.html">Get Involved</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../blog/index.html">Blog</a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-about" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
@@ -125,14 +185,27 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#glance-at-data-for-a-single-show" id="toc-glance-at-data-for-a-single-show" class="nav-link active" data-scroll-target="#glance-at-data-for-a-single-show">Glance at data for a single show</a></li>
+  <li><a href="#count-season-number" id="toc-count-season-number" class="nav-link" data-scroll-target="#count-season-number">Count season number</a></li>
+  <li><a href="#average-rating-throughout-season" id="toc-average-rating-throughout-season" class="nav-link" data-scroll-target="#average-rating-throughout-season">Average rating throughout season</a></li>
+  <li><a href="#shows-with-most-variable-ratings" id="toc-shows-with-most-variable-ratings" class="nav-link" data-scroll-target="#shows-with-most-variable-ratings">Shows with most variable ratings</a>
+  <ul class="collapse">
+  <li><a href="#filter-down" id="toc-filter-down" class="nav-link" data-scroll-target="#filter-down">Filter down</a></li>
+  <li><a href="#plot-show-ratings" id="toc-plot-show-ratings" class="nav-link" data-scroll-target="#plot-show-ratings">Plot show ratings</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Golden Age of Television</h1>
+<h1 class="title">Golden Age of Television Analysis</h1>
 </div>
 
 
@@ -146,8 +219,274 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba.dply.vector <span class="im">import</span> row_number, n</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> <span class="op">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tv_ratings <span class="op">=</span> pd.read_csv(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-01-08/IMDb_Economist_tv_ratings.csv"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    parse_dates <span class="op">=</span> [<span class="st">"date"</span>]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="glance-at-data-for-a-single-show" class="level2">
+<h2 class="anchored" data-anchor-id="glance-at-data-for-a-single-show">Glance at data for a single show</h2>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tv_ratings <span class="op">&gt;&gt;</span> <span class="bu">filter</span>(_, _.title.<span class="bu">str</span>.contains(<span class="st">"Buffy"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>titleId</th>
+      <th>seasonNumber</th>
+      <th>title</th>
+      <th>date</th>
+      <th>av_rating</th>
+      <th>share</th>
+      <th>genres</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>275</th>
+      <td>tt0118276</td>
+      <td>1</td>
+      <td>Buffy the Vampire Slayer</td>
+      <td>1997-04-14</td>
+      <td>7.9629</td>
+      <td>11.70</td>
+      <td>Action,Drama,Fantasy</td>
+    </tr>
+    <tr>
+      <th>276</th>
+      <td>tt0118276</td>
+      <td>2</td>
+      <td>Buffy the Vampire Slayer</td>
+      <td>1997-12-31</td>
+      <td>8.4191</td>
+      <td>19.41</td>
+      <td>Action,Drama,Fantasy</td>
+    </tr>
+    <tr>
+      <th>277</th>
+      <td>tt0118276</td>
+      <td>3</td>
+      <td>Buffy the Vampire Slayer</td>
+      <td>1999-01-29</td>
+      <td>8.6233</td>
+      <td>17.12</td>
+      <td>Action,Drama,Fantasy</td>
+    </tr>
+    <tr>
+      <th>278</th>
+      <td>tt0118276</td>
+      <td>4</td>
+      <td>Buffy the Vampire Slayer</td>
+      <td>2000-01-19</td>
+      <td>8.2205</td>
+      <td>16.19</td>
+      <td>Action,Drama,Fantasy</td>
+    </tr>
+    <tr>
+      <th>279</th>
+      <td>tt0118276</td>
+      <td>5</td>
+      <td>Buffy the Vampire Slayer</td>
+      <td>2001-01-12</td>
+      <td>8.3028</td>
+      <td>11.99</td>
+      <td>Action,Drama,Fantasy</td>
+    </tr>
+    <tr>
+      <th>280</th>
+      <td>tt0118276</td>
+      <td>6</td>
+      <td>Buffy the Vampire Slayer</td>
+      <td>2002-01-29</td>
+      <td>8.1008</td>
+      <td>8.45</td>
+      <td>Action,Drama,Fantasy</td>
+    </tr>
+    <tr>
+      <th>281</th>
+      <td>tt0118276</td>
+      <td>7</td>
+      <td>Buffy the Vampire Slayer</td>
+      <td>2003-01-18</td>
+      <td>8.0460</td>
+      <td>9.89</td>
+      <td>Action,Drama,Fantasy</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="count-season-number" class="level2">
+<h2 class="anchored" data-anchor-id="count-season-number">Count season number</h2>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>(tv_ratings</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;&gt;</span> count(_, _.seasonNumber)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;&gt;</span> ggplot(aes(<span class="st">"seasonNumber"</span>, <span class="st">"n"</span>))</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>   <span class="op">+</span> geom_col()</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>   <span class="op">+</span> labs(</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>       title <span class="op">=</span> <span class="st">"Season Number Frequency"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>       x <span class="op">=</span> <span class="st">"season number"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>       y <span class="op">=</span> <span class="st">"count"</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="golden_age_of_tv_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>&lt;ggplot: (8742457309675)&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="average-rating-throughout-season" class="level2">
+<h2 class="anchored" data-anchor-id="average-rating-throughout-season">Average rating throughout season</h2>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>(tv_ratings</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;&gt;</span> <span class="bu">filter</span>(_, _.seasonNumber <span class="op">&lt;=</span> <span class="dv">7</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;&gt;</span> group_by(_, _.seasonNumber)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;&gt;</span> summarize(_, av_rating <span class="op">=</span> _.av_rating.mean())</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;&gt;</span> ggplot(aes(<span class="st">"seasonNumber"</span>, <span class="st">"av_rating"</span>))</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>   <span class="op">+</span> geom_line()</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>   <span class="op">+</span> labs(</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>       title <span class="op">=</span> <span class="st">"Average rating across seasons"</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>       x <span class="op">=</span> <span class="st">"season number"</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>       y <span class="op">=</span> <span class="st">"average rating"</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="golden_age_of_tv_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>&lt;ggplot: (8742457244853)&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="shows-with-most-variable-ratings" class="level2">
+<h2 class="anchored" data-anchor-id="shows-with-most-variable-ratings">Shows with most variable ratings</h2>
+<section id="filter-down" class="level3">
+<h3 class="anchored" data-anchor-id="filter-down">Filter down</h3>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>by_show <span class="op">=</span> (tv_ratings</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;&gt;</span> group_by(_, <span class="st">"title"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;&gt;</span> summarize(_,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>       avg_rating <span class="op">=</span> _.av_rating.mean(),</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>       sd <span class="op">=</span> _.av_rating.std(),</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>       seasons <span class="op">=</span> n(_)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>     )</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;&gt;</span> arrange(_, <span class="op">-</span>_.avg_rating)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>most_variable_shows <span class="op">=</span> (by_show</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;&gt;</span> <span class="bu">filter</span>(_, _.seasons <span class="op">&gt;=</span> <span class="dv">5</span>)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;&gt;</span> arrange(_, <span class="op">-</span>_.sd)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;&gt;</span> head(_, <span class="dv">6</span>)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>most_variable_shows</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>title</th>
+      <th>avg_rating</th>
+      <th>sd</th>
+      <th>seasons</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>49</th>
+      <td>Are You Afraid of the Dark?</td>
+      <td>8.422971</td>
+      <td>1.390834</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>263</th>
+      <td>Friday Night Lights</td>
+      <td>8.085020</td>
+      <td>0.749403</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>650</th>
+      <td>The 100</td>
+      <td>8.314140</td>
+      <td>0.708071</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>582</th>
+      <td>Scrubs</td>
+      <td>8.236744</td>
+      <td>0.702544</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>195</th>
+      <td>Dexter</td>
+      <td>8.582400</td>
+      <td>0.694169</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>562</th>
+      <td>Roseanne</td>
+      <td>7.332537</td>
+      <td>0.670299</td>
+      <td>8</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="plot-show-ratings" class="level3">
+<h3 class="anchored" data-anchor-id="plot-show-ratings">Plot show ratings</h3>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>(tv_ratings</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;&gt;</span> inner_join(_, most_variable_shows, <span class="st">"title"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;&gt;</span> ggplot(aes(<span class="st">"seasonNumber"</span>, <span class="st">"av_rating"</span>, color <span class="op">=</span> <span class="st">"title"</span>))</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>   <span class="op">+</span> geom_line()</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>   <span class="op">+</span> geom_point()</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>   <span class="op">+</span> scale_x_continuous(breaks <span class="op">=</span> <span class="bu">range</span>(<span class="dv">11</span>))</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>   <span class="op">+</span> facet_wrap(<span class="st">"~ title"</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>   <span class="op">+</span> theme(legend_position <span class="op">=</span> <span class="st">"none"</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>   <span class="op">+</span> labs(</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>       x <span class="op">=</span> <span class="st">"season number"</span>,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>       y <span class="op">=</span> <span class="st">"average rating"</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="golden_age_of_tv_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>&lt;ggplot: (8742455023836)&gt;</code></pre>
+</div>
+</div>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

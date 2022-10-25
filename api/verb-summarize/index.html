@@ -703,6 +703,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2_5">
@@ -753,6 +755,20 @@
     <li class="md-nav__item">
       <a href="../verb-gather/" class="md-nav__link">
         gather, spread
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-pivot/" class="md-nav__link">
+        pivot_longer, pivot_wider
       </a>
     </li>
   
@@ -1018,7 +1034,7 @@
 
 
 <h2 id="siuba.dply.verbs.summarize" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">summarize</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">summarize</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 
 </h2>
@@ -1080,7 +1096,7 @@ a single argument for the data being operated on.</p></td>
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="nd">@singledispatch2</span><span class="p">(</span><span class="n">DataFrame</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">summarize</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">summarize</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Assign variables that are single number summaries of a DataFrame.</span>
 
 <span class="sd">    Grouped DataFrames will produce one row for each group. Otherwise, summarize</span>
@@ -1119,16 +1135,47 @@ a single argument for the data being operated on.</p></td>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">expr</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">callable</span><span class="p">(</span><span class="n">expr</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="s2">&quot;Unnamed arguments to summarize must be callable, but argument number &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ii</span><span class="si">}</span><span class="s2"> was type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">res</span> <span class="o">=</span> <span class="n">expr</span><span class="p">(</span><span class="n">__data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">DataFrame</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Summarize argument `</span><span class="si">{</span><span class="n">ii</span><span class="si">}</span><span class="s2">` returned a DataFrame with </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span><span class="si">}</span><span class="s2"> rows.&quot;</span>
+                    <span class="s2">&quot; Result must only be a single row.&quot;</span>
+                <span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">col_name</span> <span class="ow">in</span> <span class="n">res</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+                <span class="n">results</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span><span class="o">.</span><span class="n">array</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Unnamed arguments to summarize must return a DataFrame, but argument &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;`</span><span class="si">{</span><span class="n">ii</span><span class="si">}</span><span class="s2"> returned type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
+
+
     <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="c1"># TODO: raise error if a named expression returns a DataFrame</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">v</span><span class="p">(</span><span class="n">__data</span><span class="p">)</span> <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">else</span> <span class="n">v</span>
 
-        <span class="c1"># validate operations returned single result</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_scalar</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Summarize argument, </span><span class="si">%s</span><span class="s2">, must return result of length 1 or a scalar.&quot;</span> <span class="o">%</span> <span class="n">k</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">is_scalar</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># keep result, but use underlying array to avoid crazy index issues</span>
+            <span class="c1"># on DataFrame construction (#138)</span>
+            <span class="n">results</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">array</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="k">else</span> <span class="n">res</span>
 
-        <span class="c1"># keep result, but use underlying array to avoid crazy index issues</span>
-        <span class="c1"># on DataFrame construction (#138)</span>
-        <span class="n">results</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">array</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="k">else</span> <span class="n">res</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Summarize argument `</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">` must return result of length 1 or a scalar.</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Result type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">res</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Result length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
 
     <span class="c1"># must pass index, or raises error when using all scalar values</span>
     <span class="k">return</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>

@@ -121,12 +121,6 @@ ul.task-list li input[type="checkbox"] {
   <li class="nav-item">
     <a class="nav-link active" href="../examples/index.html" aria-current="page">Examples</a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../contribute/index.html">Get Involved</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../blog/index.html">Blog</a>
-  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-about" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-about">    
@@ -165,96 +159,61 @@ ul.task-list li input[type="checkbox"] {
 
 <div class="column-page">
 <div id="listing-gallery" class="quarto-listing quarto-listing-container-custom">
-<h2 class="anchored">Snippets</h2>
+<h2 class="anchored">Example Analyses</h2>
 <p></p>
 <div class="list grid" style="column-gap: 10px;">
   <div class="card gallery-entry border-1 rounded-3 g-col-12 g-col-sm-6 g-col-md-4 mb-2" data-index="0">
     <div class="card-header py-1 px-2 border-bottom border-1 bg-light">
-        <a href="https://gallery.shinyapps.io/airmass/" class="card-text" target="_blank">
+        <a href="./golden_age_of_tv.html" class="card-text" target="_blank">
             TV Ratings Analysis
         </a>
     </div>
-    <a href="https://gallery.shinyapps.io/airmass/" target="_blank">
+    <a href="./golden_age_of_tv.html" target="_blank">
     <div class="gallery-entry__img-container">
-        <img src="assets/golden_age_of_tv.png" alt="Plotting TV Series with the greatest shift in ratings between seasons.
+        <img src="assets/golden_age_of_tv.png" alt="Examining season ratings for different TV Series.
 Plotting shows with the most variable ratings.
-Uses grouped filters, joins, n() for row number.
+<br><br>
+Uses grouped filters, joins, n() for getting the total number of rows.
 " class="card-img-top gallery-entry__img">
     </div>
     </a>
     <div class="card-footer gallery-entry__body bg-light">
-        <span class="text-muted">Plotting TV Series with the greatest shift in ratings between seasons.
+        <span class="text-muted">Examining season ratings for different TV Series.
 Plotting shows with the most variable ratings.
-Uses grouped filters, joins, n() for row number.
+<br><br>
+Uses grouped filters, joins, n() for getting the total number of rows.
 </span>
       <ul>
         <li>
-          <a href="https://github.com/rstudio/py-shiny/blob/a488ab6534a877beb014f27b59db5ac4c315b2d8/examples/airmass/app.py" title="View source code" class="source-code card-text inline-block" target="_blank">
-            View source
-          </a>
-        </li>
-        <li>
-          <a href="https://gallery.shinyapps.io/airmass/" target="_blank">Screencast</a>
+          <a href="./golden_age_of_tv.html" target="_blank">View example</a>
         </li>
       </ul>
     </div>
   </div>
-</div>
-<h2 class="anchored">Example Analyses</h2>
-<p></p>
-<div class="list grid" style="column-gap: 10px;">
   <div class="card gallery-entry border-1 rounded-3 g-col-12 g-col-sm-6 g-col-md-4 mb-2" data-index="1">
     <div class="card-header py-1 px-2 border-bottom border-1 bg-light">
-        <a href="https://gallery.shinyapps.io/airmass/" class="card-text" target="_blank">
-            Using duckdb
+        <a href="./space-launches.html" class="card-text" target="_blank">
+            Space Launches over the Years
         </a>
     </div>
-    <a href="https://gallery.shinyapps.io/airmass/" target="_blank">
+    <a href="./space-launches.html" target="_blank">
     <div class="gallery-entry__img-container">
-        <img src="assets/golden_age_of_tv.png" alt="I am a description" class="card-img-top gallery-entry__img">
-    </div>
-    </a>
-    <div class="card-footer gallery-entry__body bg-light">
-        <span class="text-muted">I am a description</span>
-      <ul>
-        <li>
-          <a href="https://github.com/rstudio/py-shiny/blob/a488ab6534a877beb014f27b59db5ac4c315b2d8/examples/airmass/app.py" title="View source code" class="source-code card-text inline-block" target="_blank">
-            View source
-          </a>
-        </li>
-        <li>
-          <a href="https://gallery.shinyapps.io/airmass/" target="_blank">Screencast</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <div class="card gallery-entry border-1 rounded-3 g-col-12 g-col-sm-6 g-col-md-4 mb-2" data-index="2">
-    <div class="card-header py-1 px-2 border-bottom border-1 bg-light">
-        <a href="https://gallery.shinyapps.io/airmass/" class="card-text" target="_blank">
-            TV Ratings Analysis
-        </a>
-    </div>
-    <a href="https://gallery.shinyapps.io/airmass/" target="_blank">
-    <div class="gallery-entry__img-container">
-        <img src="assets/golden_age_of_tv.png" alt="Plotting TV Series with the greatest shift in ratings between seasons.
-Plotting shows with the most variable ratings.
-Uses grouped filters, joins, n() for row number.
+        <img src="assets/space-launches.png" alt="Space Launches have become dominated by private companies, like Spacex.
+This analysis looks at the agencies launching rockets over time.
+<br><br>Uses anti_join to figure out why a join is dropping rows,
+fct_lump to group rare agencies together, and a lot of counting.
 " class="card-img-top gallery-entry__img">
     </div>
     </a>
     <div class="card-footer gallery-entry__body bg-light">
-        <span class="text-muted">Plotting TV Series with the greatest shift in ratings between seasons.
-Plotting shows with the most variable ratings.
-Uses grouped filters, joins, n() for row number.
+        <span class="text-muted">Space Launches have become dominated by private companies, like Spacex.
+This analysis looks at the agencies launching rockets over time.
+<br><br>Uses anti_join to figure out why a join is dropping rows,
+fct_lump to group rare agencies together, and a lot of counting.
 </span>
       <ul>
         <li>
-          <a href="https://github.com/rstudio/py-shiny/blob/a488ab6534a877beb014f27b59db5ac4c315b2d8/examples/airmass/app.py" title="View source code" class="source-code card-text inline-block" target="_blank">
-            View source
-          </a>
-        </li>
-        <li>
-          <a href="https://gallery.shinyapps.io/airmass/" target="_blank">Screencast</a>
+          <a href="./space-launches.html" target="_blank">View example</a>
         </li>
       </ul>
     </div>

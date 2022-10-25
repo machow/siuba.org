@@ -660,6 +660,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2_5">
@@ -710,6 +712,20 @@
     <li class="md-nav__item">
       <a href="../verb-gather/" class="md-nav__link">
         gather, spread
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-pivot/" class="md-nav__link">
+        pivot_longer, pivot_wider
       </a>
     </li>
   
@@ -975,7 +991,7 @@
 
 
 <h2 id="siuba.dply.verbs.add_count" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">add_count</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">wt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">add_count</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">wt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 
 </h2>
@@ -1057,7 +1073,7 @@ useful combined with filter().</p>
         <details class="quote">
           <summary>Source code in <code>siuba/dply/verbs.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="nd">@singledispatch2</span><span class="p">((</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">DataFrameGroupBy</span><span class="p">))</span>
-<span class="k">def</span> <span class="nf">add_count</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">wt</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">sort</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">add_count</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">wt</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">sort</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Add a column that is the number of observations for each grouping of data.</span>
 
 <span class="sd">    Note that this function is similar to count(), but does not aggregate. It&#39;s</span>
@@ -1105,10 +1121,47 @@ useful combined with filter().</p>
 
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">counts</span> <span class="o">=</span> <span class="n">count</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">wt</span> <span class="o">=</span> <span class="n">wt</span><span class="p">,</span> <span class="n">sort</span> <span class="o">=</span> <span class="n">sort</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-    <span class="n">by</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">counts</span><span class="o">.</span><span class="n">columns</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">inner_join</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="n">counts</span><span class="p">,</span> <span class="n">by</span> <span class="o">=</span> <span class="n">by</span><span class="p">)</span>
+    <span class="n">no_grouping_vars</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">args</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">no_grouping_vars</span><span class="p">:</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">__data</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">group_by</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">add</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="n">var_names</span> <span class="o">=</span> <span class="n">ungroup</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">_check_name</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">set</span><span class="p">(</span><span class="n">var_names</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">wt</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">no_grouping_vars</span><span class="p">:</span> 
+            <span class="c1"># no groups, just use number of rows</span>
+            <span class="n">counts</span> <span class="o">=</span> <span class="n">__data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">counts</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># note that it&#39;s easy to transform tally using single grouped column, so</span>
+            <span class="c1"># we arbitrarily grab the first column..</span>
+            <span class="n">counts</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">counts</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="n">var_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s2">&quot;size&quot;</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">wt_col</span> <span class="o">=</span> <span class="n">simple_varname</span><span class="p">(</span><span class="n">wt</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">wt_col</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;wt argument has to be simple column name&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">no_grouping_vars</span><span class="p">:</span>
+            <span class="c1"># no groups, sum weights</span>
+            <span class="n">counts</span> <span class="o">=</span> <span class="n">__data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">counts</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">counts</span><span class="p">[</span><span class="n">wt_col</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># TODO: should flip topmost if/else so grouped code is together</span>
+            <span class="c1"># do weighted tally</span>
+            <span class="n">counts</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">counts</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="n">wt_col</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s2">&quot;sum&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">sort</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">counts</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">out_col</span><span class="p">,</span> <span class="n">ascending</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">counts</span>
 </code></pre></div>
         </details>
     </div>

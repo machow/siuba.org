@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Siuba - Custom column ops 📝</title>
+<title>Siuba - Custom column ops</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -93,7 +93,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../guide/programming-adv-sql.html" rel="next">
+<link href="../guide/workflows-backends.html" rel="next">
 <link href="../guide/programming-new-verbs.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -154,12 +154,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li class="nav-item">
     <a class="nav-link" href="../examples/index.html">Examples</a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../contribute/index.html">Get Involved</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../blog/index.html">Blog</a>
-  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-about" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-about">    
@@ -187,7 +181,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Custom column ops 📝</h1>
+      <h1 class="quarto-secondary-nav-title">Custom column ops</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -275,7 +269,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/ops-datetime.html" class="sidebar-item-text sidebar-link">Datetime operations (<code>.dt</code>) 📝</a>
+  <a href="../guide/ops-datetime.html" class="sidebar-item-text sidebar-link">Datetime operations (<code>.dt</code>)</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -330,22 +324,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-pipes.html" class="sidebar-item-text sidebar-link">Flexible pipes 📝</a>
+  <a href="../guide/programming-pipes.html" class="sidebar-item-text sidebar-link">Flexible pipes</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-new-verbs.html" class="sidebar-item-text sidebar-link">Custom table verbs 🚧</a>
+  <a href="../guide/programming-across.html" class="sidebar-item-text sidebar-link">Across column apply</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-new-ops.html" class="sidebar-item-text sidebar-link active">Custom column ops 📝</a>
+  <a href="../guide/programming-new-verbs.html" class="sidebar-item-text sidebar-link">Custom table verbs</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-adv-sql.html" class="sidebar-item-text sidebar-link">Advanced SQL 🚧</a>
+  <a href="../guide/programming-new-ops.html" class="sidebar-item-text sidebar-link active">Custom column ops</a>
   </div>
 </li>
       </ul>
@@ -397,9 +391,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#define-a-new-function" id="toc-define-a-new-function" class="nav-link active" data-scroll-target="#define-a-new-function">Define a new function</a></li>
   <li><a href="#check-for-a-translation" id="toc-check-for-a-translation" class="nav-link" data-scroll-target="#check-for-a-translation">Check for a translation</a></li>
   <li><a href="#register-an-error-with-functionlookupbound" id="toc-register-an-error-with-functionlookupbound" class="nav-link" data-scroll-target="#register-an-error-with-functionlookupbound">Register an error with FunctionLookupBound</a></li>
-  <li><a href="#registering-sql-translation" id="toc-registering-sql-translation" class="nav-link" data-scroll-target="#registering-sql-translation">Registering SQL translation</a></li>
-  <li><a href="#register-a-sql-window-function" id="toc-register-a-sql-window-function" class="nav-link" data-scroll-target="#register-a-sql-window-function">Register a SQL window function</a></li>
-  <li><a href="#extending-existing-column-op" id="toc-extending-existing-column-op" class="nav-link" data-scroll-target="#extending-existing-column-op">Extending existing column op</a></li>
+  <li><a href="#register-a-sql-translation" id="toc-register-a-sql-translation" class="nav-link" data-scroll-target="#register-a-sql-translation">Register a SQL translation</a>
+  <ul class="collapse">
+  <li><a href="#transformation" id="toc-transformation" class="nav-link" data-scroll-target="#transformation">Transformation</a></li>
+  <li><a href="#aggregation" id="toc-aggregation" class="nav-link" data-scroll-target="#aggregation">Aggregation</a></li>
+  <li><a href="#call-functions-in-functions" id="toc-call-functions-in-functions" class="nav-link" data-scroll-target="#call-functions-in-functions">Call functions in functions</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -408,7 +405,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Custom column ops 📝</h1>
+<h1 class="title d-none d-lg-block">Custom column ops</h1>
 </div>
 
 
@@ -432,21 +429,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pandas <span class="im">import</span> Series</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">@symbolic_dispatch</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> like(col, text):</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> all_like(col, text):</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">raise</span> <span class="pp">NotImplementedError</span>(<span class="ss">f"Not implemented for class </span><span class="sc">{</span><span class="bu">type</span>(col)<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">@like.register</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> _like_ser(col: Series, text: <span class="bu">str</span>) <span class="op">-&gt;</span> Series:</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">@all_like.register</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> _all_like_ser(col: Series, text: <span class="bu">str</span>) <span class="op">-&gt;</span> Series:</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Return transformation. Checks whether text is in each entry of col."""</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> col.<span class="bu">str</span>.contains(text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> col.<span class="bu">str</span>.contains(text).<span class="bu">all</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="check-for-a-translation" class="level2">
 <h2 class="anchored" data-anchor-id="check-for-a-translation">Check for a translation</h2>
 <div class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>like.dispatch(Series)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>all_like.dispatch(Series)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
-<pre><code>&lt;function __main__._like_ser(col: pandas.core.series.Series, text: str) -&gt; pandas.core.series.Series&gt;</code></pre>
+<pre><code>&lt;function __main__._all_like_ser(col: pandas.core.series.Series, text: str) -&gt; pandas.core.series.Series&gt;</code></pre>
 </div>
 </div>
 </section>
@@ -461,7 +458,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>some_func.register(Series, FunctionLookupBound(<span class="st">"Not implemented"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>&lt;siuba.siu.visitors.FunctionLookupBound at 0x7f7ca0e71730&gt;</code></pre>
+<pre><code>&lt;siuba.siu.visitors.FunctionLookupBound at 0x7f0338780d90&gt;</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="4">
@@ -474,32 +471,90 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="registering-sql-translation" class="level2">
-<h2 class="anchored" data-anchor-id="registering-sql-translation">Registering SQL translation</h2>
+<section id="register-a-sql-translation" class="level2">
+<h2 class="anchored" data-anchor-id="register-a-sql-translation">Register a SQL translation</h2>
 <div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sqlalchemy <span class="im">import</span> sql</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba.sql.dialects.postgresql <span class="im">import</span> PostgresqlColumn, PostgresqlColumnAgg</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="at">@like.register</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> _like_pg(codata: PostgresqlColumn, col: sql.ClauseElement, text: <span class="bu">str</span>) <span class="op">-&gt;</span> sql.ClauseElement:</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> col.like(text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba.sql.translate <span class="im">import</span> AggOver</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<section id="transformation" class="level3">
+<h3 class="anchored" data-anchor-id="transformation">Transformation</h3>
 <div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>expr <span class="op">=</span> like(PostgresqlColumn(), sql.column(<span class="st">"a"</span>), <span class="st">"yo"</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(expr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="at">@all_like.register</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> _all_like_pg(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    codata: PostgresqlColumn,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    col: sql.ClauseElement,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    text: <span class="bu">str</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>) <span class="op">-&gt;</span> sql.ClauseElement:</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> AggOver(sql.func.bool_and(col.like(text)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>expr <span class="op">=</span> all_like(PostgresqlColumn(), sql.column(<span class="st">"a"</span>), <span class="st">"yo"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(expr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>a LIKE :a_1</code></pre>
+<pre><code>bool_and(a LIKE :a_1) OVER ()</code></pre>
+</div>
+</div>
+<p>Note that <code>AggOver</code> ensures the result is a transformation by using an <code>OVER</code> clause. The partition and ordering of the clause are set automatically by siuba verbs.</p>
+<p>There are three special over clauses:</p>
+<ul>
+<li><code>AggOver</code>: handle an aggregate (e.g.&nbsp;<code>AVG(hp)</code> -&gt; <code>AVG(hp) OVER(...)</code>).</li>
+<li><code>RankOver</code>: handle a ranking function (e.g.&nbsp;<code>RANK() OVER (... ORDER BY ...)</code>).</li>
+<li><code>CumlOver</code>: handle a cumulative function (e.g.&nbsp;<code>SUM(hp) OVER (... ORDER BY ...)</code>).</li>
+</ul>
+</section>
+<section id="aggregation" class="level3">
+<h3 class="anchored" data-anchor-id="aggregation">Aggregation</h3>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="at">@all_like.register</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> _like_pg_agg(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    codata: PostgresqlColumnAgg,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    col: sql.ClauseElement,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    text: <span class="bu">str</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>) <span class="op">-&gt;</span> sql.ClauseElement:</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> sql.func.bool_and(col.like(text))</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>expr <span class="op">=</span> all_like(PostgresqlColumnAgg(), sql.column(<span class="st">"a"</span>), <span class="st">"yo"</span>)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(expr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>bool_and(a LIKE :a_1)</code></pre>
 </div>
 </div>
 </section>
-<section id="register-a-sql-window-function" class="level2">
-<h2 class="anchored" data-anchor-id="register-a-sql-window-function">Register a SQL window function</h2>
+<section id="call-functions-in-functions" class="level3">
+<h3 class="anchored" data-anchor-id="call-functions-in-functions">Call functions in functions</h3>
+<p>Use the <code>codata</code> parameter when calling another generic function inside your custom function.</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># these are the functions used to translate pandas methods</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba.ops <span class="im">import</span> mean, std</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="at">@symbolic_dispatch</span>(cls <span class="op">=</span> PostgresqlColumn)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> scale(codata, x):</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (x <span class="op">-</span> mean(codata, x)) <span class="op">/</span> std(codata, x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba.data <span class="im">import</span> cars_sql</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba <span class="im">import</span> _, mutate, group_by, show_query</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>q <span class="op">=</span> mutate(cars_sql, res <span class="op">=</span> scale(_.mpg)) <span class="op">&gt;&gt;</span> show_query(simplify<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>SELECT *, (cars.mpg - avg(cars.mpg) OVER ()) / stddev_samp(cars.mpg) OVER () AS res 
+FROM cars</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>q <span class="op">=</span> cars_sql <span class="op">&gt;&gt;</span> group_by(_.cyl) <span class="op">&gt;&gt;</span> mutate(res <span class="op">=</span> scale(_.mpg)) <span class="op">&gt;&gt;</span> show_query(simplify<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>SELECT *, (cars.mpg - avg(cars.mpg) OVER (PARTITION BY cars.cyl)) / stddev_samp(cars.mpg) OVER (PARTITION BY cars.cyl) AS res 
+FROM cars</code></pre>
+</div>
+</div>
+
+
 </section>
-<section id="extending-existing-column-op" class="level2">
-<h2 class="anchored" data-anchor-id="extending-existing-column-op">Extending existing column op</h2>
-
-
 </section>
 
 </main> <!-- /main -->
@@ -605,12 +660,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../guide/programming-new-verbs.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Custom table verbs 🚧</span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Custom table verbs</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../guide/programming-adv-sql.html" class="pagination-link">
-        <span class="nav-page-text">Advanced SQL 🚧</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../guide/workflows-backends.html" class="pagination-link">
+        <span class="nav-page-text">Backend Examples 🚧</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

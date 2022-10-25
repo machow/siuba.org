@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Siuba - Datetime operations (.dt) 📝</title>
+<title>Siuba - Datetime operations (.dt)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -157,12 +157,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li class="nav-item">
     <a class="nav-link" href="../examples/index.html">Examples</a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../contribute/index.html">Get Involved</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../blog/index.html">Blog</a>
-  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-about" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-about">    
@@ -190,7 +184,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Datetime operations (<code>.dt</code>) 📝</h1>
+      <h1 class="quarto-secondary-nav-title">Datetime operations (<code>.dt</code>)</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -278,7 +272,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/ops-datetime.html" class="sidebar-item-text sidebar-link active">Datetime operations (<code>.dt</code>) 📝</a>
+  <a href="../guide/ops-datetime.html" class="sidebar-item-text sidebar-link active">Datetime operations (<code>.dt</code>)</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -333,22 +327,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-pipes.html" class="sidebar-item-text sidebar-link">Flexible pipes 📝</a>
+  <a href="../guide/programming-pipes.html" class="sidebar-item-text sidebar-link">Flexible pipes</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-new-verbs.html" class="sidebar-item-text sidebar-link">Custom table verbs 🚧</a>
+  <a href="../guide/programming-across.html" class="sidebar-item-text sidebar-link">Across column apply</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-new-ops.html" class="sidebar-item-text sidebar-link">Custom column ops 📝</a>
+  <a href="../guide/programming-new-verbs.html" class="sidebar-item-text sidebar-link">Custom table verbs</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-adv-sql.html" class="sidebar-item-text sidebar-link">Advanced SQL 🚧</a>
+  <a href="../guide/programming-new-ops.html" class="sidebar-item-text sidebar-link">Custom column ops</a>
   </div>
 </li>
       </ul>
@@ -399,9 +393,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
   <ul class="collapse">
-  <li><a href="#creating-datetime-columns" id="toc-creating-datetime-columns" class="nav-link" data-scroll-target="#creating-datetime-columns">Creating datetime columns</a></li>
   <li><a href="#using-datetime-methods-.dt" id="toc-using-datetime-methods-.dt" class="nav-link" data-scroll-target="#using-datetime-methods-.dt">Using datetime methods (<code>.dt</code>)</a></li>
   <li><a href="#use-in-a-verb" id="toc-use-in-a-verb" class="nav-link" data-scroll-target="#use-in-a-verb">Use in a verb</a></li>
+  <li><a href="#creating-datetime-columns" id="toc-creating-datetime-columns" class="nav-link" data-scroll-target="#creating-datetime-columns">Creating datetime columns</a></li>
   </ul></li>
   <li><a href="#change-granularity-with-floor_date" id="toc-change-granularity-with-floor_date" class="nav-link" data-scroll-target="#change-granularity-with-floor_date">Change granularity with <code>floor_date()</code></a>
   <ul class="collapse">
@@ -411,7 +405,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#preserving-input-type" id="toc-preserving-input-type" class="nav-link" data-scroll-target="#preserving-input-type">Preserving input type</a></li>
   <li><a href="#unit-start-vs-unit-end" id="toc-unit-start-vs-unit-end" class="nav-link" data-scroll-target="#unit-start-vs-unit-end">Unit start vs unit end</a></li>
   </ul></li>
-  <li><a href="#translating-to-sql" id="toc-translating-to-sql" class="nav-link" data-scroll-target="#translating-to-sql">Translating to SQL</a></li>
   <li><a href="#learning-more" id="toc-learning-more" class="nav-link" data-scroll-target="#learning-more">Learning more</a></li>
   </ul>
 </nav>
@@ -421,7 +414,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Datetime operations (<code>.dt</code>) 📝</h1>
+<h1 class="title d-none d-lg-block">Datetime operations (<code>.dt</code>)</h1>
 </div>
 
 
@@ -457,58 +450,29 @@ Warning
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba <span class="im">import</span> _, count, mutate</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba.siu <span class="im">import</span> call</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="creating-datetime-columns" class="level3">
-<h3 class="anchored" data-anchor-id="creating-datetime-columns">Creating datetime columns</h3>
-<p>There are roughly two ways to create a datetime column in pandas:</p>
-<ul>
-<li><code>pd.to_datetime()</code> which takes a range of inputs.</li>
-<li><code>pd.Series.astype("datetime64[ns]")</code> method call.</li>
-</ul>
-<p>The <code>pd.to_datetime()</code> function is flexible, and can also take a list of datetimes or a Series.</p>
-<div class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dt_index <span class="op">=</span> pd.to_datetime([<span class="st">"2021-01-02 01:02:03"</span>, <span class="st">"2022-02-03 04:05:06"</span>])</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dt_index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>DatetimeIndex(['2021-01-02 01:02:03', '2022-02-03 04:05:06'], dtype='datetime64[ns]', freq=None)</code></pre>
-</div>
-</div>
-<p>Note that sometimes the result is not a Series. For example, the above object is a DatetimeIndex. Generally, everything is easier after wrapping it in a pandas Series.</p>
-<div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ser_times <span class="op">=</span> pd.Series(dt_index)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>On the other hand, the <code>.astype()</code> method is a simple way to convert a series to a datetime.</p>
-<div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pd.Series([<span class="st">"2021-01-02 03:04:05"</span>]).astype(<span class="st">"datetime64[ns]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
-<pre><code>0   2021-01-02 03:04:05
-dtype: datetime64[ns]</code></pre>
-</div>
-</div>
-<p>The <a href="https://pandas.pydata.org/docs/user_guide/timeseries.html">pandas time series docs</a> discuss in exquisite detail the intricacies of different datetime objects, and how they’re created! The rest of this page will just use pandas Series to look at datetime operations.</p>
-</section>
 <section id="using-datetime-methods-.dt" class="level3">
 <h3 class="anchored" data-anchor-id="using-datetime-methods-.dt">Using datetime methods (<code>.dt</code>)</h3>
-<p>siuba uses Pandas methods, so can use any of the datetime methods it makes available, like <code>.dt.month_name()</code>.</p>
-<div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ser_times.dt.month_name()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
+<p>siuba uses pandas methods, so can use any of the datetime methods it makes available, like <code>.dt.month_name()</code>.</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df_dates <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"dates"</span>: pd.to_datetime([<span class="st">"2021-01-02"</span>, <span class="st">"2021-02-03"</span>]),</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"raw"</span>: [<span class="st">"2023-04-05 06:07:08"</span>, <span class="st">"2024-05-06 07:08:09"</span>],</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>df_dates.dates.dt.month_name()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>0     January
 1    February
-dtype: object</code></pre>
+Name: dates, dtype: object</code></pre>
 </div>
 </div>
 </section>
 <section id="use-in-a-verb" class="level3">
 <h3 class="anchored" data-anchor-id="use-in-a-verb">Use in a verb</h3>
-<div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"times"</span>: ser_times,</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"raw"</span>: [<span class="st">"2023-04-05 06:07:08"</span>, <span class="st">"2024-05-06 07:08:09"</span>],</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">&gt;&gt;</span> count(month <span class="op">=</span> _.times.dt.month_name())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_dates <span class="op">&gt;&gt;</span> count(month <span class="op">=</span> _.dates.dt.month_name())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
 
 <div>
 
@@ -537,17 +501,46 @@ dtype: object</code></pre>
 </div>
 </div>
 <p>You can call functions like <code>pd.to_datetime()</code> using siuba’s <code>call()</code>.</p>
-<div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> df <span class="op">&gt;&gt;</span> mutate(parsed <span class="op">=</span> call(pd.to_datetime, _.raw))</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>res.parsed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> df_dates <span class="op">&gt;&gt;</span> mutate(parsed <span class="op">=</span> call(pd.to_datetime, _.raw))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>res.parsed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>0   2023-04-05 06:07:08
 1   2024-05-06 07:08:09
 Name: parsed, dtype: datetime64[ns]</code></pre>
 </div>
 </div>
 <p>Notice that this creates a new datetime column by calling <code>pd.to_datetime(df.raw)</code>.</p>
+</section>
+<section id="creating-datetime-columns" class="level3">
+<h3 class="anchored" data-anchor-id="creating-datetime-columns">Creating datetime columns</h3>
+<p>There are roughly two ways to create a datetime column in pandas:</p>
+<ul>
+<li><code>pd.to_datetime()</code> which takes a range of inputs.</li>
+<li><code>pd.Series.astype("datetime64[ns]")</code> method call.</li>
+</ul>
+<p>The <code>pd.to_datetime()</code> function is flexible, and can also take a list of datetimes or a Series.</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dt_index <span class="op">=</span> pd.to_datetime([<span class="st">"2021-01-02 01:02:03"</span>, <span class="st">"2022-02-03 04:05:06"</span>])</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>dt_index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>DatetimeIndex(['2021-01-02 01:02:03', '2022-02-03 04:05:06'], dtype='datetime64[ns]', freq=None)</code></pre>
+</div>
+</div>
+<p>Note that sometimes the result is not a Series. For example, the above object is a DatetimeIndex. Generally, everything is easier after wrapping it in a pandas Series.</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ser_times <span class="op">=</span> pd.Series(dt_index)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>On the other hand, the <code>.astype()</code> method is a simple way to convert a series to a datetime.</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pd.Series([<span class="st">"2021-01-02 03:04:05"</span>]).astype(<span class="st">"datetime64[ns]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>0   2021-01-02 03:04:05
+dtype: datetime64[ns]</code></pre>
+</div>
+</div>
+<p>The <a href="https://pandas.pydata.org/docs/user_guide/timeseries.html">pandas time series docs</a> discuss in exquisite detail the intricacies of different datetime objects, and how they’re created! The rest of this page will just use pandas Series to look at datetime operations.</p>
 </section>
 </section>
 <section id="change-granularity-with-floor_date" class="level2">
@@ -692,14 +685,6 @@ Name: parsed, dtype: datetime64[ns]</code></pre>
 </ul>
 <p>It’s a bit confusing that “M” stands for month <strong>end</strong>, but “D” stands for day <strong>start</strong>. In general, time units at the day level or finer grain only do unit start, so be careful with units!</p>
 </section>
-</section>
-<section id="translating-to-sql" class="level2">
-<h2 class="anchored" data-anchor-id="translating-to-sql">Translating to SQL</h2>
-<div class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba <span class="im">import</span> _, count</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba.data <span class="im">import</span> cars_sql</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>🚧 TODO: add a basic SQL dataset with time columns</p>
 </section>
 <section id="learning-more" class="level2">
 <h2 class="anchored" data-anchor-id="learning-more">Learning more</h2>

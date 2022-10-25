@@ -660,6 +660,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2_5">
@@ -710,6 +712,20 @@
     <li class="md-nav__item">
       <a href="../verb-gather/" class="md-nav__link">
         gather, spread
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-pivot/" class="md-nav__link">
+        pivot_longer, pivot_wider
       </a>
     </li>
   
@@ -1122,7 +1138,7 @@ for dropping a complex set of matches.</p>
                 <span class="p">)</span>
     <span class="n">var_list</span> <span class="o">=</span> <span class="n">var_create</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
 
-    <span class="n">od</span> <span class="o">=</span> <span class="n">var_select</span><span class="p">(</span><span class="n">__data</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="o">*</span><span class="n">var_list</span><span class="p">)</span>
+    <span class="n">od</span> <span class="o">=</span> <span class="n">var_select</span><span class="p">(</span><span class="n">__data</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="o">*</span><span class="n">var_list</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">__data</span><span class="p">)</span>
 
     <span class="n">to_rename</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">od</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">}</span>
 

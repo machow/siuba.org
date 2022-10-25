@@ -1,0 +1,1768 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.5.4">
+    
+    
+      
+        <title>pivot_longer, pivot_wider - Siuba Reference</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.80dcb947.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../static/styles.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#siuba.experimental.pivot.pivot_wide.pivot_wider" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Siuba Reference" class="md-header__button md-logo" aria-label="Siuba Reference" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Siuba Reference
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              pivot_longer, pivot_wider
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../guide/" class="md-tabs__link">
+      Guide
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link md-tabs__link--active">
+        Reference
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../examples/" class="md-tabs__link">
+      Examples
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../develop/" class="md-tabs__link">
+      Develop
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../about/key_features.html" class="md-tabs__link">
+        About
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Siuba Reference" class="md-nav__button md-logo" aria-label="Siuba Reference" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Siuba Reference
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/" class="md-nav__link">
+        Guide
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="..">Reference</a>
+          
+            <label for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Core verbs - one table
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Core verbs - one table" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Core verbs - one table
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-arrange/" class="md-nav__link">
+        arrange
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-count/" class="md-nav__link">
+        count
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-distinct/" class="md-nav__link">
+        distinct
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-filter/" class="md-nav__link">
+        filter
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verbs-mutate-transmute/" class="md-nav__link">
+        mutate, transmute
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-rename/" class="md-nav__link">
+        rename
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-select/" class="md-nav__link">
+        select
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-summarize/" class="md-nav__link">
+        summarize
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-group_by/" class="md-nav__link">
+        group_by, ungroup
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Core verbs - two table
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Core verbs - two table" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Core verbs - two table
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verbs-joins/" class="md-nav__link">
+        mutate joins (inner, left, full)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verbs-filter-joins/" class="md-nav__link">
+        filter joins (anti, semi)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          Query verbs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Query verbs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Query verbs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-collect/" class="md-nav__link">
+        collect
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-show_query/" class="md-nav__link">
+        show_query
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_5">
+          Tidy verbs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tidy verbs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Tidy verbs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-complete/" class="md-nav__link">
+        complete
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-extract/" class="md-nav__link">
+        extract
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-gather/" class="md-nav__link">
+        gather, spread
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          pivot_longer, pivot_wider
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        pivot_longer, pivot_wider
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#siuba.experimental.pivot.pivot_wide.pivot_wider" class="md-nav__link">
+    pivot_wider()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#siuba.experimental.pivot.pivot_long.pivot_longer" class="md-nav__link">
+    pivot_longer()
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-separate/" class="md-nav__link">
+        separate, unite
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-nest/" class="md-nav__link">
+        nest, unnest
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_6">
+          Column operations
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Column operations" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Column operations
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../forcats/" class="md-nav__link">
+        Forcats
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimental/" class="md-nav__link">
+        Datetime (experimental)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vector/" class="md-nav__link">
+        General
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/" class="md-nav__link">
+        Examples
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../develop/" class="md-nav__link">
+        Develop
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          About
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="About" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          About
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/key_features.html" class="md-nav__link">
+        Key Features
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#siuba.experimental.pivot.pivot_wide.pivot_wider" class="md-nav__link">
+    pivot_wider()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#siuba.experimental.pivot.pivot_long.pivot_longer" class="md-nav__link">
+    pivot_longer()
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>pivot_longer, pivot_wider</h1>
+
+<p>Note that these functions are currently experimental.</p>
+<pre><code class="language-python">from siuba.experimental.pivot import pivot_wider, pivot_longer
+</code></pre>
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="siuba.experimental.pivot.pivot_wide.pivot_wider" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">pivot_wider</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="n">id_cols</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">id_expand</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">names_from</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">names_prefix</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">names_sep</span><span class="o">=</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="n">names_glue</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">names_sort</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">names_vary</span><span class="o">=</span><span class="s1">&#39;fastest&#39;</span><span class="p">,</span> <span class="n">names_expand</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">names_repair</span><span class="o">=</span><span class="s1">&#39;check_unique&#39;</span><span class="p">,</span> <span class="n">values_from</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="n">values_fill</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">values_fn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">unused_fn</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents first">
+
+      <p>Pivot data from long to wide format.</p>
+<p>This function splits a column, putting the pieces side-by-side based on an index.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>__data</code></td>
+        <td></td>
+        <td><p>The input data.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>id_cols</code></td>
+        <td></td>
+        <td><p>A selection of columns that uniquely identify each observation.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>id_expand</code></td>
+        <td></td>
+        <td><p>Whether to ensure each unique combination of id_cols is a row in the data
+before pivoting, using <code>expand()</code>. This results in more rows. When True,
+this also sorts the final result by the <code>id_cols</code>.</p></td>
+        <td><code>False</code></td>
+      </tr>
+      <tr>
+        <td><code>names_from, values_from</code></td>
+        <td></td>
+        <td><p>A pair fo arguments describing which column (or columns) to get the name of
+the output column (names_from), and which column (or columns) to get the
+cell values from (values_from).</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>names_prefix</code></td>
+        <td></td>
+        <td><p>String added to the start of every variable name.</p></td>
+        <td><code>&#39;&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>names_sep</code></td>
+        <td></td>
+        <td><p>If names_from or values_from contains multiple values, this will be used
+to join their values together into a single string to use as a column name.</p></td>
+        <td><code>&#39;_&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>names_glue</code></td>
+        <td></td>
+        <td><p>Instead of names_sep and names_prefix, supply a string template that uses
+the names_from columns (and a special .value variable) to create custom
+column names.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>names_sort</code></td>
+        <td></td>
+        <td><p>Should the column names be sorted? The default is False, which results
+in column names ordered by first appearance.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>names_vary</code></td>
+        <td></td>
+        <td><p>Option specifying how columns are ordered when names_from and values_from
+both identify new columns. "fastest" varies names_from fastest, while "slowest"
+varies names_from slowest.</p></td>
+        <td><code>&#39;fastest&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>names_expand</code></td>
+        <td></td>
+        <td><p>Whether to ensure all combinations of names_from columns are in the result
+using the <code>expand()</code> function. This results in more columns in the output.</p></td>
+        <td><code>False</code></td>
+      </tr>
+      <tr>
+        <td><code>names_repair</code></td>
+        <td></td>
+        <td><p>Strategy for fixing of invalid column names. "minimal" leaves them as is.
+"check_unique" raises an error if there are duplicate names. "unique"
+de-duplicates names by appending "___{position}" to them.</p></td>
+        <td><code>&#39;check_unique&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>values_fill</code></td>
+        <td></td>
+        <td><p>A scalar value used to fill in any missing values. Alternatively, a
+dictionary mapping column names to fill values.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>values_fn</code></td>
+        <td></td>
+        <td><p>An optional function to apply to each cell of the output. This is useful
+when each cell would contain multiple values. E.g. values_fn="max" would
+calculate the max value.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>unused_fn</code></td>
+        <td></td>
+        <td><p>Not implemented.</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba</span> <span class="kn">import</span> <span class="n">_</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+<span class="o">...</span>    <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">],</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">],</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]}</span>
+<span class="o">...</span> <span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">df</span>
+  <span class="nb">id</span> <span class="n">name</span>  <span class="n">value</span>
+<span class="mi">0</span>  <span class="n">a</span>    <span class="n">x</span>      <span class="mi">1</span>
+<span class="mi">1</span>  <span class="n">b</span>    <span class="n">x</span>      <span class="mi">2</span>
+<span class="mi">2</span>  <span class="n">a</span>    <span class="n">y</span>      <span class="mi">3</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">pivot_wider</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">names_from</span><span class="o">=</span><span class="n">_</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">values_from</span><span class="o">=</span><span class="n">_</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+  <span class="nb">id</span>    <span class="n">x</span>    <span class="n">y</span>
+<span class="mi">0</span>  <span class="n">a</span>  <span class="mf">1.0</span>  <span class="mf">3.0</span>
+<span class="mi">1</span>  <span class="n">b</span>  <span class="mf">2.0</span>  <span class="n">NaN</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">pivot_wider</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">names_from</span><span class="o">=</span><span class="n">_</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">values_from</span><span class="o">=</span><span class="n">_</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">values_fill</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+  <span class="nb">id</span>  <span class="n">x</span>  <span class="n">y</span>
+<span class="mi">0</span>  <span class="n">a</span>  <span class="mi">1</span>  <span class="mi">3</span>
+<span class="mi">1</span>  <span class="n">b</span>  <span class="mi">2</span>  <span class="mi">0</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">many</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+<span class="o">...</span>    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<span class="o">...</span>    <span class="s2">&quot;var&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">,</span> <span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">],</span>
+<span class="o">...</span>    <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+<span class="o">...</span>    <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+<span class="o">...</span> <span class="p">})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">pivot_wider</span><span class="p">(</span><span class="n">many</span><span class="p">,</span> <span class="n">names_from</span><span class="o">=</span><span class="n">_</span><span class="o">.</span><span class="n">var</span><span class="p">,</span> <span class="n">values_from</span><span class="o">=</span><span class="n">_</span><span class="p">[</span><span class="n">_</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">_</span><span class="o">.</span><span class="n">y</span><span class="p">])</span>
+   <span class="nb">id</span>  <span class="n">x_one</span>  <span class="n">x_two</span>  <span class="n">y_one</span>  <span class="n">y_two</span>
+<span class="mi">0</span>   <span class="mi">1</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">6</span>      <span class="mi">7</span>
+<span class="mi">1</span>   <span class="mi">2</span>      <span class="mi">3</span>      <span class="mi">4</span>      <span class="mi">8</span>      <span class="mi">9</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">pivot_wider</span><span class="p">(</span><span class="n">many</span><span class="p">,</span> <span class="n">names_from</span><span class="o">=</span><span class="n">_</span><span class="o">.</span><span class="n">var</span><span class="p">,</span> <span class="n">values_from</span><span class="o">=</span><span class="n">_</span><span class="p">[</span><span class="n">_</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">_</span><span class="o">.</span><span class="n">y</span><span class="p">],</span> <span class="n">names_vary</span><span class="o">=</span><span class="s2">&quot;slowest&quot;</span><span class="p">)</span>
+   <span class="nb">id</span>  <span class="n">x_one</span>  <span class="n">y_one</span>  <span class="n">x_two</span>  <span class="n">y_two</span>
+<span class="mi">0</span>   <span class="mi">1</span>      <span class="mi">1</span>      <span class="mi">6</span>      <span class="mi">2</span>      <span class="mi">7</span>
+<span class="mi">1</span>   <span class="mi">2</span>      <span class="mi">3</span>      <span class="mi">8</span>      <span class="mi">4</span>      <span class="mi">9</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">pivot_wider</span><span class="p">(</span><span class="n">many</span><span class="p">,</span> <span class="n">names_from</span><span class="o">=</span><span class="n">_</span><span class="o">.</span><span class="n">var</span><span class="p">,</span> <span class="n">values_from</span><span class="o">=</span><span class="n">_</span><span class="p">[</span><span class="n">_</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">_</span><span class="o">.</span><span class="n">y</span><span class="p">],</span> <span class="n">names_sep</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+   <span class="nb">id</span>  <span class="n">x</span><span class="o">.</span><span class="n">one</span>  <span class="n">x</span><span class="o">.</span><span class="n">two</span>  <span class="n">y</span><span class="o">.</span><span class="n">one</span>  <span class="n">y</span><span class="o">.</span><span class="n">two</span>
+<span class="mi">0</span>   <span class="mi">1</span>      <span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">6</span>      <span class="mi">7</span>
+<span class="mi">1</span>   <span class="mi">2</span>      <span class="mi">3</span>      <span class="mi">4</span>      <span class="mi">8</span>      <span class="mi">9</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">glue</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{variable}</span><span class="s2">_X_</span><span class="si">{value}</span><span class="s2">&quot;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">pivot_wider</span><span class="p">(</span><span class="n">many</span><span class="p">,</span> <span class="n">names_from</span><span class="o">=</span><span class="n">_</span><span class="o">.</span><span class="n">var</span><span class="p">,</span> <span class="n">values_from</span><span class="o">=</span><span class="n">_</span><span class="p">[</span><span class="n">_</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">_</span><span class="o">.</span><span class="n">y</span><span class="p">],</span> <span class="n">names_glue</span><span class="o">=</span><span class="n">glue</span><span class="p">)</span>
+   <span class="nb">id</span>  <span class="n">x_X_one</span>  <span class="n">x_X_two</span>  <span class="n">y_X_one</span>  <span class="n">y_X_two</span>
+<span class="mi">0</span>   <span class="mi">1</span>        <span class="mi">1</span>        <span class="mi">2</span>        <span class="mi">6</span>        <span class="mi">7</span>
+<span class="mi">1</span>   <span class="mi">2</span>        <span class="mi">3</span>        <span class="mi">4</span>        <span class="mi">8</span>        <span class="mi">9</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba.data</span> <span class="kn">import</span> <span class="n">warpbreaks</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">warpbreaks</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+   <span class="n">breaks</span> <span class="n">wool</span> <span class="n">tension</span>
+<span class="mi">0</span>      <span class="mi">26</span>    <span class="n">A</span>       <span class="n">L</span>
+<span class="mi">1</span>      <span class="mi">30</span>    <span class="n">A</span>       <span class="n">L</span>
+<span class="mi">2</span>      <span class="mi">54</span>    <span class="n">A</span>       <span class="n">L</span>
+<span class="mi">3</span>      <span class="mi">25</span>    <span class="n">A</span>       <span class="n">L</span>
+<span class="mi">4</span>      <span class="mi">70</span>    <span class="n">A</span>       <span class="n">L</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">pivot_wider</span><span class="p">(</span><span class="n">warpbreaks</span><span class="p">,</span> <span class="n">names_from</span><span class="o">=</span><span class="n">_</span><span class="o">.</span><span class="n">wool</span><span class="p">,</span> <span class="n">values_from</span><span class="o">=</span><span class="n">_</span><span class="o">.</span><span class="n">breaks</span><span class="p">,</span> <span class="n">values_fn</span><span class="o">=</span><span class="s2">&quot;mean&quot;</span><span class="p">)</span>
+  <span class="n">tension</span>          <span class="n">A</span>          <span class="n">B</span>
+<span class="mi">0</span>       <span class="n">H</span>  <span class="mf">24.555556</span>  <span class="mf">18.777778</span>
+<span class="mi">1</span>       <span class="n">L</span>  <span class="mf">44.555556</span>  <span class="mf">28.222222</span>
+<span class="mi">2</span>       <span class="n">M</span>  <span class="mf">24.000000</span>  <span class="mf">28.777778</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>siuba/experimental/pivot/pivot_wide.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@singledispatch2</span><span class="p">((</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">DataFrameGroupBy</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">pivot_wider</span><span class="p">(</span>
+    <span class="n">__data</span><span class="p">,</span>
+    <span class="n">id_cols</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">id_expand</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">names_from</span><span class="o">=</span><span class="s2">&quot;name&quot;</span><span class="p">,</span>
+    <span class="n">names_prefix</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">names_sep</span><span class="o">=</span><span class="s2">&quot;_&quot;</span><span class="p">,</span>
+    <span class="n">names_glue</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">names_sort</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">names_vary</span><span class="o">=</span><span class="s2">&quot;fastest&quot;</span><span class="p">,</span>
+    <span class="n">names_expand</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">names_repair</span><span class="o">=</span><span class="s2">&quot;check_unique&quot;</span><span class="p">,</span>
+    <span class="n">values_from</span><span class="o">=</span><span class="s2">&quot;value&quot;</span><span class="p">,</span>
+    <span class="n">values_fill</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">values_fn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">unused_fn</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Pivot data from long to wide format.</span>
+
+<span class="sd">    This function splits a column, putting the pieces side-by-side based on an index.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    __data:</span>
+<span class="sd">        The input data.</span>
+<span class="sd">    id_cols:</span>
+<span class="sd">        A selection of columns that uniquely identify each observation.</span>
+<span class="sd">    id_expand:</span>
+<span class="sd">        Whether to ensure each unique combination of id_cols is a row in the data</span>
+<span class="sd">        before pivoting, using `expand()`. This results in more rows. When True,</span>
+<span class="sd">        this also sorts the final result by the `id_cols`.</span>
+<span class="sd">    names_from, values_from:</span>
+<span class="sd">        A pair fo arguments describing which column (or columns) to get the name of</span>
+<span class="sd">        the output column (names_from), and which column (or columns) to get the</span>
+<span class="sd">        cell values from (values_from).</span>
+<span class="sd">    names_prefix:</span>
+<span class="sd">        String added to the start of every variable name.</span>
+<span class="sd">    names_sep:</span>
+<span class="sd">        If names_from or values_from contains multiple values, this will be used</span>
+<span class="sd">        to join their values together into a single string to use as a column name.</span>
+<span class="sd">    names_glue:</span>
+<span class="sd">        Instead of names_sep and names_prefix, supply a string template that uses</span>
+<span class="sd">        the names_from columns (and a special .value variable) to create custom</span>
+<span class="sd">        column names.</span>
+<span class="sd">    names_sort:</span>
+<span class="sd">        Should the column names be sorted? The default is False, which results</span>
+<span class="sd">        in column names ordered by first appearance.</span>
+<span class="sd">    names_vary:</span>
+<span class="sd">        Option specifying how columns are ordered when names_from and values_from</span>
+<span class="sd">        both identify new columns. &quot;fastest&quot; varies names_from fastest, while &quot;slowest&quot;</span>
+<span class="sd">        varies names_from slowest.</span>
+<span class="sd">    names_expand:</span>
+<span class="sd">        Whether to ensure all combinations of names_from columns are in the result</span>
+<span class="sd">        using the `expand()` function. This results in more columns in the output.</span>
+<span class="sd">    names_repair:</span>
+<span class="sd">        Strategy for fixing of invalid column names. &quot;minimal&quot; leaves them as is.</span>
+<span class="sd">        &quot;check_unique&quot; raises an error if there are duplicate names. &quot;unique&quot;</span>
+<span class="sd">        de-duplicates names by appending &quot;___{position}&quot; to them.</span>
+<span class="sd">    values_fill:</span>
+<span class="sd">        A scalar value used to fill in any missing values. Alternatively, a</span>
+<span class="sd">        dictionary mapping column names to fill values.</span>
+<span class="sd">    values_fn:</span>
+<span class="sd">        An optional function to apply to each cell of the output. This is useful</span>
+<span class="sd">        when each cell would contain multiple values. E.g. values_fn=&quot;max&quot; would</span>
+<span class="sd">        calculate the max value.</span>
+<span class="sd">    unused_fn:</span>
+<span class="sd">        Not implemented.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from siuba import _</span>
+
+<span class="sd">    &gt;&gt;&gt; df = pd.DataFrame(</span>
+<span class="sd">    ...    {&quot;id&quot;: [&quot;a&quot;, &quot;b&quot;, &quot;a&quot;], &quot;name&quot;: [&quot;x&quot;, &quot;x&quot;, &quot;y&quot;], &quot;value&quot;: [1, 2, 3]}</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; df</span>
+<span class="sd">      id name  value</span>
+<span class="sd">    0  a    x      1</span>
+<span class="sd">    1  b    x      2</span>
+<span class="sd">    2  a    y      3</span>
+
+<span class="sd">    &gt;&gt;&gt; pivot_wider(df, names_from=_.name, values_from=_.value)</span>
+<span class="sd">      id    x    y</span>
+<span class="sd">    0  a  1.0  3.0</span>
+<span class="sd">    1  b  2.0  NaN</span>
+
+<span class="sd">    &gt;&gt;&gt; pivot_wider(df, names_from=_.name, values_from=_.value, values_fill=0)</span>
+<span class="sd">      id  x  y</span>
+<span class="sd">    0  a  1  3</span>
+<span class="sd">    1  b  2  0</span>
+
+<span class="sd">    &gt;&gt;&gt; many = pd.DataFrame({</span>
+<span class="sd">    ...    &quot;id&quot;: [1, 1, 2, 2],</span>
+<span class="sd">    ...    &quot;var&quot;: [&quot;one&quot;, &quot;two&quot;, &quot;one&quot;, &quot;two&quot;],</span>
+<span class="sd">    ...    &quot;x&quot;: [1, 2, 3, 4],</span>
+<span class="sd">    ...    &quot;y&quot;: [6, 7, 8, 9]</span>
+<span class="sd">    ... })</span>
+<span class="sd">    &gt;&gt;&gt; pivot_wider(many, names_from=_.var, values_from=_[_.x, _.y])</span>
+<span class="sd">       id  x_one  x_two  y_one  y_two</span>
+<span class="sd">    0   1      1      2      6      7</span>
+<span class="sd">    1   2      3      4      8      9</span>
+
+<span class="sd">    &gt;&gt;&gt; pivot_wider(many, names_from=_.var, values_from=_[_.x, _.y], names_vary=&quot;slowest&quot;)</span>
+<span class="sd">       id  x_one  y_one  x_two  y_two</span>
+<span class="sd">    0   1      1      6      2      7</span>
+<span class="sd">    1   2      3      8      4      9</span>
+
+<span class="sd">    &gt;&gt;&gt; pivot_wider(many, names_from=_.var, values_from=_[_.x, _.y], names_sep=&quot;.&quot;)</span>
+<span class="sd">       id  x.one  x.two  y.one  y.two</span>
+<span class="sd">    0   1      1      2      6      7</span>
+<span class="sd">    1   2      3      4      8      9</span>
+
+<span class="sd">    &gt;&gt;&gt; glue = &quot;{variable}_X_{value}&quot;</span>
+<span class="sd">    &gt;&gt;&gt; pivot_wider(many, names_from=_.var, values_from=_[_.x, _.y], names_glue=glue)</span>
+<span class="sd">       id  x_X_one  x_X_two  y_X_one  y_X_two</span>
+<span class="sd">    0   1        1        2        6        7</span>
+<span class="sd">    1   2        3        4        8        9</span>
+
+<span class="sd">    &gt;&gt;&gt; from siuba.data import warpbreaks</span>
+<span class="sd">    &gt;&gt;&gt; warpbreaks.head()</span>
+<span class="sd">       breaks wool tension</span>
+<span class="sd">    0      26    A       L</span>
+<span class="sd">    1      30    A       L</span>
+<span class="sd">    2      54    A       L</span>
+<span class="sd">    3      25    A       L</span>
+<span class="sd">    4      70    A       L</span>
+
+<span class="sd">    &gt;&gt;&gt; pivot_wider(warpbreaks, names_from=_.wool, values_from=_.breaks, values_fn=&quot;mean&quot;)</span>
+<span class="sd">      tension          A          B</span>
+<span class="sd">    0       H  24.555556  18.777778</span>
+<span class="sd">    1       L  44.555556  28.222222</span>
+<span class="sd">    2       M  24.000000  28.777778</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">input_</span> <span class="o">=</span> <span class="n">__data</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="n">DataFrameGroupBy</span><span class="p">):</span>
+        <span class="n">__data</span> <span class="o">=</span> <span class="n">__data</span><span class="o">.</span><span class="n">obj</span>
+
+    <span class="c1"># create spec ----</span>
+    <span class="n">spec</span> <span class="o">=</span> <span class="n">build_wider_spec</span><span class="p">(</span>
+        <span class="n">__data</span><span class="p">,</span>
+        <span class="n">names_from</span> <span class="o">=</span> <span class="n">names_from</span><span class="p">,</span>
+        <span class="n">values_from</span> <span class="o">=</span> <span class="n">values_from</span><span class="p">,</span>
+        <span class="n">names_prefix</span> <span class="o">=</span> <span class="n">names_prefix</span><span class="p">,</span>
+        <span class="n">names_sep</span> <span class="o">=</span> <span class="n">names_sep</span><span class="p">,</span>
+        <span class="n">names_glue</span> <span class="o">=</span> <span class="n">names_glue</span><span class="p">,</span>
+        <span class="n">names_sort</span> <span class="o">=</span> <span class="n">names_sort</span><span class="p">,</span>
+        <span class="n">names_vary</span> <span class="o">=</span> <span class="n">names_vary</span><span class="p">,</span>
+        <span class="n">names_expand</span> <span class="o">=</span> <span class="n">names_expand</span>
+    <span class="p">)</span>
+
+    <span class="c1"># select id columns ---</span>
+    <span class="c1"># necessary here, since if the spec is 0 rows you cannot know values_from</span>
+    <span class="c1"># TODO: clean up symbolic handling of slices</span>
+    <span class="k">if</span> <span class="n">id_cols</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">name_vars</span> <span class="o">=</span> <span class="n">_tidy_select</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="n">names_from</span><span class="p">,</span> <span class="s2">&quot;names_from&quot;</span><span class="p">)</span>
+        <span class="n">val_vars</span> <span class="o">=</span> <span class="n">_tidy_select</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="n">values_from</span><span class="p">,</span> <span class="s2">&quot;values_from&quot;</span><span class="p">)</span>
+        <span class="n">others</span> <span class="o">=</span> <span class="p">{</span><span class="o">*</span><span class="n">name_vars</span><span class="p">,</span> <span class="o">*</span><span class="n">val_vars</span><span class="p">}</span>
+
+        <span class="n">id_cols</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">__data</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">others</span><span class="p">])</span>
+        <span class="n">id_vars</span> <span class="o">=</span> <span class="n">_select_expr_slice</span><span class="p">(</span><span class="n">id_cols</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">id_vars</span> <span class="o">=</span> <span class="n">id_cols</span>
+
+    <span class="n">out</span> <span class="o">=</span> <span class="n">pivot_wider_spec</span><span class="p">(</span>
+        <span class="n">input_</span><span class="p">,</span>
+        <span class="n">spec</span><span class="p">,</span>
+        <span class="n">names_repair</span> <span class="o">=</span> <span class="n">names_repair</span><span class="p">,</span>
+        <span class="n">id_cols</span> <span class="o">=</span> <span class="n">id_vars</span><span class="p">,</span>
+        <span class="n">id_expand</span> <span class="o">=</span> <span class="n">id_expand</span><span class="p">,</span>
+        <span class="n">values_fill</span> <span class="o">=</span> <span class="n">values_fill</span><span class="p">,</span>
+        <span class="n">values_fn</span> <span class="o">=</span> <span class="n">values_fn</span><span class="p">,</span>
+        <span class="n">unused_fn</span> <span class="o">=</span> <span class="n">unused_fn</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">out</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="siuba.experimental.pivot.pivot_long.pivot_longer" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">pivot_longer</span><span class="p">(</span><span class="n">__data</span><span class="p">,</span> <span class="o">*</span><span class="n">cols</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">names_to</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">names_prefix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">names_sep</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">names_pattern</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">names_ptypes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">names_repair</span><span class="o">=</span><span class="s1">&#39;check_unique&#39;</span><span class="p">,</span> <span class="n">values_to</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="n">values_drop_na</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">values_ptypes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">values_transform</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents first">
+
+      <p>Pivot data from wide to long format.</p>
+<p>This function stacks columns of data, turning them into rows.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>__data</code></td>
+        <td></td>
+        <td><p>The input data.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>*cols</code></td>
+        <td></td>
+        <td><p>Columns to pivot into longer format. This uses tidyselect
+(e.g. <code>_[_.some_col, _.another_col]</code>).</p></td>
+        <td><code>()</code></td>
+      </tr>
+      <tr>
+        <td><code>names_to</code></td>
+        <td><code>Union[str, Tuple[str, ...]]</code></td>
+        <td><p>A list specifying the new column or columns to create from the information
+stored in the column names of data specified by cols.</p></td>
+        <td><code>&#39;name&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>names_prefix</code></td>
+        <td><code>Optional[str]</code></td>
+        <td><p>A regular expression to strip off from the start of column selected by <code>*cols</code>.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>names_sep</code></td>
+        <td><code>Optional[str]</code></td>
+        <td><p>If names_to is a list of name parts, this is a separater the name is split on.
+This is the same as the sep argument in the separate() function.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>names_pattern</code></td>
+        <td><code>Optional[str]</code></td>
+        <td><p>If names_to is a list of name parts, this is a pattern to extract parts
+This is the same as the regex argument in the extract() function.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>names_ptypes, values_ptypes</code></td>
+        <td></td>
+        <td><p>Not implemented.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>names_transform</code></td>
+        <td></td>
+        <td><p>TODO</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>names_repair</code></td>
+        <td><code>str</code></td>
+        <td><p>Strategy for fixing of invalid column names. "minimal" leaves them as is.
+"check_unique" raises an error if there are duplicate names. "unique"
+de-duplicates names by appending "___{position}" to them.</p></td>
+        <td><code>&#39;check_unique&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>values_to</code></td>
+        <td><code>str</code></td>
+        <td><p>A string specifying the name of the column created to hold the stacked
+values of the selected <code>*cols</code>. If names_to is a list with the entry ".value",
+then this argument is ignored.</p></td>
+        <td><code>&#39;value&#39;</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">siuba</span> <span class="kn">import</span> <span class="n">_</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">pivot_longer</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="o">~</span><span class="n">_</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">names_to</span><span class="o">=</span><span class="s2">&quot;variable&quot;</span><span class="p">,</span> <span class="n">values_to</span><span class="o">=</span><span class="s2">&quot;number&quot;</span><span class="p">)</span>
+   <span class="nb">id</span> <span class="n">variable</span>  <span class="n">number</span>
+<span class="mi">0</span>   <span class="mi">1</span>        <span class="n">x</span>       <span class="mi">5</span>
+<span class="mi">0</span>   <span class="mi">1</span>        <span class="n">y</span>       <span class="mi">7</span>
+<span class="mi">1</span>   <span class="mi">2</span>        <span class="n">x</span>       <span class="mi">6</span>
+<span class="mi">1</span>   <span class="mi">2</span>        <span class="n">y</span>       <span class="mi">8</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">weeks</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2020</span><span class="p">],</span> <span class="s2">&quot;wk1&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="s2">&quot;wk2&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">6</span><span class="p">]})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">pivot_longer</span><span class="p">(</span><span class="n">weeks</span><span class="p">,</span> <span class="n">_</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;wk&quot;</span><span class="p">),</span> <span class="n">names_to</span><span class="o">=</span><span class="s2">&quot;week&quot;</span><span class="p">,</span> <span class="n">names_prefix</span><span class="o">=</span><span class="s2">&quot;wk&quot;</span><span class="p">)</span>
+   <span class="nb">id</span>  <span class="n">year</span> <span class="n">week</span>  <span class="n">value</span>
+<span class="mi">0</span>   <span class="mi">1</span>  <span class="mi">2020</span>    <span class="mi">1</span>      <span class="mi">5</span>
+<span class="mi">0</span>   <span class="mi">1</span>  <span class="mi">2020</span>    <span class="mi">2</span>      <span class="mi">6</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;a_x1&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;b_x2&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="s2">&quot;a_y1&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">]})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;condition&quot;</span><span class="p">,</span> <span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="s2">&quot;number&quot;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">pat</span> <span class="o">=</span> <span class="s2">&quot;(.*)_(.)(.*)&quot;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">pivot_longer</span><span class="p">(</span><span class="n">df2</span><span class="p">,</span> <span class="n">_</span><span class="p">[</span><span class="s2">&quot;a_x1&quot;</span><span class="p">:</span><span class="s2">&quot;a_y1&quot;</span><span class="p">],</span> <span class="n">names_to</span> <span class="o">=</span> <span class="n">names</span><span class="p">,</span> <span class="n">names_pattern</span> <span class="o">=</span> <span class="n">pat</span><span class="p">)</span>
+   <span class="nb">id</span> <span class="n">condition</span> <span class="n">group</span> <span class="n">number</span>  <span class="n">value</span>
+<span class="mi">0</span>   <span class="mi">1</span>         <span class="n">a</span>     <span class="n">x</span>      <span class="mi">1</span>      <span class="mi">2</span>
+<span class="mi">0</span>   <span class="mi">1</span>         <span class="n">b</span>     <span class="n">x</span>      <span class="mi">2</span>      <span class="mi">3</span>
+<span class="mi">0</span>   <span class="mi">1</span>         <span class="n">a</span>     <span class="n">y</span>      <span class="mi">1</span>      <span class="mi">4</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span> <span class="s2">&quot;x2&quot;</span><span class="p">,</span> <span class="s2">&quot;y1&quot;</span><span class="p">,</span> <span class="s2">&quot;y2&quot;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">wide</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+<span class="o">...</span>    <span class="s2">&quot;x1&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">],</span> <span class="s2">&quot;x2&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">22</span><span class="p">],</span> <span class="s2">&quot;y1&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">33</span><span class="p">],</span> <span class="s2">&quot;y2&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">44</span><span class="p">]</span>
+<span class="o">...</span> <span class="p">})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">pivot_longer</span><span class="p">(</span><span class="n">wide</span><span class="p">,</span> <span class="n">_</span><span class="p">[:],</span> <span class="n">names_to</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;.value&quot;</span><span class="p">,</span> <span class="s2">&quot;set&quot;</span><span class="p">],</span> <span class="n">names_pattern</span> <span class="o">=</span> <span class="s2">&quot;(.)(.)&quot;</span><span class="p">)</span>
+  <span class="nb">set</span>   <span class="n">x</span>   <span class="n">y</span>
+<span class="mi">0</span>   <span class="mi">1</span>   <span class="mi">1</span>   <span class="mi">3</span>
+<span class="mi">0</span>   <span class="mi">2</span>   <span class="mi">2</span>   <span class="mi">4</span>
+<span class="mi">1</span>   <span class="mi">1</span>  <span class="mi">11</span>  <span class="mi">33</span>
+<span class="mi">1</span>   <span class="mi">2</span>  <span class="mi">22</span>  <span class="mi">44</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>siuba/experimental/pivot/pivot_long.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@singledispatch2</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">pivot_longer</span><span class="p">(</span>
+        <span class="n">__data</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">cols</span><span class="p">,</span>
+        <span class="n">names_to</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+        <span class="n">names_prefix</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">names_sep</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">names_pattern</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">names_ptypes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">names_repair</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;check_unique&quot;</span><span class="p">,</span>
+        <span class="n">values_to</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;value&quot;</span><span class="p">,</span>
+        <span class="n">values_drop_na</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">values_ptypes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">values_transform</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Pivot data from wide to long format.</span>
+
+<span class="sd">    This function stacks columns of data, turning them into rows.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    __data:</span>
+<span class="sd">        The input data.</span>
+<span class="sd">    *cols: </span>
+<span class="sd">        Columns to pivot into longer format. This uses tidyselect</span>
+<span class="sd">        (e.g. `_[_.some_col, _.another_col]`).</span>
+<span class="sd">    names_to:</span>
+<span class="sd">        A list specifying the new column or columns to create from the information</span>
+<span class="sd">        stored in the column names of data specified by cols.</span>
+<span class="sd">    names_prefix:</span>
+<span class="sd">        A regular expression to strip off from the start of column selected by `*cols`.</span>
+<span class="sd">    names_sep:</span>
+<span class="sd">        If names_to is a list of name parts, this is a separater the name is split on.</span>
+<span class="sd">        This is the same as the sep argument in the separate() function.</span>
+<span class="sd">    names_pattern:</span>
+<span class="sd">        If names_to is a list of name parts, this is a pattern to extract parts</span>
+<span class="sd">        This is the same as the regex argument in the extract() function.</span>
+<span class="sd">    names_ptypes, values_ptypes:</span>
+<span class="sd">        Not implemented.</span>
+<span class="sd">    names_transform:</span>
+<span class="sd">        TODO</span>
+<span class="sd">    names_repair:</span>
+<span class="sd">        Strategy for fixing of invalid column names. &quot;minimal&quot; leaves them as is.</span>
+<span class="sd">        &quot;check_unique&quot; raises an error if there are duplicate names. &quot;unique&quot;</span>
+<span class="sd">        de-duplicates names by appending &quot;___{position}&quot; to them.</span>
+<span class="sd">    values_to:</span>
+<span class="sd">        A string specifying the name of the column created to hold the stacked</span>
+<span class="sd">        values of the selected `*cols`. If names_to is a list with the entry &quot;.value&quot;,</span>
+<span class="sd">        then this argument is ignored.</span>
+
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from siuba import _</span>
+
+<span class="sd">    &gt;&gt;&gt; df = pd.DataFrame({&quot;id&quot;: [1, 2], &quot;x&quot;: [5, 6], &quot;y&quot;: [7, 8]})</span>
+<span class="sd">    &gt;&gt;&gt; pivot_longer(df, ~_.id, names_to=&quot;variable&quot;, values_to=&quot;number&quot;)</span>
+<span class="sd">       id variable  number</span>
+<span class="sd">    0   1        x       5</span>
+<span class="sd">    0   1        y       7</span>
+<span class="sd">    1   2        x       6</span>
+<span class="sd">    1   2        y       8</span>
+
+<span class="sd">    &gt;&gt;&gt; weeks = pd.DataFrame({&quot;id&quot;: [1], &quot;year&quot;: [2020], &quot;wk1&quot;: [5], &quot;wk2&quot;: [6]})</span>
+<span class="sd">    &gt;&gt;&gt; pivot_longer(weeks, _.startswith(&quot;wk&quot;), names_to=&quot;week&quot;, names_prefix=&quot;wk&quot;)</span>
+<span class="sd">       id  year week  value</span>
+<span class="sd">    0   1  2020    1      5</span>
+<span class="sd">    0   1  2020    2      6</span>
+
+<span class="sd">    &gt;&gt;&gt; df2 = pd.DataFrame({&quot;id&quot;: [1], &quot;a_x1&quot;: [2], &quot;b_x2&quot;: [3], &quot;a_y1&quot;: [4]})</span>
+<span class="sd">    &gt;&gt;&gt; names = [&quot;condition&quot;, &quot;group&quot;, &quot;number&quot;]</span>
+<span class="sd">    &gt;&gt;&gt; pat = &quot;(.*)_(.)(.*)&quot;</span>
+<span class="sd">    &gt;&gt;&gt; pivot_longer(df2, _[&quot;a_x1&quot;:&quot;a_y1&quot;], names_to = names, names_pattern = pat)</span>
+<span class="sd">       id condition group number  value</span>
+<span class="sd">    0   1         a     x      1      2</span>
+<span class="sd">    0   1         b     x      2      3</span>
+<span class="sd">    0   1         a     y      1      4</span>
+
+<span class="sd">    &gt;&gt;&gt; names = [&quot;x1&quot;, &quot;x2&quot;, &quot;y1&quot;, &quot;y2&quot;]</span>
+<span class="sd">    &gt;&gt;&gt; wide = pd.DataFrame({</span>
+<span class="sd">    ...    &quot;x1&quot;: [1, 11], &quot;x2&quot;: [2, 22], &quot;y1&quot;: [3, 33], &quot;y2&quot;: [4, 44]</span>
+<span class="sd">    ... })</span>
+<span class="sd">    &gt;&gt;&gt; pivot_longer(wide, _[:], names_to = [&quot;.value&quot;, &quot;set&quot;], names_pattern = &quot;(.)(.)&quot;)</span>
+<span class="sd">      set   x   y</span>
+<span class="sd">    0   1   1   3</span>
+<span class="sd">    0   2   2   4</span>
+<span class="sd">    1   1  11  33</span>
+<span class="sd">    1   2  22  44</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">df_spec</span> <span class="o">=</span> <span class="n">build_longer_spec</span><span class="p">(</span>
+        <span class="n">__data</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">cols</span><span class="p">,</span>
+        <span class="n">names_to</span><span class="o">=</span><span class="n">names_to</span><span class="p">,</span>
+        <span class="n">values_to</span><span class="o">=</span><span class="n">values_to</span><span class="p">,</span>
+        <span class="n">names_prefix</span><span class="o">=</span><span class="n">names_prefix</span><span class="p">,</span>
+        <span class="n">names_sep</span><span class="o">=</span><span class="n">names_sep</span><span class="p">,</span>
+        <span class="n">names_pattern</span><span class="o">=</span><span class="n">names_pattern</span><span class="p">,</span>
+        <span class="n">names_ptypes</span><span class="o">=</span><span class="n">names_ptypes</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pivot_longer_spec</span><span class="p">(</span>
+        <span class="n">__data</span><span class="p">,</span>
+        <span class="n">df_spec</span><span class="p">,</span>
+        <span class="n">names_repair</span><span class="p">,</span>
+        <span class="n">values_drop_na</span><span class="p">,</span>
+        <span class="n">values_ptypes</span><span class="p">,</span> 
+        <span class="n">values_transform</span>
+    <span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../verb-gather/" class="md-footer__link md-footer__link--prev" aria-label="Previous: gather, spread" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              gather, spread
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../verb-separate/" class="md-footer__link md-footer__link--next" aria-label="Next: separate, unite" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              separate, unite
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.indexes", "navigation.top", "navigation.tabs", "navigation.expand"], "search": "../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.078830c0.min.js"></script>
+      
+    
+  </body>
+</html>

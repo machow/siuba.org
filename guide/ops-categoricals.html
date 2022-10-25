@@ -157,12 +157,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li class="nav-item">
     <a class="nav-link" href="../examples/index.html">Examples</a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../contribute/index.html">Get Involved</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../blog/index.html">Blog</a>
-  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-about" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-about">    
@@ -278,7 +272,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/ops-datetime.html" class="sidebar-item-text sidebar-link">Datetime operations (<code>.dt</code>) 📝</a>
+  <a href="../guide/ops-datetime.html" class="sidebar-item-text sidebar-link">Datetime operations (<code>.dt</code>)</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -333,22 +327,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-pipes.html" class="sidebar-item-text sidebar-link">Flexible pipes 📝</a>
+  <a href="../guide/programming-pipes.html" class="sidebar-item-text sidebar-link">Flexible pipes</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-new-verbs.html" class="sidebar-item-text sidebar-link">Custom table verbs 🚧</a>
+  <a href="../guide/programming-across.html" class="sidebar-item-text sidebar-link">Across column apply</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-new-ops.html" class="sidebar-item-text sidebar-link">Custom column ops 📝</a>
+  <a href="../guide/programming-new-verbs.html" class="sidebar-item-text sidebar-link">Custom table verbs</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-adv-sql.html" class="sidebar-item-text sidebar-link">Advanced SQL 🚧</a>
+  <a href="../guide/programming-new-ops.html" class="sidebar-item-text sidebar-link">Custom column ops</a>
   </div>
 </li>
       </ul>
@@ -587,7 +581,7 @@ Categories (3, object): ['a', 'b', 'c']</code></pre>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <pre><code>█─'__call__'
 ├─█─'__custom_func__'
-│ └─&lt;function fct_inorder at 0x7f484527dca0&gt;
+│ └─&lt;function fct_inorder at 0x7fe0fd961790&gt;
 └─█─.
   ├─_
   └─'species'</code></pre>
@@ -760,13 +754,13 @@ Categories (3, object): ['Adelie', 'Gentoo', 'Chinstrap']</code></pre>
 <span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_point(position<span class="op">=</span>position_jitter(width<span class="op">=</span><span class="fl">.1</span>, height<span class="op">=</span><span class="dv">0</span>))</span>
 <span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/opt/hostedtoolcache/Python/3.9.14/x64/lib/python3.9/site-packages/plotnine/layer.py:411: PlotnineWarning: geom_point : Removed 2 rows containing missing values.</code></pre>
+<pre><code>/opt/hostedtoolcache/Python/3.9.15/x64/lib/python3.9/site-packages/plotnine/layer.py:411: PlotnineWarning: geom_point : Removed 2 rows containing missing values.</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="ops-categoricals_files/figure-html/cell-18-output-2.png" class="img-fluid"></p>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="17">
-<pre><code>&lt;ggplot: (8746755670345)&gt;</code></pre>
+<pre><code>&lt;ggplot: (8787751248261)&gt;</code></pre>
 </div>
 </div>
 <p>Note that the <code>position_jitter(width=.1, height=0)</code> tells the plot to randomly adjust the width of each point between <code>+-.1</code> (where the distance between each species label is 1).</p>
@@ -819,13 +813,13 @@ Note
 <span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_boxplot()</span>
 <span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/opt/hostedtoolcache/Python/3.9.14/x64/lib/python3.9/site-packages/plotnine/layer.py:333: PlotnineWarning: stat_boxplot : Removed 2 rows containing non-finite values.</code></pre>
+<pre><code>/opt/hostedtoolcache/Python/3.9.15/x64/lib/python3.9/site-packages/plotnine/layer.py:333: PlotnineWarning: stat_boxplot : Removed 2 rows containing non-finite values.</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="ops-categoricals_files/figure-html/cell-20-output-2.png" class="img-fluid"></p>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="19">
-<pre><code>&lt;ggplot: (8746752685927)&gt;</code></pre>
+<pre><code>&lt;ggplot: (8787748265692)&gt;</code></pre>
 </div>
 </div>
 </section>
@@ -894,7 +888,7 @@ Categories (3, object): ['Adelie', 'Gentoo', 'Chinstrap']</code></pre>
 <p><img src="ops-categoricals_files/figure-html/cell-23-output-1.png" class="img-fluid"></p>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="22">
-<pre><code>&lt;ggplot: (8746755567484)&gt;</code></pre>
+<pre><code>&lt;ggplot: (8787751146186)&gt;</code></pre>
 </div>
 </div>
 </section>
@@ -1136,7 +1130,7 @@ Categories (8, object): ['AA', 'B6', 'DL', 'EV', 'MQ', 'UA', 'US', 'Other']</cod
 <p><img src="ops-categoricals_files/figure-html/cell-27-output-1.png" class="img-fluid"></p>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="26">
-<pre><code>&lt;ggplot: (8746755567327)&gt;</code></pre>
+<pre><code>&lt;ggplot: (8787817900475)&gt;</code></pre>
 </div>
 </div>
 <p>Notice that all of the smaller carriers are grouped into the “Other” bar.</p>
@@ -1163,7 +1157,7 @@ Categories (8, object): ['AA', 'B6', 'DL', 'EV', 'MQ', 'UA', 'US', 'Other']</cod
 <p><img src="ops-categoricals_files/figure-html/cell-28-output-1.png" class="img-fluid"></p>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="27">
-<pre><code>&lt;ggplot: (8746752855414)&gt;</code></pre>
+<pre><code>&lt;ggplot: (8787748402583)&gt;</code></pre>
 </div>
 </div>
 
@@ -1274,7 +1268,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../guide/ops-datetime.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Datetime operations (<code>.dt</code>) 📝</span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Datetime operations (<code>.dt</code>)</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

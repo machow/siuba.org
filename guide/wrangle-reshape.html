@@ -157,12 +157,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li class="nav-item">
     <a class="nav-link" href="../examples/index.html">Examples</a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../contribute/index.html">Get Involved</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../blog/index.html">Blog</a>
-  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-about" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-about">    
@@ -278,7 +272,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/ops-datetime.html" class="sidebar-item-text sidebar-link">Datetime operations (<code>.dt</code>) 📝</a>
+  <a href="../guide/ops-datetime.html" class="sidebar-item-text sidebar-link">Datetime operations (<code>.dt</code>)</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -333,22 +327,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-pipes.html" class="sidebar-item-text sidebar-link">Flexible pipes 📝</a>
+  <a href="../guide/programming-pipes.html" class="sidebar-item-text sidebar-link">Flexible pipes</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-new-verbs.html" class="sidebar-item-text sidebar-link">Custom table verbs 🚧</a>
+  <a href="../guide/programming-across.html" class="sidebar-item-text sidebar-link">Across column apply</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-new-ops.html" class="sidebar-item-text sidebar-link">Custom column ops 📝</a>
+  <a href="../guide/programming-new-verbs.html" class="sidebar-item-text sidebar-link">Custom table verbs</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-adv-sql.html" class="sidebar-item-text sidebar-link">Advanced SQL 🚧</a>
+  <a href="../guide/programming-new-ops.html" class="sidebar-item-text sidebar-link">Custom column ops</a>
   </div>
 </li>
       </ul>
@@ -399,7 +393,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul>
   <li><a href="#gather-data-long" id="toc-gather-data-long" class="nav-link active" data-scroll-target="#gather-data-long">Gather data long</a></li>
   <li><a href="#spread-data-wide" id="toc-spread-data-wide" class="nav-link" data-scroll-target="#spread-data-wide">Spread data wide</a></li>
-  <li><a href="#pivot-wider-and-aggregate" id="toc-pivot-wider-and-aggregate" class="nav-link" data-scroll-target="#pivot-wider-and-aggregate">Pivot wider and aggregate</a></li>
+  <li><a href="#experimental-pivot_wider-pivot_longer" id="toc-experimental-pivot_wider-pivot_longer" class="nav-link" data-scroll-target="#experimental-pivot_wider-pivot_longer">Experimental pivot_wider, pivot_longer</a>
+  <ul class="collapse">
+  <li><a href="#pivot_wider" id="toc-pivot_wider" class="nav-link" data-scroll-target="#pivot_wider"><code>pivot_wider()</code></a></li>
+  <li><a href="#pivot_longer" id="toc-pivot_longer" class="nav-link" data-scroll-target="#pivot_longer"><code>pivot_longer()</code></a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -572,62 +570,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="pivot-wider-and-aggregate" class="level2">
-<h2 class="anchored" data-anchor-id="pivot-wider-and-aggregate">Pivot wider and aggregate</h2>
+<section id="experimental-pivot_wider-pivot_longer" class="level2">
+<h2 class="anchored" data-anchor-id="experimental-pivot_wider-pivot_longer">Experimental pivot_wider, pivot_longer</h2>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>These functions are thoroughly tested, but currently experimental. The sections below describe their basic use. See their <a href="../api/verb-pivot">reference page</a> for more examples.</p>
+</div>
+</div>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba.experimental.pivot <span class="im">import</span> pivot_wider, pivot_longer</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba <span class="im">import</span> Fx</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="pivot_wider" class="level3">
+<h3 class="anchored" data-anchor-id="pivot_wider"><code>pivot_wider()</code></h3>
 <p>If there would be multiple entries per cell in the spread wide data, then the <code>spread()</code> function raises an error.</p>
 <p>This is shown below, where there are duplicate entries where <code>id=1</code> and <code>measure="a"</code>.</p>
-<div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"id"</span>: [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>],</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"measure"</span>: [<span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span>],</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"value"</span>: [<span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>]</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">&gt;&gt;</span> spread(<span class="st">"measure"</span>, <span class="st">"value"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"id"</span>: [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>],</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"measure"</span>: [<span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span>],</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"value"</span>: [<span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>]</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">&gt;&gt;</span> spread(<span class="st">"measure"</span>, <span class="st">"value"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>ValueError: Index contains duplicate entries, cannot reshape</code></pre>
 </div>
 </div>
-<p>Use the pandas <code>pivot_table</code> function to deal with this situation.</p>
-<div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df.pivot_table(columns<span class="op">=</span><span class="st">"measure"</span>, values<span class="op">=</span><span class="st">"value"</span>, index<span class="op">=</span><span class="st">"id"</span>, aggfunc<span class="op">=</span><span class="bu">list</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
-
-<div>
-
-<table class="dataframe table table-sm table-striped">
-  <thead>
-    <tr>
-      <th>measure</th>
-      <th>a</th>
-      <th>b</th>
-    </tr>
-    <tr>
-      <th>id</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>1</th>
-      <td>[8, 9]</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>NaN</td>
-      <td>[10]</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-</div>
-<p>Notice that the top-left entry is a list of two values, <code>[8, 9]</code>. The <code>aggfunc</code> argument is able to reduce those values down to one.</p>
-<p>For example, by taking the mean.</p>
+<p>Use the <code>pivot_wider()</code> function to deal with this situation.</p>
 <div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df.pivot_table(columns<span class="op">=</span><span class="st">"measure"</span>, values<span class="op">=</span><span class="st">"value"</span>, index<span class="op">=</span><span class="st">"id"</span>, aggfunc<span class="op">=</span><span class="st">"mean"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">&gt;&gt;</span> pivot_wider(_.<span class="bu">id</span>, names_from<span class="op">=</span>_.measure, values_from<span class="op">=</span>_.value, values_fn<span class="op">=</span><span class="bu">tuple</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 
 <div>
@@ -635,24 +615,57 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <table class="dataframe table table-sm table-striped">
   <thead>
     <tr>
-      <th>measure</th>
+      <th></th>
+      <th>id</th>
       <th>a</th>
       <th>b</th>
-    </tr>
-    <tr>
-      <th>id</th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>(8, 9)</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
       <th>1</th>
+      <td>2</td>
+      <td>NaN</td>
+      <td>(10,)</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Notice that the top-left entry is a list of two values, <code>(8, 9)</code>. The <code>values_fn</code> argument is able to reduce those values down to one.</p>
+<p>For example, by taking the mean.</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">&gt;&gt;</span> pivot_wider(_.<span class="bu">id</span>, names_from<span class="op">=</span>_.measure, values_from<span class="op">=</span>_.value, values_fn<span class="op">=</span><span class="st">"mean"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>id</th>
+      <th>a</th>
+      <th>b</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
       <td>8.5</td>
       <td>NaN</td>
     </tr>
     <tr>
-      <th>2</th>
+      <th>1</th>
+      <td>2</td>
       <td>NaN</td>
       <td>10.0</td>
     </tr>
@@ -661,6 +674,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
+<p>Note that <code>values_fn=</code> may be a lambda function.</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -671,17 +685,116 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>siuba can pipe to the pandas DataFrame’s pivot_table method as follows.</p>
-<div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>(df</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">&gt;&gt;</span> _.pivot_table(...)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If you’d rather use pandas’s <code>pivot_table()</code> method, siuba can pipe to it using this syntax:</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>(df</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">&gt;&gt;</span> _.pivot_table(...)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Where you would replace <code>...</code> with your arguments. See <a href="../guide/programming-pipes.html">flexible piping</a> for more details.</p>
 </div>
 </div>
+</section>
+<section id="pivot_longer" class="level3">
+<h3 class="anchored" data-anchor-id="pivot_longer"><code>pivot_longer()</code></h3>
+<p>Use <code>pivot_longer()</code> to stack columns of data, turning them into rows.</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>wide <span class="op">=</span> pd.DataFrame({<span class="st">"id"</span>: [<span class="dv">1</span>, <span class="dv">2</span>], <span class="st">"x"</span>: [<span class="dv">5</span>, <span class="dv">6</span>], <span class="st">"y"</span>: [<span class="dv">7</span>, <span class="dv">8</span>]})</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>wide</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>id</th>
+      <th>x</th>
+      <th>y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>5</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>6</td>
+      <td>8</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Notice that this data has two columns (<code>x</code> and <code>y</code>) that you might want to stack on top of each other.</p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">&gt;&gt;</span> pivot_longer(<span class="op">~</span>_.<span class="bu">id</span>, names_to<span class="op">=</span><span class="st">"variable"</span>, values_to<span class="op">=</span><span class="st">"number"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>id</th>
+      <th>variable</th>
+      <th>number</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>measure</td>
+      <td>a</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>value</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>measure</td>
+      <td>b</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>value</td>
+      <td>10</td>
+    </tr>
+  </tbody>
+</table>
+<p>6 rows × 3 columns</p>
+</div>
+</div>
+</div>
+<p>Note that in the code above, we do the following:</p>
+<ul>
+<li>Use <code>~_.id</code> selects every columns <em>except</em> <code>id</code> for stacking.</li>
+<li>Set column names to be stored in a new <code>variable</code> column.</li>
+<li>Set column values to be stored in a new <code>value</code> column.</li>
+</ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

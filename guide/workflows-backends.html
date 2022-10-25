@@ -94,7 +94,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../guide/workflows.html" rel="next">
-<link href="../guide/programming-adv-sql.html" rel="prev">
+<link href="../guide/programming-new-ops.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -156,12 +156,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../examples/index.html">Examples</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../contribute/index.html">Get Involved</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../blog/index.html">Blog</a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-about" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
@@ -278,7 +272,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/ops-datetime.html" class="sidebar-item-text sidebar-link">Datetime operations (<code>.dt</code>) 📝</a>
+  <a href="../guide/ops-datetime.html" class="sidebar-item-text sidebar-link">Datetime operations (<code>.dt</code>)</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -333,22 +327,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-pipes.html" class="sidebar-item-text sidebar-link">Flexible pipes 📝</a>
+  <a href="../guide/programming-pipes.html" class="sidebar-item-text sidebar-link">Flexible pipes</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-new-verbs.html" class="sidebar-item-text sidebar-link">Custom table verbs 🚧</a>
+  <a href="../guide/programming-across.html" class="sidebar-item-text sidebar-link">Across column apply</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-new-ops.html" class="sidebar-item-text sidebar-link">Custom column ops 📝</a>
+  <a href="../guide/programming-new-verbs.html" class="sidebar-item-text sidebar-link">Custom table verbs</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-adv-sql.html" class="sidebar-item-text sidebar-link">Advanced SQL 🚧</a>
+  <a href="../guide/programming-new-ops.html" class="sidebar-item-text sidebar-link">Custom column ops</a>
   </div>
 </li>
       </ul>
@@ -397,7 +391,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#duckdb" id="toc-duckdb" class="nav-link active" data-scroll-target="#duckdb">duckdb</a></li>
+  <li><a href="#demo-query" id="toc-demo-query" class="nav-link active" data-scroll-target="#demo-query">Demo query</a></li>
+  <li><a href="#duckdb" id="toc-duckdb" class="nav-link" data-scroll-target="#duckdb">duckdb</a></li>
+  <li><a href="#sqlite" id="toc-sqlite" class="nav-link" data-scroll-target="#sqlite">sqlite</a></li>
+  <li><a href="#bigquery" id="toc-bigquery" class="nav-link" data-scroll-target="#bigquery">bigquery</a></li>
+  <li><a href="#mysql" id="toc-mysql" class="nav-link" data-scroll-target="#mysql">mysql</a></li>
+  <li><a href="#postgresql" id="toc-postgresql" class="nav-link" data-scroll-target="#postgresql">postgresql</a></li>
+  <li><a href="#snowflake" id="toc-snowflake" class="nav-link" data-scroll-target="#snowflake">snowflake</a></li>
   </ul>
 </nav>
     </div>
@@ -421,21 +421,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 
 <div class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba <span class="im">import</span> _, group_by, <span class="bu">filter</span>, show_query</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba <span class="im">import</span> _, group_by, <span class="bu">filter</span>, show_query, tbl</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba.sql <span class="im">import</span> LazyTbl</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba.data <span class="im">import</span> mtcars</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> siuba.data <span class="im">import</span> cars</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sqlalchemy <span class="im">import</span> create_engine</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<section id="demo-query" class="level2">
+<h2 class="anchored" data-anchor-id="demo-query">Demo query</h2>
+<p>We’ll use the following lazy pipe to demonstrate each backend. It groups by the <code>cyl</code> column, then filters by <code>mpg</code>.</p>
 <div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>filter_mpg <span class="op">=</span> (</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    _</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">&gt;&gt;</span> group_by(_.cyl)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">&gt;&gt;</span> <span class="bu">filter</span>(_.mpg <span class="op">&lt;</span> _.mpg.mean())</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>mtcars <span class="op">&gt;&gt;</span> filter_mpg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For example, here is the pipe called on pandas data.</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cars <span class="op">&gt;&gt;</span> filter_mpg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
 
 <div><p>(grouped data frame)</p><div>
 
@@ -443,116 +448,64 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <thead>
     <tr>
       <th></th>
-      <th>mpg</th>
       <th>cyl</th>
-      <th>disp</th>
+      <th>mpg</th>
       <th>hp</th>
-      <th>drat</th>
-      <th>wt</th>
-      <th>qsec</th>
-      <th>vs</th>
-      <th>am</th>
-      <th>gear</th>
-      <th>carb</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>2</th>
+      <td>4</td>
       <td>22.8</td>
-      <td>4</td>
-      <td>108.0</td>
       <td>93</td>
-      <td>3.85</td>
-      <td>2.32</td>
-      <td>18.61</td>
-      <td>1</td>
-      <td>1</td>
-      <td>4</td>
-      <td>1</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>18.1</td>
       <td>6</td>
-      <td>225.0</td>
+      <td>18.1</td>
       <td>105</td>
-      <td>2.76</td>
-      <td>3.46</td>
-      <td>20.22</td>
-      <td>1</td>
-      <td>0</td>
-      <td>3</td>
-      <td>1</td>
     </tr>
     <tr>
       <th>...</th>
       <td>...</td>
       <td>...</td>
       <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
     </tr>
     <tr>
       <th>30</th>
+      <td>8</td>
       <td>15.0</td>
-      <td>8</td>
-      <td>301.0</td>
       <td>335</td>
-      <td>3.54</td>
-      <td>3.57</td>
-      <td>14.60</td>
-      <td>0</td>
-      <td>1</td>
-      <td>5</td>
-      <td>8</td>
     </tr>
     <tr>
       <th>31</th>
+      <td>4</td>
       <td>21.4</td>
-      <td>4</td>
-      <td>121.0</td>
       <td>109</td>
-      <td>4.11</td>
-      <td>2.78</td>
-      <td>18.60</td>
-      <td>1</td>
-      <td>1</td>
-      <td>4</td>
-      <td>2</td>
     </tr>
   </tbody>
 </table>
-<p>16 rows × 11 columns</p>
+<p>16 rows × 3 columns</p>
 </div></div>
 </div>
 </div>
+</section>
 <section id="duckdb" class="level2">
 <h2 class="anchored" data-anchor-id="duckdb">duckdb</h2>
-<div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>engine <span class="op">=</span> create_engine(<span class="st">"duckdb:///:memory:"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>engine.execute(<span class="st">"register"</span>, (<span class="st">"mtcars"</span>, mtcars))</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>engine.execute(<span class="st">"SHOW TABLES"</span>).fetchall()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
-<pre><code>[('mtcars',)]</code></pre>
-</div>
-</div>
 <div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tbl_mtcars_duckdb <span class="op">=</span> LazyTbl(engine, <span class="st">"mtcars"</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>tbl_filtered <span class="op">=</span> tbl_mtcars_duckdb <span class="op">&gt;&gt;</span> filter_mpg</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>tbl_filtered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>engine <span class="op">=</span> create_engine(<span class="st">"duckdb:///:memory:"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>tbl_cars_duckdb <span class="op">=</span> tbl(engine, <span class="st">"cars"</span>, cars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/opt/hostedtoolcache/Python/3.9.14/x64/lib/python3.9/site-packages/duckdb_engine/__init__.py:229: DuckDBEngineWarning: duckdb-engine doesn't yet support reflection on indices
+<pre><code>/opt/hostedtoolcache/Python/3.9.15/x64/lib/python3.9/site-packages/duckdb_engine/__init__.py:229: DuckDBEngineWarning: duckdb-engine doesn't yet support reflection on indices
   warnings.warn(</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="5">
+</div>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>tbl_filtered <span class="op">=</span> tbl_cars_duckdb <span class="op">&gt;&gt;</span> filter_mpg</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>tbl_filtered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
 
 <div><pre># Source: lazy query
 # DB Conn: Engine(duckdb:///:memory:)
@@ -563,104 +516,149 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <thead>
     <tr>
       <th></th>
-      <th>mpg</th>
       <th>cyl</th>
-      <th>disp</th>
+      <th>mpg</th>
       <th>hp</th>
-      <th>drat</th>
-      <th>wt</th>
-      <th>qsec</th>
-      <th>vs</th>
-      <th>am</th>
-      <th>gear</th>
-      <th>carb</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
+      <td>4</td>
       <td>22.8</td>
-      <td>4</td>
-      <td>108.0</td>
       <td>93</td>
-      <td>3.85</td>
-      <td>2.320</td>
-      <td>18.61</td>
-      <td>1</td>
-      <td>1</td>
-      <td>4</td>
-      <td>1</td>
     </tr>
     <tr>
       <th>1</th>
+      <td>4</td>
       <td>24.4</td>
-      <td>4</td>
-      <td>146.7</td>
       <td>62</td>
-      <td>3.69</td>
-      <td>3.190</td>
-      <td>20.00</td>
-      <td>1</td>
-      <td>0</td>
-      <td>4</td>
-      <td>2</td>
     </tr>
     <tr>
       <th>2</th>
+      <td>4</td>
       <td>22.8</td>
-      <td>4</td>
-      <td>140.8</td>
       <td>95</td>
-      <td>3.92</td>
-      <td>3.150</td>
-      <td>22.90</td>
-      <td>1</td>
-      <td>0</td>
-      <td>4</td>
-      <td>2</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>21.5</td>
       <td>4</td>
-      <td>120.1</td>
+      <td>21.5</td>
       <td>97</td>
-      <td>3.70</td>
-      <td>2.465</td>
-      <td>20.01</td>
-      <td>1</td>
-      <td>0</td>
-      <td>3</td>
-      <td>1</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>26.0</td>
       <td>4</td>
-      <td>120.3</td>
+      <td>26.0</td>
       <td>91</td>
-      <td>4.43</td>
-      <td>2.140</td>
-      <td>16.70</td>
-      <td>0</td>
-      <td>1</td>
-      <td>5</td>
-      <td>2</td>
     </tr>
   </tbody>
 </table>
 </div><p># .. may have more rows</p></div>
 </div>
 </div>
-<div class="cell" data-execution_count="6">
+<div class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>q <span class="op">=</span> tbl_filtered <span class="op">&gt;&gt;</span> show_query(simplify<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>SELECT anon_1.mpg, anon_1.cyl, anon_1.disp, anon_1.hp, anon_1.drat, anon_1.wt, anon_1.qsec, anon_1.vs, anon_1.am, anon_1.gear, anon_1.carb 
-FROM (SELECT *, mtcars_1.mpg &lt; avg(mtcars_1.mpg) OVER (PARTITION BY mtcars_1.cyl) AS win1 
-FROM mtcars AS mtcars_1) AS anon_1 
+<pre><code>SELECT anon_1.cyl, anon_1.mpg, anon_1.hp 
+FROM (SELECT *, cars_1.mpg &lt; avg(cars_1.mpg) OVER (PARTITION BY cars_1.cyl) AS win1 
+FROM cars AS cars_1) AS anon_1 
 WHERE anon_1.win1</code></pre>
 </div>
 </div>
+</section>
+<section id="sqlite" class="level2">
+<h2 class="anchored" data-anchor-id="sqlite">sqlite</h2>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>engine <span class="op">=</span> create_engine(<span class="st">"sqlite:///:memory:"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>cars.to_sql(<span class="st">"cars"</span>, engine, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>tbl_cars_sqlite <span class="op">=</span> tbl(engine, <span class="st">"cars"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tbl_filtered <span class="op">=</span> tbl_cars_sqlite <span class="op">&gt;&gt;</span> filter_mpg</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>tbl_filtered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/home/runner/work/siuba-guide/siuba-guide/src/siuba/siuba/sql/utils.py:85: SAWarning: Class AggOver will not make use of SQL compilation caching as it does not set the 'inherit_cache' attribute to ``True``.  This can have significant performance implications including some performance degradations in comparison to prior SQLAlchemy versions.  Set this attribute to True if this object can make use of the cache key generated by the superclass.  Alternatively, this attribute may be set to False which will disable this warning. (Background on this error at: https://sqlalche.me/e/14/cprf)
+  return self.connectable.execute(*args, **kwargs)</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+
+<div><pre># Source: lazy query
+# DB Conn: Engine(sqlite:///:memory:)
+# Preview:
+</pre><div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>cyl</th>
+      <th>mpg</th>
+      <th>hp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>4</td>
+      <td>22.8</td>
+      <td>93</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4</td>
+      <td>24.4</td>
+      <td>62</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4</td>
+      <td>22.8</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>21.5</td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>26.0</td>
+      <td>91</td>
+    </tr>
+  </tbody>
+</table>
+</div><p># .. may have more rows</p></div>
+</div>
+</div>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>q <span class="op">=</span> tbl_filtered <span class="op">&gt;&gt;</span> show_query(simplify<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>SELECT anon_1.cyl, anon_1.mpg, anon_1.hp 
+FROM (SELECT *, cars_1.mpg &lt; avg(cars_1.mpg) OVER (PARTITION BY cars_1.cyl) AS win1 
+FROM cars AS cars_1) AS anon_1 
+WHERE anon_1.win1 = 1</code></pre>
+</div>
+</div>
+</section>
+<section id="bigquery" class="level2">
+<h2 class="anchored" data-anchor-id="bigquery">bigquery</h2>
+<p>bigquery is thoroughly tested, but needs to be added to this page!</p>
+</section>
+<section id="mysql" class="level2">
+<h2 class="anchored" data-anchor-id="mysql">mysql</h2>
+<p>mysql is thoroughly tested, but needs to be added to this page!</p>
+</section>
+<section id="postgresql" class="level2">
+<h2 class="anchored" data-anchor-id="postgresql">postgresql</h2>
+<p>postgresql is thoroughly tested, but needs to be added to this page!</p>
+</section>
+<section id="snowflake" class="level2">
+<h2 class="anchored" data-anchor-id="snowflake">snowflake</h2>
+<p>snowflake is thoroughly tested, but needs to be added to this page!</p>
 
 
 </section>
@@ -766,8 +764,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../guide/programming-adv-sql.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Advanced SQL 🚧</span>
+      <a href="../guide/programming-new-ops.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Custom column ops</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

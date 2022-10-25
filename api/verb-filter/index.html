@@ -703,6 +703,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2_5">
@@ -753,6 +755,20 @@
     <li class="md-nav__item">
       <a href="../verb-gather/" class="md-nav__link">
         gather, spread
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verb-pivot/" class="md-nav__link">
+        pivot_longer, pivot_wider
       </a>
     </li>
   
@@ -1109,7 +1125,14 @@ rows where hp is over 250 <em>or</em> mpg is over 32.</p>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">crnt_indx</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
-        <span class="n">crnt_indx</span> <span class="o">&amp;=</span> <span class="n">arg</span><span class="p">(</span><span class="n">__data</span><span class="p">)</span> <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span> <span class="k">else</span> <span class="n">arg</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">arg</span><span class="p">(</span><span class="n">__data</span><span class="p">)</span> <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span> <span class="k">else</span> <span class="n">arg</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="n">crnt_indx</span> <span class="o">&amp;=</span> <span class="n">res</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+            <span class="n">crnt_indx</span> <span class="o">&amp;=</span> <span class="n">res</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">crnt_indx</span> <span class="o">&amp;=</span> <span class="n">res</span>
 
     <span class="c1"># use loc or iloc to subset, depending on crnt_indx ----</span>
     <span class="c1"># the main issue here is that loc can&#39;t remove all rows using a slice</span>

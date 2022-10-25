@@ -157,12 +157,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li class="nav-item">
     <a class="nav-link" href="../examples/index.html">Examples</a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../contribute/index.html">Get Involved</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../blog/index.html">Blog</a>
-  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-about" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-about">    
@@ -278,7 +272,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/ops-datetime.html" class="sidebar-item-text sidebar-link">Datetime operations (<code>.dt</code>) 📝</a>
+  <a href="../guide/ops-datetime.html" class="sidebar-item-text sidebar-link">Datetime operations (<code>.dt</code>)</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -333,22 +327,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-pipes.html" class="sidebar-item-text sidebar-link">Flexible pipes 📝</a>
+  <a href="../guide/programming-pipes.html" class="sidebar-item-text sidebar-link">Flexible pipes</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-new-verbs.html" class="sidebar-item-text sidebar-link">Custom table verbs 🚧</a>
+  <a href="../guide/programming-across.html" class="sidebar-item-text sidebar-link">Across column apply</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-new-ops.html" class="sidebar-item-text sidebar-link">Custom column ops 📝</a>
+  <a href="../guide/programming-new-verbs.html" class="sidebar-item-text sidebar-link">Custom table verbs</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/programming-adv-sql.html" class="sidebar-item-text sidebar-link">Advanced SQL 🚧</a>
+  <a href="../guide/programming-new-ops.html" class="sidebar-item-text sidebar-link">Custom column ops</a>
   </div>
 </li>
       </ul>
@@ -424,7 +418,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#explode-to-unnest-entries" id="toc-explode-to-unnest-entries" class="nav-link" data-scroll-target="#explode-to-unnest-entries"><code>.explode()</code> to unnest entries</a></li>
   <li><a href="#str.findall-for-advanced-splitting" id="toc-str.findall-for-advanced-splitting" class="nav-link" data-scroll-target="#str.findall-for-advanced-splitting"><code>.str.findall()</code> for advanced splitting</a></li>
   </ul></li>
-  <li><a href="#templates-with-str_glue" id="toc-templates-with-str_glue" class="nav-link" data-scroll-target="#templates-with-str_glue">Templates with <code>str_glue()</code></a></li>
   <li><a href="#more-regular-expressions" id="toc-more-regular-expressions" class="nav-link" data-scroll-target="#more-regular-expressions">More regular expressions</a>
   <ul class="collapse">
   <li><a href="#anchor-points" id="toc-anchor-points" class="nav-link" data-scroll-target="#anchor-points">Anchor points</a></li>
@@ -454,6 +447,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This page is largely complete, but is actively being refined / improved.</p>
+</div>
+</div>
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
 <p>String operations allow you to perform actions like:</p>
@@ -830,22 +836,6 @@ dtype: object</code></pre>
 </div>
 </section>
 </section>
-<section id="templates-with-str_glue" class="level2">
-<h2 class="anchored" data-anchor-id="templates-with-str_glue">Templates with <code>str_glue()</code></h2>
-<div class="callout-warning callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><code>str_glue()</code> does not exist. This section is ✨aspirational✨.</p>
-</div>
-</div>
-</section>
 <section id="more-regular-expressions" class="level2">
 <h2 class="anchored" data-anchor-id="more-regular-expressions">More regular expressions</h2>
 <section id="anchor-points" class="level3">
@@ -988,7 +978,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="../guide/ops-datetime.html" class="pagination-link">
-        <span class="nav-page-text">Datetime operations (<code>.dt</code>) 📝</span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text">Datetime operations (<code>.dt</code>)</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
