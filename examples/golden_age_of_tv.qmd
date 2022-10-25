@@ -1,3 +1,112 @@
 ---
-title: Golden Age of Television
+title: Golden Age of Television Analysis
+jupyter:
+  jupytext:
+    formats: 'qmd:quarto'
+    text_representation:
+      extension: .qmd
+      format_name: quarto
+      format_version: '1.0'
+      jupytext_version: 1.14.1
+  kernelspec:
+    display_name: Python 3 (ipykernel)
+    language: python
+    name: python3
 ---
+
+```{python}
+#| output: true
+import pandas as pd
+
+from siuba import *
+from siuba.dply.vector import row_number, n
+
+from plotnine import *
+```
+
+```{python}
+tv_ratings = pd.read_csv(
+    "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-01-08/IMDb_Economist_tv_ratings.csv",
+    parse_dates = ["date"]
+)
+```
+
+## Glance at data for a single show
+
+```{python}
+tv_ratings >> filter(_, _.title.str.contains("Buffy"))
+```
+
+## Count season number
+
+```{python}
+(tv_ratings
+  >> count(_, _.seasonNumber)
+  >> ggplot(aes("seasonNumber", "n"))
+   + geom_col()
+   + labs(
+       title = "Season Number Frequency",
+       x = "season number",
+       y = "count"
+  )
+)
+```
+
+## Average rating throughout season
+
+```{python}
+(tv_ratings
+  >> filter(_, _.seasonNumber <= 7)
+  >> group_by(_, _.seasonNumber)
+  >> summarize(_, av_rating = _.av_rating.mean())
+  >> ggplot(aes("seasonNumber", "av_rating"))
+   + geom_line()
+   + labs(
+       title = "Average rating across seasons",
+       x = "season number",
+       y = "average rating"
+  )
+)
+```
+
+## Shows with most variable ratings
+
+### Filter down 
+
+```{python}
+by_show = (tv_ratings
+  >> group_by(_, "title")
+  >> summarize(_,
+       avg_rating = _.av_rating.mean(),
+       sd = _.av_rating.std(),
+       seasons = n(_)
+     )
+  >> arrange(_, -_.avg_rating)
+)
+
+most_variable_shows = (by_show
+  >> filter(_, _.seasons >= 5)
+  >> arrange(_, -_.sd)
+  >> head(_, 6)
+)
+
+most_variable_shows
+```
+
+### Plot show ratings
+
+```{python}
+(tv_ratings
+  >> inner_join(_, most_variable_shows, "title")
+  >> ggplot(aes("seasonNumber", "av_rating", color = "title"))
+   + geom_line()
+   + geom_point()
+   + scale_x_continuous(breaks = range(11))
+   + facet_wrap("~ title")
+   + theme(legend_position = "none")
+   + labs(
+       x = "season number",
+       y = "average rating"
+  )
+)
+```

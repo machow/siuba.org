@@ -1,0 +1,146 @@
+---
+title: Space Launches
+jupyter:
+  jupytext:
+    formats: 'qmd:quarto'
+    text_representation:
+      extension: .qmd
+      format_name: quarto
+      format_version: '1.0'
+      jupytext_version: 1.14.1
+  kernelspec:
+    display_name: Python 3 (ipykernel)
+    language: python
+    name: python3
+---
+
+```{python}
+#| output: true
+import pandas as pd
+import numpy as np
+import requests
+
+from plotnine import ggplot, aes, geom_col, geom_line, labs
+from siuba import *
+from siuba.dply.forcats import fct_lump
+from siuba.siu import call
+```
+
+```{python}
+agencies = pd.read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-01-15/agencies.csv")
+launches = pd.read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-01-15/launches.csv")
+```
+
+## Launches per year
+
+```{python}
+(launches
+   >> count(_.launch_year, _.agency_type)
+   >> ggplot(aes("launch_year", "n", color = "agency_type"))
+    + geom_line()
+    + labs(x = "Time", y = "# of launches this year", color = "Agency type")
+)
+```
+
+## Which agencies have the most launches?
+
+In this section, we'll join `launches` with `agencies`, so we can get the agency short names (e.g. SpaceX).
+
+First, though--we want to make sure the column we're joining on in agencies does not have duplicate values.
+Otherwise, it will create multiple rows per launch when we join.
+
+```{python}
+agencies >> count(_.agency) >> filter(_.n > 1)
+```
+
+Now that we know each `agencies.agency` occurs once, let's do our join.
+
+```{python}
+agency_launches = launches >> inner_join(_, agencies, "agency")
+
+agency_launches >> count()
+```
+
+```{python}
+launches >> count()
+```
+
+Notice that the joined data only has 950 rows, while the original data has almost 6,000.
+What could be the cause?
+
+To investigate we can do an anti_join, which keeps only the rows in `launches` which **do not** match in the join.
+
+```{python}
+launches >> anti_join(_, agencies, "agency") >> count(_.agency, _.agency_type, sort=True)
+```
+
+Notice that for rows that were dropped in the original join, the agency_type was always `"state"`!
+
+```{python}
+(agency_launches
+   >> count(_.launch_year, _.short_name)
+   >> ggplot(aes("launch_year", "n", fill = "short_name"))
+   + geom_col()
+)
+```
+
+```{python}
+(agency_launches
+   >> mutate(short_name_lumped = fct_lump(_.short_name, n = 6))
+   >> count(_.launch_year, _.short_name_lumped)
+   >> ggplot(aes("launch_year", "n", fill = "short_name_lumped"))
+   + geom_col()
+)
+```
+
+## Extra: potential improvements
+
+When we joined agencies and launches, columns that had the same names ended up prefixed with `_x` or `_y`.
+We should double check that those columns have identical information, and then drop the duplicate column before joining.
+
+Here's how you can select just the columns that end with `_x` or `_y`:
+
+```{python}
+agency_launches >> select(_.endswith("_x"), _.endswith("_y"))
+```
+
+## Extra: parsing big dates in pandas
+
+You might have noticed that this data has a `launch_date` column, but we only used `launch_year`.
+This is because there `launch_date` has values pandas struggles with: very large dates (e.g. `2918-10-11`).
+
+In this section we'll show two approaches to parsing dates:
+
+1. the `.astype("Period[D]")` method.
+2. the `pd.to_datetime(...)` function.
+
+As you'll see, the first approach can handle large dates, while the best the second can do is turn them into missing values.
+
+First we'll grab just the columns we care bout.
+
+```{python}
+launch_dates = launches >> select(_.startswith("launch_"))
+
+launch_dates >> head()
+```
+
+Next we'll create columns parsing the dates using the two methods.
+
+```{python}
+#| tags: []
+dates_parsed = (launch_dates
+    >> mutate(
+        launch_date_per = _.launch_date.astype("Period[D]"),
+        launch_date_dt = call(pd.to_datetime, _.launch_date, errors = "coerce")
+    )   
+)
+
+dates_parsed >> filter(_.launch_date_dt.isna()) >> head()
+```
+
+Notice that one of the years was `2018`, but it was miscoded as `2918` in `2918-10-11`.
+
+Notice that it is..
+
+* an `NaT` in `launch_date_dt`, since `pd.to_datetime()` can't handle years that large.
+* parsed fine in `launch_date_per`, which uses `.astype("Period[D]")`.

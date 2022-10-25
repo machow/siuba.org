@@ -1,5 +1,5 @@
 ---
-title: "Custom column ops 📝"
+title: "Custom column ops"
 jupyter:
   jupytext:
     formats: 'qmd:quarto'
@@ -28,19 +28,19 @@ from pandas.core.groupby import SeriesGroupBy
 from pandas import Series
 
 @symbolic_dispatch
-def like(col, text):
+def all_like(col, text):
     raise NotImplementedError(f"Not implemented for class {type(col)}")
 
-@like.register
-def _like_ser(col: Series, text: str) -> Series:
+@all_like.register
+def _all_like_ser(col: Series, text: str) -> Series:
     """Return transformation. Checks whether text is in each entry of col."""
-    return col.str.contains(text)
+    return col.str.contains(text).all()
 ```
 
 ## Check for a translation
 
 ```{python}
-like.dispatch(Series)
+all_like.dispatch(Series)
 ```
 
 ## Register an error with FunctionLookupBound
@@ -63,24 +63,82 @@ f_concrete = some_func.dispatch(Series)
 isinstance(f_concrete, FunctionLookupBound)
 ```
 
-## Registering SQL translation
+
+## Register a SQL translation
 
 ```{python}
 from sqlalchemy import sql
 
 from siuba.sql.dialects.postgresql import PostgresqlColumn, PostgresqlColumnAgg
+from siuba.sql.translate import AggOver
+```
 
-@like.register
-def _like_pg(codata: PostgresqlColumn, col: sql.ClauseElement, text: str) -> sql.ClauseElement:
-    return col.like(text)
+
+### Transformation
+
+```{python}
+@all_like.register
+def _all_like_pg(
+    codata: PostgresqlColumn,
+    col: sql.ClauseElement,
+    text: str
+) -> sql.ClauseElement:
+    return AggOver(sql.func.bool_and(col.like(text)))
 ```
 
 ```{python}
-expr = like(PostgresqlColumn(), sql.column("a"), "yo")
+expr = all_like(PostgresqlColumn(), sql.column("a"), "yo")
+print(expr)
+```
+
+Note that `AggOver` ensures the result is a transformation by using an `OVER` clause.
+The partition and ordering of the clause are set automatically by siuba verbs.
+
+There are three special over clauses:
+
+* `AggOver`: handle an aggregate (e.g. `AVG(hp)` -> `AVG(hp) OVER(...)`).
+* `RankOver`: handle a ranking function (e.g. `RANK() OVER (... ORDER BY ...)`).
+* `CumlOver`: handle a cumulative function (e.g. `SUM(hp) OVER (... ORDER BY ...)`).
+
+### Aggregation
+
+```{python}
+
+@all_like.register
+def _like_pg_agg(
+    codata: PostgresqlColumnAgg,
+    col: sql.ClauseElement,
+    text: str
+) -> sql.ClauseElement:
+    return sql.func.bool_and(col.like(text))
+
+
+expr = all_like(PostgresqlColumnAgg(), sql.column("a"), "yo")
 print(expr)
 ```
 
 
-## Register a SQL window function
+### Call functions in functions
 
-## Extending existing column op
+Use the `codata` parameter when calling another generic function inside your custom function.
+
+```{python}
+# these are the functions used to translate pandas methods
+from siuba.ops import mean, std
+
+@symbolic_dispatch(cls = PostgresqlColumn)
+def scale(codata, x):
+    return (x - mean(codata, x)) / std(codata, x)
+```
+
+```{python}
+from siuba.data import cars_sql
+from siuba import _, mutate, group_by, show_query
+
+q = mutate(cars_sql, res = scale(_.mpg)) >> show_query(simplify=True)
+```
+
+```{python}
+q = cars_sql >> group_by(_.cyl) >> mutate(res = scale(_.mpg)) >> show_query(simplify=True)
+```
+

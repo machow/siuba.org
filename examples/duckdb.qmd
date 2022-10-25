@@ -1,3 +1,45 @@
 ---
 title: duckdb analysis
 ---
+
+```{python}
+from siuba import _, Fx, tbl, filter, count, show_query
+from siuba.experimental.pivot import pivot_wider, pivot_longer
+
+from siuba.data import op_support
+
+from sqlalchemy import create_engine
+```
+
+```{python}
+engine = create_engine("duckdb:///:memory:")
+
+tbl_op_support = tbl(engine, "op_support", op_support)
+
+tbl_op_support
+```
+
+```{python}
+tbl_op_support >> count(_.dialect_name, _.op_context)
+
+```
+
+```{python}
+
+tbl_duck_ops = tbl_op_support >> filter(_.dialect_name == "duckdb")
+
+tbl_duck_ops >> count(_.op_context, _.is_supported)
+```
+
+```{python}
+wide_duck_ops = (tbl_duck_ops
+    >> pivot_wider(names_from = _.op_context, values_from = _.is_supported)
+)
+
+wide_duck_ops
+```
+
+```{python}
+
+wide_duck_ops >> show_query()
+```

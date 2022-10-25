@@ -1,4 +1,5 @@
 ---
+title: Across column apply
 jupyter:
   jupytext:
     formats: 'qmd:quarto'
@@ -13,4 +14,53 @@ jupyter:
     name: python3
 ---
 
-# Across column apply
+```{python}
+#| include: false
+import pandas as pd
+pd.set_option("display.max_rows", 5)
+```
+
+Use the `across()` function to apply the same transformation to multiple columns.
+
+```{python}
+from siuba import _, across, Fx, group_by, mutate, summarize, filter, arrange
+from siuba.data import mtcars
+```
+
+## Basic use
+
+```{python}
+mtcars >> mutate(across(_["mpg", "hp"], Fx - Fx.mean(), names="demeaned_{col}"))
+```
+
+Note three important pieces in the code above:
+
+* select: `_["mpg", "hp"]` chooses the columns to transform.
+* transform: `Fx - Fx.mean()` is the transformation, where `Fx` stands for the column
+  being operated on.
+* rename: `names=` is an optional argument, specifying how to name the result. The `{col}`
+  in `"demeaned_{col}"` gets replaced with the column name.
+
+
+## Selecting columns
+
+Any selection that can be passed to `select()`, can also be used in `across()`.
+Note that you can use `_[...]` to combine selections.
+
+```{python}
+mtcars >> summarize(across(_[_.startswith("m"), _.endswith("p")], Fx.mean()))
+```
+
+
+## Passing multiple transformations
+
+```{python}
+mtcars >> summarize(across(_["mpg", "hp"], {"avg": Fx.mean(), "std": Fx.std()}))
+```
+
+
+## With grouped data
+
+```{python}
+mtcars >> group_by(_.cyl) >> summarize(across(_[_.mpg, _.hp], Fx.mean()))
+```

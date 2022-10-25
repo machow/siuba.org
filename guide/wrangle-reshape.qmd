@@ -58,7 +58,23 @@ costs >> gather('measure', 'value', -_.id)
 )
 ```
 
-## Pivot wider and aggregate
+## Experimental pivot_wider, pivot_longer
+
+:::{.callout-warning}
+
+These functions are thoroughly tested, but currently experimental.
+The sections below describe their basic use.
+See their [reference page](../api/verb-pivot) for more examples.
+
+:::
+
+```{python}
+from siuba.experimental.pivot import pivot_wider, pivot_longer
+from siuba import Fx
+```
+
+
+### `pivot_wider()`
 
 If there would be multiple entries per cell in the spread wide data,
 then the `spread()` function raises an error.
@@ -77,23 +93,26 @@ df = pd.DataFrame({
 df >> spread("measure", "value")
 ```
 
-Use the pandas `pivot_table` function to deal with this situation.
+Use the `pivot_wider()` function to deal with this situation.
 
 ```{python}
-df.pivot_table(columns="measure", values="value", index="id", aggfunc=list)
+df >> pivot_wider(_.id, names_from=_.measure, values_from=_.value, values_fn=tuple)
 ```
 
-Notice that the top-left entry is a list of two values, `[8, 9]`.
-The `aggfunc` argument is able to reduce those values down to one.
+Notice that the top-left entry is a list of two values, `(8, 9)`.
+The `values_fn` argument is able to reduce those values down to one.
 
 For example, by taking the mean.
 
 ```{python}
-df.pivot_table(columns="measure", values="value", index="id", aggfunc="mean")
+df >> pivot_wider(_.id, names_from=_.measure, values_from=_.value, values_fn="mean")
 ```
 
+Note that `values_fn=` may be a lambda function.
+
+
 :::{.callout-note}
-siuba can pipe to the pandas DataFrame's pivot_table method as follows.
+If you'd rather use pandas's `pivot_table()` method, siuba can pipe to it using this syntax:
 
 ```{python}
 #| eval: false
@@ -104,3 +123,28 @@ siuba can pipe to the pandas DataFrame's pivot_table method as follows.
 
 Where you would replace `...` with your arguments. See [flexible piping](./programming-pipes.qmd) for more details.
 :::
+
+### `pivot_longer()`
+
+Use `pivot_longer()` to stack columns of data, turning them into rows.
+
+```{python}
+wide = pd.DataFrame({"id": [1, 2], "x": [5, 6], "y": [7, 8]})
+
+wide
+```
+
+Notice that this data has two columns (`x` and `y`) that you might want to stack
+on top of each other.
+
+```{python}
+df >> pivot_longer(~_.id, names_to="variable", values_to="number")
+```
+
+Note that in the code above, we do the following:
+
+* Use `~_.id` selects every columns *except* `id` for stacking.
+* Set column names to be stored in a new `variable` column.
+* Set column values to be stored in a new `value` column.
+
+

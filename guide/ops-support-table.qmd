@@ -42,7 +42,7 @@ def is_object_dispatch(dialect_cls, f_op):
 def is_supported(dialect_cls, f_op):
     return not isinstance(f_op.dispatch(dialect_cls), FunctionLookupBound)
 
-d_dialects = {name: get_sql_classes("postgresql") for name in SQL_DIALECTS}
+d_dialects = {name: get_sql_classes(name) for name in SQL_DIALECTS}
 
 df_ops = pd.DataFrame([{"op_name": k, "func": v} for k, v in ALL_OPS.items()])
 ```
@@ -128,10 +128,12 @@ tbl_support_wide = (tbl_support_tidy
     >> filter(~_.op_name.str.startswith("__"), _.pandas == "✅")
     >> select(_.op_name_link, _.pandas, _.duckdb, _[:], -_.op_name)
     >> rename(op_name = "op_name_link")
+    >> _.reset_index(drop=True)
 )
 ```
 
 ```{python}
+#| include: false
 ttls = (tbl_support_wide.iloc[:, 1:] != "").sum()
 ttls
 ```

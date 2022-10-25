@@ -46,6 +46,7 @@ nav:
       - complete: "./verb-complete.md"
       - extract: "./verb-extract.md"
       - gather, spread: "./verb-gather.md"
+      - pivot_longer, pivot_wider: "./verb-pivot.md"
       - separate, unite: "./verb-separate.md"
       - nest, unnest: "./verb-nest.md"
     - "Column operations":

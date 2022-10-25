@@ -27,5 +27,3 @@ pd.set_option("display.max_rows", 5)
 * `siuba.sql.sql_raw`
 * LazyTbl core properties
   * last_op
-* Custom over clauses
-* Translate function

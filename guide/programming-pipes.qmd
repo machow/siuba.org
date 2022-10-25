@@ -1,5 +1,5 @@
 ---
-title: "Flexible pipes 📝"
+title: "Flexible pipes"
 jupyter:
   jupytext:
     formats: 'qmd:quarto'

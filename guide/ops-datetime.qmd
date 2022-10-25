@@ -1,5 +1,5 @@
 ---
-title: "Datetime operations (`.dt`) 📝"
+title: "Datetime operations (`.dt`)"
 jupyter:
   jupytext:
     formats: 'qmd:quarto'
@@ -40,6 +40,37 @@ from siuba import _, count, mutate
 from siuba.siu import call
 ```
 
+### Using datetime methods (`.dt`)
+
+siuba uses pandas methods, so can use any of the datetime methods it makes available, like `.dt.month_name()`.
+
+```{python}
+df_dates = pd.DataFrame({
+    "dates": pd.to_datetime(["2021-01-02", "2021-02-03"]),
+    "raw": ["2023-04-05 06:07:08", "2024-05-06 07:08:09"],
+})
+
+
+df_dates.dates.dt.month_name()
+```
+
+
+### Use in a verb
+
+```{python}
+df_dates >> count(month = _.dates.dt.month_name())
+```
+
+You can call functions like `pd.to_datetime()` using siuba's `call()`.
+
+```{python}
+res = df_dates >> mutate(parsed = call(pd.to_datetime, _.raw))
+
+res.parsed
+```
+
+Notice that this creates a new datetime column by calling `pd.to_datetime(df.raw)`.
+
 ### Creating datetime columns
 
 There are roughly two ways to create a datetime column in pandas:
@@ -71,37 +102,6 @@ The [pandas time series docs](https://pandas.pydata.org/docs/user_guide/timeseri
 discuss in exquisite detail the intricacies of different datetime objects, and how they're created!
 The rest of this page will just use pandas Series to look at datetime operations.
 
-
-### Using datetime methods (`.dt`)
-
-siuba uses Pandas methods, so can use any of the datetime methods it makes available, like `.dt.month_name()`.
-
-```{python}
-ser_times.dt.month_name()
-```
-
-
-### Use in a verb
-
-```{python}
-df = pd.DataFrame({
-    "times": ser_times,
-    "raw": ["2023-04-05 06:07:08", "2024-05-06 07:08:09"],
-})
-
-
-df >> count(month = _.times.dt.month_name())
-```
-
-You can call functions like `pd.to_datetime()` using siuba's `call()`.
-
-```{python}
-res = df >> mutate(parsed = call(pd.to_datetime, _.raw))
-
-res.parsed
-```
-
-Notice that this creates a new datetime column by calling `pd.to_datetime(df.raw)`.
 
 ## Change granularity with `floor_date()`
 
@@ -201,15 +201,6 @@ For most time units pandas has a unit end version, such as:
 
 It's a bit confusing that "M" stands for month **end**, but "D" stands for day **start**.
 In general, time units at the day level or finer grain only do unit start, so be careful with units!
-
-## Translating to SQL
-
-```{python}
-from siuba import _, count
-from siuba.data import cars_sql
-```
-
-🚧 TODO: add a basic SQL dataset with time columns
 
 ## Learning more
 

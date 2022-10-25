@@ -26,19 +26,6 @@ import matplotlib
 %matplotlib inline
 ```
 
-:::{.callout-warning}
-These docs are a work in progress. Note that install directions point to a development branch of siuba.
-
-```
-pip install -e git+https://github.com/machow/siuba.git@dev-docs#egg=siuba
-```
-
-These markers are used to indicate how complete a page is:
-
-* 🚧 **Undrafted**: may not have any content.
-* 📝 **Refining**: sections and examples are complete, sometimes narrative is there (with a few spots to fill in).
-:::
-
 Siuba is a tool for concise, flexible data-analysis over multiple data sources. It currently supports pandas DataFrames and SQL tables.
 
 
@@ -46,7 +33,7 @@ Siuba is a tool for concise, flexible data-analysis over multiple data sources. 
 
 
 ```bash
-pip install -e git+https://github.com/machow/siuba.git@dev-docs#egg=siuba
+pip install --pre siuba
 ```
 
 ## Basic use

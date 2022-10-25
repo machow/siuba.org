@@ -37,6 +37,7 @@
 | [complete][siuba.complete] | Add rows for missing combinations in the data. |
 | [extract][siuba.extract] | Add new columns by matching a pattern on a column of strings. |
 | [gather][siuba.gather], [spread][siuba.spread] | Gather columns in to long format. Spread out to wide format. |
+| [pivot_longer][siuba.experimental.pivot.pivot_longer], [pivot_wider][siuba.experimental.pivot.pivot_wider] | Change rows of data to columns, or columns to rows. More comprehensive than spread and gather. |
 | [separate][siuba.separate], [unite][siuba.unite] | Add new columns by splitting a character column. |
 | [nest][siuba.nest], [unnest][siuba.unnest] | Create a column where each entry is a DataFrame. |
 

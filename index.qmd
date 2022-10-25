@@ -242,6 +242,8 @@ from siuba.data import cars
 ## duckdb
 
 ```{python}
+#| warning: false
+
 from siuba import _, tbl, group_by, filter
 from siuba.data import cars
 
@@ -261,6 +263,8 @@ engine = create_engine("duckdb:///:memory:")
 ## sqlite
 
 ```{python}
+#| warning: false
+
 from siuba import _, tbl, group_by, filter
 from siuba.data import cars
 
@@ -288,36 +292,6 @@ cars.to_sql("cars", engine, index=False)
 ::::::
 
 
-<!--
-:::::: {.content-block}
-
-
-## Blazing Fast
-
-::: { style="width: 50%"}
-```{python}
-#| echo: false
-#| fig-width: 6
-
-import pandas as pd
-
-from plotnine import *
-from siuba.dply.forcats import fct_inorder
-
-timings = pd.DataFrame({
-    "Name": fct_inorder(["DuckDB", "Something Else", "Another", "Pandas"]),
-    "Time": [1, 2.5, 1.7, 2]
-})
-
-ggplot(timings, aes("Name", "Time", fill = "Name")) + geom_col()
-```
-:::
-
-::::::
-
--->
-
-
 :::::: {.content-block}
 
 
@@ -327,6 +301,7 @@ ggplot(timings, aes("Name", "Time", fill = "Name")) + geom_col()
 
 ::::::
 
+<!--
 
 :::::: {.content-block}
 
@@ -349,3 +324,5 @@ ggplot(timings, aes("Name", "Time", fill = "Name")) + geom_col()
 :::
 
 ::::::
+
+-->

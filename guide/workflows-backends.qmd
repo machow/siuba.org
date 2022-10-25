@@ -22,12 +22,17 @@ pd.set_option("display.max_rows", 5)
 ```
 
 ```{python}
-from siuba import _, group_by, filter, show_query
+from siuba import _, group_by, filter, show_query, tbl
 from siuba.sql import LazyTbl
-from siuba.data import mtcars
+from siuba.data import cars
 
 from sqlalchemy import create_engine
 ```
+
+## Demo query
+
+We'll use the following lazy pipe to demonstrate each backend.
+It groups by the `cyl` column, then filters by `mpg`.
 
 ```{python}
 filter_mpg = (
@@ -35,25 +40,69 @@ filter_mpg = (
     >> group_by(_.cyl)
     >> filter(_.mpg < _.mpg.mean())
 )
-
-mtcars >> filter_mpg
 ```
+
+For example, here is the pipe called on pandas data.
+
+```{python}
+cars >> filter_mpg
+```
+
 
 ## duckdb
 
 ```{python}
 engine = create_engine("duckdb:///:memory:")
-engine.execute("register", ("mtcars", mtcars))
-engine.execute("SHOW TABLES").fetchall()
+
+tbl_cars_duckdb = tbl(engine, "cars", cars)
 ```
 
 ```{python}
-tbl_mtcars_duckdb = LazyTbl(engine, "mtcars")
 
-tbl_filtered = tbl_mtcars_duckdb >> filter_mpg
+tbl_filtered = tbl_cars_duckdb >> filter_mpg
 tbl_filtered
 ```
 
 ```{python}
 q = tbl_filtered >> show_query(simplify=True)
 ```
+
+
+## sqlite
+
+```{python}
+engine = create_engine("sqlite:///:memory:")
+cars.to_sql("cars", engine, index=False)
+
+tbl_cars_sqlite = tbl(engine, "cars")
+```
+
+```{python}
+
+tbl_filtered = tbl_cars_sqlite >> filter_mpg
+tbl_filtered
+```
+
+```{python}
+q = tbl_filtered >> show_query(simplify=True)
+```
+
+
+## bigquery
+
+bigquery is thoroughly tested, but needs to be added to this page!
+
+
+## mysql
+
+mysql is thoroughly tested, but needs to be added to this page!
+
+
+## postgresql
+
+postgresql is thoroughly tested, but needs to be added to this page!
+
+
+## snowflake
+
+snowflake is thoroughly tested, but needs to be added to this page!

@@ -14,6 +14,10 @@ jupyter:
     name: python3
 ---
 
+:::{.callout-warning}
+This page is largely complete, but is actively being refined / improved.
+:::
+
 ```{python}
 #| include: false
 
@@ -234,12 +238,6 @@ For example, the code below uses `"pp?"`, where `?` means the preceding characte
 ```{python}
 fruits.str.findall("pp?")
 ```
-
-## Templates with `str_glue()`
-
-:::{.callout-warning}
-`str_glue()` does not exist. This section is ✨aspirational✨.
-:::
 
 ## More regular expressions
 
