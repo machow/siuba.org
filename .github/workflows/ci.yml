@@ -15,7 +15,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install pdm-pep517==1.0.4
+          python -m pip install pdm-pep517==0.11.2
           python -m pip install -r requirements.txt
       - uses: quarto-dev/quarto-actions/setup@v2
       - name: Build docs
