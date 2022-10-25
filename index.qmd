@@ -297,7 +297,10 @@ cars.to_sql("cars", engine, index=False)
 
 ## Examples
 
-![](./assets/examples.png){width="80%"}
+See the [examples page](./examples).
+
+
+
 
 ::::::
 
