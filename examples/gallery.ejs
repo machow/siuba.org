@@ -26,19 +26,21 @@
         <span class="text-muted"><%= tile.description %></span>
       <% } %>
       <ul>
+        <li>
+          <a href="<%- tile.href %>" target="_blank">View example</a>
+        </li>
+
         <% if (tile.code) { %> 
         <li>
-          <a href="<%- tile.code %>" title="View source code" 
+          <a href="<%- tile.code %>" title="Screencast" 
             class="source-code card-text inline-block"
             target="_blank"
             >
-            View source
+            Screencast
           </a>
         </li>
-        <li>
-          <a href="<%- tile.href %>" target="_blank">Screencast</a>
-        </li>
         <% } %> 
+
       </ul>
     </div>
     

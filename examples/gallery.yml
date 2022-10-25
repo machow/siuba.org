@@ -1,31 +1,31 @@
-- category: Snippets
-  description: ""
-  tiles:
-    - title: TV Ratings Analysis
-      description: |
-        Plotting TV Series with the greatest shift in ratings between seasons.
-        Plotting shows with the most variable ratings.
-        Uses grouped filters, joins, n() for row number.
-      href: https://gallery.shinyapps.io/airmass/
-      code: https://github.com/rstudio/py-shiny/blob/a488ab6534a877beb014f27b59db5ac4c315b2d8/examples/airmass/app.py
-      thumbnail: assets/golden_age_of_tv.png
+#- category: Snippets
+#  description: ""
+#  tiles:
+#    - title: TV Ratings Analysis
+#      description: |
+#        Plotting TV Series with the greatest shift in ratings between seasons.
+#        Plotting shows with the most variable ratings.
+#        Uses grouped filters, joins, n() for row number.
+#      href: https://gallery.shinyapps.io/airmass/
+#      code: https://github.com/rstudio/py-shiny/blob/a488ab6534a877beb014f27b59db5ac4c315b2d8/examples/airmass/app.py
+#      thumbnail: assets/golden_age_of_tv.png
 
 - category: Example Analyses
   description: ""
   tiles:
-    - title: Using duckdb
-      description: I am a description
-      href: https://gallery.shinyapps.io/airmass/
-      code: https://github.com/rstudio/py-shiny/blob/a488ab6534a877beb014f27b59db5ac4c315b2d8/examples/airmass/app.py
-      thumbnail: assets/golden_age_of_tv.png
+    #- title: Using duckdb
+    #  description: I am a description
+    #  href: https://gallery.shinyapps.io/airmass/
+    #  code: https://github.com/rstudio/py-shiny/blob/a488ab6534a877beb014f27b59db5ac4c315b2d8/examples/airmass/app.py
+    #  thumbnail: assets/golden_age_of_tv.png
     - title: TV Ratings Analysis
       description: |
         Examining season ratings for different TV Series.
         Plotting shows with the most variable ratings.
         <br><br>
         Uses grouped filters, joins, n() for getting the total number of rows.
+      #code: ./golden_age_of_tv.html
       href: ./golden_age_of_tv.html
-      code: https://github.com/rstudio/py-shiny/blob/a488ab6534a877beb014f27b59db5ac4c315b2d8/examples/airmass/app.py
       thumbnail: assets/golden_age_of_tv.png
     - title: Space Launches over the Years
       description: |
@@ -34,6 +34,6 @@
         <br><br>Uses anti_join to figure out why a join is dropping rows,
         fct_lump to group rare agencies together, and a lot of counting.
 
+      #code: ./space-launches.html
       href: ./space-launches.html
-      code: https://github.com/machow/siuba-guide/tree/main/examples/space-launches.qmd
       thumbnail: assets/space-launches.png
