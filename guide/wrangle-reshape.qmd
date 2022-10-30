@@ -124,6 +124,7 @@ If you'd rather use pandas's `pivot_table()` method, siuba can pipe to it using 
 Where you would replace `...` with your arguments. See [flexible piping](./programming-pipes.qmd) for more details.
 :::
 
+
 ### `pivot_longer()`
 
 Use `pivot_longer()` to stack columns of data, turning them into rows.
@@ -146,5 +147,33 @@ Note that in the code above, we do the following:
 * Use `~_.id` selects every columns *except* `id` for stacking.
 * Set column names to be stored in a new `variable` column.
 * Set column values to be stored in a new `value` column.
+
+
+### Specifying aggregations
+
+Currently, the most general way to specify an aggregation in functions like `pivot_wider()`
+is to use a function in `siuba.ops`. These functions all correspond to pandas methods,
+and many have translations to SQL.
+
+```{python}
+from siuba import ops
+
+df >> pivot_wider(_.id, names_from=_.measure, values_from=_.value, values_fn=ops.mean)
+```
+
+This allows your code to also work with SQL:
+
+```{python}
+from siuba import _, tbl, show_query
+from sqlalchemy import create_engine
+from siuba.experimental.pivot import pivot_wider
+
+engine = create_engine("duckdb:///:memory:")
+
+q = (tbl(engine, "df", df)
+    >> pivot_wider(_.id, names_from=_.measure, values_from=_.value, values_fn=ops.mean)
+    >> show_query()
+)
+```
 
 
