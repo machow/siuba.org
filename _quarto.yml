@@ -17,6 +17,7 @@ project:
 website:
   title: "Siuba"
   page-navigation: true
+  google-analytics: "G-Y61Q4B2CSD"
   navbar:
     search: true
     left:
