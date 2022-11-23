@@ -16,14 +16,20 @@ html { font-family: 'Inter', sans-serif; }
   --site-color-primary: #C29A68;
 }
 
-header .nav-link {
-  padding-left: 5.4px !important;
-  padding-right: 5.4px !important;
-  margin-left: 5.4px !important;
-  margin-right: 5.4px !important;
+#quarto-header {
+  max-width: 1300px;
+  margin: auto;
 }
 
-a.nav-link {
+#quarto-header .nav-link {
+  padding-left: 5.4px !important;
+  padding-right: 5.4px !important;
+  margin-left: 30px !important;
+  margin-right: 5.4px !important;
+  font-size: 18px;
+}
+
+.sidebar a.nav-link {
   font-size: 14.4px;
   font-weight: 400;
 }
@@ -34,7 +40,8 @@ a.nav-link {
 }
 
 .navbar {
-  background-color: var(--site-color-primary);
+  /*background-color: var(--site-color-primary);*/
+  background-color: #FFFFFF
   var(--site-color-primary);
   padding-top: 0px !important;
   padding-bottom: 0px !important;
@@ -44,6 +51,7 @@ a.nav-link {
 .navbar-title {
   color: black !important;
   font-weight: 800;
+  font-size: 32px;
 }
 
 .navbar-nav .nav-link {
@@ -170,3 +178,20 @@ div.sidebar-item-container .active {
   padding-top: 20px;
   padding-bottom: 20px;
 }
+
+.hero-banner {
+  background-image: url('./assets/siuba-banner.svg');
+  background-size: auto 100%;
+  background-position: center;
+  height: 400px;
+}
+
+.hero-github-links {
+  padding-top: 30px;
+}
+
+.hero-title {
+  font-size: 64px;
+  background-color: #FFFFFF77;
+}
+

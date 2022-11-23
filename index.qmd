@@ -24,9 +24,23 @@ import pandas as pd
 pd.set_option("display.max_rows", 5)
 ```
 
-::: {.hero-banner}
+::: {.hero-banner .text-center}
 
-# Python Data Analysis from Start to Finish {.text-center}
+<h1 class="text-center hero-title">
+Python Data Analysis
+<br>
+from Start to Finish
+</h1>
+
+
+<ul class="hero-github-links list-inline">
+  <li class="list-inline-item">
+    <a class="github-button" href="https://github.com/machow/siuba" data-size="large" data-show-count="true" aria-label="Star machow/siuba on GitHub">Star</a>
+  </li>
+  <li class="list-inline-item">
+    <a class="github-button" href="https://github.com/machow/siuba/fork" data-size="large" data-show-count="true" aria-label="Fork machow/siuba on GitHub">Fork</a>
+  </li>
+</ul>
 
 :::
 
@@ -76,7 +90,7 @@ as postgresql, duckdb or snowflake.
 
 ::: {.d-flex .justify-content-center }
 
-[Backends](#backends){.btn .btn-action .btn-primary .btn-action-primary }
+[See Backends](#backends){.btn .btn-action .btn-primary .btn-action-primary }
 
 :::
 
@@ -339,3 +353,6 @@ with a bug or feature request.
 ::::::
 
 -->
+
+<!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
