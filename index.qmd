@@ -3,6 +3,7 @@ pagetitle: Siuba | fast and flexible data analysis.
 page-layout: custom
 section-divs: false
 toc: false
+include-in-header: assets/_github_stars.html
 jupyter:
   jupytext:
     formats: 'qmd:quarto'
@@ -354,5 +355,3 @@ with a bug or feature request.
 
 -->
 
-<!-- Place this tag in your head or just before your close body tag. -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
