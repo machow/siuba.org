@@ -17,6 +17,11 @@ html { font-family: 'Inter', sans-serif; }
 }
 
 #quarto-header {
+  border: 1px solid #dee2e6;
+  background-color: #FFFFFF;
+}
+
+#quarto-header nav {
   max-width: 1300px;
   margin: auto;
 }
