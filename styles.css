@@ -34,6 +34,10 @@ html { font-family: 'Inter', sans-serif; }
   font-size: 18px;
 }
 
+#quarto-header .nav-link .bi {
+  font-size: 20px;
+}
+
 .sidebar a.nav-link {
   font-size: 14.4px;
   font-weight: 400;
@@ -46,8 +50,8 @@ html { font-family: 'Inter', sans-serif; }
 
 .navbar {
   /*background-color: var(--site-color-primary);*/
-  background-color: #FFFFFF
-  var(--site-color-primary);
+  background-color: #FFFFFF;
+  /*var(--site-color-primary);*/
   padding-top: 0px !important;
   padding-bottom: 0px !important;
   /*border-bottom: black 2px solid;*/
@@ -61,6 +65,10 @@ html { font-family: 'Inter', sans-serif; }
 
 .navbar-nav .nav-link {
     color: black !important;
+}
+
+.navbar #quarto-search.type-overlay .aa-Autocomplete svg.aa-SubmitIcon {
+  color: black;
 }
 
 div.sidebar-item-container .active {

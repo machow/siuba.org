@@ -19,6 +19,7 @@ website:
   page-navigation: true
   google-analytics: "G-Y61Q4B2CSD"
   navbar:
+    background: light
     search: true
     right:
       - text: "Guide"
