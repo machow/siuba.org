@@ -19,8 +19,9 @@ website:
   page-navigation: true
   google-analytics: "G-Y61Q4B2CSD"
   navbar:
+    background: light
     search: true
-    left:
+    right:
       - text: "Guide"
         file: guide/overview.qmd
       - text: "Reference"
@@ -35,7 +36,6 @@ website:
         menu:
           - about/key_features.qmd
           - develop/index.qmd
-    right:
       - icon: github
         href: https://github.com/machow/siuba/
   sidebar:
