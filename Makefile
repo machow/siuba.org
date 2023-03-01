@@ -1,5 +1,7 @@
 .PHONY: api
 
+requirements.txt: requirements-raw.txt
+	pip-compile $< -o $@
 
 _envs/key_features: about/key_features-requirements.txt
 	python -m venv $@
