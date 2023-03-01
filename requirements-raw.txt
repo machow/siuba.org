@@ -13,5 +13,8 @@ duckdb_engine
 # quartodoc ----
 quartodoc
 
+# examples ----
+requests
+
 # data ----
 nycflights13
