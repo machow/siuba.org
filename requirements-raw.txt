@@ -1,0 +1,17 @@
+-e git+https://github.com/machow/siuba.git@docs-fix-imports#egg=siuba
+seaborn
+plotnine
+ipykernel
+jupyter
+nbconvert
+tabulate
+
+# duckdb ----
+duckdb
+duckdb_engine
+
+# quartodoc ----
+quartodoc
+
+# data ----
+nycflights13

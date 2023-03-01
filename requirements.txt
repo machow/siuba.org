@@ -168,6 +168,8 @@ numpy==1.23.3
     #   seaborn
     #   siuba
     #   statsmodels
+nycflights13==0.0.3
+    # via -r requirements-raw.txt
 packaging==21.3
     # via
     #   ipykernel
@@ -180,6 +182,7 @@ palettable==3.3.0
 pandas==1.5.0
     # via
     #   mizani
+    #   nycflights13
     #   plotnine
     #   seaborn
     #   siuba
