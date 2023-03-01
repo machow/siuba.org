@@ -14,6 +14,9 @@ project:
   resources:
     - api/**
 
+metadata-files:
+  - api/_sidebar.yml
+
 website:
   title: "Siuba"
   page-navigation: true
@@ -111,4 +114,62 @@ format:
     toc: true
 
 
+quartodoc:
+  style: "pkgdown"
+  dir: api
+  display_name: relative
+  package: siuba
+  sidebar: api/_sidebar.yml
+  sections:
+    - title: "Core verbs - one table"
+      desc: TODO
+      contents:
+        - arrange
+        - count
+        - distinct
+        - filter
+        - mutate
+        # TODO: should be with mutate?
+        - transmute
+        - rename
+        - select
+        - summarize
+        - group_by
+        - ungroup
+    - title: "Core verbs - two table"
+      desc: TODO
+      contents:
+        # TODO: these should be two entries (mutate joins and filter joins)
+        - join
+        #- left_join
+        #- inner_join
+        #- right_join
+        #- full_join
+        - anti_join
+        - semi_join
+    - title: Query verbs
+      desc: TODO
+      contents:
+        - collect
+        - show_query
+    - title: "Tidy verbs"
+      desc: TODO
+      contents:
+        - complete
+        - extract
+        - gather
+        - spread
+        - experimental.pivot.pivot_longer
+        - experimental.pivot.pivot_wider
+        - separate
+        - unite
+        - nest
+        - unnest
+    #- title: "Column operations"
+    #  desc: TODO
+    #  content:
+    #    # FORCATS
+    #    # Datetime
+    #    # General
+        
 

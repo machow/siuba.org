@@ -1,3 +1,0 @@
-use docstring-parser==0.13
-manually patch python-legacy handler which does not use docstring_style option (only methods and filters)
-
