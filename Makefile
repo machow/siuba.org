@@ -11,6 +11,8 @@ _freeze/about/key_features: about/key_features.qmd _envs/key_features
 	source _envs/key_features/bin/activate
 	quarto render @<
 
-build: api
+build:
+	quarto add --no-prompt machow/quartodoc
 	python -m quartodoc build --verbose
+	python -m quartodoc interlinks
 	quarto render

@@ -11,7 +11,8 @@ duckdb
 duckdb_engine
 
 # quartodoc ----
-quartodoc
+quartodoc @ git+https://github.com/machow/quartodoc.git@9a3f80ab4d0d07a553ce14eeeb24c89466c5f8ed
+numpydoc
 
 # examples ----
 requests

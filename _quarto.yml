@@ -17,6 +17,14 @@ project:
 metadata-files:
   - api/_sidebar.yml
 
+filters:
+  - interlinks
+
+interlinks:
+ sources:
+    python:
+      url: https://docs.python.org/3/
+
 website:
   title: "Siuba"
   page-navigation: true
@@ -120,9 +128,12 @@ quartodoc:
   display_name: relative
   package: siuba
   sidebar: api/_sidebar.yml
+  renderer:
+    style: _renderer.py
+    show_signature_annotations: false
   sections:
     - title: "Core verbs - one table"
-      desc: TODO
+      desc: ""
       contents:
         - arrange
         - count
@@ -137,23 +148,25 @@ quartodoc:
         - group_by
         - ungroup
     - title: "Core verbs - two table"
-      desc: TODO
+      desc: ""
       contents:
         # TODO: these should be two entries (mutate joins and filter joins)
-        - join
-        #- left_join
-        #- inner_join
-        #- right_join
-        #- full_join
+        - kind: interlaced
+          contents:
+            - join
+            - name: left_join
+            - name: inner_join
+            - name: full_join
+
         - anti_join
         - semi_join
     - title: Query verbs
-      desc: TODO
+      desc: Functions that can take a lazy table.
       contents:
         - collect
         - show_query
     - title: "Tidy verbs"
-      desc: TODO
+      desc: Functions for tidying table data.
       contents:
         - complete
         - extract
@@ -165,11 +178,15 @@ quartodoc:
         - unite
         - nest
         - unnest
-    #- title: "Column operations"
-    #  desc: TODO
-    #  content:
-    #    # FORCATS
-    #    # Datetime
-    #    # General
-        
-
+    - title: "Column operations"
+      desc: ""
+      contents:
+        - name: dply.vector
+          children: flat
+        - name: dply.forcats
+          children: flat
+        - name: experimental.datetime
+          members:
+            - floor_date
+            - ceil_date
+          children: flat
