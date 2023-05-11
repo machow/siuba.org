@@ -13,6 +13,7 @@ project:
     - blog/**/*.qmd
   resources:
     - api/**
+    - _redirects
 
 metadata-files:
   - api/_sidebar.yml
