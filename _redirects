@@ -1,0 +1,4 @@
+# siuba.readthedocs.org redirects to the link below,
+# but appends whatever path they were on. This rule
+# ensures anything from there goes to the home page.
+/old-docs-redirect/*        /

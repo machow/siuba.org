@@ -12,7 +12,7 @@ _freeze/about/key_features: about/key_features.qmd _envs/key_features
 	quarto render @<
 
 build:
-	quarto add --no-prompt machow/quartodoc
+	quarto add --no-prompt machow/quartodoc@v0.2.1
 	python -m quartodoc build --verbose
 	python -m quartodoc interlinks
 	quarto render
